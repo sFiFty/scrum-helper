@@ -6,6 +6,7 @@ import store from './store'
 import App from './App';
 import registerServiceWorker from './registerServiceWorker'
 global.jQuery = require('jquery')
+global.Tether = require('tether')
 require('bootstrap')
 import './sass/index.scss'
 import 'react-notifications/lib/notifications.css'

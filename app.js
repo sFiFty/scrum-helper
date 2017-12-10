@@ -52,7 +52,4 @@ app.use(function(err, req, res, next) {
   });
 });
 
-
-var MongoClient = require('mongodb').MongoClient;
-
 module.exports = app;
