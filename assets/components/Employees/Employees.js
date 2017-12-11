@@ -1,6 +1,7 @@
 import React from 'react'
 import Moment from 'react-moment'
 import _ from 'lodash'
+import db from '../../db'
 
 export default class Match extends React.Component {
     state = {
@@ -10,7 +11,9 @@ export default class Match extends React.Component {
         employees: {}
     }
     componentDidMount() {
-        this.setState({employees: this.props.employees})
+        db.ref('employees').on('value', snapshot => {
+            this.setState({employees: snapshot.val()})
+        })
     }
     render() {
         const { employees } = this.state
@@ -59,7 +62,12 @@ export default class Match extends React.Component {
 
     addEmployee = () => {
         const { firstName, lastName, location } = this.state
-        const { onAddEmployee } = this.props
-        onAddEmployee(firstName, lastName, location)
+        const employees = db.ref().child('employees')
+        const primaryKey = new Date().getTime()
+        employees.child(primaryKey).set({
+            'firstName': firstName,
+            'lastName': lastName,
+            'location': location
+        })
     }
 }
