@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Employees from './components/Employees/Employees'
+import EmployeeList from './components/Employees/EmployeeList'
 
 export default class App extends React.Component {
     render() {
         return (
-            <Employees />
+            <EmployeeList />
         )
     }
 }

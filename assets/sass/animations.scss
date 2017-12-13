@@ -1,0 +1,30 @@
+/*
+    Shuffling
+*/
+
+.shuffle-enter {
+    opacity: 0.01;
+  }
+  
+  .shuffle-enter.shuffle-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+  
+  .shuffle-leave {
+    opacity: 1;
+  }
+  
+  .shuffle-leave.shuffle-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+}
+
+.shuffle-appear {
+    opacity: 0.01;
+}
+  
+.shuffle-appear.shuffle-appear-active {
+    opacity: 1;
+    transition: opacity .5s ease-in;
+}
