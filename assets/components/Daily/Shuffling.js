@@ -3,6 +3,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import { Link } from 'react-router-dom'
 import EmployeeList from '../Employees/EmployeeList'
 import firebase from '../../firebase/db'
+import _ from 'lodash'
 
 export default class Shuffling extends React.Component {
     state = {
@@ -11,15 +12,21 @@ export default class Shuffling extends React.Component {
     componentWillMount() {
         firebase.database().ref('employees').on('value', snapshot => {
             let employees = this.shuffle(snapshot.val());
+            let newEmployees = {}
+            _.keys(employees).map(key => {
+                if (employees[key].availability) {
+                    newEmployees[key] = employees[key]
+                }
+            }) 
             setTimeout(() => {
-                this.setState({ employees: employees })
+                this.setState({ employees: newEmployees })
             }, 500)
         })
     }
     render() {
         return (
             <div> 
-                <EmployeeList employees={this.state.employees} />
+                <EmployeeList employees={this.state.employees} withToggle={false} />
                 <RaisedButton primary containerElement={<Link to="/daily/finishing" />} label="Finish" />
             </div>
         )

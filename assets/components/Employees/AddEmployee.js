@@ -50,6 +50,8 @@ export default class AddEmployee extends React.Component {
         employees.child(primaryKey).set({
             'firstName': firstName,
             'lastName': lastName,
+            'availability': true
         })
+        this.props.history.push('/')
     }
 }

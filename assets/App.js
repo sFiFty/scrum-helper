@@ -17,7 +17,7 @@ export default class App extends React.Component {
     render() {
         const { startLoading, endLoading } = this.props
         return (
-            <EmployeeList employees={this.state.employees} />
+            <EmployeeList employees={this.state.employees} withToggle={true} />
         )
     }
 }
