@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 const inputStyle = {
     display: 'block'
 }
-export default class Match extends React.Component {
+export default class AddEmployee extends React.Component {
     state = {
         firstName: '',
         lastName: '',

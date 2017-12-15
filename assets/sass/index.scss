@@ -2,3 +2,5 @@
 @import "./layout.scss";
 @import "./colors.scss";
 @import "./animations.scss";
+$primary-color: $black;
+@import '~loaders.css/src/animations/ball-clip-rotate-multiple.scss';

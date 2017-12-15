@@ -2,22 +2,14 @@ import React from 'react'
 import {List, ListItem} from 'material-ui/List'
 import _ from 'lodash'
 import Paper from 'material-ui/Paper'
-import firebase from '../../firebase/db'
 import RaisedButton from 'material-ui/RaisedButton'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './employee-list.scss'
 
-export default class Match extends React.Component {
-    state = {
-        employees: {}
-    }
-    componentWillMount() {
-        firebase.database().ref('employees').on('value', snapshot => {
-            this.setState({employees: snapshot.val()})
-        })
-    }
+
+export default class EmployeeList extends React.Component {
     render() {  
-        const { employees } = this.state
+        const { employees } = this.props
         let i = 0
         return (
             <Paper zDepth={2}>
@@ -38,27 +30,9 @@ export default class Match extends React.Component {
                                     )
                                 })
                             }
-                        
                     </ReactCSSTransitionGroup>
                 </List>
-                <RaisedButton primary onClick={this.shuffle} label="Shuffle" />
             </Paper>
         )
     }
-
-    shuffle = () => {
-        let { employees } = this.state
-        let keys = Object.keys(employees);
-        let newEmployees = {}
-        keys.sort((a,b) => Math.random() - 0.5)
-        keys.map(k => {
-            newEmployees[k] = employees[k]
-        })
-        this.setState({employees: {}})
-        setTimeout(() => {
-            this.setState({employees: newEmployees})
-        }, 500);
-        
-    }
-
 }

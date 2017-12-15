@@ -3,16 +3,18 @@ import Navigation from './Navigation'
 import firebase from '../../firebase/db'
 import './logo.scss'
 
-export default class Match extends React.Component {
+export default class Header extends React.Component {
     state = {
         logoUrl: null
     }
     componentWillMount() {
-        this.getLogo()
+        firebase.storage().ref().child('logo.png').getDownloadURL().then(url => {
+            this.setState({logoUrl: url})
+        })
     }
     render() {
         return (
-            <header>
+            <header className="text-center">
                 <img 
                     className="logo" 
                     src={this.state.logoUrl} 
@@ -21,11 +23,5 @@ export default class Match extends React.Component {
                 <Navigation />
             </header>
         )
-    }
-
-    getLogo = () => {
-        firebase.storage().ref().child('logo.png').getDownloadURL().then(url => {
-            this.setState({logoUrl: url})
-        })
     }
 }

@@ -12,13 +12,14 @@ const paperStyle = {
     verticalAlign: 'middle'
 }
 
-export default class Match extends React.Component {
+export default class Navigation extends React.Component {
     render() {
         return (
             <Paper style={paperStyle}>
                 <Menu className="navigation">
                     <MenuItem primaryText="List" containerElement={<Link to="/" />} />
                     <MenuItem primaryText="Add" containerElement={<Link to="/add" />} />
+                    <MenuItem primaryText="Scrum daily" containerElement={<Link to="/daily" />} />
                 </Menu>
             </Paper>
         )
