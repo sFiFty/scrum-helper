@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom'
 import EmployeeList from '../Employees/EmployeeList'
 import firebase from '../../firebase/db'
 import _ from 'lodash'
+import Loader from 'react-loaders'
 
 export default class Shuffling extends React.Component {
     state = {
-        employees: {}
+        employees: {},
+        loaded: false
     }
     componentWillMount() {
         firebase.database().ref('employees').on('value', snapshot => {
@@ -18,16 +20,20 @@ export default class Shuffling extends React.Component {
                     newEmployees[key] = employees[key]
                 }
             }) 
+            this.setState({ loaded: true })
             setTimeout(() => {
                 this.setState({ employees: newEmployees })
             }, 500)
         })
     }
     render() {
+        const { loaded, employees } = this.state
         return (
-            <div> 
-                <EmployeeList employees={this.state.employees} withToggle={false} />
-                <RaisedButton primary containerElement={<Link to="/daily/finishing" />} label="Finish" />
+            <div className="shuffling-layout"> 
+                <div className="overlay"></div>
+                <Loader active={!loaded} type="ball-clip-rotate-multiple" />
+                <EmployeeList employees={employees} withToggle={false} />
+                <RaisedButton className="shuffling-button" primary containerElement={<Link to="/daily/finishing" />} label="Finish" />
             </div>
         )
     }

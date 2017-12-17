@@ -31,7 +31,7 @@ export default class EmployeeList extends React.Component {
         const { employees } = this.props
         let i = 0
         return (
-            <Paper zDepth={2}>
+            <Paper zDepth={2} className="employee-list-wrapper">
                 <List className="employee-list">
                     <ReactCSSTransitionGroup
                         transitionName="shuffle"

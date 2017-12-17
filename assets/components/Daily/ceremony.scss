@@ -27,6 +27,30 @@
     width: 150px;
     top: 50%;
 }
+
+.shuffling-layout {
+    position: absolute;
+    background-color: $white;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    height: 100%;
+    right: 0;
+    .employee-list-wrapper {
+        border-bottom-right-radius: 0px !important;
+        border-bottom-left-radius: 0px !important;
+    }
+    .shuffling-button {
+        width: 100% !important;
+        a {
+            
+            border-top-right-radius: 0px !important;
+            border-top-left-radius: 0px !important;
+        }
+    }
+}
     
 
 
