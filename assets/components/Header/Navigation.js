@@ -4,6 +4,7 @@ import Menu from 'material-ui/Menu'
 import MenuItem from 'material-ui/MenuItem'
 import { Link } from 'react-router-dom'
 import './navigation.scss'
+import Auth from './Auth'
 
 
 const paperStyle = {
@@ -16,12 +17,13 @@ const paperStyle = {
 export default class Navigation extends React.Component {
     render() {
         return (
-            <Paper style={paperStyle}>
+            <Paper style={paperStyle} className="navigation-wrapper">
                 <Menu className="navigation">
                     <MenuItem primaryText="My team" containerElement={<Link to="/" />} />
                     <MenuItem primaryText="Add team member" containerElement={<Link to="/add" />} />
                     <MenuItem primaryText="Scrum daily" containerElement={<Link to="/daily" />} />
                 </Menu>
+                <Auth />
             </Paper>
         )
     }

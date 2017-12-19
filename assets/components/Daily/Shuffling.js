@@ -20,20 +20,25 @@ export default class Shuffling extends React.Component {
                     newEmployees[key] = employees[key]
                 }
             }) 
-            this.setState({ loaded: true })
+            setTimeout(() => {
+                this.setState({ loaded: true })
+            }, 300);
             setTimeout(() => {
                 this.setState({ employees: newEmployees })
-            }, 500)
+            }, 200)
         })
     }
     render() {
         const { loaded, employees } = this.state
         return (
-            <div className="shuffling-layout"> 
-                <div className="overlay"></div>
+            <div>
                 <Loader active={!loaded} type="ball-clip-rotate-multiple" />
-                <EmployeeList employees={employees} withToggle={false} />
-                <RaisedButton className="shuffling-button" primary containerElement={<Link to="/daily/finishing" />} label="Finish" />
+                <div className={ loaded ? "hidden" : "overlay" }></div>
+                <div className="white-background"></div>
+                <div className="shuffling-layout"> 
+                    <EmployeeList employees={employees} withToggle={false} />
+                    <RaisedButton className="shuffling-button" primary containerElement={<Link to="/daily/finishing" />} label="Finish" />
+                </div>
             </div>
         )
     }

@@ -1,6 +1,28 @@
-.navigation {
+@import "../../sass/colors.scss";
+
+.navigation-wrapper {
     > div {
-        display: inline-block;
-        padding: 0px 15px;
+        &:first-child {
+            display: inline-block;
+            vertical-align: inherit;
+            border-right: 2px solid $black;
+        }
+        &:last-child {
+            display: inline-block;
+            margin: 0px 50px;
+            img {
+                margin-right: 10px
+            }
+            .sub-menu {
+                vertical-align: middle;
+            }
+        }
+    }
+    .navigation {
+        > div {
+            display: inline-block;
+            padding: 0px 15px;
+        }
     }
 }
+

@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "build": "webpack"
+    "build": "webpack",
+    "deploy": "firebase deploy --only hosting"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -22,8 +23,10 @@
     "morgan": "~1.6.1",
     "react": "15.6.1",
     "react-addons-css-transition-group": "^15.6.2",
+    "react-cookies": "^0.1.0",
     "react-dom": "15.6.1",
     "react-loaders": "^3.0.1",
+    "react-material-icons": "^1.0.3",
     "react-moment": "0.6.5",
     "react-notifications": "^1.4.3",
     "react-router-dom": "^4.2.2",
