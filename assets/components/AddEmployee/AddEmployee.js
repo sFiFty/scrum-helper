@@ -1,8 +1,6 @@
 import React from 'react'
-import firebase from '../../firebase/db'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
-
 
 const inputStyle = {
     display: 'block'
@@ -44,14 +42,14 @@ export default class AddEmployee extends React.Component {
     }
 
     addEmployee = () => {
+        const { history, firebase } = this.props
         const { firstName, lastName, location } = this.state
-        const employees = firebase.database().ref().child('employees')
-        const primaryKey = new Date().getTime()
-        employees.child(primaryKey).set({
+        const newEmployee = {
             'firstName': firstName,
             'lastName': lastName,
             'availability': true
-        })
-        this.props.history.push('/')
+        }
+        firebase.push('employees', newEmployee)
+        history.push('/')
     }
 }

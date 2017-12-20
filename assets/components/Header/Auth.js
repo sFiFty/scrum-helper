@@ -31,6 +31,7 @@ export default class Auth extends React.Component {
         })
     }
     auth = () => {
+        let { history } = this.props
         let provider = new firebase.auth.GoogleAuthProvider()
         provider.addScope('https://www.googleapis.com/auth/contacts.readonly')
         firebase.auth().signInWithPopup(provider).then(result => {
@@ -43,8 +44,12 @@ export default class Auth extends React.Component {
                 'avatar': user.photoURL
             })
             cookie.save('userId', user.uid, { path: '/' })
-            this.setState({userName: user.displayName})
-            this.props.history.push('/')
+            this.setState( {
+                userName: user.displayName,
+                isAuthorized: true,
+                avatar: user.photoURL,
+            } )
+            history.push('/')
           })
     }
 

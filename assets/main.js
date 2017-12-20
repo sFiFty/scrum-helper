@@ -2,11 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import App from './App';
-import AddEmployee from './components/Employees/AddEmployee'
-import Daily from './components/Daily/Daily'
-import Intro from './components/Daily/Intro'
-import Shufling from './components/Daily/Shuffling'
-import Finishing from './components/Daily/Finishing'
+import AddEmployeeContainer from './containers/AddEmployeeContainer'
+import ScrumDaily from './components/ScrumDaily/ScrumDaily'
+import DailyIntroContainer from './containers/DailyIntroContainer'
+import DailyShufflingContainer from './containers/DailyShufflingContainer'
+import Finishing from './components/ScrumDaily/Finishing'
 import Header from './components/Header/Header'
 import registerServiceWorker from './registerServiceWorker'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -18,7 +18,8 @@ import 'react-notifications/lib/notifications.css'
 import {grey900} from 'material-ui/styles/colors';
 import {NotificationContainer} from 'react-notifications'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-
+import { Provider } from 'react-redux'
+import store from './store'
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -26,22 +27,25 @@ const muiTheme = getMuiTheme({
   }
 })
 ReactDOM.render(
+
     <MuiThemeProvider muiTheme={muiTheme}>
-      <Router basename="/">
-        <div>
-          <div className="layout-container">
-              <Header  />
-              <Route exact path="/" render={() => <App />} />
-              <Route exact path="/add" component={AddEmployee} />
-              <Route exact path="/daily" component={Daily} />
-              <Route exact path="/daily/intro" component={Intro} />
-              <Route exact path="/daily/shuffling" component={Shufling} />
-              <Route exact path="/daily/finishing" component={Finishing} />
-              <NotificationContainer/>
+      <Provider store={store}>
+        <Router basename="/">
+          <div>
+            <div className="layout-container">
+                <Header  />
+                <Route exact path="/" render={() => <App />} />
+                <Route exact path="/add" component={AddEmployeeContainer} />
+                <Route exact path="/daily" component={ScrumDaily} />
+                <Route exact path="/daily/intro" component={DailyIntroContainer} />
+                <Route exact path="/daily/shuffling" component={DailyShufflingContainer} />
+                <Route exact path="/daily/finishing" component={Finishing} />
+                <NotificationContainer/>
+            </div>
+            
           </div>
-          
-        </div>
-      </Router>
+        </Router>
+      </Provider>
     </MuiThemeProvider>,
     document.getElementById('root'))
   registerServiceWorker()
