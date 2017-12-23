@@ -1,8 +1,5 @@
-@font-face {
-	font-family: "Samplino";
-	src: url("fonts/Samplino.eot?") format("eot"),
-		 url("fonts/Samplino.woff2") format("woff2"),
-		 url("fonts/Samplino.woff") format("woff"),
-		 url("fonts/Samplino.ttf") format("truetype"),
-		 url("fonts/Samplino.svg#Samplino") format("svg");
-}
+@import url(https://fonts.googleapis.com/css?family=Lato);
+$lato: 'Lato';
+
+@import url(https://fonts.googleapis.com/css?family=Satisfy);
+$satisfy: 'Satisfy';
