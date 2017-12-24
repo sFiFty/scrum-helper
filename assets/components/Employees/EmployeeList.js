@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import Toggle from 'material-ui/Toggle'
 import { isLoaded, isEmpty } from 'react-redux-firebase'
 import SMLoader from '../SMLoader/SMLoader'
+import './employee-list.scss'
 
 const styles = {
     toggle: {
@@ -43,7 +44,7 @@ export default class EmployeeList extends React.Component {
                     )
                 })
         return (
-            <Paper zDepth={2} className="employee-list-wrapper">
+            <Paper zDepth={2} className="employee-list-wrapper row">
                 <List className="employee-list">
                     { employeeList }
                 </List>

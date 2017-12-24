@@ -14,12 +14,14 @@ export default class Header extends React.Component {
     }
     render() {
         return (
-            <header className="text-center">
-                <img 
-                    className="logo" 
-                    src={this.state.logoUrl} 
-                    title="My Helper"
-                    alt="My Helper"/>
+            <header className="row">
+                <div className="col-3">
+                    <img 
+                        className="logo" 
+                        src={this.state.logoUrl} 
+                        title="Scrum Helper"
+                        alt="Scrum Helper"/>
+                </div>
                 <Navigation />
             </header>
         )

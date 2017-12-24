@@ -20,7 +20,8 @@ export default class Auth extends React.Component {
             this.setState({ 
                 userName: currentUser.displayName,
                 avatar: currentUser.avatar,
-                isAuthorized: true
+                isAuthorized: true,
+                uid: userId
             })
         })
     }
@@ -35,7 +36,8 @@ export default class Auth extends React.Component {
         let provider = new firebase.auth.GoogleAuthProvider()
         provider.addScope('https://www.googleapis.com/auth/contacts.readonly')
         firebase.auth().signInWithPopup(provider).then(result => {
-            const user = result.user;
+            const user = result.user
+            console.log(user)
             const users = firebase.database().ref().child('users')
             users.child(user.uid).set({
                 'email': user.email,
@@ -48,19 +50,25 @@ export default class Auth extends React.Component {
                 userName: user.displayName,
                 isAuthorized: true,
                 avatar: user.photoURL,
+                uid: user.uid
             } )
             history.push('/')
           })
     }
 
     render() {
-        const { isAuthorized, userName, avatar } = this.state
+        const { uid, isAuthorized, userName, avatar } = this.state
         return (
-            isAuthorized ? 
-            <UserAvatar signOut={this.signOut} name={userName} avatar={avatar} /> :
-            <IconButton aria-label="Delete" onClick={this.auth}>
-                <AuthIcon className="color-red button" />
-            </IconButton>
+            <div className="col-3">
+                {
+                    isAuthorized ? 
+                    <UserAvatar signOut={this.signOut} uid={uid} name={userName} avatar={avatar} /> :
+                    <IconButton aria-label="Delete" onClick={this.auth}>
+                        <AuthIcon className="color-red button" />
+                    </IconButton>
+                }
+            </div>
+
         )
     }
 }

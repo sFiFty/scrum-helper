@@ -8,6 +8,7 @@ import DailyIntroContainer from './containers/DailyIntroContainer'
 import DailyShufflingContainer from './containers/DailyShufflingContainer'
 import Finishing from './components/ScrumDaily/Finishing'
 import Header from './components/Header/Header'
+import UserProfileContainer from './containers/UserProfileContainer'
 import registerServiceWorker from './registerServiceWorker'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 global.jQuery = require('jquery')
@@ -32,7 +33,7 @@ ReactDOM.render(
       <Provider store={store}>
         <Router basename="/">
           <div>
-            <div className="layout-container">
+            <div className="layout-container row">
                 <Header  />
                 <Route exact path="/" render={() => <App />} />
                 <Route exact path="/add" component={AddEmployeeContainer} />
@@ -40,6 +41,7 @@ ReactDOM.render(
                 <Route exact path="/daily/intro" component={DailyIntroContainer} />
                 <Route exact path="/daily/shuffling" component={DailyShufflingContainer} />
                 <Route exact path="/daily/finishing" component={Finishing} />
+                <Route exact path="/user/:uid" component={UserProfileContainer} />
                 <NotificationContainer/>
             </div>
             

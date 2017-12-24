@@ -6,24 +6,22 @@ import { Link } from 'react-router-dom'
 import './navigation.scss'
 import Auth from './Auth'
 
-
-const paperStyle = {
-    display: 'inline-block',
-    margin: '16px 32px 16px 40px',
-    width: 'auto',
-    verticalAlign: 'middle'
-}
-
 export default class Navigation extends React.Component {
     render() {
         return (
-            <Paper style={paperStyle} className="navigation-wrapper">
-                <Menu className="navigation">
-                    <MenuItem primaryText="My team" containerElement={<Link to="/" />} />
-                    <MenuItem primaryText="Add team member" containerElement={<Link to="/add" />} />
-                    <MenuItem primaryText="Scrum daily" containerElement={<Link to="/daily" />} />
-                </Menu>
-                <Auth />
+            <Paper className="navigation-wrapper col-9">
+                <div className="row">
+                    <div className="col-9">
+                        <Menu className="navigation col-9" >
+                            <div className="row">
+                                <MenuItem className="col" primaryText="My team" containerElement={<Link to="/" />} />
+                                <MenuItem className="col" primaryText="Add team member" containerElement={<Link to="/add" />} />
+                                <MenuItem className="col" primaryText="Scrum daily" containerElement={<Link to="/daily" />} />
+                            </div>
+                        </Menu>
+                    </div>
+                    <Auth/>
+                </div>
             </Paper>
         )
     }
