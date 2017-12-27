@@ -1,36 +1,42 @@
 import React from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
+import Paper from 'material-ui/Paper'
+import './add-employee.scss'
 
-const inputStyle = {
+const block = {
     display: 'block'
 }
+
 export default class AddEmployee extends React.Component {
     state = {
         firstName: '',
         lastName: '',
     }
+
     render() {
+        console.log(    this.props)
         return (
-            <div>
-                <form>
+            
+            <Paper zDepth={2} className="add-employee-wrapper row justify-content-md-center">
+                <div className="col-3">
                     <TextField
+                        style={block}
                         id="first-name"
                         hintText="First Name"
                         value={this.state.firstName}
-                        style={inputStyle}
                         onChange={this.setFirstName.bind(this)}
                     />
                     <TextField
+                        style={block}
                         id="last-name"
                         hintText="Last Name"
                         value={this.state.lastName}
-                        style={inputStyle}
                         onChange={this.setLastName.bind(this)}
                     />
-                </form>
-                <RaisedButton primary onClick={this.addEmployee} label="Add Employee" />
-            </div>
+                    <RaisedButton style={block} primary onClick={this.addEmployee} label="Add Employee" />
+                </div> 
+            </Paper>
         )
     }
 
@@ -42,12 +48,12 @@ export default class AddEmployee extends React.Component {
     }
 
     addEmployee = () => {
-        const { history, firebase } = this.props
+        const { history, firebase, profile } = this.props
         const { firstName, lastName, location } = this.state
         const newEmployee = {
             'firstName': firstName,
             'lastName': lastName,
-            'availability': true
+            'availability': true,
         }
         firebase.push('employees', newEmployee)
         history.push('/')

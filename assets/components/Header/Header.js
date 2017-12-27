@@ -1,7 +1,7 @@
 import React from 'react'
-import Navigation from './Navigation'
+import Navigation from '../Navigation/Navigation'
 import firebase from '../../firebase/db'
-import './logo.scss'
+import './header.scss'
 
 export default class Header extends React.Component {
     state = {

@@ -18,6 +18,7 @@ export default class Shuffling extends React.Component {
         : _.keys(this.shuffle(employees)).map(index => {
             i++
             let fullName = i + '. ' + employees[index].firstName + ' ' + employees[index].lastName
+            if (!employees[index].availability) return
             return (
                 <ListItem key={i} primaryText={fullName} />
             )

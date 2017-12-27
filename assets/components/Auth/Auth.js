@@ -3,7 +3,8 @@ import IconButton from 'material-ui/IconButton'
 import AuthIcon from 'react-material-icons/icons/social/person-outline'
 import firebase from '../../firebase/db'
 import cookie from 'react-cookies'
-import UserAvatar from './UserAvatar'
+import UserAvatar from '../UserAvatar/UserAvatar'
+import { Button, Icon } from 'semantic-ui-react'
 
 export default class Auth extends React.Component {
     state = {
@@ -37,7 +38,6 @@ export default class Auth extends React.Component {
         provider.addScope('https://www.googleapis.com/auth/contacts.readonly')
         firebase.auth().signInWithPopup(provider).then(result => {
             const user = result.user
-            console.log(user)
             const users = firebase.database().ref().child('users')
             users.child(user.uid).set({
                 'email': user.email,
@@ -59,13 +59,14 @@ export default class Auth extends React.Component {
     render() {
         const { uid, isAuthorized, userName, avatar } = this.state
         return (
-            <div className="col-3">
+            <div>
                 {
                     isAuthorized ? 
                     <UserAvatar signOut={this.signOut} uid={uid} name={userName} avatar={avatar} /> :
-                    <IconButton aria-label="Delete" onClick={this.auth}>
-                        <AuthIcon className="color-red button" />
-                    </IconButton>
+                    <Button icon labelPosition='right' onClick={this.auth}>
+                        Sign in
+                        <Icon name='user outline' />
+                    </Button>
                 }
             </div>
 

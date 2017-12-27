@@ -1,5 +1,19 @@
 import React from 'react'
-import { withFirebase } from 'react-redux-firebase'
 import AddEmployee from '../components/AddEmployee/AddEmployee'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { firebaseConnect } from 'react-redux-firebase'
 
-export default withFirebase(AddEmployee)
+export default compose(
+    firebaseConnect((props) => {
+        return [
+            'users'
+        ]
+    }),
+    connect(
+        (state) => ({
+            employees: state.firebase.data.users,
+            profile: state.firebase.profile
+        })
+    )
+)(AddEmployee)

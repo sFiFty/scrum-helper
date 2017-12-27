@@ -1,6 +1,10 @@
 @import "../../sass/colors.scss";
 @import "../../sass/fonts.scss";
 
+.start-scrum {
+    padding: 40px 0px;
+}
+
 .text-wrapper {
     position: absolute;
     top: 0;
@@ -19,6 +23,11 @@
         right: 0;
         text-align: center;
         color: $white;
+        > div {
+            font-family: $satisfy;
+            margin-top: 4vw;
+            font-size: 3vw;
+        }
     }
 }
 

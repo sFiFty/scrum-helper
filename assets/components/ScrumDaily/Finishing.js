@@ -7,7 +7,7 @@ export default class Finishing extends React.Component {
     render() {
         return (
             <div className="text-wrapper" onClick={this.nextStep}> 
-                <div className="daily-text">Let's back to work</div>
+                <div className="daily-text">Let's go back to work</div>
             </div>
         )
     }

@@ -16,6 +16,7 @@ global.Tether = require('tether')
 require('bootstrap')
 import './sass/index.scss'
 import 'react-notifications/lib/notifications.css'
+import 'semantic-ui-css/semantic.min.css'
 import {grey900} from 'material-ui/styles/colors';
 import {NotificationContainer} from 'react-notifications'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'

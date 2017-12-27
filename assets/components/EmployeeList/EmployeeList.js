@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {List, ListItem} from 'material-ui/List'
 import _ from 'lodash'
 import Paper from 'material-ui/Paper'
@@ -19,6 +20,10 @@ const styles = {
 }
 
 export default class EmployeeList extends React.Component {
+    static propTypes = {
+        employees: PropTypes.object,
+        firebase: PropTypes.object
+    }
     toggleAvailability = index => {
         const { firebase, employees } = this.props
         firebase.update(`employees/${index}`, { availability: !employees[index].availability })
@@ -31,18 +36,18 @@ export default class EmployeeList extends React.Component {
             : isEmpty(employees)
             ? 'Employee list is empty'
             : _.keys(employees).map(index => {
-                    i++
-                    let fullName = i + '. ' + employees[index].firstName + ' ' + employees[index].lastName
-                    return (
-                        <ListItem
-                            key={i}
-                            primaryText={fullName}
-                            secondaryText={
-                                <Toggle defaultToggled={employees[index].availability} onToggle={() => this.toggleAvailability(index)} style={styles.toggle} />
-                            }
-                        />
-                    )
-                })
+                i++
+                let fullName = i + '. ' + employees[index].firstName + ' ' + employees[index].lastName
+                return (
+                    <ListItem
+                        key={i}
+                        primaryText={fullName}
+                        secondaryText={
+                            <Toggle defaultToggled={employees[index].availability} onToggle={() => this.toggleAvailability(index)} style={styles.toggle} />
+                        }
+                    />
+                )
+            })
         return (
             <Paper zDepth={2} className="employee-list-wrapper row">
                 <List className="employee-list">
