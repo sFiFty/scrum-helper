@@ -5,9 +5,9 @@ import { firebaseConnect, dataToJS } from 'react-redux-firebase'
 import EmployeeList from '../components/EmployeeList/EmployeeList'
 
 export default compose(
-    firebaseConnect((props) => {
+    firebaseConnect((props, state) => {
         return [
-            'employees'
+            { path: '/employees' }
         ]
     }),
     connect(

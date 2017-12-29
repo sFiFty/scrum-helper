@@ -2,6 +2,7 @@ import React from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import Paper from 'material-ui/Paper'
+import _ from 'lodash'
 import './add-employee.scss'
 
 const block = {
@@ -11,11 +12,10 @@ const block = {
 export default class AddEmployee extends React.Component {
     state = {
         firstName: '',
-        lastName: '',
+        lastName: ''
     }
 
     render() {
-        console.log(    this.props)
         return (
             
             <Paper zDepth={2} className="add-employee-wrapper row justify-content-md-center">
@@ -48,12 +48,19 @@ export default class AddEmployee extends React.Component {
     }
 
     addEmployee = () => {
-        const { history, firebase, profile } = this.props
+        const { history, firebase, users, profile } = this.props
         const { firstName, lastName, location } = this.state
+        let profileId = null
+        _.keys(users).map(k => {
+            if (users[k].email === profile.email) {
+                profileId = k
+            }
+        })
         const newEmployee = {
             'firstName': firstName,
             'lastName': lastName,
             'availability': true,
+            'managerId': profileId
         }
         firebase.push('employees', newEmployee)
         history.push('/')

@@ -12,7 +12,7 @@ export default compose(
     }),
     connect(
         (state) => ({
-            employees: state.firebase.data.users,
+            users: state.firebase.data.users,
             profile: state.firebase.profile
         })
     )

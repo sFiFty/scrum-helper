@@ -1,75 +1,45 @@
 import React from 'react'
-import IconButton from 'material-ui/IconButton'
-import AuthIcon from 'react-material-icons/icons/social/person-outline'
-import firebase from '../../firebase/db'
-import cookie from 'react-cookies'
 import UserAvatar from '../UserAvatar/UserAvatar'
 import { Button, Icon } from 'semantic-ui-react'
+import { isLoaded, isEmpty } from 'react-redux-firebase'
+import PropTypes from 'prop-types'
+import SMLoader from '../SMLoader/SMLoader'
+
 
 export default class Auth extends React.Component {
-    state = {
-        userName: null,
-        provider: null,
-        isAuthorized: false,
-        avatar: null
+    static propTypes = {
+        firebase: PropTypes.shape({
+          login: PropTypes.func.isRequired
+        }),
+        auth: PropTypes.object
     }
-    componentDidMount() {
-        let userId = cookie.load('userId')
-        firebase.database().ref().child('users').once('value').then(snapshot => {
-            let currentUser = snapshot.val()[userId]
-            if (!currentUser) return
-            this.setState({ 
-                userName: currentUser.displayName,
-                avatar: currentUser.avatar,
-                isAuthorized: true,
-                uid: userId
-            })
+
+    signIn = () => {
+        const { firebase } = this.props
+        firebase.login({ provider: 'google', type: 'popup' }).then(data => {
+            console.log(    data)
         })
-    }
-    signOut = () => {
-        firebase.auth().signOut().then(() => {
-            cookie.remove('userId', { path: '/' })
-            this.setState({ isAuthorized: false })
-        })
-    }
-    auth = () => {
-        let { history } = this.props
-        let provider = new firebase.auth.GoogleAuthProvider()
-        provider.addScope('https://www.googleapis.com/auth/contacts.readonly')
-        firebase.auth().signInWithPopup(provider).then(result => {
-            const user = result.user
-            const users = firebase.database().ref().child('users')
-            users.child(user.uid).set({
-                'email': user.email,
-                'displayName': user.displayName,
-                'verificationType': 'google',
-                'avatar': user.photoURL
-            })
-            cookie.save('userId', user.uid, { path: '/' })
-            this.setState( {
-                userName: user.displayName,
-                isAuthorized: true,
-                avatar: user.photoURL,
-                uid: user.uid
-            } )
-            history.push('/')
-          })
     }
 
     render() {
-        const { uid, isAuthorized, userName, avatar } = this.state
+        let isAuthorized = false
+        const { auth, firebase } = this.props
         return (
             <div>
                 {
-                    isAuthorized ? 
-                    <UserAvatar signOut={this.signOut} uid={uid} name={userName} avatar={avatar} /> :
-                    <Button icon labelPosition='right' onClick={this.auth}>
+                    !isLoaded(auth) 
+                    ? <SMLoader size="xs" />
+                    : isEmpty(auth)
+                    ? 
+                    <Button icon labelPosition='right' onClick={this.signIn}>
                         Sign in
                         <Icon name='user outline' />
                     </Button>
+                    : <UserAvatar signOut={() => { firebase.auth().signOut() }} uid={auth.photoURL} name={auth.displayName} avatar={auth.photoURL} />
                 }
             </div>
 
         )
     }
 }
+
