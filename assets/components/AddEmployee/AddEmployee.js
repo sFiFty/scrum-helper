@@ -16,7 +16,8 @@ export default class AddEmployee extends React.Component {
     }
 
     render() {
-        return (
+        const { history, firebase, users, profile } = this.props
+         return (
             
             <Paper zDepth={2} className="add-employee-wrapper row justify-content-md-center">
                 <div className="col-3">
@@ -60,9 +61,20 @@ export default class AddEmployee extends React.Component {
             'firstName': firstName,
             'lastName': lastName,
             'availability': true,
-            'managerId': profileId
         }
-        firebase.push('employees', newEmployee)
+        if (profile.teamId) {
+            firebase.push(`teams/${profile.teamId}/employees`, newEmployee)
+        } else {
+            firebase.push('teams/', {
+                employees: [
+                    newEmployee
+                ]
+            }).then(team => {
+                firebase.updateProfile({
+                    teamId: team.key,
+                })
+            })
+        }
         history.push('/')
     }
 }

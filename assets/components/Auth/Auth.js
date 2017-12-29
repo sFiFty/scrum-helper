@@ -16,9 +16,7 @@ export default class Auth extends React.Component {
 
     signIn = () => {
         const { firebase } = this.props
-        firebase.login({ provider: 'google', type: 'popup' }).then(data => {
-            console.log(    data)
-        })
+        firebase.login({ provider: 'google', type: 'popup' })
     }
 
     render() {

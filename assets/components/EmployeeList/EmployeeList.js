@@ -30,7 +30,8 @@ export default class EmployeeList extends React.Component {
     }
     render() {
         let i = 0
-        const { employees } = this.props
+        const { employees, profile } = this.props
+        
         const employeeList = !isLoaded(employees)
             ? <SMLoader />
             : isEmpty(employees)
