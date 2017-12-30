@@ -1,59 +1,119 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {List, ListItem} from 'material-ui/List'
+import { Table, Button } from 'semantic-ui-react'
 import _ from 'lodash'
 import Paper from 'material-ui/Paper'
-import RaisedButton from 'material-ui/RaisedButton'
-import Toggle from 'material-ui/Toggle'
 import { isLoaded, isEmpty } from 'react-redux-firebase'
 import SMLoader from '../SMLoader/SMLoader'
 import './employee-list.scss'
-
-const styles = {
-    toggle: {
-        marginBottom: 16,
-        width: 100,
-        marginTop: -20,
-        height: 25,
-        float: 'right'
-    },
-}
+import RaisedButton from 'material-ui/RaisedButton'
+import Dialog from 'material-ui/Dialog'
+import MemberCell from './MemberCell'
+import TableFooter from './TableFooter'
+import { NotificationManager }  from 'react-notifications'
 
 export default class EmployeeList extends React.Component {
     static propTypes = {
         employees: PropTypes.object,
         firebase: PropTypes.object
     }
-    toggleAvailability = index => {
-        const { firebase, employees } = this.props
-        firebase.update(`employees/${index}`, { availability: !employees[index].availability })
+
+    state = {
+        open: false,
+        deletedEmployeeId: null
     }
+    
+    handleOpen = employeeId => {
+        this.setState({deletedEmployeeId: employeeId})
+        this.setState({open: true})
+    }
+    
+    handleClose = () => {
+        this.setState({deletedEmployeeId: null})
+        this.setState({open: false})
+    }
+
+    delete = () => {
+        const { firebase, employees, profile } = this.props
+        firebase.remove(`teams/${profile.teamId}/employees/${this.state.deletedEmployeeId}`)
+        this.setState({open: false})
+        const employee = employees[this.state.deletedEmployeeId]
+        NotificationManager.success(
+            `Member ${employee.firstName} ${employee.lastName} was successfully removed from your team`, 
+            'Success'
+        )
+    }
+
+    toggleAvailability = index => {
+        const { firebase, employees, profile } = this.props
+        firebase.update(`teams/${profile.teamId}/employees/${index}`, { availability: !employees[index].availability })
+    }
+
     render() {
         let i = 0
         const { employees, profile } = this.props
         
         const employeeList = !isLoaded(employees)
-            ? <SMLoader />
+            ? 
+                <Table.Row>
+                    <Table.Cell>
+                        <SMLoader />
+                    </Table.Cell>
+                </Table.Row>
             : isEmpty(employees)
-            ? 'Employee list is empty'
+            ? 
+            <Table.Row>
+                <Table.Cell className="h3" textAlign='center' colSpan='3'>
+                    List of members currently is empty
+                </Table.Cell>
+            </Table.Row>
             : _.keys(employees).map(index => {
-                i++
-                let fullName = i + '. ' + employees[index].firstName + ' ' + employees[index].lastName
                 return (
-                    <ListItem
-                        key={i}
-                        primaryText={fullName}
-                        secondaryText={
-                            <Toggle defaultToggled={employees[index].availability} onToggle={() => this.toggleAvailability(index)} style={styles.toggle} />
-                        }
-                    />
+                    <MemberCell 
+                        key={index}
+                        id={index} 
+                        employee={employees[index]}
+                        toggleAvailability={this.toggleAvailability}
+                        handleOpen={this.handleOpen} />
                 )
             })
+        const actions = [
+            <RaisedButton
+                label="Cancel"
+                primary
+                onClick={this.handleClose}
+            />,
+            <RaisedButton
+                label="Delete"
+                primary
+                keyboardFocused
+                onClick={this.delete}
+            />,
+        ]
         return (
             <Paper zDepth={2} className="employee-list-wrapper row">
-                <List className="employee-list">
-                    { employeeList }
-                </List>
+                <Dialog
+                    title="Team member will be deleted"
+                    actions={actions}
+                    modal={false}
+                    open={this.state.open}
+                    onRequestClose={this.handleClose}
+                >
+                    Are you sure?
+                </Dialog>
+                <Table selectable className="employee-list">
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>Name</Table.HeaderCell>
+                            <Table.HeaderCell width={3}>Availability</Table.HeaderCell>
+                            <Table.HeaderCell width={1}></Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        { employeeList }
+                    </Table.Body>
+                    <TableFooter />
+                </Table>
             </Paper>
         )
     }

@@ -28,12 +28,8 @@ export default class Auth extends React.Component {
                     !isLoaded(auth) 
                     ? <SMLoader size="xs" />
                     : isEmpty(auth)
-                    ? 
-                    <Button icon labelPosition='right' onClick={this.signIn}>
-                        Sign in
-                        <Icon name='user outline' />
-                    </Button>
-                    : <UserAvatar signOut={() => { firebase.auth().signOut() }} uid={auth.photoURL} name={auth.displayName} avatar={auth.photoURL} />
+                    ? <Button onClick={this.signIn} circular color='google plus' icon='google plus' /> 
+                    : <UserAvatar signOut={() => { firebase.auth().signOut() }} uid={auth.uid} name={auth.displayName} avatar={auth.photoURL} />
                 }
             </div>
 

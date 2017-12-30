@@ -1,6 +1,21 @@
+@import "../../sass/colors.scss";
 .employee-list-wrapper {
     width: 100%;
     .employee-list {
         width: 100%;
+        tr .delete {
+            display: none;
+            cursor: pointer;
+        }
+        tr {
+            &:hover {
+                .delete {
+                    display: block;
+                }
+            }
+        }
+        .icon {
+            vertical-align: baseline !important;
+        }
     }
 }

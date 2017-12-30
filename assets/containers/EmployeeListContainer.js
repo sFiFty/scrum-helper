@@ -6,17 +6,16 @@ import EmployeeList from '../components/EmployeeList/EmployeeList'
 
 export default compose(
     firebaseConnect((props, store) => {
-        console.log(    isLoaded(store.getState().firebase.profile))
         return [
             { 
                 path: `/teams/${store.getState().firebase.profile.teamId}/employees`,
-                storeAs: 'employees'  
+                storeAs: 'myEmployees'  
             }
         ]
     }),
     connect(
         (state) => ({
-            employees: state.firebase.data.employees,
+            employees: state.firebase.data.myEmployees,
             profile: state.firebase.profile
         })
     )

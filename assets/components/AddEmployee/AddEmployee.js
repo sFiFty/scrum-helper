@@ -4,6 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import Paper from 'material-ui/Paper'
 import _ from 'lodash'
 import './add-employee.scss'
+import { NotificationManager}  from 'react-notifications'
 
 const block = {
     display: 'block'
@@ -18,7 +19,6 @@ export default class AddEmployee extends React.Component {
     render() {
         const { history, firebase, users, profile } = this.props
          return (
-            
             <Paper zDepth={2} className="add-employee-wrapper row justify-content-md-center">
                 <div className="col-3">
                     <TextField
@@ -35,7 +35,7 @@ export default class AddEmployee extends React.Component {
                         value={this.state.lastName}
                         onChange={this.setLastName.bind(this)}
                     />
-                    <RaisedButton style={block} primary onClick={this.addEmployee} label="Add Employee" />
+                    <RaisedButton style={block} primary onClick={this.addEmployee} label="Add" />
                 </div> 
             </Paper>
         )
@@ -75,6 +75,10 @@ export default class AddEmployee extends React.Component {
                 })
             })
         }
+        NotificationManager.success(
+            `Member ${newEmployee.firstName} ${newEmployee.lastName} was successfully added to your team`, 
+            'Success'
+        )
         history.push('/')
     }
 }

@@ -5,9 +5,17 @@ import { firebaseConnect } from 'react-redux-firebase'
 import Shuffling from '../components/ScrumDaily/Shuffling'
 
 export default compose(
-    firebaseConnect(['employees']),
-        connect( state => ({
-            employees: state.firebase.data.employees,
+    firebaseConnect((props, store) => {
+        return [
+            { 
+                path: `/teams/${store.getState().firebase.profile.teamId}/employees`,
+                storeAs: 'myEmployees'  
+            }
+        ]
+    }),
+    connect(
+        (state) => ({
+            employees: state.firebase.data.myEmployees,
         })
     )
 )(Shuffling)
