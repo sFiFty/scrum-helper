@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import AddEmployeeContainer from '../containers/AddEmployeeContainer'
-import ScrumDaily from './ScrumDaily/ScrumDaily'
 import DailyIntroContainer from '../containers/DailyIntroContainer'
 import DailyShufflingContainer from '../containers/DailyShufflingContainer'
 import Finishing from '../components/ScrumDaily/Finishing'
@@ -34,7 +33,6 @@ export default class App extends React.Component {
                     <Header  />
                     <Route exact path="/" component={EmployeeListContainer} />
                     <Route exact path="/add" component={AddEmployeeContainer} />
-                    <Route exact path="/daily" component={ScrumDaily} />
                     <Route exact path="/daily/intro" component={DailyIntroContainer} />
                     <Route exact path="/daily/shuffling" component={DailyShufflingContainer} />
                     <Route exact path="/daily/finishing" component={Finishing} />

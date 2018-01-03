@@ -1,5 +1,6 @@
 import React from 'react'
 import Moment from 'react-moment'
+import './ceremony.scss'
 
 export default class Intro extends React.Component {
     nextStep = () => {

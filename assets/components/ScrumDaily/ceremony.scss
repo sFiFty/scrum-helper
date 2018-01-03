@@ -60,10 +60,18 @@
         border-bottom-right-radius: 0px !important;
         border-bottom-left-radius: 0px !important;
     }
+    .employee-list {
+        > div {
+            height: 60px;
+            .react-countdown-clock {
+                float: right;
+                margin-top: -15px;
+            }
+        }
+    }
     .shuffling-button {
         width: 100% !important;
         a {
-            
             border-top-right-radius: 0px !important;
             border-top-left-radius: 0px !important;
         }
