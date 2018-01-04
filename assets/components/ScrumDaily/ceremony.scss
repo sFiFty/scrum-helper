@@ -61,8 +61,8 @@
         border-bottom-left-radius: 0px !important;
     }
     .employee-list {
-        > div {
-            height: 60px;
+        .rah-static > div {
+            width: 100%;
             .react-countdown-clock {
                 float: right;
                 margin-top: -15px;
