@@ -10,11 +10,12 @@ import RaisedButton from 'material-ui/RaisedButton'
 import Dialog from 'material-ui/Dialog'
 import MemberCell from './MemberCell'
 import TableFooter from './TableFooter'
+import TableHeader from './TableHeader'
 import { NotificationManager }  from 'react-notifications'
 
 export default class EmployeeList extends React.Component {
     static propTypes = {
-        employees: PropTypes.object,
+        team: PropTypes.object,
         firebase: PropTypes.object
     }
 
@@ -34,10 +35,10 @@ export default class EmployeeList extends React.Component {
     }
 
     delete = () => {
-        const { firebase, employees, profile } = this.props
+        const { firebase, team, profile } = this.props
         firebase.remove(`teams/${profile.teamId}/employees/${this.state.deletedEmployeeId}`)
         this.setState({open: false})
-        const employee = employees[this.state.deletedEmployeeId]
+        const employee = team.employees[this.state.deletedEmployeeId]
         NotificationManager.success(
             `Member ${employee.firstName} ${employee.lastName} was successfully removed from your team`, 
             'Success'
@@ -45,34 +46,34 @@ export default class EmployeeList extends React.Component {
     }
 
     toggleAvailability = index => {
-        const { firebase, employees, profile } = this.props
-        firebase.update(`teams/${profile.teamId}/employees/${index}`, { availability: !employees[index].availability })
+        const { firebase, team, profile } = this.props
+        firebase.update(`teams/${profile.teamId}/employees/${index}`, { availability: !team.employees[index].availability })
     }
 
     render() {
         let i = 0
-        const { employees, profile } = this.props
+        const { team, profile } = this.props
         
-        const employeeList = !isLoaded(employees)
+        const employeeList = !isLoaded(team)
             ? 
                 <Table.Row>
                     <Table.Cell>
                         <SMLoader />
                     </Table.Cell>
                 </Table.Row>
-            : isEmpty(employees)
+            : isEmpty(team.employees)
             ? 
-            <Table.Row>
-                <Table.Cell className="h3" textAlign='center' colSpan='3'>
-                    List of members currently is empty
-                </Table.Cell>
-            </Table.Row>
-            : _.keys(employees).map(index => {
+                <Table.Row>
+                    <Table.Cell className="h3" textAlign='center' colSpan='3'>
+                        List of members currently is empty
+                    </Table.Cell>
+                </Table.Row>
+            : _.keys(team.employees).map(index => {
                 return (
                     <MemberCell 
                         key={index}
                         id={index} 
-                        employee={employees[index]}
+                        employee={team.employees[index]}
                         toggleAvailability={this.toggleAvailability}
                         handleOpen={this.handleOpen} />
                 )
@@ -102,13 +103,7 @@ export default class EmployeeList extends React.Component {
                     Are you sure?
                 </Dialog>
                 <Table selectable className="employee-list">
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell>Name</Table.HeaderCell>
-                            <Table.HeaderCell width={3}>Availability</Table.HeaderCell>
-                            <Table.HeaderCell width={1}></Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
+                    <TableHeader team={team} />
                     <Table.Body>
                         { employeeList }
                     </Table.Body>

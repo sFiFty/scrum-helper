@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import AddEmployeeContainer from '../containers/AddEmployeeContainer'
 import DailyIntroContainer from '../containers/DailyIntroContainer'
-import DailyShufflingContainer from '../containers/DailyShufflingContainer'
+import ScrumDailyCreationContainer from '../containers/ScrumDailyCreationContainer'
 import Finishing from '../components/ScrumDaily/Finishing'
 import Header from '../components/Header/Header'
 import UserProfileContainer from '../containers/UserProfileContainer'
@@ -33,9 +33,9 @@ export default class App extends React.Component {
                     <Header  />
                     <Route exact path="/" component={EmployeeListContainer} />
                     <Route exact path="/add" component={AddEmployeeContainer} />
-                    <Route exact path="/daily/intro" component={DailyIntroContainer} />
-                    <Route exact path="/daily/shuffling" component={DailyShufflingContainer} />
-                    <Route exact path="/daily/finishing" component={Finishing} />
+                    <Route exact path="/daily/" component={ScrumDailyCreationContainer} />
+                    <Route exact path="/daily/:teamId/intro" component={DailyIntroContainer} />
+                    <Route exact path="/daily/:teamId/finishing" component={Finishing} />
                     <Route exact path="/user/:uid" component={UserProfileContainer} />
                     <NotificationContainer/>
                 </div>

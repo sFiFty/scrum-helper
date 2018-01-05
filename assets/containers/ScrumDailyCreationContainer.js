@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { firebaseConnect } from 'react-redux-firebase'
-import Shuffling from '../components/ScrumDaily/Shuffling'
+import ScrumDailyCreation from '../components/ScrumDaily/ScrumDailyCreation'
 
 export default compose(
     firebaseConnect((props, store) => {
@@ -16,6 +16,7 @@ export default compose(
     connect(
         (state) => ({
             employees: state.firebase.data.myEmployees,
+            profile: state.firebase.profile
         })
     )
-)(Shuffling)
+)(ScrumDailyCreation)

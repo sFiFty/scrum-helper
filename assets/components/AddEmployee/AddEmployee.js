@@ -51,12 +51,6 @@ export default class AddEmployee extends React.Component {
     addEmployee = () => {
         const { history, firebase, users, profile } = this.props
         const { firstName, lastName, location } = this.state
-        let profileId = null
-        _.keys(users).map(k => {
-            if (users[k].email === profile.email) {
-                profileId = k
-            }
-        })
         const newEmployee = {
             'firstName': firstName,
             'lastName': lastName,

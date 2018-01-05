@@ -1,8 +1,24 @@
 @import "../../sass/colors.scss";
+
 .employee-list-wrapper {
     width: 100%;
     .employee-list {
         width: 100%;
+        .team-name-row {
+            border-bottom: 2px solid $black;
+            padding: 5px 10px 15px;
+            span {
+                display: none !important;
+                cursor: pointer;
+            }
+        }
+        .team-name-row {
+            &:hover {
+                span {
+                    display: flex !important;
+                }
+            }
+        }
         tr .delete {
             display: none;
             cursor: pointer;

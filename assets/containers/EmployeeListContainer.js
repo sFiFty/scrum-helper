@@ -8,14 +8,14 @@ export default compose(
     firebaseConnect((props, store) => {
         return [
             { 
-                path: `/teams/${store.getState().firebase.profile.teamId}/employees`,
-                storeAs: 'myEmployees'  
+                path: `/teams/${store.getState().firebase.profile.teamId}`,
+                storeAs: 'myTeam'  
             }
         ]
     }),
     connect(
         (state) => ({
-            employees: state.firebase.data.myEmployees,
+            team: state.firebase.data.myTeam,
             profile: state.firebase.profile
         })
     )

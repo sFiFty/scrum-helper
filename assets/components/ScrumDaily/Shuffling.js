@@ -55,14 +55,5 @@ export default class Shuffling extends React.Component {
             </div>
         )
     }
-    shuffle = employees => {
-        let keys = Object.keys(employees),
-            newEmployees = {}
-        keys.sort((a,b) => Math.random() - 0.5)
-        keys.map((k, i) => { 
-            employees[k].timerPaused = i === 0 ? false : true
-            newEmployees[k] = employees[k]
-        })
-        return newEmployees
-    }
+
 }
