@@ -52,7 +52,7 @@ export default class EmployeeList extends React.Component {
 
     render() {
         let i = 0
-        const { team, profile } = this.props
+        const { team, profile, firebase } = this.props
         
         const employeeList = !isLoaded(team)
             ? 
@@ -103,7 +103,7 @@ export default class EmployeeList extends React.Component {
                     Are you sure?
                 </Dialog>
                 <Table selectable className="employee-list">
-                    <TableHeader team={team} />
+                    <TableHeader team={team} firebase={firebase} profile={profile} />
                     <Table.Body>
                         { employeeList }
                     </Table.Body>

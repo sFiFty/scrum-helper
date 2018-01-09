@@ -4,17 +4,23 @@
     width: 100%;
     .employee-list {
         width: 100%;
-        .team-name-row {
+        .name-row {
             border-bottom: 2px solid $black;
-            padding: 5px 10px 15px;
-            span {
-                display: none !important;
-                cursor: pointer;
+            padding-top: 5px;
+            .badge-container {
+                padding: 25px 24px 7px 12px !important;
+                span {
+                    display: none !important;
+                    cursor: pointer;
+                }
+            }
+            .name-editing-container {
+                padding-top: 10px;
             }
         }
-        .team-name-row {
+        .name-row {
             &:hover {
-                span {
+                .badge-container span {
                     display: flex !important;
                 }
             }

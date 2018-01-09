@@ -5,7 +5,11 @@ import TextField from 'material-ui/TextField'
 import Badge from 'material-ui/Badge'
 import PropTypes from 'prop-types'
 import FlatButton from 'material-ui/FlatButton'
+import { NotificationManager }  from 'react-notifications'
 
+const inputStyles = {
+    fontSize: '1.75rem'
+}
 
 export default class TableHeader extends React.Component {
     static propTypes = {
@@ -13,7 +17,7 @@ export default class TableHeader extends React.Component {
         firebase: PropTypes.object
     }
     state = {
-        teamName: '',
+        name: '',
         value: '',
         isEditing: false
     }
@@ -22,46 +26,62 @@ export default class TableHeader extends React.Component {
             if (isLoaded(this.props.team)) {
                 clearInterval(interval)
                 this.setState({ 
-                    teamName: this.props.team.name || '',
+                    name: this.props.team.name || '',
                     value: this.props.team.name || ''
                 })
             }
         }, 100)
     }
-    handleChange = (name, value) => {
-        this.setState({ value: value })
+    setName = event => {
+        this.setState({name: event.target.value})
     }
     enableEditing = () => {
         this.setState({ isEditing: true })
     }
     disbleEditing = () => {
-        this.setState({ value: this.state.teamName })
+        this.setState({ value: this.state.name })
         this.setState({ isEditing: false })
     }
+    saveName = () => {
+        const { name } = this.state
+        const { firebase, profile } = this.props
+        firebase.update(`teams/${profile.teamId}`, { name: name }).then(() => {
+            NotificationManager.success(
+                `The name of your team was successfully updated`, 
+                'Success'
+            )
+            this.setState({ isEditing: false })
+        })
+    }
     render() {
-        const { teamName, isEditing } = this.state
+        const { name, isEditing } = this.state
         return (
             <Table.Header>
                 <Table.Row>
-                    <Table.HeaderCell colSpan='3' className="team-name-row h3">
-                    {
-                        isEditing ?
-                        <div>
-                            <TextField
-                                id="team-name"
-                                hintText="Team name"
-                                value={this.state.teamName}
-                                onChange={this.handleChange}
-                            />
-                            <FlatButton label="Save" />
-                            <FlatButton onClick={this.disbleEditing} label="Cancel" /> 
-                        </div>
-                        :
-                        <Badge
-                            badgeContent={<Icon color="black" onClick={this.enableEditing} size="large" name='edit' />}>
-                            { teamName || 'Please select team name'}
-                        </Badge> 
-                    }
+                    <Table.HeaderCell colSpan='3' className="name-row h3">
+                        {
+                            isEditing ?
+                            <div className="name-editing-container">
+                                <TextField
+                                    id="name"
+                                    hintText="Team name"
+                                    value={name}
+                                    onChange={this.setName.bind(this)}
+                                    style={inputStyles}
+                                />
+                                <FlatButton onClick={this.saveName} label="Save" />
+                                <FlatButton onClick={this.disbleEditing} label="Cancel" /> 
+                            </div>
+                            :
+                            <Badge
+                                className="badge-container"
+                                badgeContent={<Icon color="black" 
+                                onClick={this.enableEditing} 
+                                size="large" 
+                                name='edit' />}>
+                                { name || 'Please select team name'}
+                            </Badge> 
+                        }
                     </Table.HeaderCell>
                 </Table.Row> 
                 <Table.Row>

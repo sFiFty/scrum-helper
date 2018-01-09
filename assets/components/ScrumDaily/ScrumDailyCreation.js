@@ -2,14 +2,17 @@ import React from 'react'
 import Moment from 'react-moment'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Link } from 'react-router-dom'
+import Intro from './Intro'
+import { isLoaded } from 'react-redux-firebase'
+import SMLoader from '../SMLoader/SMLoader'
 
 export default class ScrumDailyCreation extends React.Component {
     componentDidMount() {
 
     }
     createDaily = () => {
-        const { history, firebase, employees, profile } = this.props
-        const filteredEmployeeList = _.filter(employees, {availability: true})
+        const { history, firebase, team, profile } = this.props
+        const filteredEmployeeList = _.filter(team.employees, {availability: true})
         firebase.push(`dailyMeetings`, {
             employees: this.shuffle(filteredEmployeeList),
             teamId: profile.teamId
@@ -31,7 +34,8 @@ export default class ScrumDailyCreation extends React.Component {
         return newEmployees
     }
     render() {
-        const { profile } = this.props
+        const { team, profile } = this.props
+        
         return (
             <div className="row"> 
                 <RaisedButton
@@ -44,10 +48,15 @@ export default class ScrumDailyCreation extends React.Component {
                     <RaisedButton
                         primary
                         label="Join daily meeting"
-                        containerElement={<Link to={`daily/${profile.currentDaily}/intro`} />} 
                     />:
                     ''
                 }
+                {
+                    !isLoaded(team) ?
+                    <SMLoader /> :
+                    <Intro team={team} />
+                }
+                
             </div>
         )
     }
