@@ -10,13 +10,18 @@ export default compose(
             { 
                 path: `/teams/${store.getState().firebase.profile.teamId}`,
                 storeAs: 'myTeam'  
+            },
+            { 
+                path: `/dailyMeetings/${store.getState().firebase.profile.currentDaily}`,
+                storeAs: 'currentDaily'  
             }
         ]
     }),
     connect(
         (state) => ({
             team: state.firebase.data.myTeam,
-            profile: state.firebase.profile
+            profile: state.firebase.profile,
+            daily: state.firebase.data.currentDaily
         })
     )
 )(ScrumDailyCreation)

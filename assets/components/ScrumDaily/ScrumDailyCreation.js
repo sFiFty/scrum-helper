@@ -3,60 +3,73 @@ import Moment from 'react-moment'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Link } from 'react-router-dom'
 import Intro from './Intro'
-import { isLoaded } from 'react-redux-firebase'
+import Shuffling from './Shuffling'
+import Finishing from './Finishing'
+import { isLoaded, firebase } from 'react-redux-firebase'
 import SMLoader from '../SMLoader/SMLoader'
 
 export default class ScrumDailyCreation extends React.Component {
-    componentDidMount() {
-
+    state = {
+        isDailyStarted: false
     }
     createDaily = () => {
-        const { history, firebase, team, profile } = this.props
+        const { firebase, team, profile } = this.props
         const filteredEmployeeList = _.filter(team.employees, {availability: true})
         firebase.push(`dailyMeetings`, {
-            employees: this.shuffle(filteredEmployeeList),
-            teamId: profile.teamId
+            employees: filteredEmployeeList,
+            teamId: profile.teamId,
+            step: 1
         }).then(daily => {
             firebase.updateProfile({
-                currentDaily: daily.key,
+                currentDaily: daily.key
             })
-            history.push(`/daily/${daily.key}/intro`)
         })
     }
-    shuffle = employees => {
-        let keys = Object.keys(employees),
-            newEmployees = {}
-        keys.sort((a,b) => Math.random() - 0.5)
-        keys.map((k, i) => { 
-            employees[k].timerPaused = i === 0 ? false : true
-            newEmployees[k] = employees[k]
-        })
-        return newEmployees
+    goToNextStep = () => {
+        const { profile, firebase, daily } = this.props
+        firebase.update(`dailyMeetings/${profile.currentDaily}`, { step: ++daily.step })
     }
+    joinDaily = () => this.setState({ isDailyStarted: true })
     render() {
-        const { team, profile } = this.props
-        
+        const { team, profile, daily, firebase } = this.props
+        const { isDailyStarted } = this.state
+        let currentStep = null
+        if (daily) {
+            switch(daily.step) {
+                case 1: 
+                    currentStep = <Intro goToNextStep={this.goToNextStep} team={team} />
+                    break
+                case 2: 
+                    currentStep = <Shuffling goToNextStep={this.goToNextStep} employees={daily.employees} />
+                    break
+                case 3: 
+                    currentStep = <Finishing firebase={firebase} profile={profile} />
+                    break
+                default: 
+                    currentStep = null
+                }
+        }
+
         return (
             <div className="row"> 
-                <RaisedButton
-                    onClick={this.createDaily} 
-                    primary
-                    label="Create scrum daily meeting" 
-                />
+                { isDailyStarted ? currentStep : '' }
                 {
-                    profile.currentDaily ?
+                    !daily || (daily && daily.step === 0) ? 
+                    <RaisedButton
+                        onClick={this.createDaily} 
+                        primary
+                        label="Create scrum daily meeting" 
+                    /> : ''
+                }
+                {
+                    profile.currentDaily && daily && !isDailyStarted ?
                     <RaisedButton
                         primary
                         label="Join daily meeting"
+                        onClick={this.joinDaily}
                     />:
                     ''
                 }
-                {
-                    !isLoaded(team) ?
-                    <SMLoader /> :
-                    <Intro team={team} />
-                }
-                
             </div>
         )
     }

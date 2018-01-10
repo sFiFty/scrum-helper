@@ -11,29 +11,31 @@ export default class Shuffling extends React.Component {
     state = {
         employees: null
     }
-    componentDidMount() {
-        const interval = setInterval(() => {
-            if (isLoaded(this.props.employees)) {
-                clearInterval(interval)
-                this.setParams(this.props.employees)
-            }
-        }, 100)
-        
+    componentWillMount() {
+        const { employees } = this.props
+        this.setState({ employees: this.shuffle(employees) })
     }
-    setParams = employees => {
-        const filteredEmployeeList = _.filter(employees, {availability: true})
-        this.setState({employees: this.shuffle(filteredEmployeeList)})
+    shuffle = employees => {
+        let keys = Object.keys(employees),
+            newEmployees = []
+        keys.map((k, i) => { 
+            let fullName = employees[i].firstName + ' ' + employees[i].lastName
+            newEmployees.push(fullName);
+        })
+        return newEmployees.sort(() => .5 - Math.random())
     }
     render() {
-        const { employees, timer } = this.state
+        const { employees } = this.state
+        const { goToNextStep } = this.props
         if (!employees) return <SMLoader />
         const employeeList = isEmpty(employees)
         ? 'Employee list is empty'
-        : _.keys(employees).map((index, position) => {
-            let fullName = position + 1 + '. ' + employees[index].firstName + ' ' + employees[index].lastName
+        : employees.map((employee, index) => {
+            let listLine = index + 1 + '. ' + employee
             return (
                 <ListItem 
-                    primaryText={fullName} 
+                    key={index}
+                    primaryText={listLine} 
                 />
             )
         })
@@ -48,7 +50,7 @@ export default class Shuffling extends React.Component {
                         <RaisedButton 
                             className="shuffling-button" 
                             primary 
-                            containerElement={<Link to="/daily/finishing" />} 
+                            onClick={() => { goToNextStep() }}
                             label="Finish" />
                     </Paper>
                 </div>
