@@ -53,7 +53,6 @@ export default class EmployeeList extends React.Component {
     render() {
         let i = 0
         const { team, profile, firebase } = this.props
-        
         const employeeList = !isLoaded(team)
             ? 
                 <Table.Row>
@@ -61,7 +60,7 @@ export default class EmployeeList extends React.Component {
                         <SMLoader />
                     </Table.Cell>
                 </Table.Row>
-            : isEmpty(team.employees)
+            : team === null || isEmpty(team.employees)
             ? 
                 <Table.Row>
                     <Table.Cell className="h3" textAlign='center' colSpan='3'>
