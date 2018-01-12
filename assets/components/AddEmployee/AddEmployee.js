@@ -3,8 +3,8 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import Paper from 'material-ui/Paper'
 import _ from 'lodash'
+import {NotificationManager}  from 'react-notifications'
 import './add-employee.scss'
-import { NotificationManager}  from 'react-notifications'
 
 const block = {
     display: 'block'

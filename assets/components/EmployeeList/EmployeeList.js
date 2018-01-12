@@ -1,17 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Table, Button } from 'semantic-ui-react'
-import _ from 'lodash'
-import Paper from 'material-ui/Paper'
-import { isLoaded, isEmpty } from 'react-redux-firebase'
 import SMLoader from '../SMLoader/SMLoader'
-import './employee-list.scss'
-import RaisedButton from 'material-ui/RaisedButton'
-import Dialog from 'material-ui/Dialog'
 import MemberCell from './MemberCell'
 import TableFooter from './TableFooter'
 import TableHeader from './TableHeader'
-import { NotificationManager }  from 'react-notifications'
+import _ from 'lodash'
+import Paper from 'material-ui/Paper'
+import RaisedButton from 'material-ui/RaisedButton'
+import Dialog from 'material-ui/Dialog'
+import {NotificationManager}  from 'react-notifications'
+import {Table, Button} from 'semantic-ui-react'
+import {isLoaded, isEmpty} from 'react-redux-firebase'
+import './employee-list.scss'
 
 export default class EmployeeList extends React.Component {
     static propTypes = {
@@ -35,7 +35,7 @@ export default class EmployeeList extends React.Component {
     }
 
     delete = () => {
-        const { firebase, team, profile } = this.props
+        const {firebase, team, profile} = this.props
         firebase.remove(`teams/${profile.teamId}/employees/${this.state.deletedEmployeeId}`)
         this.setState({open: false})
         const employee = team.employees[this.state.deletedEmployeeId]
@@ -46,13 +46,13 @@ export default class EmployeeList extends React.Component {
     }
 
     toggleAvailability = index => {
-        const { firebase, team, profile } = this.props
-        firebase.update(`teams/${profile.teamId}/employees/${index}`, { availability: !team.employees[index].availability })
+        const {firebase, team, profile} = this.props
+        firebase.update(`teams/${profile.teamId}/employees/${index}`, {availability: !team.employees[index].availability})
     }
 
     render() {
         let i = 0
-        const { team, profile, firebase } = this.props
+        const {team, profile, firebase} = this.props
         const employeeList = !isLoaded(team)
             ? 
                 <Table.Row>
@@ -104,7 +104,7 @@ export default class EmployeeList extends React.Component {
                 <Table selectable className="employee-list">
                     <TableHeader team={team} firebase={firebase} profile={profile} />
                     <Table.Body>
-                        { employeeList }
+                        {employeeList}
                     </Table.Body>
                     <TableFooter />
                 </Table>
