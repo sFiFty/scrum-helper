@@ -1,6 +1,10 @@
 .auth-dialog {
     .auth-container {
-        width: 100%;
-        height: 240px;
+        .secondary.menu > a.item {
+            display: block;
+            text-align: center;
+            width: 50%;
+            font-size: 1.2rem;
+        }
     }
 }

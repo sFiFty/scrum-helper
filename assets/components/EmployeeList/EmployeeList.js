@@ -64,7 +64,7 @@ export default class EmployeeList extends React.Component {
             ? 
                 <Table.Row>
                     <Table.Cell className="h3" textAlign='center' colSpan='3'>
-                        List of members currently is empty
+                    Currently, the list of members  is empty.
                     </Table.Cell>
                 </Table.Row>
             : _.keys(team.employees).map(index => {

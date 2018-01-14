@@ -33,6 +33,7 @@ export default class Auth extends React.Component {
     render() {
         let isAuthorized = false
         const {auth, firebase} = this.props
+        
         return (
             <div>
                 <AuthDialog 

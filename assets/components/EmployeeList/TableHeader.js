@@ -25,6 +25,7 @@ export default class TableHeader extends React.Component {
         const interval = setInterval(() => {
             if (isLoaded(this.props.team)) {
                 clearInterval(interval)
+                if (!this.props.team) return
                 this.setState({ 
                     name: this.props.team.name || '',
                     value: this.props.team.name || ''
