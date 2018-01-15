@@ -1,94 +1,90 @@
 import React from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
-import { Divider, Form, Label, Input } from 'semantic-ui-react'
+import { Divider, Form, Label, Input, Button, Icon, Message } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
-import validator from 'validator'
 
 export default class RegistrationForm extends React.Component {
     state = {
         email: null,
-        emailErrorText: null,
+        errorMessage: null,
         password: null,
-        passwordErrorText: null,
-        firstName: null,
-        firstNameErrorText: null,
-        lastName: null,
-        lastNameErrorText: null
     }
 
     static propTypes = {
         firebase: PropTypes.object.isRequired,
     }
 
-    setFirstName = event => this.setState({firstName: event.target.value})
-    setLastName = event => this.setState({lastName: event.target.value})
     setEmail = event => this.setState({email: event.target.value})
     setPassword = event => this.setState({password: event.target.value})
 
-    validateEmail = email => {
-        this.setState({
-            passwordErrorText: !validator.isEmail(_.trim(email)) ? 'Please provide the correct email' : null
-        })
-    }
-
-    validatePassword = password => {
-        this.setState({
-            passwordErrorText: _.trim(password).length < 6 ? 'Password must contain at least six characters' : null
-        })
-    }
-
-    validateFirstName = firstName => {
-        this.setState({
-            firstNameErrorText: _.trim(firstName).length === 0 ? 'Please provide your first name' : null
-        })
-    }
-
-    validateLastName = lastName => {
-        this.setState({
-            lastNameErrorText: _.trim(lastName).length === 0 ? 'Please provide your last name' : null
-        })
-    }
-
     validateForm = () => {
-        const {email, password, firstName, lastName} = this.state
-        this.validateEmail(email)
-        // this.validatePassword(password)
-        // this.validateFirstName(firstName)
-        // this.validateLastName(lastName)
-        const {emailErrorText, passwordErrorText, firstNameErrorText, lastNameErrorText} = this.state
-        if (!emailErrorText || !passwordErrorText || !firstNameErrorText || !lastNameErrorText) return false
+        const {email, password} = this.state
+        if (!_.trim(email).length && !_.trim(email).length) {
+            this.setState({errorMessage: 'Please provide email & password'})
+            return false
+        }
+        if (!_.trim(email).length || !this.validateEmail(_.trim(email))) {
+            this.setState({errorMessage: 'Please provide valid email'})
+            return false
+        }
+        if (_.trim(password).length < 6) {
+            this.setState({errorMessage: 'Password must contain at least 6 characters'})
+            return false
+        }
+        this.setState({errorMessage: null})
         return true
+    }
+
+    validateEmail = email => {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email.toLowerCase());
     }
 
     register = () => {
         const {email, password, firstName, lastName} = this.state
-        this.validateFirstName(firstName)
-        this.validateLastName(lastName)
+        const {firebase} = this.props
         if (this.validateForm()) {
-            console.log('ok')
-            // firebase.createUser({email: email, password: password}).catch(e => {
-            //     console.log(    e)
-            // })
+            firebase.createUser({email: email, password: password}).then(data => {
+                console.log(data)
+            }).catch(error => {
+                console.log(error)
+                this.setState({errorMessage: error.message})
+            })
         }
     }
 
     render() {
-        const {emailErrorText, passwordErrorText, firstNameErrorText, lastNameErrorText} = this.state
+        const {errorMessage} = this.state
+        const {loginWithGoogle, loginWithFB} = this.props
         return (
-            <div className="row auth-container pt-4">
-                <div className="col text-center">
-                    <Form>
-                        <Form.Field inline>
-                            <input type='text' placeholder='Email' />
-                            <Label basic color='red' pointing='left'>That name is taken!</Label>
-                        </Form.Field>
-                        <Form.Field inline>
-                            <Label basic color='red' pointing='right'>Your password must be 6 characters or more</Label>
-                            <input type='password' placeholder='Password' />
-                        </Form.Field>
-                        <RaisedButton primary label="Join" fullWidth={true} />
-                    </Form>
-                </div>
+            <div className="auth-container text-center pt-4">
+                <Form className="auth-form">
+                    {
+                        errorMessage ?
+                        <Message color='red'>{errorMessage}</Message>
+                        : ''
+                    }
+                    <Form.Field inline>
+                        <label className="text-left">Email</label>
+                        <input onChange={this.setEmail} type='text'/>
+                    </Form.Field>
+                    <Form.Field inline>
+                        <label className="text-left">Password (6 or more characters)</label>
+                        <input onChange={this.setPassword} type='password'/>
+                    </Form.Field>
+                    <RaisedButton onClick={this.register} primary label="Join" fullWidth={true} />
+                    <Divider />
+                    <Form.Field inline>
+                        <Button onClick={loginWithGoogle} color='google plus'>
+                            <Icon name='google plus' /> Join with Google
+                        </Button>
+                    </Form.Field>
+                    <Form.Field inline>
+                        <Button onClick={loginWithFB} color='facebook'>
+                            <Icon name='facebook' /> Join with Facebook
+                        </Button>
+                    </Form.Field>
+                </Form>
             </div>
         )
     }

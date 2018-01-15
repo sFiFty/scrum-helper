@@ -2,8 +2,9 @@ import React from 'react'
 import UserAvatar from '../UserAvatar/UserAvatar'
 import AuthDialog from './AuthDialog'
 import SMLoader from '../SMLoader/SMLoader'
-import { Button } from 'semantic-ui-react'
-import { isLoaded, isEmpty } from 'react-redux-firebase'
+import RaisedButton from 'material-ui/RaisedButton'
+import {Button} from 'semantic-ui-react'
+import {isLoaded, isEmpty} from 'react-redux-firebase'
 import PropTypes from 'prop-types'
 import './auth.scss'
 
@@ -20,11 +21,6 @@ export default class Auth extends React.Component {
         }),
         auth: PropTypes.object
     }
-
-    signInGoogle = () => {
-        const {firebase} = this.props
-        firebase.login({ provider: 'google', type: 'popup' })
-    }
    
     dialogOpen = () => this.setState({isDialogOpened: true})
 
@@ -33,7 +29,9 @@ export default class Auth extends React.Component {
     render() {
         let isAuthorized = false
         const {auth, firebase} = this.props
-        
+        // firebase.auth().onAuthStateChanged(function(user) {
+        //     user.sendEmailVerification()
+        // })
         return (
             <div>
                 <AuthDialog 
@@ -47,8 +45,7 @@ export default class Auth extends React.Component {
                     : isEmpty(auth)
                     ? 
                     <div>
-                        <Button onClick={this.signInGoogle} circular color='google plus' icon='google plus' />
-                        <Button onClick={this.dialogOpen} circular icon='mail' />
+                        <RaisedButton onClick={this.dialogOpen} primary label="Sign in" />
                     </div> 
                     : <UserAvatar signOut={() => {firebase.auth().signOut()}} uid={auth.uid} name={auth.displayName} avatar={auth.photoURL} />
                 }
