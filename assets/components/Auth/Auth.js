@@ -28,14 +28,13 @@ export default class Auth extends React.Component {
 
     render() {
         let isAuthorized = false
-        const {auth, firebase} = this.props
-        // firebase.auth().onAuthStateChanged(function(user) {
-        //     user.sendEmailVerification()
-        // })
+        const {auth, firebase, history} = this.props
+        console.log(this.props)
         return (
             <div>
                 <AuthDialog 
                     firebase={firebase} 
+                    history={history}
                     dialogClose={this.dialogClose} 
                     isDialogOpened={this.state.isDialogOpened} 
                 />

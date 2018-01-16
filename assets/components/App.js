@@ -7,6 +7,7 @@ import Finishing from '../components/ScrumDaily/Finishing'
 import Header from '../components/Header/Header'
 import UserProfileContainer from '../containers/UserProfileContainer'
 import EmployeeListContainer from '../containers/EmployeeListContainer'
+import EmailConfirmationContainer from '../containers/EmailConfirmationContainer'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { Route } from 'react-router-dom'
 import {NotificationContainer} from 'react-notifications'
@@ -32,6 +33,7 @@ export default class App extends React.Component {
                 <div className="layout-container row">
                     <Header  />
                     <Route exact path="/" component={EmployeeListContainer} />
+                    <Route exact path="/email-confirmation" component={EmailConfirmationContainer} />
                     <Route exact path="/add" component={AddEmployeeContainer} />
                     <Route exact path="/daily/" component={ScrumDailyCreationContainer} />
                     <Route exact path="/daily/:teamId/intro" component={DailyIntroContainer} />

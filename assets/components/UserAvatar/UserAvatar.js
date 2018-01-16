@@ -10,7 +10,13 @@ export default class UserAvatar extends React.Component {
         const link = "/user/" + uid
         return (
         <Header as='h4'>
-            <Avatar src={avatar} size={32} />
+            {
+                avatar ?
+                <Avatar src={avatar} size={32} />
+                :
+                <Icon size="huge" name='user circle' />
+            }
+            
             <Header.Content>
                 <Dropdown>
                     <Dropdown.Menu>

@@ -2,8 +2,9 @@ import React from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Divider, Form, Label, Input, Button, Icon, Message } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
+import {withRouter} from "react-router-dom"
 
-export default class RegistrationForm extends React.Component {
+class RegistrationForm extends React.Component {
     state = {
         email: null,
         errorMessage: null,
@@ -19,6 +20,7 @@ export default class RegistrationForm extends React.Component {
 
     validateForm = () => {
         const {email, password} = this.state
+        const {history} = this.state
         if (!_.trim(email).length && !_.trim(email).length) {
             this.setState({errorMessage: 'Please provide email & password'})
             return false
@@ -45,9 +47,11 @@ export default class RegistrationForm extends React.Component {
         const {firebase} = this.props
         if (this.validateForm()) {
             firebase.createUser({email: email, password: password}).then(data => {
-                console.log(data)
+                firebase.auth().onAuthStateChanged(user => {
+                    user.sendEmailVerification()
+                    this.props.history.push('/email-confirmation')
+                })
             }).catch(error => {
-                console.log(error)
                 this.setState({errorMessage: error.message})
             })
         }
@@ -89,3 +93,5 @@ export default class RegistrationForm extends React.Component {
         )
     }
 }
+
+export default withRouter(RegistrationForm)

@@ -20,10 +20,8 @@ export default class LoginForm extends React.Component {
        
     login = () => {
         const {firebase} = this.props
-        console.log(    firebase)
         const {email, password} = this.state
         firebase.login({email: email, password: password}).catch(error => {
-            console.log(error)
             if (error.code === 'auth/user-not-found') {
                 this.setState({errorMessage: "Sorry, we can't find an account with this email address"})
                 return
