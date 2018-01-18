@@ -3,6 +3,9 @@
     img.empty-team-img {
         margin: 0 auto;
     }
+    a.button {
+        -webkit-appearance: button-bevel;
+    }
 }
 
 .team-list-container .list.team-list .item.team-item {
