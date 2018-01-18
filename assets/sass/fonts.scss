@@ -1,5 +1,20 @@
+@import "./colors.scss";
 @import url(https://fonts.googleapis.com/css?family=Lato);
 $lato: 'Lato';
 
 @import url(https://fonts.googleapis.com/css?family=Satisfy);
 $satisfy: 'Satisfy';
+
+$font-s: 0.7rem;
+$font-m: 1.2rem;
+$font-l: 1.5rem;
+$font-xl: 2rem;
+
+.font-s { font-size: $font-s }
+.font-m { font-size: $font-m }
+.font-l { font-size: $font-l }
+.font-xl { font-size: $font-xl }
+
+.text-color {
+    color: $text-color;
+}

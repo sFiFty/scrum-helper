@@ -2,13 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
 import {firebaseConnect, isLoaded} from 'react-redux-firebase'
-import App from '../components/App'
+import TeamList from '../components/TeamList/TeamList'
 
 export default compose(
-    firebaseConnect(['employees']),
-    connect( state => ({
-        profile: state.firebase.profile,
-    })
+    firebaseConnect(),
+    connect(
+        (state) => ({
+            profile: state.firebase.profile
+        })
     )
-)(App)
+)(TeamList)
 

@@ -1,0 +1,24 @@
+@import "../../sass/colors.scss";
+.empty-team-container {
+    img.empty-team-img {
+        margin: 0 auto;
+    }
+}
+
+.team-list-container .list.team-list .item.team-item {
+    margin-bottom: 10px;
+    position: relative;
+    height: 55px;
+    .color-filler {
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0.7;
+    }
+    .content .header {
+        padding: 20px;
+        color: $text-color;
+        position: absolute;
+        z-index: 1;
+    }
+}

@@ -22,6 +22,9 @@ export default class Navigation extends React.Component {
             case '/daily': 
                 this.setState({ activeItem: 'Scrum daily' })
                 break
+            case '/teams': 
+                this.setState({ activeItem: 'My teams' })
+                break
             default: 
                 this.setState({ activeItem: null })
                 break
@@ -34,8 +37,9 @@ export default class Navigation extends React.Component {
                 <div className="row">
                     <div className="col-9">
                         <Menu pointing secondary>
+                            <Menu.Item as={Link} to="/teams" name='My teams' active={activeItem === 'My teams'} onClick={this.handleItemClick} />
                             <Menu.Item as={Link} to="/" name='My team' active={activeItem === 'My team'} onClick={this.handleItemClick} />
-                            {/* <Menu.Item as={Link} to="/add" name='Add team member' active={activeItem === 'Add team member'} onClick={this.handleItemClick} /> */}
+                            
                             <Menu.Item as={Link} to="/daily" name='Scrum daily' active={activeItem === 'Scrum daily'} onClick={this.handleItemClick} />
                             <Menu.Menu position='right'>
                             </Menu.Menu>

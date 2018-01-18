@@ -4,10 +4,12 @@ import AddEmployeeContainer from '../containers/AddEmployeeContainer'
 import DailyIntroContainer from '../containers/DailyIntroContainer'
 import ScrumDailyCreationContainer from '../containers/ScrumDailyCreationContainer'
 import Finishing from '../components/ScrumDaily/Finishing'
-import Header from '../components/Header/Header'
+import HeaderContainer from '../containers/HeaderContainer'
 import UserProfileContainer from '../containers/UserProfileContainer'
 import EmployeeListContainer from '../containers/EmployeeListContainer'
 import EmailConfirmationContainer from '../containers/EmailConfirmationContainer'
+import TeamListContainer from '../containers/TeamListContainer'
+import AddNewTeamContainer from '../containers/AddNewTeamContainer'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { Route } from 'react-router-dom'
 import {NotificationContainer} from 'react-notifications'
@@ -31,7 +33,7 @@ export default class App extends React.Component {
             : 
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div className="layout-container row">
-                    <Header  />
+                    <HeaderContainer  />
                     <Route exact path="/" component={EmployeeListContainer} />
                     <Route exact path="/email-confirmation" component={EmailConfirmationContainer} />
                     <Route exact path="/add" component={AddEmployeeContainer} />
@@ -39,6 +41,9 @@ export default class App extends React.Component {
                     <Route exact path="/daily/:teamId/intro" component={DailyIntroContainer} />
                     <Route exact path="/daily/:teamId/finishing" component={Finishing} />
                     <Route exact path="/user/:uid" component={UserProfileContainer} />
+                    <Route exact path="/teams" component={TeamListContainer} />
+                    <Route exact path="/teams/add" component={AddNewTeamContainer} />
+                    
                     <NotificationContainer/>
                 </div>
             </MuiThemeProvider>

@@ -1,5 +1,4 @@
 import React from 'react'
-import RaisedButton from 'material-ui/RaisedButton'
 import { Divider, Form, Label, Input, Button, Icon, Message } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import {withRouter} from "react-router-dom"
@@ -42,7 +41,7 @@ class RegistrationForm extends React.Component {
         return re.test(email.toLowerCase());
     }
 
-    register = () => {
+    signIn = () => {
         const {email, password, firstName, lastName} = this.state
         const {firebase} = this.props
         if (this.validateForm()) {
@@ -76,7 +75,7 @@ class RegistrationForm extends React.Component {
                         <label className="text-left">Password (6 or more characters)</label>
                         <input onChange={this.setPassword} type='password'/>
                     </Form.Field>
-                    <RaisedButton onClick={this.register} primary label="Join" fullWidth={true} />
+                    <Button type="submit" onClick={this.signIn} secondary>Sign In</Button>
                     <Divider />
                     <Form.Field inline>
                         <Button onClick={loginWithGoogle} color='google plus'>

@@ -1,8 +1,6 @@
 import React from 'react'
-import RaisedButton from 'material-ui/RaisedButton'
-import { Divider, Form, Label, Input, Button, Icon, Message } from 'semantic-ui-react'
+import { Divider, Form, Input, Button, Icon, Message } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
-import validator from 'validator'
 
 export default class LoginForm extends React.Component {
     state = {
@@ -53,7 +51,7 @@ export default class LoginForm extends React.Component {
                         <label className="text-left">Password (6 or more characters)</label>
                         <input onChange={this.setPassword} type='password'/>
                     </Form.Field>
-                    <RaisedButton onClick={this.login} primary label="Log in" fullWidth={true} />
+                    <Button type="submit" onClick={this.login} secondary>Log In</Button>
                     <Divider />
                     <Form.Field inline>
                         <Button onClick={loginWithGoogle} color='google plus'>

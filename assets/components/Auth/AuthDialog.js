@@ -31,7 +31,7 @@ export default class AuthDialog extends React.Component {
                     <LoginForm firebase={firebase} loginWithFB={this.loginWithFB} loginWithGoogle={this.loginWithGoogle} />
                 </Tab.Pane> 
             },
-            { menuItem: 'Join', render: () => 
+            { menuItem: 'Sign In', render: () => 
                 <Tab.Pane className="auth-tab" attached={false}>
                     <RegistrationForm firebase={firebase} loginWithFB={this.loginWithFB} loginWithGoogle={this.loginWithGoogle} />
                 </Tab.Pane> },
