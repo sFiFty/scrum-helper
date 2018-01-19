@@ -1,25 +1,35 @@
 import React from 'react'
-import { Container, Header, List } from 'semantic-ui-react'
-import EmptyTeam from './EmptyTeam'
+import {Container, Header, List, Image} from 'semantic-ui-react'
+import EmptyTeamList from './EmptyTeamList'
 import './team-list.scss'
 
 export default class TeamList extends React.Component {
     render() {
-        const {profile} = this.props
-
+        const { myTeams } = this.props
+        console.log(this.props)
         return (
             <Container className="team-list-container">
                 <Header as='h2'>My Teams</Header>
                 {
-                    profile.teams ? 
-                    <List className="team-list">
+                    myTeams ? 
+                    <List className="team-list" animated>
                         {
-                            _.keys(profile.teams).map(k => {
+                            _.keys(myTeams).map(k => {
                                 return (
                                     <List.Item className="team-item text-color" key={k}>
-                                        <div className="color-filler" style={{backgroundColor: profile.teams[k].color}}></div>
+                                        <div className="color-filler" style={{backgroundColor: myTeams[k].color}}></div>
                                         <List.Content>
-                                            <List.Header>{profile.teams[k].name}</List.Header>
+                                            <List.Header>{myTeams[k].name}</List.Header>
+                                            {  
+                                                myTeams[k].members ?
+                                                list :
+                                                <div className="member-list">
+                                                    <Image src={require('../../img/avatar_hipster.png')} avatar />
+                                                    <Image src={require('../../img/avatar_hipster.png')} avatar />
+                                                    <Image src={require('../../img/avatar_hipster.png')} avatar />
+                                                    <Image src={require('../../img/avatar_hipster.png')} avatar />
+                                                </div>
+                                            }
                                         </List.Content>
                                     </List.Item>
                                 )
@@ -27,7 +37,7 @@ export default class TeamList extends React.Component {
                         }
                     </List> 
                     :
-                    <EmptyTeam />
+                    <EmptyTeamList />
                 }
             </Container>
         )

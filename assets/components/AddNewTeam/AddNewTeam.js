@@ -27,9 +27,8 @@ export default class TeamList extends React.Component {
             name: name,
             color: color
         }).then(team => {
-            profile.teams[team.key] = {
-                name: name,
-                color: color
+            profile.teams[name] = {
+                id: team.key
             }
             firebase.updateProfile({
                 teams: profile.teams
