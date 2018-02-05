@@ -1,5 +1,6 @@
 import React from 'react'
-import {Container, Header, List, Image} from 'semantic-ui-react'
+import {Container, Header, List, Image, Icon} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
 import EmptyTeamList from './EmptyTeamList'
 import './team-list.scss'
 
@@ -28,6 +29,9 @@ export default class TeamList extends React.Component {
                                                     <Image src={require('../../img/avatar_hipster.png')} avatar />
                                                     <Image src={require('../../img/avatar_hipster.png')} avatar />
                                                     <Image src={require('../../img/avatar_hipster.png')} avatar />
+                                                    <Link to="/members/add" className="icon-border">
+                                                        <Icon size="large" name="add" />
+                                                    </Link>
                                                 </div>
                                             }
                                         </List.Content>

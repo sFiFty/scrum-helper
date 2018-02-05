@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import AddEmployeeContainer from '../containers/AddEmployeeContainer'
+import AddMemberContainer from '../containers/AddMemberContainer'
 import DailyIntroContainer from '../containers/DailyIntroContainer'
 import ScrumDailyCreationContainer from '../containers/ScrumDailyCreationContainer'
 import Finishing from '../components/ScrumDaily/Finishing'
@@ -9,7 +9,7 @@ import UserProfileContainer from '../containers/UserProfileContainer'
 import EmployeeListContainer from '../containers/EmployeeListContainer'
 import EmailConfirmationContainer from '../containers/EmailConfirmationContainer'
 import TeamListContainer from '../containers/TeamListContainer'
-import AddNewTeamContainer from '../containers/AddNewTeamContainer'
+import AddTeamContainer from '../containers/AddTeamContainer'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { Route } from 'react-router-dom'
 import {NotificationContainer} from 'react-notifications'
@@ -36,13 +36,13 @@ export default class App extends React.Component {
                     <HeaderContainer  />
                     <Route exact path="/" component={EmployeeListContainer} />
                     <Route exact path="/email-confirmation" component={EmailConfirmationContainer} />
-                    <Route exact path="/add" component={AddEmployeeContainer} />
+                    <Route exact path="/members/add" component={AddMemberContainer} />
                     <Route exact path="/daily/" component={ScrumDailyCreationContainer} />
                     <Route exact path="/daily/:teamId/intro" component={DailyIntroContainer} />
                     <Route exact path="/daily/:teamId/finishing" component={Finishing} />
                     <Route exact path="/user/:uid" component={UserProfileContainer} />
                     <Route exact path="/teams" component={TeamListContainer} />
-                    <Route exact path="/teams/add" component={AddNewTeamContainer} />
+                    <Route exact path="/teams/add" component={AddTeamContainer} />
                     
                     <NotificationContainer/>
                 </div>
