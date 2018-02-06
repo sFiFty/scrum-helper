@@ -7,16 +7,32 @@ import './add-member.scss'
 export default class AddMember extends React.Component {
     state = {
         name: null,
-        color: {
-            hex: '#fff'
-        },
         errorMessage: null,
+        defaultAvatarsList: []
     }
+    componentDidMount() {
+        if (this.state.defaultAvatarsList.length === 0) {
+            let list = []
+            for (let i = 1; i <= 12; i++) {
+                list.push({
+                    src: require(`../../img/default_avatar_${i}.svg`),
+                    selected: false
+                })
+            }
+            this.setState({defaultAvatarsList: list})
+        }
 
-    onPickColor = (color, event) => this.setState({color: color.hex})
+    }
+    onSelectAvatar = (selectedIndex) => {
+        let { defaultAvatarsList } = this.state
+        defaultAvatarsList.map((avatar, index) => {
+            avatar.selected = selectedIndex === index
+        })
+        this.setState({defaultAvatarsList: defaultAvatarsList})
+    }
     setName = event => this.setState({name: event.target.value})
     onAddTeam = () => {
-        const {name, color} = this.state
+        const {name} = this.state
         const {firebase, history, profile} = this.props
         if (!name || name.length < 1) {
             this.setState({errorMessage: 'Please provide team name'})
@@ -41,9 +57,10 @@ export default class AddMember extends React.Component {
         })
     }
     render() {
-        const { history, firebase, users, profile } = this.props
-        const {errorMessage, color} = this.state
-         return (
+        const {firebase, profile} = this.props
+        const {errorMessage, color, defaultAvatarsList} = this.state
+
+        return (
             <Container>
                 <Header as='h2'>Add Member</Header>
                 <Form className="add-member-form">
@@ -54,6 +71,15 @@ export default class AddMember extends React.Component {
                     }
                     <Form.Field className="member-name">
                         <Input onChange={this.setName.bind(this)} size='massive' placeholder='Type member name here...' />
+                    </Form.Field>
+                    <Form.Field className="member-avatar">
+                        {
+                            defaultAvatarsList.map((avatar, index) => {
+                                return <div className={avatar.selected ? 'selected' : ''} key={index} onClick={() => this.onSelectAvatar(index)}>
+                                    <img src={avatar.src} />
+                                </div>
+                            })
+                        }
                     </Form.Field>
                     <Button onClick={this.onAddTeam} floated="right" size="big" type="submit" secondary>Add Member</Button>
                 </Form>
