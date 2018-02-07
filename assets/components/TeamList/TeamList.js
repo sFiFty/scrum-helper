@@ -1,13 +1,13 @@
 import React from 'react'
-import {Container, Header, List, Image, Icon} from 'semantic-ui-react'
+import {Container, Header, List} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import EmptyTeamList from './EmptyTeamList'
+import MemberListInTheTeam from './MemberListInTheTeam'
 import './team-list.scss'
 
 export default class TeamList extends React.Component {
     render() {
         const { myTeams } = this.props
-        console.log(this.props)
         return (
             <Container className="team-list-container">
                 <Header as='h2'>My Teams</Header>
@@ -21,19 +21,7 @@ export default class TeamList extends React.Component {
                                         <div className="color-filler" style={{backgroundColor: myTeams[k].color}}></div>
                                         <List.Content>
                                             <List.Header>{myTeams[k].name}</List.Header>
-                                            {  
-                                                myTeams[k].members ?
-                                                list :
-                                                <div className="member-list">
-                                                    <Image src={require('../../img/avatar_hipster.png')} avatar />
-                                                    <Image src={require('../../img/avatar_hipster.png')} avatar />
-                                                    <Image src={require('../../img/avatar_hipster.png')} avatar />
-                                                    <Image src={require('../../img/avatar_hipster.png')} avatar />
-                                                    <Link to="/members/add" className="icon-border">
-                                                        <Icon size="large" name="add" />
-                                                    </Link>
-                                                </div>
-                                            }
+                                            <MemberListInTheTeam members={myTeams[k].members} teamKey={k} />
                                         </List.Content>
                                     </List.Item>
                                 )

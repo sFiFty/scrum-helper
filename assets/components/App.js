@@ -36,7 +36,7 @@ export default class App extends React.Component {
                     <HeaderContainer  />
                     <Route exact path="/" component={EmployeeListContainer} />
                     <Route exact path="/email-confirmation" component={EmailConfirmationContainer} />
-                    <Route exact path="/members/add" component={AddMemberContainer} />
+                    <Route exact path="/teams/:teamid/addMember" component={AddMemberContainer} />
                     <Route exact path="/daily/" component={ScrumDailyCreationContainer} />
                     <Route exact path="/daily/:teamId/intro" component={DailyIntroContainer} />
                     <Route exact path="/daily/:teamId/finishing" component={Finishing} />

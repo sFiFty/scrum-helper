@@ -1,5 +1,14 @@
 @import "../../sass/colors.scss";
 @import "../../sass/fonts.scss";
+
+
+.member-popup-details {
+    img {
+        width: 5rem;
+        height: 5rem;
+    }
+}
+
 .empty-team-container {
     img.empty-team-img {
         margin: 0 auto;
@@ -33,11 +42,14 @@
             right: 5px;
             z-index: 1;
             top: 10px;
-            img {
+            > img {
                 background: white;
                 width: 2.5rem;
                 height: 2.5rem;
                 margin-left: 5px;
+            }
+            > div {
+                display: inline-block;
             }
             .icon-border {
                 width: 2.5rem;

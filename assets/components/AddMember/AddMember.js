@@ -8,7 +8,8 @@ export default class AddMember extends React.Component {
     state = {
         name: null,
         errorMessage: null,
-        defaultAvatarsList: []
+        defaultAvatarsList: [],
+        avatar: null
     }
     componentDidMount() {
         if (this.state.defaultAvatarsList.length === 0) {
@@ -23,34 +24,34 @@ export default class AddMember extends React.Component {
         }
 
     }
-    onSelectAvatar = (selectedIndex) => {
+
+    selectAvatar = (selectedIndex) => {
         let { defaultAvatarsList } = this.state
         defaultAvatarsList.map((avatar, index) => {
             avatar.selected = selectedIndex === index
         })
-        this.setState({defaultAvatarsList: defaultAvatarsList})
+        this.setState({
+            defaultAvatarsList: defaultAvatarsList, 
+            avatar: `default_avatar_${selectedIndex + 1}.svg`
+        })
     }
+
     setName = event => this.setState({name: event.target.value})
-    onAddTeam = () => {
-        const {name} = this.state
-        const {firebase, history, profile} = this.props
+
+    addMember = () => {
+        const {name, avatar} = this.state
+        const {firebase, history, match} = this.props
         if (!name || name.length < 1) {
-            this.setState({errorMessage: 'Please provide team name'})
+            this.setState({errorMessage: 'Please provide member name'})
             return
         } 
         this.setState({errorMessage: null})
-        firebase.push('teams/', {
+        firebase.push(`teams/${match.params.teamid}/members`, {
             name: name,
-            color: color
+            avatar: avatar
         }).then(team => {
-            profile.teams[name] = {
-                id: team.key
-            }
-            firebase.updateProfile({
-                teams: profile.teams
-            })
             NotificationManager.success(
-                `Team ${name} successfully created`, 
+                `Member ${name} successfully added to your team`, 
                 'Confirmation'
             )
             history.push('/teams')
@@ -75,13 +76,13 @@ export default class AddMember extends React.Component {
                     <Form.Field className="member-avatar">
                         {
                             defaultAvatarsList.map((avatar, index) => {
-                                return <div className={avatar.selected ? 'selected' : ''} key={index} onClick={() => this.onSelectAvatar(index)}>
+                                return <div className={avatar.selected ? 'selected' : ''} key={index} onClick={() => this.selectAvatar(index)}>
                                     <img src={avatar.src} />
                                 </div>
                             })
                         }
                     </Form.Field>
-                    <Button onClick={this.onAddTeam} floated="right" size="big" type="submit" secondary>Add Member</Button>
+                    <Button onClick={this.addMember} floated="right" size="big" type="submit" secondary>Add Member</Button>
                 </Form>
             </Container>
         )
