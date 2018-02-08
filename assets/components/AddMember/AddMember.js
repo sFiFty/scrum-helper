@@ -40,7 +40,7 @@ export default class AddMember extends React.Component {
 
     addMember = () => {
         const {name, avatar} = this.state
-        const {firebase, history, match} = this.props
+        const {firebase, history, match, team} = this.props
         if (!name || name.length < 1) {
             this.setState({errorMessage: 'Please provide member name'})
             return
@@ -49,9 +49,9 @@ export default class AddMember extends React.Component {
         firebase.push(`teams/${match.params.teamid}/members`, {
             name: name,
             avatar: avatar
-        }).then(team => {
+        }).then(data => {
             NotificationManager.success(
-                `Member ${name} successfully added to your team`, 
+                `Member ${name} successfully added to ${team.name}`, 
                 'Confirmation'
             )
             history.push('/teams')

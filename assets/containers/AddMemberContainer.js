@@ -5,10 +5,17 @@ import {firebaseConnect} from 'react-redux-firebase'
 import AddMember from '../components/AddMember/AddMember'
 
 export default compose(
-    firebaseConnect(),
+    firebaseConnect((props, store) => {
+        return [
+            { 
+                path: `teams/${props.match.params.teamid}`,
+                storeAs: 'team'
+            }
+        ]
+    }),
     connect(
         (state) => ({
-            profile: state.firebase.profile
+            team: state.firebase.data.team
         })
     )
 )(AddMember)
