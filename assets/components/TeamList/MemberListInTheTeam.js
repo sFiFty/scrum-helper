@@ -47,7 +47,6 @@ export default class MemberListInTheTeam extends React.Component {
                     </div>
                     :
                     ''
-                    
                 }
                 <Link to={`/teams/${teamid}/addMember`} className="icon-border">
                     <Icon size="large" name="add" />

@@ -6,10 +6,9 @@ import AddTeam from '../components/AddTeam/AddTeam'
 
 export default compose(
     firebaseConnect(),
-    connect(
-        (state) => ({
-            profile: state.firebase.profile
-        })
-    )
+    connect(({ firebase }) => ({
+        profile: firebase.profile,
+        owner: firebase.auth.uid
+    }))
 )(AddTeam)
 

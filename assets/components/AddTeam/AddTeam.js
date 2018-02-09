@@ -17,7 +17,7 @@ export default class TeamList extends React.Component {
     setName = event => this.setState({name: event.target.value})
     onAddTeam = () => {
         const {name, color} = this.state
-        const {firebase, history, profile} = this.props
+        const {firebase, history, owner} = this.props
         if (!name || name.length < 1) {
             this.setState({errorMessage: 'Please provide team name'})
             return
@@ -25,14 +25,9 @@ export default class TeamList extends React.Component {
         this.setState({errorMessage: null})
         firebase.push('teams/', {
             name: name,
-            color: color
+            color: color,
+            owner: owner
         }).then(team => {
-            profile.teams[name] = {
-                id: team.key
-            }
-            firebase.updateProfile({
-                teams: profile.teams
-            })
             NotificationManager.success(
                 `Team ${name} successfully created`, 
                 'Confirmation'
