@@ -3,41 +3,37 @@ import {Container, Header, List, Icon} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import {NotificationManager}  from 'react-notifications'
-import EmptyTeamList from './EmptyTeamList'
-import MemberListInTheTeamContainer from '../../containers/MemberListInTheTeamContainer'
-import AddTeamBox from './AddTeamBox'
 import SMLoader from '../SMLoader/SMLoader'
-import './team-list.scss'
 
-export default class TeamList extends React.Component {
+export default class DailyList extends React.Component {
 
   deleteTeam = key => {
-    const {firebase, teams} = this.props
-    firebase.remove(`teams/${key}/`).then(() => {
+    const {firebase, meetings} = this.props
+    firebase.remove(`dailyMeetings/${key}/`).then(() => {
       NotificationManager.success(
-        `Team ${teams[key].name} successfully deleted`, 
+        `Meeting ${teams[key].name} successfully deleted`, 
         'Confirmation'
       )
     })
   }
 
   render() {
-    const {teams, uid} = this.props
+    const {meetings, uid} = this.props
+    console.log(meetings)
     return (
       <Container className="team-list-container">
-        <Header as='h2'>My Teams</Header>
+        <Header as='h2'>My Daily Meetings</Header>
         {
-          isLoaded(teams) ?
+          isLoaded(meetings) ?
           <List className="team-list">
             {
-              _.keys(teams).map(k => {
-                if (teams[k].owner !== uid) return
+              _.keys(meetings).map(k => {
+                if (meetings[k].owner !== uid) return
                 return (
                   <List.Item className="team-item text-color" key={k}>
-                    <div className="color-filler" style={{backgroundColor: teams[k].color}}></div>
+                    <div className="color-filler" style={{backgroundColor: meetings[k].color}}></div>
                     <List.Content>
-                      <List.Header>{teams[k].name}</List.Header>
-                      <MemberListInTheTeamContainer teamid={k} />
+                      <List.Header>{meetings[k].name}</List.Header>
                       <div className="team-controls">
                         <Link to={`/teams/${k}/addMember`} className="icon-border">
                           <Icon size="large" name="add" />
@@ -49,7 +45,6 @@ export default class TeamList extends React.Component {
                 )
               })
             }
-            <AddTeamBox />
           </List> :
           <SMLoader />
         }

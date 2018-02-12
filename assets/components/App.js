@@ -1,12 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import AddMemberContainer from '../containers/AddMemberContainer'
-import DailyIntroContainer from '../containers/DailyIntroContainer'
-import ScrumDailyCreationContainer from '../containers/ScrumDailyCreationContainer'
-import Finishing from '../components/ScrumDaily/Finishing'
 import HeaderContainer from '../containers/HeaderContainer'
 import UserProfileContainer from '../containers/UserProfileContainer'
-import EmployeeListContainer from '../containers/EmployeeListContainer'
+import DailyListContainer from '../containers/DailyListContainer'
 import EmailConfirmationContainer from '../containers/EmailConfirmationContainer'
 import TeamListContainer from '../containers/TeamListContainer'
 import AddTeamContainer from '../containers/AddTeamContainer'
@@ -34,16 +31,13 @@ export default class App extends React.Component {
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div className="layout-container row">
                     <HeaderContainer  />
-                    <Route exact path="/" component={EmployeeListContainer} />
+                    <Route exact path="/" component={TeamListContainer} />
                     <Route exact path="/email-confirmation" component={EmailConfirmationContainer} />
                     <Route exact path="/teams/:teamid/addMember" component={AddMemberContainer} />
-                    <Route exact path="/daily/" component={ScrumDailyCreationContainer} />
-                    <Route exact path="/daily/:teamId/intro" component={DailyIntroContainer} />
-                    <Route exact path="/daily/:teamId/finishing" component={Finishing} />
+                    <Route exact path="/daily/" component={DailyListContainer} />
                     <Route exact path="/user/:uid" component={UserProfileContainer} />
                     <Route exact path="/teams" component={TeamListContainer} />
                     <Route exact path="/teams/add" component={AddTeamContainer} />
-                    
                     <NotificationContainer/>
                 </div>
             </MuiThemeProvider>
