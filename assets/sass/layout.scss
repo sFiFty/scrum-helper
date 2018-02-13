@@ -2,50 +2,50 @@
 @import "./colors.scss";
 
 .layout-container {
-    width: auto;
-    max-width: 1200px;
-    padding: 0 20px;
-    margin: 0 auto;
-    .container {
-        .header {
-            padding: 20px 0px;
-        }
-    }
+	width: auto;
+	max-width: 1200px;
+	padding: 0 20px;
+	margin: 0 auto;
+	.container {
+		.header {
+			padding: 20px 0px;
+		}
+	}
 }
 
 body, div, h1, h2, h3, h4, h5, h6 {
-    font-family: $lato;
-    font-weight: normal;
+	font-family: $lato;
+	font-weight: normal;
 }
 
 .hidden {
-    display: none;
+	display: none;
 }
 
 /*
-    Loader
+	Loader
 */
 
 .loader {
-    position: absolute;
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    top: 50%;
-    width: 100px;
-    z-index: 3;
-    .loader-inner {
-        > div {
-            height: 105px;
-            width: 105px;
-        }
-        div {
-            &:last-child {
-                height: 85px;
-                width: 85px;
-            }
-        }
-    }
+	position: absolute;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	top: 50%;
+	width: 100px;
+	z-index: 3;
+	.loader-inner {
+		> div {
+			height: 105px;
+			width: 105px;
+		}
+		div {
+			&:last-child {
+				height: 85px;
+				width: 85px;
+			}
+		}
+	}
 }
 
 .loader-hidden {
@@ -56,19 +56,19 @@ body, div, h1, h2, h3, h4, h5, h6 {
 }
 
 body {
-    .ui.form input:not([type]):focus, 
-    .ui.form input[type=date]:focus, 
-    .ui.form input[type=datetime-local]:focus, 
-    .ui.form input[type=email]:focus, 
-    .ui.form input[type=file]:focus, 
-    .ui.form input[type=number]:focus, 
-    .ui.form input[type=password]:focus, 
-    .ui.form input[type=search]:focus, 
-    .ui.form input[type=tel]:focus, 
-    .ui.form input[type=text]:focus, 
-    .ui.form input[type=time]:focus, 
-    .ui.form input[type=url]:focus {
-        border-color: $black;
-    }
+	.ui.form input:not([type]):focus, 
+	.ui.form input[type=date]:focus, 
+	.ui.form input[type=datetime-local]:focus, 
+	.ui.form input[type=email]:focus, 
+	.ui.form input[type=file]:focus, 
+	.ui.form input[type=number]:focus, 
+	.ui.form input[type=password]:focus, 
+	.ui.form input[type=search]:focus, 
+	.ui.form input[type=tel]:focus, 
+	.ui.form input[type=text]:focus, 
+	.ui.form input[type=time]:focus, 
+	.ui.form input[type=url]:focus {
+		border-color: $black;
+	}
 }
 

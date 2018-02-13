@@ -1,0 +1,17 @@
+@import "~Styles/fonts.scss";
+@import "~Styles/colors.scss";
+
+.add-team-form.form {
+	.team-name .input input {
+		border: none;
+		padding-left: 0px;
+	}
+	.color-picker > label.color-picker-label {
+		font-size: $font-m;
+		padding: 15px 0px;
+		color: $text-color;
+	}
+	button {
+		margin-top: 20px;
+	}
+}

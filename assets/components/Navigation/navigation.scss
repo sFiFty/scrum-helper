@@ -1,14 +1,14 @@
-@import "../../sass/colors.scss";
-@import "../../sass/fonts.scss";
+@import "~Styles/colors.scss";
+@import "~Styles/fonts.scss";
 
 .navigation-wrapper {
-    padding-top: 10px;
-    .item {
-        font-size: $font-m;
-    }
-    .avatar-container {
-        padding-top: 10px;
-    }
+	padding-top: 10px;
+	.item {
+		font-size: $font-m;
+	}
+	.avatar-container {
+		padding-top: 10px;
+	}
 }
 
 

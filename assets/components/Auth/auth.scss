@@ -1,17 +1,17 @@
 .auth-dialog {
-    .auth-tabs {
-        .secondary.menu > a.item {
-            display: block;
-            text-align: center;
-            width: 50%;
-            font-size: 1.1rem;
-        }
-        .auth-tab .auth-container {
-            .auth-form {
-                input, button, label {
-                    width: 100%;
-                }
-            }
-        }
-    }
+	.auth-tabs {
+		.secondary.menu > a.item {
+			display: block;
+			text-align: center;
+			width: 50%;
+			font-size: 1.1rem;
+		}
+		.auth-tab .auth-container {
+			.auth-form {
+				input, button, label {
+					width: 100%;
+				}
+			}
+		}
+	}
 }

@@ -1,45 +1,45 @@
 /*
-    Shuffling
+	Shuffling
 */
 
 .shuffle-enter {
-    opacity: 0.01;
+	opacity: 0.01;
   }
   
   .shuffle-enter.shuffle-enter-active {
-    opacity: 1;
-    transition: opacity 500ms ease-in;
+	opacity: 1;
+	transition: opacity 500ms ease-in;
   }
   
   .shuffle-leave {
-    opacity: 1;
+	opacity: 1;
   }
   
   .shuffle-leave.shuffle-leave-active {
-    opacity: 0.01;
-    transition: opacity 300ms ease-in;
+	opacity: 0.01;
+	transition: opacity 300ms ease-in;
 }
 
 .shuffle-appear {
-    opacity: 0.01;
+	opacity: 0.01;
 }
   
 .shuffle-appear.shuffle-appear-active {
-    opacity: 1;
-    transition: opacity .5s ease-in;
+	opacity: 1;
+	transition: opacity .5s ease-in;
 }
 
 /*
-    Image loading
+	Image loading
 */
 
 .overlay {
-    z-index: 2;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: $white;
-    top: 0;
-    left: 0;
+	z-index: 2;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: $white;
+	top: 0;
+	left: 0;
 }
  
