@@ -5,9 +5,13 @@ import {firebaseConnect} from 'react-redux-firebase'
 import TeamList from 'Components/Teams/TeamList'
 
 export default compose(
-  firebaseConnect(['teams']),
+	firebaseConnect((props, state) => {
+		return [
+      { path: 'teams', queryParams: [`orderByChild=owner`, `equalTo=${state.getState().firebase.auth.uid}`] }
+		]
+	}),
   connect(({ firebase }) => ({
-    teams: firebase.data.teams,
+    teams: firebase.ordered.teams,
     uid: firebase.auth.uid
   }))
 )(TeamList)

@@ -23,6 +23,7 @@ export default class TeamList extends React.Component {
 
   render() {
     const {teams, uid} = this.props
+    console.log(teams)
     return (
       <Container className="team-list-container">
         <Header as='h2'>My Teams</Header>
