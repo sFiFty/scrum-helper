@@ -7,8 +7,7 @@ global.Tether = require('tether')
 require('bootstrap')
 import 'Styles/index.scss'
 import { Provider } from 'react-redux'
-import store from './store'
-import registerServiceWorker from './registerServiceWorker'
+import store from './src/store'
 
 ReactDOM.render(
 	<Provider store={store}>
@@ -20,4 +19,3 @@ ReactDOM.render(
 	</Provider>,
 	document.getElementById('root')
 )
-registerServiceWorker()

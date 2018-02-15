@@ -3,7 +3,7 @@ const webpack = require('webpack');
 module.exports = {
 	entry: {
 		app: [
-			path.join(__dirname, 'assets', 'main.js')
+			path.join(__dirname, 'main.js')
 		]
 	},
 	output: {
@@ -13,10 +13,11 @@ module.exports = {
   },
   resolve: {
     alias: {
-      Components: path.resolve( __dirname, 'assets', 'components'),
-      Containers: path.resolve( __dirname, 'assets', 'containers'),
-      Styles: path.resolve( __dirname, 'assets', 'sass'),
-      Images: path.resolve( __dirname, 'assets', 'images')
+      Components: path.resolve( __dirname, 'src', 'components'),
+      Containers: path.resolve( __dirname, 'src', 'containers'),
+      Styles: path.resolve( __dirname, 'src', 'sass'),
+      Apps: path.resolve( __dirname, 'src', 'apps'),
+      Images: path.resolve( __dirname, 'static', 'images')
     }
   },
   devtool: "source-map",

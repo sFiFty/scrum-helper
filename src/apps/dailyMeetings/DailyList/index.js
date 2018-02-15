@@ -3,7 +3,7 @@ import {Container, Header, List, Icon} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import {NotificationManager}  from 'react-notifications'
-import AddMeetingBox from 'Components/DailyList/AddMeetingBox'
+import AddMeetingBox from 'Components/DailyMeetings/DailyList/AddMeetingBox'
 import SMLoader from 'Components/SMLoader'
 
 export default class DailyList extends React.Component {
