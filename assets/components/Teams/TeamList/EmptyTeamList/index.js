@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {PureComponent} from 'react'
 import {Image, Button} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
-export default class EmptyTeamList extends React.Component {
+export default class EmptyTeamList extends PureComponent {
 	render() {
 		return (
 			<div className="empty-team-container">

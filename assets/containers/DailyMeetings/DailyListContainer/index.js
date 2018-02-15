@@ -2,22 +2,22 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
 import {firebaseConnect} from 'react-redux-firebase'
-import TeamList from 'Components/Teams/TeamList'
+import DailyList from 'Components/DailyList'
 
 export default compose(
 	firebaseConnect((props, state) => {
 		return [
       { 
-        path: 'teams', 
+        path: 'dailyMeetings', 
         queryParams: ['orderByChild=owner', `equalTo=${state.getState().firebase.auth.uid}`],
-        storeAs: 'myTeams'
+        storeAs: 'myMeetings'
       }
 		]
 	}),
 	connect(
 		(state) => ({
-      teams: state.firebase.data.myTeams
+      meetings: state.firebase.data.myMeetings
 		})
 	)
-)(TeamList)
+)(DailyList)
 

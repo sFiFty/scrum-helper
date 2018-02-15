@@ -108,7 +108,9 @@
 		}
 	}
 	.add-team-container {
-		width: 140px;
-		cursor: pointer;
+		i, span {
+			display: inline-block;
+			vertical-align: middle;
+		}
 	}
 }

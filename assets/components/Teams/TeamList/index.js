@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import {NotificationManager}  from 'react-notifications'
 import EmptyTeamList from './EmptyTeamList'
-import MemberListInTheTeamContainer from 'Containers/Teams/MemberListInTeamContainer'
+import MemberListInTeam from 'Components/Teams/TeamList/MemberListInTeam'
 import AddTeamBox from './AddTeamBox'
 import SMLoader from '../../SMLoader'
 import './team-list.scss'
@@ -21,9 +21,19 @@ export default class TeamList extends React.Component {
     })
   }
 
+	deleteMember = (member, teamid) => {
+		const {firebase, teams} = this.props
+    const team = teams[teamid]
+		firebase.remove(`teams/${teamid}/members/${member.id}`).then(() => {
+			NotificationManager.success(
+				`Member ${member.name} successfully removed from ${teams[teamid].name}`, 
+				'Confirmation'
+			)
+		})
+	}
+
   render() {
-    const {teams, uid} = this.props
-    console.log(teams)
+    const {teams} = this.props
     return (
       <Container className="team-list-container">
         <Header as='h2'>My Teams</Header>
@@ -32,13 +42,12 @@ export default class TeamList extends React.Component {
           <List className="team-list">
             {
               _.keys(teams).map(k => {
-                if (teams[k].owner !== uid) return
                 return (
                   <List.Item className="team-item text-color" key={k}>
                     <div className="color-filler" style={{backgroundColor: teams[k].color}}></div>
                     <List.Content>
                       <List.Header>{teams[k].name}</List.Header>
-                      <MemberListInTheTeamContainer teamid={k} />
+                      <MemberListInTeam members={teams[k].members} teamid={k} deleteMember={this.deleteMember} />
                       <div className="team-controls">
                         <Link to={`/teams/${k}/addMember`} className="icon-border">
                           <Icon size="large" name="add" />
