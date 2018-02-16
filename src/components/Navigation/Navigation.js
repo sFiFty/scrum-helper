@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {PureComponent} from 'react'
 import {Menu} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
-import './navigation.scss'
+import './styles.scss'
 import Auth from 'Components/Auth'
 
-export default class Navigation extends React.Component {
+export default class Navigation extends PureComponent {
 	state = { 
 		activeItem: null 
 	}

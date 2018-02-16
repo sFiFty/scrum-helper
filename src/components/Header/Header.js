@@ -1,7 +1,7 @@
 import React from 'react'
 import {Container, Image} from 'semantic-ui-react'
 import Navigation from 'Components/Navigation'
-import './header.scss'
+import './styles.scss'
 
 export default class Header extends React.Component {
 	render() {

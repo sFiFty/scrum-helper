@@ -2,7 +2,7 @@ import React from 'react'
 import { CirclePicker } from 'react-color'
 import {Container, Header, Input, Form, Button, Message} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
-import './add-team.scss'
+import './styles.scss'
 
 export default class TeamList extends React.Component {
 	state = {

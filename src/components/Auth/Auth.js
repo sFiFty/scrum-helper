@@ -5,7 +5,7 @@ import SMLoader from 'Components/SMLoader'
 import {Button} from 'semantic-ui-react'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import PropTypes from 'prop-types'
-import './auth.scss'
+import './styles.scss'
 
 export default class Auth extends Component {
   state = {

@@ -7,7 +7,7 @@ import EmptyTeamList from './EmptyTeamList'
 import Members from './Members'
 import AddTeamBox from './AddTeamBox'
 import SMLoader from 'Components/SMLoader'
-import './team-list.scss'
+import './styles.scss'
 
 export default class TeamList extends Component {
 

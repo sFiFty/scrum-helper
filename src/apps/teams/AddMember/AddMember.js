@@ -2,7 +2,7 @@ import React from 'react'
 import {Container, Header, Input, Form, Button, Message} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
 import _ from 'lodash'
-import './add-member.scss'
+import './styles.scss'
 
 export default class AddMember extends React.Component {
 	state = {
