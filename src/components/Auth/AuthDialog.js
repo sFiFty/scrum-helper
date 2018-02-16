@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import Dialog from 'material-ui/Dialog'
-import SwipeableViews from 'react-swipeable-views'
 import {Tab} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import RegistrationForm from './RegistrationForm'
