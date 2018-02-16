@@ -12,15 +12,17 @@ export default class MemberListInTeam extends React.Component {
 					<div>
 						{
 							_.keys(members).map(k => {
+								console.log(	members[k])
+								const avatar = members[k].avatar ? require(`Images/${members[k].avatar}`) : null
 								return <Popup
 									key={k}
-									trigger={<Image src={require(`Images/${members[k].avatar}`)} avatar />}
+									trigger={<Image src={avatar} avatar />}
 									flowing
 									hoverable
 								>
 									<Grid className="member-popup-details" verticalAlign="middle" centered columns={3}>
 										<Grid.Column textAlign='center'>
-											<Image src={require(`Images/${members[k].avatar}`)} />
+											<Image src={avatar} />
 										</Grid.Column>
 										<Grid.Column textAlign='center'>
 											<Header as='h4'>{members[k].name}</Header>

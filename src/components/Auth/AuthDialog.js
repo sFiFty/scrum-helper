@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import Dialog from 'material-ui/Dialog'
 import SwipeableViews from 'react-swipeable-views'
 import {Tab} from 'semantic-ui-react'
@@ -7,7 +7,7 @@ import RegistrationForm from './RegistrationForm'
 import LoginForm from './LoginForm'
 import {firebase} from 'react-redux-firebase'
 
-export default class AuthDialog extends React.Component {
+export default class AuthDialog extends Component {
 	static propTypes = {
 		firebase: PropTypes.object.isRequired,
 		isDialogOpened: PropTypes.bool.isRequired,

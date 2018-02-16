@@ -2,19 +2,24 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
 import {firebaseConnect} from 'react-redux-firebase'
-import Header from 'Components/Header'
+import UserProfile from './UserProfile'
 
 export default compose(
 	firebaseConnect((props) => {
 		return [
 			{
-			  path: `/storage`,
+				path: `users/${props.match.params.uid}`,
+				storeAs: 'myUser'
 			},
+			{
+				path: 'users',
+			}
 		]
 	}),
 	connect(
 		(state) => ({
-			logo: state.firebase.storage,
+			myUser: state.firebase.data.myUser,
+			users: state.firebase.data.users,
 		})
 	)
-)(Header)
+)(UserProfile)

@@ -2,9 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
 import {firebaseConnect} from 'react-redux-firebase'
-import Auth from 'Components/Auth'
+import EmailConfirmation from './EmailConfirmation'
 
 export default compose(
-  firebaseConnect(), 
-  connect(({firebase: {auth}}) => ({auth}))
-)(Auth)
+	connect(({ firebase: { profile } }) => ({ profile }))
+)(EmailConfirmation)

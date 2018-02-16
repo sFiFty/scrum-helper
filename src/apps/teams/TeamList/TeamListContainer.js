@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
 import {firebaseConnect} from 'react-redux-firebase'
-import TeamList from 'Components/Teams/TeamList'
+import TeamList from './TeamList'
 
 export default compose(
 	firebaseConnect((props, state) => {
