@@ -29,7 +29,6 @@ export default class DailyList extends Component {
           <List className="team-list">
             {
               _.keys(meetings).map(k => {
-                if (meetings[k].owner !== uid) return
                 return (
                   <List.Item className="team-item text-color" key={k}>
                     <List.Content>

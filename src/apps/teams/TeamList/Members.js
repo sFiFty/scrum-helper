@@ -12,7 +12,6 @@ export default class MemberListInTeam extends React.Component {
 					<div>
 						{
 							_.keys(members).map(k => {
-								console.log(	members[k])
 								const avatar = members[k].avatar ? require(`Images/${members[k].avatar}`) : null
 								return <Popup
 									key={k}

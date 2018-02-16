@@ -16,7 +16,7 @@ export default compose(
 	}),
 	connect(
 		(state) => ({
-      teams: state.firebase.data.myTeams
+	  	teams: state.firebase.data.myTeams
 		})
 	)
 )(TeamList)
