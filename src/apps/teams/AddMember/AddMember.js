@@ -64,13 +64,13 @@ export default class AddMember extends React.Component {
 		return (
 			<Container>
 				<Header as='h2'>Add Member</Header>
-				<Form className="add-member-form">
+				<Form className="add">
 					{
 						errorMessage ?
 						<Message color='red'>{errorMessage}</Message>
 						: ''
 					}
-					<Form.Field className="member-name">
+					<Form.Field className="name">
 						<Input onChange={this.setName.bind(this)} size='massive' placeholder='Type member name here...' />
 					</Form.Field>
 					<Form.Field className="member-avatar">

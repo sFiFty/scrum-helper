@@ -3,7 +3,7 @@ import {Container, Header, List, Icon} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import {NotificationManager}  from 'react-notifications'
-import AddMeetingBox from './AddMeetingBox'
+import CreateMeetingBox from './CreateMeetingBox'
 import SMLoader from 'Components/SMLoader'
 
 export default class DailyList extends Component {
@@ -20,7 +20,6 @@ export default class DailyList extends Component {
 
   render() {
     const {meetings, uid} = this.props
-    console.log(meetings)
     return (
       <Container className="team-list-container">
         <Header as='h2'>My Daily Meetings</Header>
@@ -37,7 +36,7 @@ export default class DailyList extends Component {
                 )
               })
             }
-            <AddMeetingBox />
+            <CreateMeetingBox />
           </List> :
           <SMLoader />
         }

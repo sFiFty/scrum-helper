@@ -2,19 +2,18 @@ import React from 'react'
 import { CirclePicker } from 'react-color'
 import {Container, Header, Input, Form, Button, Message} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
+import './styles.scss'
 
-export default class TeamList extends React.Component {
+export default class CreateDaily extends React.Component {
 	state = {
-		name: null,
-		color: {
-			hex: '#fff'
-		},
+    name: null,
+    teamid: null,
 		errorMessage: null,
 	}
 
-	onPickColor = (color, event) => this.setState({color: color.hex})
-	setName = event => this.setState({name: event.target.value})
-	onAddTeam = () => {
+  setName = event => this.setState({name: event.target.value})
+  
+	onCreateDaily = () => {
 		const {name, color} = this.state
 		const {firebase, history, owner} = this.props
 		if (!name || name.length < 1) {
@@ -35,10 +34,11 @@ export default class TeamList extends React.Component {
 		})
 	}
 	render() {
-		const {errorMessage, color} = this.state
+		const {errorMessage} = this.state
+		const {teams} = this.props
 		return (
 			<Container>
-				<Header as='h2'>Add New Team</Header>
+				<Header as='h2'>Create Daily Meeting</Header>
 				<Form className="add">
 					{
 						errorMessage ?
@@ -48,11 +48,19 @@ export default class TeamList extends React.Component {
 					<Form.Field className="name">
 						<Input onChange={this.setName.bind(this)} size='massive' placeholder='Type team name here...' />
 					</Form.Field>
-					<Form.Field className="color-picker">
-						<label className="color-picker-label">Pick your team color</label>
-						<CirclePicker color={color} onChange={this.onPickColor} width="100%" circleSize={38} />
+					<Form.Field className="teams-to-choose d-flex flex-row">
+						{
+							_.keys(teams).map((teamKey, index) => {
+								return <div 
+									style={{backgroundColor: teams[teamKey].color}} 
+									className="team-box font-s p-2 text-white" 
+									key={index}> 
+									{teams[teamKey].name} 
+								</div>
+							})
+						}
 					</Form.Field>
-					<Button onClick={this.onAddTeam} floated="right" size="big" type="submit" secondary>Add Team</Button>
+					<Button onClick={this.onCreateDaily} floated="right" size="big" type="submit" secondary>Create Daily</Button>
 				</Form>
 			</Container>
 		)

@@ -1,0 +1,12 @@
+.add.form {
+  .teams-to-choose {
+    .team-box {
+      border-radius: 10px; 
+      cursor: pointer;
+      margin-left: 10px;
+      &:first-child {
+        margin-left: 0px;
+      }
+    }
+  }
+}

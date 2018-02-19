@@ -3,7 +3,7 @@
 @import "./colors.scss";
 @import "./animations.scss";
 @import "./fonts.scss";
-$primary-color: $black;
+@import "./form.scss";
 @import '~loaders.css/src/animations/ball-clip-rotate-multiple.scss';
 @import '~semantic-ui-css/semantic.min.css';
 @import '~react-notifications/lib/notifications.css';
