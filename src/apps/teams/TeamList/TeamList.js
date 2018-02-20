@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Container, Header, List, Icon} from 'semantic-ui-react'
+import {Container, Header, List, Icon, Transition} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import {NotificationManager}  from 'react-notifications'
@@ -39,7 +39,7 @@ export default class TeamList extends Component {
         <Header as='h2'>My Teams</Header>
         {
           isLoaded(teams) ?
-          <List className="team-list">
+          <Transition.Group as={List} duration={500} className="team-list"> 
             {
               _.keys(teams).map(k => {
                 return (
@@ -60,7 +60,7 @@ export default class TeamList extends Component {
               })
             }
             <AddTeamBox />
-          </List> :
+          </Transition.Group> :
           <SMLoader />
         }
       </Container>

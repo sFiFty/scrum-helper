@@ -7,7 +7,7 @@ import './styles.scss'
 export default class CreateDaily extends React.Component {
 	state = {
     name: null,
-    teamid: null,
+    selectedTeamId: null,
 		errorMessage: null,
 	}
 
@@ -34,7 +34,7 @@ export default class CreateDaily extends React.Component {
 		})
 	}
 	render() {
-		const {errorMessage} = this.state
+		const {errorMessage, selectedTeamId} = this.state
 		const {teams} = this.props
 		return (
 			<Container>
@@ -54,6 +54,7 @@ export default class CreateDaily extends React.Component {
 								return <div 
 									style={{backgroundColor: teams[teamKey].color}} 
 									className="team-box font-s p-2 text-white" 
+									
 									key={index}> 
 									{teams[teamKey].name} 
 								</div>
