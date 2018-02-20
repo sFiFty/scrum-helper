@@ -1,11 +1,40 @@
+@import "~Styles/_definitions.scss";
+
 .add.form {
   .teams-to-choose {
     .team-box {
+      position: relative;
       border-radius: 10px; 
       cursor: pointer;
       margin-left: 10px;
       &:first-child {
         margin-left: 0px;
+      }
+      .checkmark-icon {
+        position: absolute;
+        z-index: 2;
+        margin: 0 auto;
+        top: 25%;
+        right: 0;
+        left: 0;
+        display: none;
+      }
+      .overlay-block {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0.9;
+        background: $white;
+        border-radius: 10px;
+        display: none;
+      }
+    }
+    .selected {
+      .checkmark-icon, .overlay-block {
+        display: block;
       }
     }
   }
