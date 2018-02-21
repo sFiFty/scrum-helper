@@ -5,11 +5,13 @@ $lato: 'Lato';
 @import url(https://fonts.googleapis.com/css?family=Satisfy);
 $satisfy: 'Satisfy';
 
-$font-s: 0.7rem;
+$font-xs: 0.7rem;
+$font-s: 1rem;
 $font-m: 1.2rem;
 $font-l: 1.5rem;
 $font-xl: 2rem;
 
+.font-xs { font-size: $font-xs }
 .font-s { font-size: $font-s }
 .font-m { font-size: $font-m }
 .font-l { font-size: $font-l }

@@ -1,74 +1,101 @@
 import React from 'react'
 import { CirclePicker } from 'react-color'
-import {Container, Header, Input, Form, Button, Message, Icon, Dropdown} from 'semantic-ui-react'
+import {Container, Header, Input, Form, Button, Icon, Dropdown, Image} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
 import './styles.scss'
 
 export default class CreateDaily extends React.Component {
 	state = {
-    name: null,
-		errorMessage: null,
-		selectedTeamId: null
+		selectedTeamId: null,
+		selectedNames: [],
+		selectedMembers: [],
+		allMembers: []
 	}
 
-  setName = event => this.setState({name: event.target.value})
+	onAddMember = (e, {value, options}) => {
+		let selectedMembers = options.filter(member => value.indexOf(member.value) !== -1)
+		this.setState({selectedNames: value, selectedMembers: selectedMembers})
+	}
+
+	componentWillReceiveProps(props) {
+		const {teams} = props
+		const {selectedTeamId} = this.state
+		if (!teams || selectedTeamId) return
+		this.generateValues(teams, _.keys(teams)[0])
+	}
+
+	generateValues = (teams, teamId) => {
+		let allMembers = [] 
+		let membersNames = []
+		const members = teams[teamId].members
+		_.keys(members).map((memberKey, index) => {
+			const member = members[memberKey]
+			allMembers.push({
+				value: member.name,
+				key: index,
+				text: member.name,
+				content: <div>
+					<Image avatar src={require(`Images/${member.avatar}`)} />
+					<span>{member.name}</span>
+				</div>
+			})
+			membersNames.push(member.name)
+		})
+
+		this.setState({
+			allMembers: allMembers,
+			selectedMembers: allMembers,
+			selectedNames: membersNames,
+			selectedTeamId: teamId
+		})
+	}
 	
-	selectTeam = key => this.setState({selectedTeamId: key})
+	selectTeam = key => {
+		const {teams} = this.props
+		this.generateValues(teams, key)
+	}
+
+	shuffle = array => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]
+    }
+    return array
+	}
 
 	onCreateDaily = () => {
-		const {name, color} = this.state
-		const {firebase, history, owner} = this.props
-		if (!name || name.length < 1) {
-			this.setState({errorMessage: 'Please provide team name'})
-			return
-		} 
-		this.setState({errorMessage: null})
-		firebase.push('teams/', {
-			name: name,
-			color: color,
-			owner: owner
+		const {teams, firebase, history} = this.props
+		const {selectedMembers, selectedTeamId} = this.state
+		let members = {}
+		this.shuffle(selectedMembers).map((member, index) => {
+			members[index] = {
+				name: member.value
+			}
+		})
+		selectedMembers.map
+		firebase.push('dailyMeetings/', {
+			teamId: selectedTeamId,
+			members: members,
 		}).then(team => {
 			NotificationManager.success(
-				`Team ${name} successfully created`, 
+				`Daily for ${teams[selectedTeamId].name} successfully created`, 
 				'Confirmation'
 			)
-			history.push('/teams')
+			history.push('/daily')
 		})
 	}
 	render() {
-		const {errorMessage, selectedTeamId} = this.state
+		const {selectedTeamId, allMembers, selectedNames} = this.state
 		const {teams} = this.props
-		const selectedKey = selectedTeamId || _.keys(teams)[0]
-		let members = []
-		if (teams) {
-			_.keys(teams[selectedKey].members).map((member, index) => {
-				members.push({
-					value: member.name,
-					key: index,
-					text: member.name
-				})
-			})
-			console.log(members)
-		}
-
 		return (
 			<Container>
 				<Header as='h2'>Create Daily Meeting</Header>
 				<Form className="add">
-					{
-						errorMessage ?
-						<Message color='red'>{errorMessage}</Message>
-						: ''
-					}
-					<Form.Field className="name">
-						<Input onChange={this.setName.bind(this)} size='massive' placeholder='Type team name here...' />
-					</Form.Field>
 					<Form.Field className="teams-to-choose d-flex flex-row">
 						{
-							
 							_.keys(teams).map((teamKey, index) => {
-								const selectedClass = selectedKey === teamKey ? 'selected' : null
-								const classes = `${selectedClass} team-box font-s p-2 text-white`;
+								const selectedClass = selectedTeamId === teamKey ? 'selected' : null
+								const classes = `${selectedClass} team-box font-s p-3 text-white`
 								return <div 
 									style={{backgroundColor: teams[teamKey].color}} 
 									className={classes}
@@ -81,12 +108,14 @@ export default class CreateDaily extends React.Component {
 							})
 						}
 					</Form.Field>
-					<Form.Field>
+					<Form.Field className="mt-5">
 						<Dropdown 
 							placeholder={`Team members`} 
 							multiple 
+							onChange={this.onAddMember}
 							selection 
-							options={members} />
+							value={selectedNames || []}
+							options={allMembers || []} />
 					</Form.Field>
 					<Button onClick={this.onCreateDaily} floated="right" size="big" type="submit" secondary>Create Daily</Button>
 				</Form>
