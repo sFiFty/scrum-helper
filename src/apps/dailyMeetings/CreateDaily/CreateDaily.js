@@ -32,7 +32,7 @@ export default class CreateDaily extends React.Component {
 			const member = members[memberKey]
 			allMembers.push({
 				value: member.name,
-				key: index,
+				key: memberKey,
 				text: member.name,
 				content: <div>
 					<Image avatar src={require(`Images/${member.avatar}`)} />
@@ -64,17 +64,18 @@ export default class CreateDaily extends React.Component {
 	}
 
 	onCreateDaily = () => {
-		const {teams, firebase, history} = this.props
+		const {teams, firebase, history, owner} = this.props
 		const {selectedMembers, selectedTeamId} = this.state
 		let members = {}
 		this.shuffle(selectedMembers).map((member, index) => {
 			members[index] = {
-				name: member.value
+				id: member.key
 			}
 		})
 		selectedMembers.map
 		firebase.push('dailyMeetings/', {
-			teamId: selectedTeamId,
+			team: selectedTeamId,
+			owner: owner,
 			members: members,
 		}).then(team => {
 			NotificationManager.success(

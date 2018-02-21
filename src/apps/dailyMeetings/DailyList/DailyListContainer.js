@@ -1,8 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
-import {firebaseConnect} from 'react-redux-firebase'
+import {firebaseConnect, populate} from 'react-redux-firebase'
 import DailyList from './DailyList'
+
+const populates = [
+  { child: 'team', root: 'teams', keyProp: 'key' } // replace owner with user object
+]
 
 export default compose(
 	firebaseConnect((props, state) => {
@@ -10,13 +14,14 @@ export default compose(
       { 
         path: 'dailyMeetings', 
         queryParams: ['orderByChild=owner', `equalTo=${state.getState().firebase.auth.uid}`],
-        storeAs: 'myMeetings'
-      }
+				populates
+			}
 		]
 	}),
 	connect(
 		(state) => ({
-	  	meetings: state.firebase.data.myMeetings
+			meetings: populate(state.firebase, 'dailyMeetings', populates),
+			
 		})
 	)
 )(DailyList)
