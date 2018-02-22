@@ -1,7 +1,7 @@
 import React from 'react'
-import { CirclePicker } from 'react-color'
-import {Container, Header, Input, Form, Button, Icon, Dropdown, Image} from 'semantic-ui-react'
+import {Container, Header, Form, Button, Icon, Dropdown, Image} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
+import moment from 'moment'
 import './styles.scss'
 
 export default class CreateDaily extends React.Component {
@@ -77,6 +77,7 @@ export default class CreateDaily extends React.Component {
 			team: selectedTeamId,
 			owner: owner,
 			members: members,
+			timestamp: moment().unix()
 		}).then(team => {
 			NotificationManager.success(
 				`Daily for ${teams[selectedTeamId].name} successfully created`, 

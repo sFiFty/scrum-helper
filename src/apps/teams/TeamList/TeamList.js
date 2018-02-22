@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import {NotificationManager}  from 'react-notifications'
 import EmptyTeamList from './EmptyTeamList'
-import Members from './Members'
+import MembersInTheList from 'Components/MembersInTheList'
 import AddTeamBox from './AddTeamBox'
 import SMLoader from 'Components/SMLoader'
 import './styles.scss'
@@ -35,20 +35,20 @@ export default class TeamList extends Component {
   render() {
     const {teams} = this.props
     return (
-      <Container className="team-list-container">
+      <Container className="list-container">
         <Header as='h2'>My Teams</Header>
         {
           isLoaded(teams) ?
-          <Transition.Group as={List} duration={500} className="team-list"> 
+          <Transition.Group as={List} duration={500}> 
             {
               _.keys(teams).map(k => {
                 return (
-                  <List.Item className="team-item text-color" key={k}>
+                  <List.Item className="text-color item-container" key={k}>
                     <div className="color-filler" style={{backgroundColor: teams[k].color}}></div>
                     <List.Content>
                       <List.Header>{teams[k].name}</List.Header>
-                      <Members members={teams[k].members} teamid={k} deleteMember={this.deleteMember} />
-                      <div className="team-controls">
+                      <MembersInTheList members={teams[k].members} parent={k} deleteMember={this.deleteMember} />
+                      <div className="list-controls">
                         <Link to={`/teams/${k}/addMember`} className="icon-border">
                           <Icon size="large" name="add" />
                         </Link>

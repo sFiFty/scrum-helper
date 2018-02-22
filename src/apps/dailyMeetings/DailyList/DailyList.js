@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
-import {Container, Header, List, Icon} from 'semantic-ui-react'
+import {Container, Header, List, Icon, Button} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import {NotificationManager}  from 'react-notifications'
 import CreateMeetingBox from './CreateMeetingBox'
 import SMLoader from 'Components/SMLoader'
-import Members from 'Apps/teams/TeamList/Members'
+import MembersInTheList from 'Components/MembersInTheList'
+import './styles.scss'
 
 export default class DailyList extends Component {
 
@@ -46,23 +47,24 @@ export default class DailyList extends Component {
   render() {
     const {meetings, teams} = this.props
     return (
-      <Container className="team-list-container">
+      <Container className="list-container daily-list">
         <Header as='h2'>My Daily Meetings</Header>
         {
           isLoaded(meetings) ?
-          <List className="team-list">
+          <List>
             {
               
               _.keys(meetings).map(k => {
                 let meeting = meetings[k]
                 let extendedMembersList = this.extendMembersList(meeting.members, meeting.team.members)
                 return (
-                  <List.Item className="team-item text-color" key={k}>
+                  <List.Item className="text-color item-container" key={k}>
                     <div className="color-filler" style={{backgroundColor: meeting.team.color}}></div>
                     <List.Content>
                       <List.Header>{meeting.team.name} daily</List.Header>
-                      <Members members={extendedMembersList} deleteMember={this.deleteMember} teamid={k} />
-                      <div className="team-controls">
+                      <MembersInTheList members={extendedMembersList} deleteMember={this.deleteMember} parent={k} />
+                      <Button as={Link} to={`daily/${k}`} className="join-button" inverted>Start</Button>
+                      <div className="list-controls">
                         <Icon className="trash-icon" size="large" name="trash" color="red" />
                       </div>
                     </List.Content>
