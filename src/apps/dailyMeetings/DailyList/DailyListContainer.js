@@ -5,7 +5,7 @@ import {firebaseConnect, populate} from 'react-redux-firebase'
 import DailyList from './DailyList'
 
 const populates = [
-  { child: 'team', root: 'teams', keyProp: 'key' } // replace owner with user object
+  {child: 'team', root: 'teams', keyProp: 'key'} 
 ]
 
 export default compose(

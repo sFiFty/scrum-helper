@@ -5,6 +5,7 @@ import Header from 'Components/Header'
 import UserProfile from 'Components/UserProfile'
 import DailyList from 'Apps/dailyMeetings/DailyList'
 import CreateDaily from 'Apps/dailyMeetings/CreateDaily'
+import Daily from 'Apps/dailyMeetings/Daily'
 import EmailConfirmation from 'Components/EmailConfirmation'
 import TeamList from 'Apps/teams/TeamList'
 import AddTeam from 'Apps/teams/AddTeam'
@@ -40,6 +41,7 @@ export default class App extends React.Component {
           <Route exact path="/teams/:teamid/addMember" component={AddMember} />
           <Route exact path="/daily/" component={DailyList} />
           <Route exact path="/daily/create" component={CreateDaily} />
+          <Route exact path="/daily/:dailyid" component={Daily} />
           <NotificationContainer/>
         </div>
       </MuiThemeProvider>

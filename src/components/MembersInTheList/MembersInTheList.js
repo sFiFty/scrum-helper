@@ -4,7 +4,7 @@ import {NotificationManager}  from 'react-notifications'
 
 export default class MemberListInTeam extends React.Component {
 	render() {
-		const {members, deleteMember, teamid} = this.props
+		const {members, deleteMember, parent} = this.props
 		return (
 			<div className="member-list">
 				{  
@@ -27,7 +27,7 @@ export default class MemberListInTeam extends React.Component {
 											<Header as='h4'>{members[k].name}</Header>
 										</Grid.Column>
 										<Grid.Column textAlign='center'>
-											<Icon onClick={() => deleteMember({...members[k], id: k}, teamid)} size="large" name="remove" color="red" />
+											<Icon onClick={() => deleteMember({...members[k], id: k}, parent)} size="large" name="remove" color="red" />
 										</Grid.Column>
 									</Grid>
 								</Popup>

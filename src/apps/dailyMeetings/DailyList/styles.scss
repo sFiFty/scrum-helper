@@ -1,0 +1,16 @@
+.join-button {
+  z-index: 2;
+  position: absolute;
+  right: 90px;
+  top: 10px;
+}
+
+.list-container.daily-list {
+	.list > .item.item-container {
+		.content {
+			.member-list {
+        right: 180px;
+      }
+    }
+  }
+}
