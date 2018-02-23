@@ -6,6 +6,7 @@ import {NotificationManager}  from 'react-notifications'
 import CreateMeetingBox from './CreateMeetingBox'
 import SMLoader from 'Components/SMLoader'
 import MembersInTheList from 'Components/MembersInTheList'
+import ExtendMembersList from 'Helpers/ExtendMembersList'
 import './styles.scss'
 
 export default class DailyList extends Component {
@@ -56,14 +57,14 @@ export default class DailyList extends Component {
               
               _.keys(meetings).map(k => {
                 let meeting = meetings[k]
-                let extendedMembersList = this.extendMembersList(meeting.members, meeting.team.members)
+                let extendedMembersList = ExtendMembersList(meeting.members, meeting.team.members)
                 return (
                   <List.Item className="text-color item-container" key={k}>
                     <div className="color-filler" style={{backgroundColor: meeting.team.color}}></div>
                     <List.Content>
                       <List.Header>{meeting.team.name} daily</List.Header>
                       <MembersInTheList members={extendedMembersList} deleteMember={this.deleteMember} parent={k} />
-                      <Button as={Link} to={`daily/${k}`} className="join-button" inverted>Start</Button>
+                      <Button as={Link} to={`daily/ongoing/${k}`} className="join-button" inverted>Start</Button>
                       <div className="list-controls">
                         <Icon className="trash-icon" size="large" name="trash" color="red" />
                       </div>

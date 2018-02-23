@@ -16,7 +16,8 @@ module.exports = {
       Components: path.resolve( __dirname, 'src', 'components'),
       Styles: path.resolve( __dirname, 'src', 'sass'),
       Apps: path.resolve( __dirname, 'src', 'apps'),
-      Images: path.resolve( __dirname, 'static', 'images')
+      Images: path.resolve( __dirname, 'static', 'images'),
+      Helpers: path.resolve( __dirname, 'src', 'helpers'),
     }
   },
   devtool: "source-map",
