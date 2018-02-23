@@ -21,7 +21,6 @@ export default compose(
 	connect(
 		(state) => ({
 			meetings: populate(state.firebase, 'dailyMeetings', populates),
-			
 		})
 	)
 )(DailyList)

@@ -5,15 +5,17 @@ import {firebaseConnect, populate} from 'react-redux-firebase'
 import Daily from './Daily'
 
 const populates = [
-  {child: 'team', root: 'teams'} 
+  {child: 'team', root: 'teams', keyProp: 'key'} 
 ]
-let dailyid
+
+let dailyId
+
 export default compose(
 	firebaseConnect((props, state) => {
-		dailyid = props.match.params.dailyid
+		dailyId = props.match.params.dailyid
 		return [
       { 
-				path: `dailyMeetings/${dailyid}`, 
+				path: `dailyMeetings/${dailyId}`, 
 				storeAs: 'daily',
 				populates
 			}
@@ -22,6 +24,7 @@ export default compose(
 	connect(
 		(state) => ({
 			daily: populate(state.firebase, `daily`, populates),
+			dailyId: dailyId
 		})
 	)
 )(Daily)

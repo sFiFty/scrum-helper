@@ -1,0 +1,42 @@
+@import "~Styles/_definitions.scss";
+
+.page-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  .daily-text, .daily-queue {
+    font-family: $satisfy;
+    font-size: 5.5vw;
+    position: absolute;
+    top: 35%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    color: $white;
+    > div {
+        font-family: $satisfy;
+        margin-top: 4vw;
+        font-size: 3vw;
+    }
+  }
+  .daily-queue {
+    top: 10%;
+    .queue-members.list {
+      font-size: 1vw;
+      width: 80%;
+      max-width: 500px;
+      background: $white;
+      margin: 50px auto;
+      padding: 25px 50px;
+      border-radius: 12px;
+      text-align: left;
+      .item {
+        img, content {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}

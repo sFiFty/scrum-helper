@@ -77,7 +77,8 @@ export default class CreateDaily extends React.Component {
 			team: selectedTeamId,
 			owner: owner,
 			members: members,
-			timestamp: moment().unix()
+			timestamp: moment().unix(),
+			step: 0
 		}).then(team => {
 			NotificationManager.success(
 				`Daily for ${teams[selectedTeamId].name} successfully created`, 
