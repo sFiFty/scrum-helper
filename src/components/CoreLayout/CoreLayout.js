@@ -41,7 +41,7 @@ export default class App extends React.Component {
           <Route exact path="/teams/:teamid/addMember" component={AddMember} />
           <Route exact path="/daily/" component={DailyList} />
           <Route exact path="/daily/create" component={CreateDaily} />
-          <Route exact path="/daily/:dailyid" component={Daily} />
+          <Route exact path="/daily/ongoing/:dailyid" component={Daily} />
           <NotificationContainer/>
         </div>
       </MuiThemeProvider>
