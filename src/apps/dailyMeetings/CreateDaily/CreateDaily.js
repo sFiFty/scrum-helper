@@ -1,6 +1,7 @@
 import React from 'react'
 import {Container, Header, Form, Button, Icon, Dropdown, Image} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
+import PropTypes from 'prop-types'
 import moment from 'moment'
 import './styles.scss'
 
@@ -56,11 +57,11 @@ export default class CreateDaily extends React.Component {
 	}
 
 	shuffle = array => {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]]
-    }
-    return array
+		for (let i = array.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[array[i], array[j]] = [array[j], array[i]]
+		}
+		return array
 	}
 
 	onCreateDaily = () => {
@@ -124,5 +125,11 @@ export default class CreateDaily extends React.Component {
 				</Form>
 			</Container>
 		)
+	}
+
+	static propTypes = {
+		firebase: PropTypes.object.isRequired,
+		teams: PropTypes.object.isRequired,
+		owner: PropTypes.string.isRequired
 	}
 }

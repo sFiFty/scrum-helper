@@ -7,11 +7,6 @@ import LoginForm from './LoginForm'
 import {firebase} from 'react-redux-firebase'
 
 export default class AuthDialog extends Component {
-	static propTypes = {
-		firebase: PropTypes.object.isRequired,
-		isDialogOpened: PropTypes.bool.isRequired,
-		dialogClose: PropTypes.func.isRequired
-	}
 
 	loginWithFB = () => {
 		const {firebase} = this.props
@@ -47,5 +42,11 @@ export default class AuthDialog extends Component {
 				<Tab className="auth-tabs" menu={{secondary: true, pointing: true}} panes={panes} />
 			</Dialog>
 		)
+	}
+	
+	static propTypes = {
+		firebase: PropTypes.object.isRequired,
+		isDialogOpened: PropTypes.bool.isRequired,
+		dialogClose: PropTypes.func.isRequired
 	}
 }

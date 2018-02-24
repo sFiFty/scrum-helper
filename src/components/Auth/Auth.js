@@ -11,13 +11,6 @@ export default class Auth extends Component {
   state = {
     isDialogOpened: false,
   }
-
-  static propTypes = {
-    firebase: PropTypes.shape({
-      login: PropTypes.func.isRequired
-    }),
-    auth: PropTypes.object
-  }
   
   dialogOpen = () => this.setState({isDialogOpened: true})
 
@@ -44,5 +37,13 @@ export default class Auth extends Component {
       </div>
     )
   }
+
+  static propTypes = {
+    firebase: PropTypes.shape({
+      login: PropTypes.func.isRequired
+    }),
+    auth: PropTypes.object
+  }
+  
 }
 

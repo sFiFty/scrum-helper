@@ -9,10 +9,6 @@ export default class LoginForm extends React.Component {
 		errorMessage: null
 	}
 
-	static propTypes = {
-		firebase: PropTypes.object.isRequired,
-	}
-
 	setEmail = event => this.setState({email: event.target.value})
 	setPassword = event => this.setState({password: event.target.value})
 	   
@@ -66,5 +62,11 @@ export default class LoginForm extends React.Component {
 				</Form>
 			</div>
 		)
+	}
+
+	static propTypes = {
+		firebase: PropTypes.object.isRequired,
+		loginWithGoogle: PropTypes.func.isRequired,
+		loginWithFB: PropTypes.func.isRequired
 	}
 }

@@ -54,7 +54,6 @@ export default class DailyList extends Component {
           isLoaded(meetings) ?
           <List>
             {
-              
               _.keys(meetings).map(k => {
                 let meeting = meetings[k]
                 let extendedMembersList = ExtendMembersList(meeting.members, meeting.team.members)
@@ -80,4 +79,11 @@ export default class DailyList extends Component {
       </Container>
     )
   }
+
+	static propTypes = {
+		firebase: PropTypes.object.isRequired,
+		teams: PropTypes.object.isRequired,
+		meetings: PropTypes.object.isRequired
+  }
+  
 }
