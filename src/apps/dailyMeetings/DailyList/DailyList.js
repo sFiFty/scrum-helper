@@ -11,11 +11,11 @@ import './styles.scss'
 
 export default class DailyList extends Component {
 
-  deleteTeam = key => {
+  deleteDaily = key => {
     const {firebase, meetings} = this.props
     firebase.remove(`dailyMeetings/${key}/`).then(() => {
       NotificationManager.success(
-        `Meeting ${teams[key].name} successfully deleted`, 
+        `Meeting for ${meetings[key].team.name} successfully deleted`, 
         'Confirmation'
       )
     })
@@ -66,7 +66,7 @@ export default class DailyList extends Component {
                       <MembersInTheList members={extendedMembersList} deleteMember={this.deleteMember} parent={k} />
                       <Button as={Link} to={`daily/ongoing/${k}`} className="join-button" inverted>Start</Button>
                       <div className="list-controls">
-                        <Icon className="trash-icon" size="large" name="trash" color="red" />
+                        <Icon onClick={() => this.deleteDaily(k)} className="trash-icon" size="large" name="trash" color="red" />
                       </div>
                     </List.Content>
                   </List.Item>
