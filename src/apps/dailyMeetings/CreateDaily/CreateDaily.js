@@ -129,7 +129,7 @@ export default class CreateDaily extends React.Component {
 
 	static propTypes = {
 		firebase: PropTypes.object.isRequired,
-		teams: PropTypes.object.isRequired,
+		teams: PropTypes.object,
 		owner: PropTypes.string.isRequired
 	}
 }

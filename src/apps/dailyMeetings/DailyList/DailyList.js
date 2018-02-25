@@ -3,6 +3,7 @@ import {Container, Header, List, Icon, Button} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import {NotificationManager}  from 'react-notifications'
+import PropTypes from 'prop-types'
 import CreateMeetingBox from './CreateMeetingBox'
 import SMLoader from 'Components/SMLoader'
 import MembersInTheList from 'Components/MembersInTheList'
@@ -82,8 +83,8 @@ export default class DailyList extends Component {
 
 	static propTypes = {
 		firebase: PropTypes.object.isRequired,
-		teams: PropTypes.object.isRequired,
-		meetings: PropTypes.object.isRequired
+		teams: PropTypes.object,
+		meetings: PropTypes.object
   }
   
 }
