@@ -14,6 +14,8 @@ export default class Auth extends Component {
 
   dialogOpen = () => this.setState({isDialogOpened: true})
 
+  dialogClose = () => this.setState({isDialogOpened: false})
+
   render() {
     let isAuthorized = false
     const {auth, firebase, history} = this.props
@@ -23,6 +25,7 @@ export default class Auth extends Component {
         <AuthModal
           firebase={firebase} 
           history={history}
+          dialogClose={this.dialogClose}
           isDialogOpened={isDialogOpened} 
         />
         {

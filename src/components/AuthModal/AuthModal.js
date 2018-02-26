@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import RegistrationForm from './RegistrationForm'
 import LoginForm from './LoginForm'
 import {firebase} from 'react-redux-firebase'
+import './styles.scss'
 
 export default class AuthModal extends Component {
 
@@ -22,18 +23,6 @@ export default class AuthModal extends Component {
 		firebase.login({provider: 'google', type: 'popup'})
 	}
 
-  componentWillMount() {
-		if (this.state.isDialogOpened === this.props.isDialogOpened) return
-		this.setState({isDialogOpened: this.props.isDialogOpened})
-	}
-	
-	componentWillReceiveProps(nextProps) {
-		if (this.state.isDialogOpened === nextProps.isDialogOpened) return
-		this.setState({isDialogOpened: nextProps.isDialogOpened})
-	}
-
-	dialogClose = () => this.setState({isDialogOpened: false})
-
 	render() {
 		const panes = [
 			{ menuItem: 'Log In', render: () => 
@@ -47,14 +36,14 @@ export default class AuthModal extends Component {
 				</Tab.Pane> },
 		  ]
 		const {dialogClose, firebase} = this.props
-		const {isDialogOpened} = this.state
+		const {isDialogOpened} = this.props
 		return (
 			<Dialog
 				className="auth-dialog"
 				contentStyle={{maxWidth: 450}}
 				modal={false}
 				open={isDialogOpened}
-				onRequestClose={this.dialogClose}
+				onRequestClose={dialogClose}
 			>
 				<Tab className="auth-tabs" menu={{secondary: true, pointing: true}} panes={panes} />
 			</Dialog>
