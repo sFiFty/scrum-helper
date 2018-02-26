@@ -16,6 +16,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import {grey900} from 'material-ui/styles/colors'
 import {isLoaded} from 'react-redux-firebase'
 import SMLoader from 'Components/SMLoader'
+import LoadingScreen from 'Components/LoadingScreen'
+import UserIsAuthenticated from 'Helpers/UserIsAuthenticated'
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -33,15 +35,16 @@ export default class App extends React.Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className="layout-container row">
           <Header  />
-          <Route exact path="/" component={TeamList} />
-          <Route exact path="/email-confirmation" component={EmailConfirmation} />
-          <Route exact path="/user/:uid" component={UserProfile} />
-          <Route exact path="/teams" component={TeamList} />
-          <Route exact path="/teams/add" component={AddTeam} />
-          <Route exact path="/teams/:teamid/addMember" component={AddMember} />
-          <Route exact path="/daily/" component={DailyList} />
-          <Route exact path="/daily/create" component={CreateDaily} />
-          <Route exact path="/daily/ongoing/:dailyid" component={Daily} />
+          <Route exact path="/" component={UserIsAuthenticated(TeamList)} />
+          <Route exact path="/email-confirmation" component={UserIsAuthenticated(EmailConfirmation)} />
+          <Route exact path="/user/:uid" component={UserIsAuthenticated(UserProfile)} />
+          <Route exact path="/teams" component={UserIsAuthenticated(TeamList)} />
+          <Route exact path="/teams/add" component={UserIsAuthenticated(AddTeam)} />
+          <Route exact path="/teams/:teamid/addMember" component={UserIsAuthenticated(AddMember)} />
+          <Route exact path="/daily/" component={UserIsAuthenticated(DailyList)} />
+          <Route exact path="/daily/create" component={UserIsAuthenticated(CreateDaily)} />
+          <Route exact path="/daily/ongoing/:dailyid" component={UserIsAuthenticated(Daily)} />
+          <Route exact path="/login" component={LoadingScreen} />
           <NotificationContainer/>
         </div>
       </MuiThemeProvider>

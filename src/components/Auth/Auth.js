@@ -1,17 +1,17 @@
 import React, {Component} from 'react'
 import UserAvatar from 'Components/UserAvatar'
-import AuthDialog from './AuthDialog'
+import AuthModal from 'Components/AuthModal'
 import SMLoader from 'Components/SMLoader'
 import {Button} from 'semantic-ui-react'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import PropTypes from 'prop-types'
-import './styles.scss'
 
 export default class Auth extends Component {
+
   state = {
     isDialogOpened: false,
   }
-  
+
   dialogOpen = () => this.setState({isDialogOpened: true})
 
   dialogClose = () => this.setState({isDialogOpened: false})
@@ -19,13 +19,14 @@ export default class Auth extends Component {
   render() {
     let isAuthorized = false
     const {auth, firebase, history} = this.props
+    const {isDialogOpened} = this.state
     return (
       <div>
-        <AuthDialog 
+        <AuthModal
           firebase={firebase} 
           history={history}
-          dialogClose={this.dialogClose} 
-          isDialogOpened={this.state.isDialogOpened} 
+          dialogClose={this.dialogClose}
+          isDialogOpened={isDialogOpened} 
         />
         {
           !isLoaded(auth) 
