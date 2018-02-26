@@ -6,7 +6,11 @@ import RegistrationForm from './RegistrationForm'
 import LoginForm from './LoginForm'
 import {firebase} from 'react-redux-firebase'
 
-export default class AuthDialog extends Component {
+export default class AuthModal extends Component {
+
+  state = {
+    isDialogOpened: false,
+  }
 
 	loginWithFB = () => {
 		const {firebase} = this.props
@@ -17,6 +21,18 @@ export default class AuthDialog extends Component {
 		const {firebase} = this.props
 		firebase.login({provider: 'google', type: 'popup'})
 	}
+
+  componentWillMount() {
+		if (this.state.isDialogOpened === this.props.isDialogOpened) return
+		this.setState({isDialogOpened: this.props.isDialogOpened})
+	}
+	
+	componentWillReceiveProps(nextProps) {
+		if (this.state.isDialogOpened === nextProps.isDialogOpened) return
+		this.setState({isDialogOpened: nextProps.isDialogOpened})
+	}
+
+	dialogClose = () => this.setState({isDialogOpened: false})
 
 	render() {
 		const panes = [
@@ -30,14 +46,15 @@ export default class AuthDialog extends Component {
 					<RegistrationForm firebase={firebase} loginWithFB={this.loginWithFB} loginWithGoogle={this.loginWithGoogle} />
 				</Tab.Pane> },
 		  ]
-		const {isDialogOpened, dialogClose, firebase} = this.props
+		const {dialogClose, firebase} = this.props
+		const {isDialogOpened} = this.state
 		return (
 			<Dialog
 				className="auth-dialog"
 				contentStyle={{maxWidth: 450}}
 				modal={false}
 				open={isDialogOpened}
-				onRequestClose={dialogClose}
+				onRequestClose={this.dialogClose}
 			>
 				<Tab className="auth-tabs" menu={{secondary: true, pointing: true}} panes={panes} />
 			</Dialog>
@@ -46,7 +63,7 @@ export default class AuthDialog extends Component {
 	
 	static propTypes = {
 		firebase: PropTypes.object.isRequired,
-		isDialogOpened: PropTypes.bool.isRequired,
-		dialogClose: PropTypes.func.isRequired
+		isDialogOpened: PropTypes.bool,
+		dialogOpen: PropTypes.func
 	}
 }

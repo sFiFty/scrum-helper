@@ -16,6 +16,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import {grey900} from 'material-ui/styles/colors'
 import {isLoaded} from 'react-redux-firebase'
 import SMLoader from 'Components/SMLoader'
+import UserIsAuthenticated from 'Helpers/UserIsAuthenticated'
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -36,7 +37,7 @@ export default class App extends React.Component {
           <Route exact path="/" component={TeamList} />
           <Route exact path="/email-confirmation" component={EmailConfirmation} />
           <Route exact path="/user/:uid" component={UserProfile} />
-          <Route exact path="/teams" component={TeamList} />
+          <Route exact path="/teams" component={UserIsAuthenticated(TeamList)} />
           <Route exact path="/teams/add" component={AddTeam} />
           <Route exact path="/teams/:teamid/addMember" component={AddMember} />
           <Route exact path="/daily/" component={DailyList} />
