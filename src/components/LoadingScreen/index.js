@@ -1,11 +1,3 @@
-import React, {Component} from 'react'
+import LoadingScreenContainer from './LoadingScreenContainer'
 
-export default class LoadingScreen extends Component {
-	render() {
-		return (
-      <div>
-        Loading
-      </div>
-		)
-	}
-}
+export default LoadingScreenContainer

@@ -6,22 +6,32 @@ import RegistrationForm from './RegistrationForm'
 import LoginForm from './LoginForm'
 import {firebase} from 'react-redux-firebase'
 import './styles.scss'
+const queryString = require('query-string')
 
 export default class AuthModal extends Component {
 
   state = {
-    isDialogOpened: false,
+	  isDialogOpened: false,
   }
 
 	loginWithFB = () => {
 		const {firebase} = this.props
-		firebase.login({provider: 'facebook', type: 'popup'})
+		firebase.login({provider: 'facebook', type: 'popup'}).then(
+			this.redirectTo(queryString.parse(location.search) && queryString.parse(location.search).redirect)
+		)
 	}
 
 	loginWithGoogle = () => {
 		const {firebase} = this.props
-		firebase.login({provider: 'google', type: 'popup'})
-	}
+		firebase.login({provider: 'google', type: 'popup'}).then(() => {
+      this.redirectTo(queryString.parse(location.search) && queryString.parse(location.search).redirect)
+    })
+  }
+  
+  redirectTo = destination => {
+    const {history} = this.props
+    if (destination) history.push(destination)
+  }
 
 	render() {
 		const panes = [
