@@ -6,7 +6,6 @@ import RegistrationForm from './RegistrationForm'
 import LoginForm from './LoginForm'
 import {firebase} from 'react-redux-firebase'
 import './styles.scss'
-const queryString = require('query-string')
 
 export default class AuthModal extends Component {
 
@@ -15,43 +14,70 @@ export default class AuthModal extends Component {
   }
 
 	loginWithFB = () => {
-		const {firebase} = this.props
+		const {firebase, redirectTo} = this.props
 		firebase.login({provider: 'facebook', type: 'popup'}).then(
-			this.redirectTo(queryString.parse(location.search) && queryString.parse(location.search).redirect)
+			redirectTo(location.search)
 		)
 	}
 
 	loginWithGoogle = () => {
-		const {firebase} = this.props
+		const {firebase, redirectTo} = this.props
 		firebase.login({provider: 'google', type: 'popup'}).then(() => {
-      this.redirectTo(queryString.parse(location.search) && queryString.parse(location.search).redirect)
+      redirectTo(location.search)
     })
-  }
-  
-  redirectTo = destination => {
-    const {history} = this.props
-    if (destination) history.push(destination)
-  }
+	}
+	
+	login = (email, password) => {
+		const {firebase, redirectTo} = this.props
+		firebase.login({email: email, password: password}).then(() => {
+			redirectTo(location.search)
+		}).catch(error => {
+			if (error.code === 'auth/user-not-found') {
+				this.setState({errorMessage: "Sorry, we can't find an account with this email address"})
+				return
+			}
+			if (error.code === 'auth/wrong-password') {
+				this.setState({errorMessage: "Incorrect password. Please try again."})
+				return
+			}
+			this.setState({errorMessage: error.message})
+		})
+	}
 
+	componentWillMount() {
+		const {auth, redirectTo} = this.props
+		if (auth.isLoaded && !auth.isEmpty && redirectTo) {
+			redirectTo(location.search)
+		}
+	}
+  
 	render() {
+		const {dialogClose, firebase, isDialogOpened} = this.props
 		const panes = [
 			{ menuItem: 'Log In', render: () => 
 				<Tab.Pane className="auth-tab" attached={false}>
-					<LoginForm firebase={firebase} loginWithFB={this.loginWithFB} loginWithGoogle={this.loginWithGoogle} />
+					<LoginForm 
+						login={this.login}
+						loginWithFB={this.loginWithFB} 
+						loginWithGoogle={this.loginWithGoogle} />
 				</Tab.Pane> 
 			},
 			{ menuItem: 'Sign In', render: () => 
 				<Tab.Pane className="auth-tab" attached={false}>
-					<RegistrationForm firebase={firebase} loginWithFB={this.loginWithFB} loginWithGoogle={this.loginWithGoogle} />
+					<RegistrationForm 
+						firebase={firebase} 
+						loginWithFB={this.loginWithFB} 
+						loginWithGoogle={this.loginWithGoogle}
+						redirectTo={redirectTo} />
 				</Tab.Pane> },
 		  ]
-		const {dialogClose, firebase} = this.props
-		const {isDialogOpened} = this.props
 		return (
 			<Dialog
 				className="auth-dialog"
-				contentStyle={{maxWidth: 450}}
+				contentStyle={{maxWidth: 300}}
 				modal={false}
+				contentClassName="auth-content"
+				autoScrollBodyContent
 				open={isDialogOpened}
 				onRequestClose={dialogClose}
 			>
@@ -63,6 +89,7 @@ export default class AuthModal extends Component {
 	static propTypes = {
 		firebase: PropTypes.object.isRequired,
 		isDialogOpened: PropTypes.bool,
-		dialogOpen: PropTypes.func
+		dialogOpen: PropTypes.func,
+		redirectTo: PropTypes.func
 	}
 }

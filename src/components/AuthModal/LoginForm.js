@@ -1,8 +1,9 @@
 import React from 'react'
 import {Divider, Form, Input, Button, Icon, Message} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
-
-export default class LoginForm extends React.Component {
+import {withRouter} from "react-router-dom"
+const queryString = require('query-string')
+class LoginForm extends React.Component {
 	state = {
 		email: null,
 		password: null,
@@ -12,27 +13,11 @@ export default class LoginForm extends React.Component {
 	setEmail = event => this.setState({email: event.target.value})
 	setPassword = event => this.setState({password: event.target.value})
 	   
-	login = () => {
-		const {firebase} = this.props
-		const {email, password} = this.state
-		firebase.login({email: email, password: password}).catch(error => {
-			if (error.code === 'auth/user-not-found') {
-				this.setState({errorMessage: "Sorry, we can't find an account with this email address"})
-				return
-			}
-			if (error.code === 'auth/wrong-password') {
-				this.setState({errorMessage: "Incorrect password. Please try again."})
-				return
-			}
-			this.setState({errorMessage: error.message})
-		})
-	}
-
 	render() {
-		const {errorMessage} = this.state
-		const {loginWithGoogle, loginWithFB} = this.props
+		const {errorMessage, email, password} = this.state
+		const {loginWithGoogle, loginWithFB, login} = this.props
 		return (
-			<div className="auth-container text-center pt-4">
+			<div className="auth-container text-center pt-1">
 				<Form className="auth-form">
 					{
 						errorMessage ?
@@ -47,7 +32,7 @@ export default class LoginForm extends React.Component {
 						<label className="text-left">Password (6 or more characters)</label>
 						<input onChange={this.setPassword} type='password'/>
 					</Form.Field>
-					<Button type="submit" onClick={this.login} secondary>Log In</Button>
+					<Button type="submit" onClick={() => login(email, password) } secondary>Log In</Button>
 					<Divider />
 					<Form.Field inline>
 						<Button onClick={loginWithGoogle} color='google plus'>
@@ -65,8 +50,9 @@ export default class LoginForm extends React.Component {
 	}
 
 	static propTypes = {
-		firebase: PropTypes.object.isRequired,
 		loginWithGoogle: PropTypes.func.isRequired,
 		loginWithFB: PropTypes.func.isRequired
 	}
 }
+
+export default withRouter(LoginForm)
