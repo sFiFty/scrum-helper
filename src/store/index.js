@@ -16,8 +16,7 @@ const rrfConfig = {
 
 // Add reduxReduxFirebase enhancer when making store creator
 const createStoreWithFirebase = compose(
-  reactReduxFirebase(firebase, rrfConfig), // firebase instance as first argument
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  reactReduxFirebase(firebase, rrfConfig)
   // reduxFirestore(firebase) // <- needed if using firestore
 )(createStore)
 

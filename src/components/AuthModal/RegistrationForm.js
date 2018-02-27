@@ -39,12 +39,12 @@ class RegistrationForm extends React.Component {
 
 	signIn = () => {
 		const {email, password, firstName, lastName} = this.state
-		const {firebase} = this.props
+		const {firebase, redirectTo, history} = this.props
 		if (this.validateForm()) {
 			firebase.createUser({email: email, password: password}).then(data => {
 				firebase.auth().onAuthStateChanged(user => {
 					user.sendEmailVerification()
-					this.props.history.push('/email-confirmation')
+					history.push('/email-confirmation')
 				})
 			}).catch(error => {
 				this.setState({errorMessage: error.message})
@@ -56,7 +56,7 @@ class RegistrationForm extends React.Component {
 		const {errorMessage} = this.state
 		const {loginWithGoogle, loginWithFB} = this.props
 		return (
-			<div className="auth-container text-center pt-4">
+			<div className="auth-container text-center pt-1">
 				<Form className="auth-form">
 					{
 						errorMessage ?
