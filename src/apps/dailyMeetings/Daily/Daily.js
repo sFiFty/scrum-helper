@@ -5,7 +5,6 @@ import IntroSlide from './IntroSlide'
 import QueueSlide from './QueueSlide'
 import DiscussionSlide from './DiscussionSlide'
 import FinalSlide from './FinalSlide'
-
 import './styles.scss'
 import Divider from 'semantic-ui-react';
 
@@ -21,6 +20,29 @@ export default class Daily extends Component {
     }
     firebase.update(`dailyMeetings/${dailyId}`, { step: daily.step + 1 })
   }
+
+  prevStep = () => {
+    const {daily, firebase, dailyId, history} = this.props
+    if (daily.step === 0) return
+    firebase.update(`dailyMeetings/${dailyId}`, { step: daily.step - 1 })
+  }
+
+  componentWillMount() {
+    document.addEventListener("keydown", this.keyPress.bind(this));
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.keyPress.bind(this));
+  }  
+
+  keyPress = e => {
+    if (e.keyCode === 37) {
+      this.prevStep()
+    } else if (e.keyCode === 39) {
+      this.nextStep()
+    }
+  }
+
   render() {
     const {daily} = this.props
     let currentSlide = <SMLoader />
@@ -44,7 +66,7 @@ export default class Daily extends Component {
     }
 
     return (
-      <div onClick={this.nextStep} className="daily-layout">
+      <div tabIndex="0" onClick={this.nextStep} onKeyDown={this.prevStep} className="daily-layout">
         {currentSlide}
       </div>
     )
