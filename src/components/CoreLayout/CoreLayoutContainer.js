@@ -5,10 +5,9 @@ import {firebaseConnect, isLoaded} from 'react-redux-firebase'
 import CoreLayout from './CoreLayout'
 
 export default compose(
-		connect( state => ({
-			profile: state.firebase.profile,
-			auth: state.firebase.auth
-		})
-	)
+    connect( state => ({
+      profile: state.firebase.profile
+    })
+  )
 )(CoreLayout)
 
