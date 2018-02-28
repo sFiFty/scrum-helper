@@ -1,0 +1,23 @@
+@import "~Styles/_definitions.scss";
+.footer-wrapper {
+  padding: 20px 0px;
+  margin: 0 30px;
+  color: $white;
+  background: $black;
+  button.button {
+    background-color: $white;
+    color: $black;
+    i {
+      vertical-align: text-bottom;
+    }
+  }
+  a {
+    color: $white;
+    &:visited, &:hover {
+      color: $white;
+    }
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

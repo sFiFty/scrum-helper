@@ -15,7 +15,7 @@ import UserIsAuthenticated from 'Helpers/UserIsAuthenticated'
 export default class Routes extends Component {
   render() {
     return (
-      <main>
+      <main className="site-content">
         <Route exact path="/" component={UserIsAuthenticated(TeamList)} />
         <Route exact path="/email-confirmation" component={UserIsAuthenticated(EmailConfirmation)} />
         <Route exact path="/user/:uid" component={UserIsAuthenticated(UserProfile)} />

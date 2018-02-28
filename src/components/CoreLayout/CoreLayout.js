@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Header from 'Components/Header'
+import Footer from 'Components/Footer'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {NotificationContainer} from 'react-notifications'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
@@ -8,6 +9,7 @@ import {isLoaded} from 'react-redux-firebase'
 import PropTypes from 'prop-types'
 import SMLoader from 'Components/SMLoader'
 import Routes from './Routes'
+
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -24,8 +26,9 @@ export default class CoreLayout extends Component {
       : 
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className="layout-container row">
-          <Header  />
+          <Header />
           <Routes />
+          <Footer />
           <NotificationContainer/>
         </div>
       </MuiThemeProvider>
