@@ -2,6 +2,9 @@
 
 .navigation-wrapper {
 	padding-top: 10px;
+	.ui.inverted.menu {
+		background: $black;
+	}
 	.item {
 		font-size: $font-m;
 	}

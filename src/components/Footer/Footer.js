@@ -9,7 +9,7 @@ export default class Footer extends Component {
     return (
       <footer className='footer-wrapper text-center mt-5'>
         <a target="_blank" href="https://github.com/sFiFty/my-helper/">
-          <Button size='mini font-s'> 
+          <Button size="mini" className='font-s'> 
             <Icon name='github' size="large" />
             Github
           </Button>

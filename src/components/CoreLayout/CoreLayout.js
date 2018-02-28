@@ -19,14 +19,14 @@ const muiTheme = getMuiTheme({
 
 export default class CoreLayout extends Component {
   render() {
-    const {profile} = this.props
+    const {profile, location} = this.props
     return (
       !isLoaded(profile) 
       ? <SMLoader />
       : 
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className="layout-container row">
-          <Header />
+          <Header location={location} />
           <Routes />
           <Footer />
           <NotificationContainer/>
@@ -36,7 +36,8 @@ export default class CoreLayout extends Component {
   }
 
   static propTypes = {
-    profile: PropTypes.object.isRequired
+    profile: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired
   }
 }
 
