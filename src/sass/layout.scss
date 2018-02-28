@@ -1,11 +1,17 @@
-@import "./fonts.scss";
-@import "./colors.scss";
+@import "~Styles/_definitions.scss";
 
 .layout-container {
 	width: auto;
 	max-width: 1200px;
 	padding: 0 20px;
 	margin: 0 auto;
+  display: flex;
+  min-height: 100vh;
+	flex-direction: column;
+	main.site-content {
+		flex: 1;
+		min-height: 60vh;
+	}
 	.container {
 		.header {
 			padding: 20px 0px;
