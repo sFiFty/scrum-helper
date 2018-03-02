@@ -26,6 +26,9 @@ export default class Navigation extends PureComponent {
 
   changeMenuActiveItem = path => {
     switch(path) {
+      case '/': 
+        this.setState({activeItem: 'Teams'})
+        break
       case '/daily': 
         this.setState({activeItem: 'Daily'})
         break
@@ -43,7 +46,7 @@ export default class Navigation extends PureComponent {
     return (
       <div className="navigation-wrapper col-9">
         <div className="row">
-          <div className="col-9">
+          <div className="col-9  ">
             <Menu inverted>
               <Menu.Item as={Link} to="/teams" name='Teams' active={activeItem === 'Teams'} onClick={this.handleItemClick} />
               <Menu.Item as={Link} to="/daily" name='Daily' active={activeItem === 'Daily'} onClick={this.handleItemClick} />

@@ -67,8 +67,7 @@ export default class AuthModal extends Component {
           <RegistrationForm 
             firebase={firebase} 
             loginWithFB={this.loginWithFB} 
-            loginWithGoogle={this.loginWithGoogle}
-            redirectTo={redirectTo} />
+            loginWithGoogle={this.loginWithGoogle} />
         </Tab.Pane> },
       ]
     return (
