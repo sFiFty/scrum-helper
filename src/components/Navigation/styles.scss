@@ -11,6 +11,16 @@
 	.avatar-container {
 		padding-top: 10px;
 	}
+	.menu-container {
+		flex: 1;
+    flex-direction: row;
+    display: flex;
+    align-content: flex-end;
+		align-items: flex-end;
+		.menu {
+			flex: 1;
+		}
+	}
 }
 
 
