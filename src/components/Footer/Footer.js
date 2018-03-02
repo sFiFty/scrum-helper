@@ -9,14 +9,14 @@ export default class Footer extends Component {
     return (
       <footer className='footer-wrapper text-center mt-5'>
         <a target="_blank" href="https://github.com/sFiFty/my-helper/">
-          <Button size="mini" className='font-s'> 
-            <Icon name='github' size="large" />
+          <Button size="mini"> 
+            <Icon name='github' size="small" />
             Github
           </Button>
         </a>
-        <div className="footer-text font-s mt-2">
+        <span className="footer-text font-xs mt-1 ml-2">
           Created and maintained by <a target="_blank" href="https://www.facebook.com/rudinaleksandr">Alex Rudin</a>.
-        </div>
+        </span>
       </footer>
     )
   }
