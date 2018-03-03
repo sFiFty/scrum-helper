@@ -121,7 +121,14 @@ export default class CreateDaily extends React.Component {
 							value={selectedNames || []}
 							options={allMembers || []} />
 					</Form.Field>
-					<Button onClick={this.onCreateDaily} floated="right" size="big" type="submit" secondary>Create Daily</Button>
+					<Button 
+						onClick={this.onCreateDaily} 
+						floated="right" 
+						size="big" 
+						type="submit" 
+						secondary>
+						Create Daily
+					</Button>
 				</Form>
 			</Container>
 		)
