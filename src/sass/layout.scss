@@ -17,6 +17,14 @@
 			padding: 20px 0px;
 		}
 	}
+	.ui.basic.button, .ui.basic.buttons .button {
+		color: $black !important;
+		box-shadow: 0 0 0 2px $black inset;
+		&:hover {
+			color: $white !important;
+			background: $black !important;
+		}
+	}
 }
 
 body, div, h1, h2, h3, h4, h5, h6 {
