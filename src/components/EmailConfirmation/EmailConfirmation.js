@@ -1,7 +1,7 @@
 import React from 'react'
-import Moment from 'react-moment'
 import {Container, Icon, Button, Modal, Header, Input} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
+import EmailModal from './EmailModal'
 
 export default class EmailConfirmation extends React.Component {
 
@@ -48,12 +48,6 @@ export default class EmailConfirmation extends React.Component {
             <Button onClick={this.sendEmailVerification} basic className="w-25">
               Resend email  
             </Button> 
-						<Modal size="tiny" trigger={<Button basic className="ml-5 mr-5 w-25">Enter new email</Button> }>
-							<Header icon='email' content='Change Your Email' />
-							<Modal.Content>
-								<Input placeholder='Type email here...' />
-							</Modal.Content>
-						</Modal>
             <Button basic className="w-25">
               Contact us  
             </Button>   
@@ -61,6 +55,11 @@ export default class EmailConfirmation extends React.Component {
 				</div>
 			</Container>
 		)
+  }
+
+	static propTypes = {
+		firebase: PropTypes.object.isRequired,
+		profile: PropTypes.object.isRequired,
 	}
 }
 
