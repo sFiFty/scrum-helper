@@ -1,10 +1,17 @@
 import React from 'react'
 import {Container, Icon, Button, Modal, Header, Input} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
-import EmailModal from './EmailModal'
+import EmailModal from 'Components/EmailModal'
+import PropTypes from 'prop-types'
 
 export default class EmailConfirmation extends React.Component {
+  state = { 
+    isModalOpen: false 
+  }
 
+	closeModal = () => this.setState({isModalOpen: false})
+	openModal = () => this.setState({isModalOpen: true})
+	
 	sendEmailVerification = () => {
 		const {firebase, history, profile} = this.props
 		firebase.auth().onAuthStateChanged(user => {
@@ -12,9 +19,8 @@ export default class EmailConfirmation extends React.Component {
 				history.push('/')
 				return
 			}
-
 			user.sendEmailVerification().then(data => {
-				firebase.updateProfile({ isVerificationEmailsent: true })
+				firebase.updateProfile({ isVerificationEmailSent: true })
 				NotificationManager.success(
 					'Mail sent successfully!', 
 					'Confirmation'
@@ -23,15 +29,16 @@ export default class EmailConfirmation extends React.Component {
 		})
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		const {profile} = this.props
-		if (profile.isVerificationEmailsent) return
+		console.log(profile)
+		if (profile.isVerificationEmailSent || !profile.email) return
 		this.sendEmailVerification()
 	}
 
 	render() {
-		const {profile} = this.props
-
+		const {profile, firebase} = this.props
+		const {isModalOpen} = this.state
 		return (
 			<Container className="mt-4"> 
 				<h1 className="text-center">Verify Your Email</h1>
@@ -47,12 +54,16 @@ export default class EmailConfirmation extends React.Component {
           <div className="d-flex justify-content-center">
             <Button onClick={this.sendEmailVerification} basic className="w-25">
               Resend email  
-            </Button> 
+						</Button> 
+						<Button onClick={this.openModal} basic className="ml-5 mr-5 w-25">
+							Enter new email
+						</Button>
             <Button basic className="w-25">
               Contact us  
             </Button>   
           </div>
 				</div>
+				<EmailModal isModalOpen={isModalOpen} close={this.closeModal} />
 			</Container>
 		)
   }
