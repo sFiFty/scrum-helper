@@ -2,6 +2,7 @@ import React from 'react'
 import {Divider, Form, Label, Input, Button, Icon, Message} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import {withRouter} from "react-router-dom"
+import {validateEmail} from "Helpers/Validators"
 
 class RegistrationForm extends React.Component {
 	state = {
@@ -20,7 +21,7 @@ class RegistrationForm extends React.Component {
 			this.setState({errorMessage: 'Please provide email & password'})
 			return false
 		}
-		if (!_.trim(email).length || !this.validateEmail(_.trim(email))) {
+		if (!_.trim(email).length || !validateEmail(_.trim(email))) {
 			this.setState({errorMessage: 'Please provide valid email'})
 			return false
 		}
@@ -32,10 +33,6 @@ class RegistrationForm extends React.Component {
 		return true
 	}
 
-	validateEmail = email => {
-		const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		return re.test(email.toLowerCase());
-	}
 
 	signIn = () => {
 		const {email, password, firstName, lastName} = this.state
