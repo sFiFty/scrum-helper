@@ -6,33 +6,38 @@ import PropTypes from 'prop-types'
 
 export default class EmailConfirmation extends React.Component {
   state = { 
-    isModalOpen: false 
+		isModalOpen: false,
+		user: null
   }
 
 	closeModal = () => this.setState({isModalOpen: false})
 	openModal = () => this.setState({isModalOpen: true})
 	
-	sendEmailVerification = () => {
+	sendEmailVerification = notifyUser => {
 		const {firebase, history, profile} = this.props
-		firebase.auth().onAuthStateChanged(user => {
-			if (!user || user.emailVerified) {
-				history.push('/')
-				return
-			}
-			user.sendEmailVerification().then(data => {
-				firebase.updateProfile({ isVerificationEmailSent: true })
-				NotificationManager.success(
-					'Mail sent successfully!', 
-					'Confirmation'
-				)
-			})
+		this.authListener = firebase.auth().onAuthStateChanged(user => {
+			console.log(this.state.user)
+			this.setState({user: user})
+			// firebase.updateProfile({ isVerificationEmailSent: true }).then(() => {
+			// 	user.sendEmailVerification().then(data => {
+			// 		if (!notifyUser) return
+			// 		NotificationManager.success(
+			// 			'Mail sent successfully!', 
+			// 			'Confirmation'
+			// 		)
+			// 	})
+			// })
 		})
+		this.setState()
+	}
+
+	componentWillUnmount() {
+		this.authListener && this.authListener()
+		this.sendEmailVerification = undefined
 	}
 
 	componentDidMount() {
 		const {profile} = this.props
-		console.log(profile)
-		if (profile.isVerificationEmailSent || !profile.email) return
 		this.sendEmailVerification()
 	}
 
@@ -52,7 +57,7 @@ export default class EmailConfirmation extends React.Component {
 						className="mb-4"
 					/>
           <div className="d-flex justify-content-center">
-            <Button onClick={this.sendEmailVerification} basic className="w-25">
+            <Button onClick={() => this.sendEmailVerification(true)} basic className="w-25">
               Resend email  
 						</Button> 
 						<Button onClick={this.openModal} basic className="ml-5 mr-5 w-25">

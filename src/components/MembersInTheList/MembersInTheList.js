@@ -1,6 +1,7 @@
 import React from 'react'
 import {Image, Icon, Popup, Header, Grid} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
+import PropTypes from 'prop-types'
 
 export default class MemberListInTeam extends React.Component {
 	render() {
@@ -42,9 +43,9 @@ export default class MemberListInTeam extends React.Component {
 	}
 
 	static propTypes = {
-    members: PropTypes.object.isRequired,
+    members: PropTypes.object,
 		deleteMember: PropTypes.func.isRequired,
-		parent: PropTypes.object.isRequired,
+		parent: PropTypes.string,
 	}
 }
 

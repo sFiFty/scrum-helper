@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import CoreLayout from 'Components/CoreLayout'
+import App from './src/App'
 global.jQuery = require('jquery')
 global.Tether = require('tether')
 require('bootstrap')
@@ -12,7 +12,7 @@ import store from './src/store'
 ReactDOM.render(
   <Provider store={store}>
     <Router basename="/">
-      <Route path="/" component={CoreLayout} />
+      <Route path="/" component={App} />
     </Router>
   </Provider>,
   document.getElementById('root')

@@ -9,6 +9,7 @@ import {isLoaded} from 'react-redux-firebase'
 import PropTypes from 'prop-types'
 import SMLoader from 'Components/SMLoader'
 import Routes from './Routes'
+import {withRouter} from "react-router-dom"
 
 
 const muiTheme = getMuiTheme({
@@ -17,9 +18,10 @@ const muiTheme = getMuiTheme({
   }
 })
 
-export default class CoreLayout extends Component {
+class CoreLayout extends Component {
   render() {
     const {profile, location} = this.props
+    console.log(this.props)
     return (
       !isLoaded(profile) 
       ? <SMLoader />
@@ -40,4 +42,6 @@ export default class CoreLayout extends Component {
     location: PropTypes.object.isRequired
   }
 }
+
+export default withRouter(CoreLayout)
 

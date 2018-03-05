@@ -21,9 +21,9 @@ export default class EmailModal extends React.Component {
     }
     this.setState({isError: false})
     firebase.updateEmail(email).then(() => {
-      firebase.auth().onAuthStateChanged(user => {
+      this.authListener = firebase.auth().onAuthStateChanged(user => {
         user.sendEmailVerification().then(() => {
-          firebase.updateProfile({ isVerificationEmailsent: true })
+          firebase.updateProfile({isVerificationEmailSent: true, email: email})
           NotificationManager.success(
             'Mail sent successfully!', 
             'Confirmation'
@@ -32,6 +32,11 @@ export default class EmailModal extends React.Component {
       })
     }).catch(e => this.setState({errorMessage: e.message}))
   }
+
+	componentWillUnmount() {
+		this.authListener && this.authListener()
+		this.save = undefined
+	}
 
 	render() {
     const {isModalOpen, close} = this.props
