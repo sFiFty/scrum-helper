@@ -40,5 +40,11 @@ export default class MemberListInTeam extends React.Component {
 			</div>
 		)
 	}
+
+	static propTypes = {
+    members: PropTypes.object.isRequired,
+		deleteMember: PropTypes.func.isRequired,
+		parent: PropTypes.object.isRequired,
+	}
 }
 

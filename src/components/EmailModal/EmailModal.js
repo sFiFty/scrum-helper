@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import {NotificationManager}  from 'react-notifications'
 import {validateEmail} from "Helpers/Validators"
 
-
 export default class EmailModal extends React.Component {
   state = {
     email: null,
@@ -52,6 +51,7 @@ export default class EmailModal extends React.Component {
         </Modal>
 		)
   }
+  
 	static propTypes = {
     firebase: PropTypes.object.isRequired,
 		close: PropTypes.func.isRequired,
