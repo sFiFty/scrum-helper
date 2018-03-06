@@ -3,6 +3,7 @@ import {Container, Icon, Button, Modal, Header, Input} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
 import EmailModal from 'Components/EmailModal'
 import PropTypes from 'prop-types'
+import ClearFix from 'material-ui/internal/ClearFix';
 
 export default class EmailConfirmation extends React.Component {
   state = { 
@@ -14,30 +15,25 @@ export default class EmailConfirmation extends React.Component {
 	openModal = () => this.setState({isModalOpen: true})
 	
 	sendEmailVerification = notifyUser => {
-		const {firebase, history, profile} = this.props
-		this.authListener = firebase.auth().onAuthStateChanged(user => {
-			console.log(this.state.user)
-			this.setState({user: user})
-			// firebase.updateProfile({ isVerificationEmailSent: true }).then(() => {
-			// 	user.sendEmailVerification().then(data => {
-			// 		if (!notifyUser) return
-			// 		NotificationManager.success(
-			// 			'Mail sent successfully!', 
-			// 			'Confirmation'
-			// 		)
-			// 	})
-			// })
+		const {firebase, user, profile} = this.props
+		firebase.updateProfile({isVerificationEmailSent: true}).then(() => {
+			user.sendEmailVerification().then(data => {
+				if (!notifyUser) return
+				NotificationManager.success(
+					'Mail sent successfully!', 
+					'Confirmation'
+				)
+			})
 		})
-		this.setState()
-	}
-
-	componentWillUnmount() {
-		this.authListener && this.authListener()
-		this.sendEmailVerification = undefined
 	}
 
 	componentDidMount() {
-		const {profile} = this.props
+		const {profile, user, history} = this.props
+		if (user.emailVerified) {
+			history.push('/')
+			return
+		}
+		if (profile.isVerificationEmailSent) return
 		this.sendEmailVerification()
 	}
 
@@ -76,6 +72,7 @@ export default class EmailConfirmation extends React.Component {
 	static propTypes = {
 		firebase: PropTypes.object.isRequired,
 		profile: PropTypes.object.isRequired,
+		user: PropTypes.object
 	}
 }
 

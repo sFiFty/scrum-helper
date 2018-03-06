@@ -9,7 +9,8 @@ import {isLoaded} from 'react-redux-firebase'
 import PropTypes from 'prop-types'
 import SMLoader from 'Components/SMLoader'
 import Routes from './Routes'
-import {withRouter} from "react-router-dom"
+import store from '../../store'
+import actions from '../../actions'
 
 
 const muiTheme = getMuiTheme({
@@ -18,10 +19,26 @@ const muiTheme = getMuiTheme({
   }
 })
 
-class CoreLayout extends Component {
+export default class CoreLayout extends Component {
+
+  componentDidMount () {
+    const {firebase} = this.props
+
+    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        store.dispatch(actions.AUTH_USER(user))
+      } else {
+        store.dispatch(actions.SIGN_OUT_USER())
+      }
+    })
+  }
+
+  componentWillUnmount () {
+    this.removeListener()
+  }
+
   render() {
     const {profile, location} = this.props
-    console.log(this.props)
     return (
       !isLoaded(profile) 
       ? <SMLoader />
@@ -42,6 +59,4 @@ class CoreLayout extends Component {
     location: PropTypes.object.isRequired
   }
 }
-
-export default withRouter(CoreLayout)
 
