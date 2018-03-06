@@ -3,24 +3,22 @@ import {Container, Icon, Button, Modal, Header, Input} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
 import EmailModal from 'Components/EmailModal'
 import PropTypes from 'prop-types'
+import ClearFix from 'material-ui/internal/ClearFix';
 
 export default class EmailConfirmation extends React.Component {
   state = { 
-    isModalOpen: false 
+		isModalOpen: false,
+		user: null
   }
 
 	closeModal = () => this.setState({isModalOpen: false})
 	openModal = () => this.setState({isModalOpen: true})
 	
-	sendEmailVerification = () => {
-		const {firebase, history, profile} = this.props
-		firebase.auth().onAuthStateChanged(user => {
-			if (!user || user.emailVerified) {
-				history.push('/')
-				return
-			}
+	sendEmailVerification = notifyUser => {
+		const {firebase, user, profile} = this.props
+		firebase.updateProfile({isVerificationEmailSent: true}).then(() => {
 			user.sendEmailVerification().then(data => {
-				firebase.updateProfile({ isVerificationEmailSent: true })
+				if (!notifyUser) return
 				NotificationManager.success(
 					'Mail sent successfully!', 
 					'Confirmation'
@@ -30,9 +28,12 @@ export default class EmailConfirmation extends React.Component {
 	}
 
 	componentDidMount() {
-		const {profile} = this.props
-		console.log(profile)
-		if (profile.isVerificationEmailSent || !profile.email) return
+		const {profile, user, history} = this.props
+		if (user.emailVerified) {
+			history.push('/')
+			return
+		}
+		if (profile.isVerificationEmailSent) return
 		this.sendEmailVerification()
 	}
 
@@ -52,7 +53,7 @@ export default class EmailConfirmation extends React.Component {
 						className="mb-4"
 					/>
           <div className="d-flex justify-content-center">
-            <Button onClick={this.sendEmailVerification} basic className="w-25">
+            <Button onClick={() => this.sendEmailVerification(true)} basic className="w-25">
               Resend email  
 						</Button> 
 						<Button onClick={this.openModal} basic className="ml-5 mr-5 w-25">
@@ -71,6 +72,7 @@ export default class EmailConfirmation extends React.Component {
 	static propTypes = {
 		firebase: PropTypes.object.isRequired,
 		profile: PropTypes.object.isRequired,
+		user: PropTypes.object
 	}
 }
 

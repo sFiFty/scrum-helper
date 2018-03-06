@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import {NotificationManager}  from 'react-notifications'
 import {validateEmail} from "Helpers/Validators"
 
-
 export default class EmailModal extends React.Component {
   state = {
     email: null,
@@ -14,7 +13,7 @@ export default class EmailModal extends React.Component {
   setEmail = event => this.setState({email: event.target.value})
 
   save = () => {
-    const {firebase} = this.props
+    const {firebase, user} = this.props
     const {email} = this.state
     if (!_.trim(email).length || !validateEmail(_.trim(email))) {
 			this.setState({errorMessage: 'Please provide valid email'})
@@ -22,19 +21,17 @@ export default class EmailModal extends React.Component {
     }
     this.setState({isError: false})
     firebase.updateEmail(email).then(() => {
-      firebase.auth().onAuthStateChanged(user => {
-        user.sendEmailVerification().then(() => {
-          firebase.updateProfile({ isVerificationEmailsent: true })
-          NotificationManager.success(
-            'Mail sent successfully!', 
-            'Confirmation'
-          )
-        })
+      user.sendEmailVerification().then(() => {
+        firebase.updateProfile({isVerificationEmailSent: true, email: email})
+        NotificationManager.success(
+          'Mail sent successfully!', 
+          'Confirmation'
+        )
       })
     }).catch(e => this.setState({errorMessage: e.message}))
   }
 
-	render() {
+  render() {
     const {isModalOpen, close} = this.props
     const {errorMessage} = this.state
 		return (
@@ -52,6 +49,7 @@ export default class EmailModal extends React.Component {
         </Modal>
 		)
   }
+  
 	static propTypes = {
     firebase: PropTypes.object.isRequired,
 		close: PropTypes.func.isRequired,
