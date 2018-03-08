@@ -15,22 +15,22 @@ export default class AuthModal extends Component {
 
   loginWithFB = () => {
     const {firebase, redirectTo} = this.props
-    firebase.login({provider: 'facebook', type: 'popup'}).then(
-      redirectTo(location.search)
-    )
+    firebase.login({provider: 'facebook', type: 'popup'}).then(() => {
+      if (redirectTo) redirectTo(location.search)
+    })
   }
 
   loginWithGoogle = () => {
     const {firebase, redirectTo} = this.props
     firebase.login({provider: 'google', type: 'popup'}).then(() => {
-      redirectTo(location.search)
+      if (redirectTo) redirectTo(location.search)
     })
   }
   
   login = (email, password) => {
     const {firebase, redirectTo} = this.props
     firebase.login({email: email, password: password}).then(() => {
-      redirectTo(location.search)
+      if (redirectTo) redirectTo(location.search)
     }).catch(error => {
       if (error.code === 'auth/user-not-found') {
         this.setState({errorMessage: "Sorry, we can't find an account with this email address"})
@@ -47,7 +47,7 @@ export default class AuthModal extends Component {
   componentWillMount() {
     const {auth, redirectTo} = this.props
     if (auth.isLoaded && !auth.isEmpty && redirectTo) {
-      redirectTo(location.search)
+      if (redirectTo) redirectTo(location.search)
     }
   }
   

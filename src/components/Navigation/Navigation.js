@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react'
 import {Menu} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
+import {isLoaded, isEmpty} from 'react-redux-firebase'
 import './styles.scss'
 import Auth from 'Components/Auth'
 
@@ -27,7 +28,7 @@ export default class Navigation extends PureComponent {
   changeMenuActiveItem = path => {
     switch(path) {
       case '/': 
-        this.setState({activeItem: 'Teams'})
+        this.setState({activeItem: 'Home'})
         break
       case '/daily': 
         this.setState({activeItem: 'Daily'})
@@ -43,13 +44,32 @@ export default class Navigation extends PureComponent {
 
   render() {
     const {activeItem} = this.state
+    const {auth} = this.props
+    const menuItems = [
+      { to: '/', name: 'Home', public: true },
+      { to: '/teams', name: 'Teams' },
+      { to: '/daily', name: 'Daily' },
+    ]
     return (
       <div className="navigation-wrapper col-9">
         <div className="row">
           <div className="col-9  ">
             <Menu inverted>
-              <Menu.Item as={Link} to="/teams" name='Teams' active={activeItem === 'Teams'} onClick={this.handleItemClick} />
-              <Menu.Item as={Link} to="/daily" name='Daily' active={activeItem === 'Daily'} onClick={this.handleItemClick} />
+              {
+                isLoaded(auth) && 
+                menuItems.map((item, index) => {
+                  if (auth.isEmpty && !item.public) return
+                  return (
+                    <Menu.Item 
+                      key={index}
+                      as={Link} 
+                      to={item.to} 
+                      name={item.name}  
+                      active={activeItem === item.name} 
+                      onClick={this.handleItemClick} />
+                  )
+                })
+              }
               <Menu.Menu position='right'>
               </Menu.Menu>
             </Menu>

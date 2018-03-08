@@ -11,12 +11,13 @@ import AddTeam from 'Apps/teams/AddTeam'
 import {Route} from 'react-router-dom'
 import LoadingScreen from 'Components/LoadingScreen'
 import UserIsAuthenticated from 'Helpers/UserIsAuthenticated'
+import Home from 'Components/Home'
 
 export default class Routes extends Component {
   render() {
     return (
       <main className="site-content">
-        <Route exact path="/" component={UserIsAuthenticated(TeamList)} />
+        <Route exact path="/" component={Home} />
         <Route exact path="/email-confirmation" component={UserIsAuthenticated(EmailConfirmation)} />
         <Route exact path="/user/:uid" component={UserIsAuthenticated(UserProfile)} />
         <Route exact path="/teams" component={UserIsAuthenticated(TeamList)} />
