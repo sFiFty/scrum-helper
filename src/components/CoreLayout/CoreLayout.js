@@ -44,11 +44,13 @@ export default class CoreLayout extends Component {
       ? <SMLoader />
       : 
       <MuiThemeProvider muiTheme={muiTheme}>
-        <div className="layout-container row">
+        <div>
           <Header location={location} />
+          <div className="layout-container row">
           <Routes />
-          <Footer />
           <NotificationContainer/>
+          </div>
+          <Footer />
         </div>
       </MuiThemeProvider>
     )

@@ -1,26 +1,15 @@
-header {
-    width: 100%;
-    padding: 40px 0px 30px;
-    .container {
-        padding-right: 0px;
-        padding-left: 0px;
-    }
-    .logo-container {
-        min-height: 105px;
-    }
-    .navigation-wrapper .avatar-container {
-        .ui.header {
-            .content {
-                padding-left: 0px;
-                vertical-align: middle;
-            }
-            .circle.icon {
-                font-size: 1.8em;
-            }
-            img.avatar {
-                width: 2.1em;
-            }
-        }
-    }
+@import "~Styles/_definitions.scss";
 
+header {
+  width: 100%;
+  padding: 20px;
+  .logo-container {
+    width: 160px;
+  }
+  .navigation-wrapper .avatar-container {
+    margin-left: 3vw;
+    .item {
+      font-size: $font-m;
+    }
+  }
 }
