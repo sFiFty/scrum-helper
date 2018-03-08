@@ -6,7 +6,7 @@ import CoreLayout from './CoreLayout'
 
 export default compose(
   firebaseConnect(),
-  connect( state => ({
+  connect(state => ({
     profile: state.firebase.profile
   }))
 )(CoreLayout)
