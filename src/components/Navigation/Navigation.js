@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react'
 import {Menu} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
+import {isLoaded, isEmpty} from 'react-redux-firebase'
 import './styles.scss'
 import Auth from 'Components/Auth'
 
@@ -43,8 +44,9 @@ export default class Navigation extends PureComponent {
 
   render() {
     const {activeItem} = this.state
+    const {auth} = this.props
     const menuItems = [
-      { to: '/', name: 'Home' },
+      { to: '/', name: 'Home', public: true },
       { to: '/teams', name: 'Teams' },
       { to: '/daily', name: 'Daily' },
     ]
@@ -54,7 +56,9 @@ export default class Navigation extends PureComponent {
           <div className="col-9  ">
             <Menu inverted>
               {
+                isLoaded(auth) && 
                 menuItems.map((item, index) => {
+                  if (auth.isEmpty && !item.public) return
                   return (
                     <Menu.Item 
                       key={index}
