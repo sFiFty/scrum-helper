@@ -1,5 +1,6 @@
 import React from 'react'
-import {Container, Image} from 'semantic-ui-react'
+import PropTypes from 'prop-types'
+import {Container, Image, Label} from 'semantic-ui-react'
 import Navigation from 'Components/Navigation'
 import Auth from 'Components/Auth'
 import './styles.scss'
@@ -18,6 +19,7 @@ export default class Header extends React.Component {
                   title="Scrum Helper"
                   src={require('Images/logo.png')}
                 />
+                <Label className="beta-label" size="mini" color='black' ribbon>BETA</Label>
               </div>
             </div>
             <div className="p-2 align-self-center"><Navigation location={location} /></div>
@@ -26,5 +28,8 @@ export default class Header extends React.Component {
         </Container>
       </header>
     )
+  }
+  static propTypes = {
+    auth: PropTypes.object
   }
 }

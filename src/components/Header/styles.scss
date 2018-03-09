@@ -3,8 +3,16 @@
 header {
   width: 100%;
   padding: 20px 60px;
+  background-color: $white;
+  border-bottom: $light-grey;
   .logo-container {
     width: 160px;
+    position: relative;
+    .label.beta-label {
+      position: absolute;
+      top: -15px;
+      left: 5px;
+    }
   }
   .navigation-wrapper .avatar-container {
     margin-left: 3vw;
