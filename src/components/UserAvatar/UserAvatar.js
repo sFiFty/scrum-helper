@@ -6,13 +6,10 @@ export default class UserAvatar extends Component {
 	render() {
 		const {name, avatar, signOut, uid} = this.props
 		const link = "/user/" + uid
+		const trigger = avatar ? <Image src={avatar} avatar /> : <Icon size="huge" name='user circle' />
 		return (
 		<div>
-			{
-				avatar ? <Image src={avatar} avatar />
-				: <Icon size="huge" name='user circle' />
-			}
-			<Dropdown>
+			<Dropdown trigger={trigger}>
 				<Dropdown.Menu>
 					<Dropdown.Item text="Profile" as={Link} to={link}></Dropdown.Item>
 					<Dropdown.Item onClick={() => signOut()} icon='sign out' text='Sign out' />
