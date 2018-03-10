@@ -1,0 +1,12 @@
+@import "~Styles/_definitions.scss";
+
+.home-page {
+  .head {
+    background-color: $bg-color;
+    .main-block {
+      width: auto;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+}
