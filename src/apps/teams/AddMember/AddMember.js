@@ -1,6 +1,7 @@
 import React from 'react'
 import {Container, Header, Input, Form, Button, Message} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
+import PropTypes from 'prop-types'
 import _ from 'lodash'
 import './styles.scss'
 
@@ -86,5 +87,11 @@ export default class AddMember extends React.Component {
 				</Form>
 			</Container>
 		)
+  }
+  
+	static propTypes = {
+		firebase: PropTypes.object.isRequired,
+		team: PropTypes.object,
+		profile: PropTypes.object
 	}
 }
