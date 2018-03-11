@@ -52,12 +52,14 @@ export default class AuthModal extends Component {
   
   render() {
     const {dialogClose, firebase, isDialogOpened} = this.props
+    const {errorMessage} = this.state
     const panes = [
       { menuItem: 'Log In', render: () => 
         <Tab.Pane className="auth-tab" attached={false}>
           <LoginForm 
             login={this.login}
             loginWithFB={this.loginWithFB} 
+            errorMessage={errorMessage}
             loginWithGoogle={this.loginWithGoogle} />
         </Tab.Pane> 
       },

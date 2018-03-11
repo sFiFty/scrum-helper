@@ -14,8 +14,8 @@ class LoginForm extends React.Component {
 	setPassword = event => this.setState({password: event.target.value})
 	   
 	render() {
-		const {errorMessage, email, password} = this.state
-		const {loginWithGoogle, loginWithFB, login} = this.props
+		const {email, password} = this.state
+		const {loginWithGoogle, loginWithFB, login, errorMessage} = this.props
 		return (
 			<div className="auth-container text-center pt-1">
 				<Form className="auth-form">
