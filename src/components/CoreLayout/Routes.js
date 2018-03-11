@@ -16,7 +16,7 @@ import Home from 'Components/Home'
 export default class Routes extends Component {
   render() {
     return (
-      <main className="site-content">
+      <div className="site-content">
         <Route exact path="/" component={Home} />
         <Route exact path="/email-confirmation" component={UserIsAuthenticated(EmailConfirmation)} />
         <Route exact path="/user/:uid" component={UserIsAuthenticated(UserProfile)} />
@@ -27,7 +27,7 @@ export default class Routes extends Component {
         <Route exact path="/daily/create" component={UserIsAuthenticated(CreateDaily)} />
         <Route exact path="/daily/ongoing/:dailyid" component={UserIsAuthenticated(Daily)} />
         <Route exact path="/login" component={LoadingScreen} />
-      </main>
+      </div>
     )
   }
 }
