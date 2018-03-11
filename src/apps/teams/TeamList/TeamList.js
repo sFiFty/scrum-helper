@@ -37,7 +37,7 @@ export default class TeamList extends Component {
     const {teams} = this.props
     return (
       <Container className="list-container">
-        <Header as='h2'>My Teams</Header>
+        <h2 className="list-title">My Teams</h2>
         {
           isLoaded(teams) ?
           <Transition.Group as={List} duration={500}> 

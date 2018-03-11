@@ -93,7 +93,7 @@ export default class CreateDaily extends React.Component {
 		const {teams} = this.props
 		return (
 			<Container>
-				<Header as='h2'>Create Daily Meeting</Header>
+				<h2 className="form-title">Create Daily Meeting</h2>
 				<Form className="add">
 					<Form.Field className="teams-to-choose d-flex flex-row">
 						{

@@ -1,5 +1,5 @@
 import React from 'react'
-import { CirclePicker } from 'react-color'
+import {CirclePicker} from 'react-color'
 import {Container, Header, Input, Form, Button, Message} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
 import PropTypes from 'prop-types'
@@ -39,7 +39,7 @@ export default class TeamList extends React.Component {
 		const {errorMessage, color} = this.state
 		return (
 			<Container>
-				<Header as='h2'>Add New Team</Header>
+				<h2 className="form-title">Add New Team</h2>
 				<Form className="add">
 					{
 						errorMessage ?

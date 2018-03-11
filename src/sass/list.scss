@@ -1,7 +1,10 @@
 
 .list-container {
+	.list-title {
+		padding: 0px 0px 25px;
+	}
 	.list > .item.item-container {
-    overflow: hidden;
+	  overflow: hidden;
 		margin-bottom: 10px;
 		position: relative;
 		height: 55px;
@@ -25,8 +28,8 @@
 			.member-list {
 				position: absolute;
 				z-index: 1;
-        top: 13px;
-        right: 90px;
+			top: 13px;
+			right: 90px;
 				> img {
 					background: white;
 					width: 2.5rem;
@@ -58,15 +61,14 @@
 					}
 					
 				}
-	
 			}
 			.list-controls {
 				transition: 0.3s;
 				position: absolute;
 				right: 0px;
 				top: 0px;
-        z-index: 1;
-        right: -100px;
+			z-index: 1;
+			right: -100px;
 				height: 100%;
 				background: $white;
 				padding: 15px 10px;
@@ -75,16 +77,15 @@
 					cursor: pointer;
 				}
 			}
-
 		}
 		.empty-list {
 			right: 0;
 		}
 		&:hover {
-      .list-controls {
-        transition: 0.3s;
-        right: 0px;
-      }
+	  .list-controls {
+		transition: 0.3s;
+		right: 0px;
+	  }
 		}
 	}
 	.add-container {

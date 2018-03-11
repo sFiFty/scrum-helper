@@ -1,14 +1,41 @@
 .add.form {
-	.name .input input {
-		border: none;
-		padding-left: 0px;
-	}
-	.color-picker > label.color-picker-label {
-		font-size: $font-m;
-		padding: 15px 0px;
-		color: $text-color;
-	}
-	button {
-		margin-top: 20px;
-	}
+  .name .input input {
+    border: none;
+    padding-left: 0px;
+  }
+  .color-picker > label.color-picker-label {
+    font-size: $font-m;
+    padding: 15px 0px;
+    color: $text-color;
+  }
+  button {
+    margin-top: 20px;
+  }
+}
+
+body {
+  .ui.form {
+    input[type] {
+    &:focus {
+      border-color: $black;
+    }
+    }
+  }
+  .ui.input input[type] {
+    &:focus {
+    border-color: $black;
+    }
+  }
+  // conflict with bootstrap and semantic 
+  .modal {
+    bottom: inherit;
+  }
+  .ui.basic.button, .ui.basic.buttons .button {
+    color: $black !important;
+    box-shadow: 0 0 0 2px $black inset;
+    &:hover {
+      color: $white !important;
+      background: $black !important;
+    }
+  }
 }

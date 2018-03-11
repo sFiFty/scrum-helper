@@ -23,7 +23,6 @@ export default class AddMember extends React.Component {
 			}
 			this.setState({defaultAvatarsList: list})
 		}
-
 	}
 
 	selectAvatar = (selectedIndex) => {
@@ -61,10 +60,9 @@ export default class AddMember extends React.Component {
 	render() {
 		const {firebase, profile} = this.props
 		const {errorMessage, color, defaultAvatarsList} = this.state
-
 		return (
 			<Container>
-				<Header as='h2'>Add Member</Header>
+				<h2 className="form-title">Add Member</h2>
 				<Form className="add">
 					{
 						errorMessage ?
