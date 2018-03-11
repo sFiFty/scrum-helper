@@ -50,7 +50,7 @@ export default class DailyList extends Component {
     const {meetings, teams} = this.props
     return (
       <Container className="list-container daily-list">
-        <Header as='h2'>My Daily Meetings</Header>
+        <h2 className="list-title">My Daily Meetings</h2>
         {
           isLoaded(meetings) ?
           <List>

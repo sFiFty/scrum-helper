@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react'
 import Loader from 'react-loaders'
+import './styles.scss'
 
 export default class SMLoader extends PureComponent {
 	render() {

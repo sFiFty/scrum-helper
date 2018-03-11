@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Paper from 'material-ui/Paper'
 import SMLoader from 'Components/SMLoader'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import {Card, Icon, Image} from 'semantic-ui-react'
@@ -32,9 +31,7 @@ export default class UserProfile extends React.Component {
 				</Card.Content>
 			</Card>
 		return (
-			<Paper zDepth={2} className="row">
-				{ userProfile }
-			</Paper>
+			{ userProfile }
 		)
 	}
 }

@@ -3,6 +3,7 @@ import {Container, Header, List, Icon, Transition} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import {NotificationManager}  from 'react-notifications'
+import PropTypes from 'prop-types'
 import EmptyTeamList from './EmptyTeamList'
 import MembersInTheList from 'Components/MembersInTheList'
 import AddTeamBox from './AddTeamBox'
@@ -36,7 +37,7 @@ export default class TeamList extends Component {
     const {teams} = this.props
     return (
       <Container className="list-container">
-        <Header as='h2'>My Teams</Header>
+        <h2 className="list-title">My Teams</h2>
         {
           isLoaded(teams) ?
           <Transition.Group as={List} duration={500}> 
@@ -66,4 +67,9 @@ export default class TeamList extends Component {
       </Container>
     )
   }
+
+	static propTypes = {
+		firebase: PropTypes.object.isRequired,
+		teams: PropTypes.object
+	}
 }

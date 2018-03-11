@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import Dialog from 'material-ui/Dialog'
-import {Tab} from 'semantic-ui-react'
+import {Tab, Modal} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import RegistrationForm from './RegistrationForm'
 import LoginForm from './LoginForm'
@@ -53,12 +52,14 @@ export default class AuthModal extends Component {
   
   render() {
     const {dialogClose, firebase, isDialogOpened} = this.props
+    const {errorMessage} = this.state
     const panes = [
       { menuItem: 'Log In', render: () => 
         <Tab.Pane className="auth-tab" attached={false}>
           <LoginForm 
             login={this.login}
             loginWithFB={this.loginWithFB} 
+            errorMessage={errorMessage}
             loginWithGoogle={this.loginWithGoogle} />
         </Tab.Pane> 
       },
@@ -71,17 +72,13 @@ export default class AuthModal extends Component {
         </Tab.Pane> },
       ]
     return (
-      <Dialog
+      <Modal
         className="auth-dialog"
-        contentStyle={{maxWidth: 300}}
-        modal={false}
-        contentClassName="auth-content"
-        autoScrollBodyContent
+        size="mini"
         open={isDialogOpened}
-        onRequestClose={dialogClose}
-      >
+        onClose={dialogClose}>
         <Tab className="auth-tabs" menu={{secondary: true, pointing: true}} panes={panes} />
-      </Dialog>
+      </Modal>
     )
   }
   

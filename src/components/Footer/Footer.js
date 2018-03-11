@@ -7,7 +7,7 @@ import './styles.scss'
 export default class Footer extends Component {
   render() {
     return (
-      <footer className='footer-wrapper text-center mt-5'>
+      <footer className="footer-wrapper text-center">
         <a target="_blank" href="https://github.com/sFiFty/my-helper/">
           <Button size="mini"> 
             <Icon name='github' size="small" />

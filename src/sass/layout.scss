@@ -1,99 +1,53 @@
 @import "~Styles/_definitions.scss";
 
-.layout-container {
-	padding: 0 20px;
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.sh-container {
   display: flex;
-  min-height: 100vh;
-	flex-direction: column;
-	background-color: $bg-color;
-	main.site-content {
-		max-width: 1200px;
-		margin: 0 auto;
-		width: auto;
-		flex: 1;
-		min-height: 60vh;
-		display: flex;
-		background-color: $white;
-		.ui.container {
-			flex:1;
-			padding: 0;
-		}
-	}
-	.container {
-		.header {
-			padding: 20px 0px;
-		}
-	}
-	.ui.basic.button, .ui.basic.buttons .button {
-		color: $black !important;
-		box-shadow: 0 0 0 2px $black inset;
-		&:hover {
-			color: $white !important;
-			background: $black !important;
-		}
-	}
+  flex-direction: column;
+  min-height: 100%;
+  main {
+    flex: auto;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    .site-content {
+      background-color: $bg-color;
+      display: flex;
+      flex: auto;
+      .ui.container {
+        background-color: $white;
+        padding: 40px 30px;
+        min-height: 100%;
+      }
+      .ui.container.fluid {
+        padding: 0;
+      }
+    }
+
+  }
+  header {
+    height: 100px;
+    position: fixed;
+    z-index: 1;
+  }
+  footer {
+    height: 45px;
+  }
 }
 
 body, div, h1, h2, h3, h4, h5, h6 {
-	font-family: $lato;
-	font-weight: normal;
+  font-family: $lato;
+  font-weight: normal;
 }
 
-.hidden {
-	display: none;
-}
 
-/*
-	Loader
-*/
 
-.loader {
-	position: absolute;
-	margin: 0 auto;
-	left: 0;
-	right: 0;
-	top: 50%;
-	width: 100px;
-	z-index: 3;
-	.loader-inner {
-		> div {
-			height: 105px;
-			width: 105px;
-		}
-		div {
-			&:last-child {
-				height: 85px;
-				width: 85px;
-			}
-		}
-	}
-}
-
-.loader-hidden {
-  display: none;
-}
-.loader-active {
-  display: block;
-}
-
-body {
-	.ui.form {
-		input[type] {
-			&:focus {
-				border-color: $black;
-			}
-		}
-	}
-	.ui.input input[type] {
-		&:focus {
-			border-color: $black;
-		}
-	}
-	// conflict with bootstrap and semantic 
-	.modal {
-		bottom: inherit;
-	}
-}
 
 
 
