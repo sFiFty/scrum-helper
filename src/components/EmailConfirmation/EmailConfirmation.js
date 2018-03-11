@@ -3,7 +3,6 @@ import {Container, Icon, Button, Modal, Header, Input} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
 import EmailModal from 'Components/EmailModal'
 import PropTypes from 'prop-types'
-import ClearFix from 'material-ui/internal/ClearFix';
 
 export default class EmailConfirmation extends React.Component {
   state = { 
