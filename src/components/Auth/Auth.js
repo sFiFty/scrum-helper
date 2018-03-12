@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 export default class Auth extends Component {
 
   state = {
-    isDialogOpened: false,
+    isDialogOpened: false
   }
 
   dialogOpen = () => this.setState({isDialogOpened: true})
@@ -22,12 +22,7 @@ export default class Auth extends Component {
     const {isDialogOpened} = this.state
     return (
       <div>
-        <AuthModal
-          firebase={firebase} 
-          history={history}
-          dialogClose={this.dialogClose}
-          isDialogOpened={isDialogOpened} 
-        />
+        <AuthModal history={history} dialogClose={this.dialogClose} isDialogOpened={isDialogOpened} />
         {
           !isLoaded(auth) 
           ? <SMLoader size="xs" />
