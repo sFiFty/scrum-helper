@@ -2,14 +2,14 @@ import React, {PureComponent} from 'react'
 import {Menu} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
+import PropTypes from 'prop-types'
 
 export default class Navigation extends PureComponent {
   state = { 
     activeItem: null 
   }
-  handleItemClick = (e, { name }) => {
-    this.setState({activeItem: name})
-  }
+
+  handleItemClick = (e, { name }) => this.setState({activeItem: name})
 
   componentWillMount() {
     const {location} = this.props
@@ -70,5 +70,9 @@ export default class Navigation extends PureComponent {
         </Menu>
       </div>
     )
+  }
+
+  static propTypes = {
+    auth: PropTypes.object
   }
 }
