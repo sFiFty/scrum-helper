@@ -1,7 +1,8 @@
 @import "~Styles/_definitions.scss";
-.footer-wrapper {
+footer.footer-wrapper {
   padding: 10px 0px;
   color: $white;
+  height: 45px;
   background: $black;
   button.ui.mini.button {
     background-color: $white;
