@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {Container} from 'semantic-ui-react'
+import {Container, Image, Button} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import AuthModal from 'Components/AuthModal'
@@ -13,7 +13,6 @@ export default class Home extends Component {
   }
 
   authModalOpen = index => {
-    console.log()
     this.setState({
       authModalIsOpen: true,
       index: typeof index === 'object' ? 0 : index
@@ -25,20 +24,30 @@ export default class Home extends Component {
   render() {
     const {auth} = this.props
     const {authModalIsOpen, index} = this.state
+    console.log(auth)
     return (
       <Container className="home-page">
-        <div className="head text-center">
-          <h1 className="mb-2">Welcome to the Scrum Helper </h1>
-          <div className="seconary-text text-light-black">
-            We are in beta now but we have something for you.
+        <div className="head">
+          <div className="home-text-container">
+            <h1 className="mb-2">Welcome to the Scrum Helper </h1>
+            <div className="seconary-text text-light-black">
+              We are in beta now but we have something for you.
+            </div>
+            <Button secondary size="large" onClick={() => this.authModalOpen(1)}>Join us</Button>
+          </div>
+          <div className="home-image-container">
+            <Image
+              alt="Scrum Team"
+              title="Scrum Team"
+              src={require('Images/home-image-top.png')}/>
           </div>
         </div>
         <div className="text-color mt-5">
         {
-          !isEmpty(auth) ?
+          isEmpty(auth) ?
           <div>
             To use our service we would like to ask you to 
-            <span onClick={() => this.authModalOpen(1)}> register</span> or 
+            <span  > register</span> or 
             <span onClick={this.authModalOpen}> login.</span>
           </div>
           :

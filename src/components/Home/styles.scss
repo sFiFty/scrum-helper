@@ -2,8 +2,18 @@
 
 .home-page {
   .head {
-    width: auto;
-    max-width: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    max-width: 1000px;
     margin: 0 auto;
+    margin-top: -80px;
+  }
+  .home-image-container {
+    width: 50%;
+  }
+  .home-text-container {
+    width: 50%;
   }
 }
