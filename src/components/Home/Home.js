@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {Container, Image, Button} from 'semantic-ui-react'
+import {Container, Image, Button, List} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import AuthModal from 'Components/AuthModal'
@@ -24,16 +24,21 @@ export default class Home extends Component {
   render() {
     const {auth} = this.props
     const {authModalIsOpen, index} = this.state
-    console.log(auth)
     return (
       <Container className="home-page">
         <div className="head">
           <div className="home-text-container">
-            <h1 className="mb-2">Welcome to the Scrum Helper </h1>
-            <div className="seconary-text text-light-black">
+            <h1 className="mb-2 font-xxl">Welcome to the Scrum Helper </h1>
+            <div className="seconary-text text-light-black font-m">
               We are in beta now but we have something for you.
             </div>
-            <Button secondary size="large" onClick={() => this.authModalOpen(1)}>Join us</Button>
+            <div className="buttons-container mt-3">
+              {
+                isEmpty(auth) &&
+                <Button className="mr-3" secondary size="medium" onClick={() => this.authModalOpen(1)}>Join us</Button>
+              }
+              <Button basic size="medium">We offer</Button>
+            </div>
           </div>
           <div className="home-image-container">
             <Image
@@ -41,20 +46,6 @@ export default class Home extends Component {
               title="Scrum Team"
               src={require('Images/home-image-top.png')}/>
           </div>
-        </div>
-        <div className="text-color mt-5">
-        {
-          isEmpty(auth) ?
-          <div>
-            To use our service we would like to ask you to 
-            <span  > register</span> or 
-            <span onClick={this.authModalOpen}> login.</span>
-          </div>
-          :
-          <div>
-            Let's create your first team!
-          </div>
-        }
         </div>
         <AuthModal 
           dialogClose={this.authModalClose} 
