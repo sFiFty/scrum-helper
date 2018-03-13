@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 export default class Auth extends Component {
 
   state = {
-    isDialogOpened: false,
+    isDialogOpened: false
   }
 
   dialogOpen = () => this.setState({isDialogOpened: true})
@@ -22,17 +22,12 @@ export default class Auth extends Component {
     const {isDialogOpened} = this.state
     return (
       <div>
-        <AuthModal
-          firebase={firebase} 
-          history={history}
-          dialogClose={this.dialogClose}
-          isDialogOpened={isDialogOpened} 
-        />
+        <AuthModal history={history} dialogClose={this.dialogClose} isDialogOpened={isDialogOpened} />
         {
           !isLoaded(auth) 
           ? <SMLoader size="xs" />
           : isEmpty(auth)
-          ? <Button type="submit" onClick={this.dialogOpen} secondary>Sign In</Button>
+          ? <Button size="mini" type="submit" onClick={this.dialogOpen} secondary>Sign In</Button>
           : <UserAvatar signOut={() => {firebase.auth().signOut()}} uid={auth.uid} name={auth.displayName} avatar={auth.photoURL} />
         }
       </div>

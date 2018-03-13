@@ -10,14 +10,18 @@ $font-s: 1rem;
 $font-m: 1.2rem;
 $font-l: 1.5rem;
 $font-xl: 2rem;
+$font-xxl: 2.5rem;
 
 .font-xs { font-size: $font-xs }
 .font-s { font-size: $font-s }
 .font-m { font-size: $font-m }
 .font-l { font-size: $font-l }
 .font-xl { font-size: $font-xl }
+.font-xxl { font-size: $font-xxl }
 
 .text-color { color: $text-color }
-
 .text-white { color: $white }
+.text-black { color: $black }
+.text-lightgrey { color: $lightgrey }
+.text-light-black { color: $light-black }
 

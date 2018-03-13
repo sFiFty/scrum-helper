@@ -9,7 +9,7 @@ import './styles.scss'
 export default class AuthModal extends Component {
 
   state = {
-    isDialogOpened: false,
+    errorMessage: null,
   }
 
   loginWithFB = () => {
@@ -51,7 +51,7 @@ export default class AuthModal extends Component {
   }
   
   render() {
-    const {dialogClose, firebase, isDialogOpened} = this.props
+    const {dialogClose, firebase, isDialogOpened, activeIndex} = this.props
     const {errorMessage} = this.state
     const panes = [
       { menuItem: 'Log In', render: () => 
@@ -77,7 +77,7 @@ export default class AuthModal extends Component {
         size="mini"
         open={isDialogOpened}
         onClose={dialogClose}>
-        <Tab className="auth-tabs" menu={{secondary: true, pointing: true}} panes={panes} />
+        <Tab activeIndex={activeIndex || 0} className="auth-tabs" menu={{secondary: true, pointing: true}} panes={panes} />
       </Modal>
     )
   }
@@ -86,6 +86,7 @@ export default class AuthModal extends Component {
     firebase: PropTypes.object.isRequired,
     isDialogOpened: PropTypes.bool,
     dialogOpen: PropTypes.func,
-    redirectTo: PropTypes.func
+    redirectTo: PropTypes.func,
+    activeIndex: PropTypes.number
   }
 }
