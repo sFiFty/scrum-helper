@@ -4,6 +4,7 @@ import {Container, Image, Button, List} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import AuthModal from 'Components/AuthModal'
+import WeOfferBox from 'Components/WeOfferBox'
 import './styles.scss'
 
 export default class Home extends Component {
@@ -28,11 +29,11 @@ export default class Home extends Component {
       <Container className="home-page">
         <div className="head">
           <div className="home-text-container">
-            <h1 className="mb-2 font-xxl">Welcome to the Scrum Helper </h1>
-            <div className="seconary-text text-light-black font-m">
+            <h1 className="font-xxl mb-0">Welcome to the Scrum Helper </h1>
+            <div className="secondary-text text-light-black font-m">
               We are in beta now but we have something for you.
             </div>
-            <div className="buttons-container mt-3">
+            <div className="buttons-container">
               {
                 isEmpty(auth) &&
                 <Button className="mr-3" secondary size="medium" onClick={() => this.authModalOpen(1)}>Join us</Button>
@@ -47,6 +48,8 @@ export default class Home extends Component {
               src={require('Images/home-image-top.png')}/>
           </div>
         </div>
+        <hr className="horizontal-divider" />
+        <WeOfferBox />
         <AuthModal 
           dialogClose={this.authModalClose} 
           isDialogOpened={authModalIsOpen} 

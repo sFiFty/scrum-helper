@@ -8,12 +8,22 @@
     align-items: center;
     max-width: 1000px;
     margin: 0 auto;
-    margin-top: -80px;
+    margin-top: -60px;
+    .home-image-container {
+      width: 50%;
+    }
+    .home-text-container {
+      width: 50%;
+      .secondary-text {
+        margin-top: 15px;
+        margin-bottom: 15px;
+      }
+    }
   }
-  .home-image-container {
-    width: 50%;
-  }
-  .home-text-container {
-    width: 50%;
+  .horizontal-divider {
+    width: 10%;
+    margin-bottom: 40px;
+    margin-top: 10px;
+    border-color: $light-black;
   }
 }

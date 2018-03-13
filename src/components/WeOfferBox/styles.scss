@@ -1,0 +1,24 @@
+@import "~Styles/_definitions.scss";
+
+.we-offer-list {
+  .list-head {
+    padding-bottom: 20px;
+  }
+  .offer-list-item {
+    border: 1px solid $lightgrey;
+    border-radius: 3px;
+    padding: 10px 20px;
+    .list-image-container, .list-description {
+      max-width: 100px;
+      width: auto;
+      margin: 0 auto;
+    }
+    .list-description {
+      max-width: 200px;
+      margin: 20px 0px;
+    }
+    &:hover {
+      background-color: $lightgrey;
+    }
+  }
+}
