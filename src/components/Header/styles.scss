@@ -8,6 +8,9 @@ header {
   height: 100px;
   position: fixed;
   z-index: 3;
+  -webkit-box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.59);
+  -moz-box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.59);
+  box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.59);
   .logo-container {
     width: 160px;
     position: relative;

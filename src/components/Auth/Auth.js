@@ -27,7 +27,7 @@ export default class Auth extends Component {
           !isLoaded(auth) 
           ? <SMLoader size="xs" />
           : isEmpty(auth)
-          ? <Button size="tiny" type="submit" onClick={this.dialogOpen} secondary>Sign In</Button>
+          ? <Button size="mini" type="submit" onClick={this.dialogOpen} secondary>Sign In</Button>
           : <UserAvatar signOut={() => {firebase.auth().signOut()}} uid={auth.uid} name={auth.displayName} avatar={auth.photoURL} />
         }
       </div>
