@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Container, Header, List, Icon, Transition} from 'semantic-ui-react'
+import {Container, Header, List, Icon, Transition, Label, Message} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import {NotificationManager}  from 'react-notifications'
@@ -31,13 +31,26 @@ export default class TeamList extends Component {
 				'Confirmation'
 			)
 		})
-	}
+  }
+
+  handleDismiss = () => {
+    const {firebase} = this.props
+    firebase.updateProfile({teamListMessageHidden: true})
+  }
 
   render() {
-    const {teams} = this.props
+    const {teams, profile} = this.props
     return (
       <Container className="list-container">
         <h2 className="list-title">My Teams</h2>
+        {
+          !profile.teamListMessageHidden &&
+          <Message
+            onDismiss={this.handleDismiss}
+            header='Just hover on the team box to add members to your team!'
+            content='And press blue plus button!'
+          />
+        }
         {
           isLoaded(teams) ?
           <Transition.Group as={List} duration={500}> 
@@ -56,6 +69,10 @@ export default class TeamList extends Component {
                         <Icon className="trash-icon" onClick={() => this.deleteTeam(k)} size="large" name="trash" color="red" />
                       </div>
                     </List.Content>
+                    {
+                      !teams[k].members && 
+                      <Label as='a' className="list-label" color='teal' ribbon='right'>Team is empty</Label>
+                    }
                   </List.Item>
                 )
               })
