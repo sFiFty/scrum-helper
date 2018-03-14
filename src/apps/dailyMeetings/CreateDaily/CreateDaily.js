@@ -2,6 +2,7 @@ import React from 'react'
 import {Container, Header, Form, Button, Icon, Dropdown, Image} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
 import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom'
 import moment from 'moment'
 import './styles.scss'
 
@@ -67,13 +68,18 @@ export default class CreateDaily extends React.Component {
 	onCreateDaily = () => {
 		const {teams, firebase, history, owner} = this.props
 		const {selectedMembers, selectedTeamId} = this.state
+		if (!teams) {
+			NotificationManager.error(`You can't create daily without team`, `Error`);
+			return;
+		}
+		
 		let members = {}
 		this.shuffle(selectedMembers).map((member, index) => {
 			members[index] = {
 				id: member.key
 			}
 		})
-		selectedMembers.map
+
 		firebase.push('dailyMeetings/', {
 			team: selectedTeamId,
 			owner: owner,
@@ -93,43 +99,55 @@ export default class CreateDaily extends React.Component {
 		const {teams} = this.props
 		return (
 			<Container>
-				<h2 className="form-title">Create Daily Meeting</h2>
-				<Form className="add">
-					<Form.Field className="teams-to-choose d-flex flex-row">
-						{
-							_.keys(teams).map((teamKey, index) => {
-								const selectedClass = selectedTeamId === teamKey ? 'selected' : null
-								const classes = `${selectedClass} team-box font-s p-3 text-white`
-								return <div 
-									style={{backgroundColor: teams[teamKey].color}} 
-									className={classes}
-									onClick={() => this.selectTeam(teamKey)} 
-									key={index}> 
-									<Icon className="checkmark-icon" size="big" name="checkmark" color="black" />
-									<div className="overlay-block"></div>
-									<span>{teams[teamKey].name}</span> 
-								</div>
-							})
-						}
-					</Form.Field>
-					<Form.Field className="mt-5">
-						<Dropdown 
-							placeholder={`Team members`} 
-							multiple 
-							onChange={this.onAddMember}
-							selection 
-							value={selectedNames || []}
-							options={allMembers || []} />
-					</Form.Field>
-					<Button 
-						onClick={this.onCreateDaily} 
-						floated="right" 
-						size="big" 
-						type="submit" 
-						secondary>
-						Create Daily
-					</Button>
-				</Form>
+				{
+					teams ?
+					<div>
+						<h2 className="form-title">Create Daily Meeting</h2>
+						<Form className="add">
+							<Form.Field className="teams-to-choose d-flex flex-row">
+								{
+									_.keys(teams).map((teamKey, index) => {
+										const selectedClass = selectedTeamId === teamKey ? 'selected' : null
+										const classes = `${selectedClass} team-box font-s p-3 text-white`
+										return <div 
+											style={{backgroundColor: teams[teamKey].color}} 
+											className={classes}
+											onClick={() => this.selectTeam(teamKey)} 
+											key={index}> 
+											<Icon className="checkmark-icon" size="big" name="checkmark" color="black" />
+											<div className="overlay-block"></div>
+											<span>{teams[teamKey].name}</span> 
+										</div>
+									})
+								}
+							</Form.Field>
+							<Form.Field className="mt-5">
+								<Dropdown 
+									placeholder={`Team members`} 
+									multiple 
+									onChange={this.onAddMember}
+									selection 
+									value={selectedNames || []}
+									options={allMembers || []} />
+							</Form.Field>
+							<Button 
+								onClick={this.onCreateDaily} 
+								floated="right"
+								disabled={!teams}
+								size="big" 
+								type="submit" 
+								secondary>
+								Create Daily
+							</Button>
+						</Form>
+					</div>
+					:
+					<div className="text-center">
+						<h1>To create daily you need to have one team at least.</h1>
+						<Button as={Link} to="/teams/add" className="mt-4" secondary size="medium">Create Team</Button>
+					</div>
+				}
+
 			</Container>
 		)
 	}
