@@ -4,7 +4,6 @@
 		padding: 0px 0px 25px;
 	}
 	.list > .item.item-container {
-	  overflow: hidden;
 		margin-bottom: 10px;
 		position: relative;
 		height: 55px;
@@ -17,7 +16,17 @@
 			opacity: 0.4;
 			position: absolute;
 		}
+		.label.list-label {
+			position: absolute;
+			top: 0px;
+			z-index: 1;
+			left: calc(100% + 0rem + 1.2em);
+		}
 		.content {
+			overflow: hidden;
+			position: relative;
+			width: 100%;
+			height: 100%;
 			.header, .empty-list {
 				padding: 20px;
 				color: $text-color;
@@ -67,8 +76,8 @@
 				position: absolute;
 				right: 0px;
 				top: 0px;
-			z-index: 1;
-			right: -100px;
+				z-index: 1;
+				right: -100px;
 				height: 100%;
 				background: $white;
 				padding: 15px 10px;
@@ -82,10 +91,13 @@
 			right: 0;
 		}
 		&:hover {
-	  .list-controls {
-		transition: 0.3s;
-		right: 0px;
-	  }
+			.list-controls {
+				transition: 0.3s;
+				right: 0px;
+			}
+			.label.list-label {
+				display: none;
+			}
 		}
 	}
 	.add-container {

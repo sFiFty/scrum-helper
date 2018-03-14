@@ -23,7 +23,7 @@ export default class WeOfferBox extends PureComponent {
             <div className="list-description font-s">
               Create your team! Add/remove members and use this team for daily meetings.
             </div>
-            <Button className="mt-auto" basic size="medium">Create Team</Button>
+            <Button as={Link} to="/teams/add" className="mt-auto" basic size="medium">Create Team</Button>
           </div>
           <div className="d-flex align-items-center flex-column offer-list-item ml-4 text-center">
             <h3 className="list-text font-m">
@@ -38,7 +38,7 @@ export default class WeOfferBox extends PureComponent {
             <div className="list-description font-s">
               Create and hold a daily meeting! Use your existing team for that.
             </div>
-            <Button className="mt-auto" basic size="medium">Create Daily</Button>
+            <Button as={Link} to="/daily/create" className="mt-auto" basic size="medium">Create Daily</Button>
           </div>
         </div>
       </div>
