@@ -45,6 +45,10 @@ export default class AddMember extends React.Component {
 			this.setState({errorMessage: 'Please provide member name'})
 			return
 		} 
+		if (!avatar) {
+			this.setState({errorMessage: 'Please pick member avatar'})
+			return
+		} 
 		this.setState({errorMessage: null})
 		firebase.push(`teams/${match.params.teamid}/members`, {
 			name: name,
@@ -59,15 +63,14 @@ export default class AddMember extends React.Component {
 	}
 	render() {
 		const {firebase, profile} = this.props
-		const {errorMessage, color, defaultAvatarsList} = this.state
+		const {errorMessage, defaultAvatarsList, name, avatar} = this.state
 		return (
 			<Container>
 				<h2 className="form-title">Add Member</h2>
 				<Form className="add">
 					{
-						errorMessage ?
+						errorMessage &&
 						<Message color='red'>{errorMessage}</Message>
-						: ''
 					}
 					<Form.Field className="name">
 						<Input onChange={this.setName.bind(this)} size='massive' placeholder='Type member name here...' />
@@ -81,7 +84,12 @@ export default class AddMember extends React.Component {
 							})
 						}
 					</Form.Field>
-					<Button onClick={this.addMember} floated="right" size="big" type="submit" secondary>Add Member</Button>
+					<Button 
+						onClick={this.addMember} 
+						floated="right" 
+						size="big" 
+						type="submit" 
+						secondary>Add Member</Button>
 				</Form>
 			</Container>
 		)
