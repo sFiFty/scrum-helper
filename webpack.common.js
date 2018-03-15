@@ -1,18 +1,20 @@
-const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path')
+const webpack = require('webpack')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
 	entry: {
 		app: [
 			path.join(__dirname, 'main.js')
 		]
-	},
+  },
+	output: {
+    path: path.join(__dirname, 'dist'),
+    publicPath: '/',
+    filename: 'bundle.js'
+  },
   plugins: [
     new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({
-      title: 'Production'
-    }),
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery"
@@ -26,11 +28,6 @@ module.exports = {
       Images: path.resolve( __dirname, 'static', 'images'),
       Helpers: path.resolve( __dirname, 'src', 'helpers'),
     }
-  },
-	output: {
-    path: path.join(__dirname, 'dist'),
-    publicPath: '/',
-		filename: 'bundle.js'
   },
   module: {
     rules: [
