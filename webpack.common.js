@@ -1,16 +1,25 @@
-const path = require('path');
-const webpack = require('webpack');
+const path = require('path')
+const webpack = require('webpack')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+
 module.exports = {
 	entry: {
 		app: [
 			path.join(__dirname, 'main.js')
 		]
-	},
+  },
 	output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/',
-		filename: 'bundle.js'
+    filename: 'bundle.js'
   },
+  plugins: [
+    new CleanWebpackPlugin(['dist']),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
+    })
+  ],
   resolve: {
     alias: {
       Components: path.resolve( __dirname, 'src', 'components'),
@@ -19,12 +28,6 @@ module.exports = {
       Images: path.resolve( __dirname, 'static', 'images'),
       Helpers: path.resolve( __dirname, 'src', 'helpers'),
     }
-  },
-  devtool: "source-map",
-  watch: true,
-  devServer: {
-    inline: true,
-    port: 3333
   },
   module: {
     rules: [
@@ -56,10 +59,4 @@ module.exports = {
       { test: /\.(png|jpg|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
     ]
   },
-  plugins: [
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery"
-    })
-  ]
 }

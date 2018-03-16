@@ -73,6 +73,11 @@ export default class TeamList extends Component {
                       !teams[k].members && 
                       <Label as='a' className="list-label" color='teal' ribbon='right'>Team is empty</Label>
                     }
+                    {
+                      // team size warning
+                      // teams[k].members && (9 > _.keys(teams[k].members).length || _.keys(teams[k].members).length < 5) &&
+                      // <Label as='a' className="list-label" color='teal' ribbon='right'>The recommended team size is 5 ± 2</Label>
+                    }
                   </List.Item>
                 )
               })
