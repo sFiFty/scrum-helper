@@ -19,11 +19,19 @@ export default class CreateDaily extends React.Component {
 		this.setState({selectedNames: value, selectedMembers: selectedMembers})
 	}
 
-	componentWillReceiveProps(props) {
+	setDefaultTeam = props => {
 		const {teams} = props
 		const {selectedTeamId} = this.state
 		if (!teams || selectedTeamId) return
 		this.generateValues(teams, _.keys(teams)[0])
+	}
+
+	componentWillReceiveProps(props) {
+		this.setDefaultTeam(props)
+	}
+
+	componentWillMount() {
+		this.setDefaultTeam(this.props)
 	}
 
 	generateValues = (teams, teamId) => {
@@ -122,13 +130,24 @@ export default class CreateDaily extends React.Component {
 								}
 							</Form.Field>
 							<Form.Field className="mt-5">
-								<Dropdown 
+								{
+									allMembers.length === 0 ?
+									<div className="font-m">
+										Your team is empty. Do you want to add member? 
+										<Link className="ml-3 text-link" to={`/teams/${selectedTeamId}/addMember`}>
+											Add member<Icon name="arrow right" />
+										</Link>
+									</div>
+									:
+									<Dropdown 
 									placeholder={`Team members`} 
 									multiple 
 									onChange={this.onAddMember}
 									selection 
 									value={selectedNames || []}
 									options={allMembers || []} />
+								}
+
 							</Form.Field>
 							<Button 
 								onClick={this.onCreateDaily} 

@@ -1,0 +1,14 @@
+@import "./colors.scss";
+
+.text-link {
+  color: $black;
+  text-decoration: underline;
+  i.icon {
+    margin-left: 5px;
+    text-decoration: none;
+  }
+  &:hover {
+    color: $black;
+    text-decoration: none;
+  }
+}
