@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Moment from 'react-moment'
+import PropTypes from 'prop-types'
 
 export default class FinalSlide extends Component {
   render() {
@@ -13,4 +14,9 @@ export default class FinalSlide extends Component {
       </div>
     )
   }
+
+	static propTypes = {
+    daily: PropTypes.object.isRequired,
+    nextStep: PropTypes.func.isRequired
+	}
 }

@@ -166,7 +166,6 @@ export default class CreateDaily extends React.Component {
 						<Button as={Link} to="/teams/add" className="mt-4" secondary size="medium">Create Team</Button>
 					</div>
 				}
-
 			</Container>
 		)
 	}

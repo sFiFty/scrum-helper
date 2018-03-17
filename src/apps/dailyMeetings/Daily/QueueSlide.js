@@ -1,19 +1,23 @@
 import React, {Component} from 'react'
 import {List, Image} from 'semantic-ui-react'
 import ExtendMembersList from 'Helpers/ExtendMembersList'
+import PropTypes from 'prop-types'
 
 export default class QueueSlide extends Component {
-  state: {
+  state = {
     members: null
   }
+
   componentWillMount() {
     const {daily} = this.props
     this.setState({members: ExtendMembersList(daily.members, daily.team.members)})
   }
+
   componentWillReceiveProps(nextProps) {
     const {daily} = nextProps
     this.setState({members: ExtendMembersList(daily.members, daily.team.members)})
   }
+
   render() {
     const {members} = this.state
     const {daily} = this.props
@@ -40,4 +44,8 @@ export default class QueueSlide extends Component {
       </div>
     )
   }
+
+	static propTypes = {
+    daily: PropTypes.object.isRequired
+	}
 }
