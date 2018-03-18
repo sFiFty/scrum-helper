@@ -10,7 +10,10 @@ export default class AuthModal extends Component {
 
   state = {
     errorMessage: null,
+    activeIndex: 0
   }
+
+  handleTabChange = (e, { activeIndex }) => this.setState({ activeIndex })
 
   loginWithFB = () => {
     const {firebase, redirectTo} = this.props
@@ -43,6 +46,10 @@ export default class AuthModal extends Component {
     })
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.activeIndex) this.setState({activeIndex: nextProps.activeIndex})
+  }
+
   componentWillMount() {
     const {auth, redirectTo} = this.props
     if (auth.isLoaded && !auth.isEmpty && redirectTo) {
@@ -51,8 +58,8 @@ export default class AuthModal extends Component {
   }
   
   render() {
-    const {dialogClose, firebase, isDialogOpened, activeIndex} = this.props
-    const {errorMessage} = this.state
+    const {dialogClose, firebase, isDialogOpened} = this.props
+    const {errorMessage, activeIndex} = this.state
     const panes = [
       { menuItem: 'Log In', render: () => 
         <Tab.Pane className="auth-tab" attached={false}>
@@ -77,7 +84,12 @@ export default class AuthModal extends Component {
         size="mini"
         open={isDialogOpened}
         onClose={dialogClose}>
-        <Tab activeIndex={activeIndex || 0} className="auth-tabs" menu={{secondary: true, pointing: true}} panes={panes} />
+        <Tab 
+          onTabChange={this.handleTabChange}
+          activeIndex={activeIndex} 
+          className="auth-tabs" 
+          menu={{secondary: true, pointing: true}} 
+          panes={panes} />
       </Modal>
     )
   }
