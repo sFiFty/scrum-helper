@@ -1,6 +1,7 @@
 import React from 'react'
 import {Divider, Form, Label, Input, Button, Icon, Message} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom'
 import {withRouter} from "react-router-dom"
 import {validateEmail} from "Helpers/Validators"
 
@@ -51,7 +52,7 @@ class RegistrationForm extends React.Component {
 
 	render() {
 		const {errorMessage} = this.state
-		const {loginWithGoogle, loginWithFB} = this.props
+		const {loginWithGoogle, loginWithFB, dialogClose} = this.props
 		return (
 			<div className="auth-container text-center pt-1">
 				<Form className="auth-form">
@@ -68,7 +69,10 @@ class RegistrationForm extends React.Component {
 						<label className="text-left">Password (6 or more characters)</label>
 						<input onChange={this.setPassword} type='password'/>
 					</Form.Field>
-					<Button type="submit" onClick={this.signIn} secondary>Sign In</Button>
+					<div className="mail-buttons d-flex justify-content-between">
+						<Button type="submit" onClick={this.signIn} secondary>Sign In</Button>
+						<Button onClick={dialogClose} as={Link} to="/">Cancel</Button>
+					</div>
 					<Divider />
 					<Form.Field inline>
 						<Button onClick={loginWithGoogle} color='google plus'>

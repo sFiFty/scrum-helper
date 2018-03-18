@@ -8,10 +8,16 @@
 		}
 		.auth-tab .auth-container {
 			.auth-form {
-				input, button, label {
+				input, button, label, a {
 					width: 100%;
 					font-size: 0.8rem;
 				}
+				.mail-buttons {
+					button, a {
+						width: 50%;
+					}
+				}
+
 			}
 		}
 	}
