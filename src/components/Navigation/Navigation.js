@@ -34,6 +34,9 @@ export default class Navigation extends PureComponent {
       case '/teams': 
         this.setState({activeItem: 'Teams'})
         break
+      case '/contacts': 
+        this.setState({activeItem: 'Contact Us'})
+        break
       default: 
         this.setState({activeItem: null})
         break
@@ -45,8 +48,9 @@ export default class Navigation extends PureComponent {
     const {auth} = this.props
     const menuItems = [
       { to: '/', name: 'Home', public: true },
+      { to: '/contacts', name: 'Contact Us', public: true },
       { to: '/teams', name: 'Teams' },
-      { to: '/daily', name: 'Daily' },
+      { to: '/daily', name: 'Daily' }
     ]
     return (
       <div className="navigation-wrapper">
