@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 import {isLoaded} from 'react-redux-firebase'
+import PropTypes from 'prop-types'
 import SMLoader from 'Components/SMLoader'
 import IntroSlide from './IntroSlide'
 import QueueSlide from './QueueSlide'
 import DiscussionSlide from './DiscussionSlide'
 import FinalSlide from './FinalSlide'
 import './styles.scss'
-import Divider from 'semantic-ui-react';
+import Divider from 'semantic-ui-react'
 
 export default class Daily extends Component {
 
@@ -71,4 +72,10 @@ export default class Daily extends Component {
       </div>
     )
   }
+
+	static propTypes = {
+		dailyId: PropTypes.number.isRequired,
+		daily: PropTypes.object.isRequired,
+		firebase: PropTypes.object.isRequired
+	}
 }
