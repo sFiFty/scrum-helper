@@ -13,6 +13,7 @@ export default class Daily extends Component {
 
   nextStep = () => {
     const {daily, firebase, dailyId, history} = this.props
+    if (!daily) return
     if (daily.step === 3) {
       firebase.remove(`dailyMeetings/${dailyId}`).then(() => {
         history.push('/daily')
@@ -24,6 +25,7 @@ export default class Daily extends Component {
 
   prevStep = () => {
     const {daily, firebase, dailyId, history} = this.props
+    if (!daily) return
     if (daily.step === 0) return
     firebase.update(`dailyMeetings/${dailyId}`, { step: daily.step - 1 })
   }

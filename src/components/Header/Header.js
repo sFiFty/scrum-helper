@@ -15,7 +15,6 @@ export default class Header extends React.Component {
           <div className="d-flex justify-content-end">
             <div className="p-2">
               <div className="logo-container">
-
                 <Image
                   as={Link}
                   alt="Scrum Helper"
