@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 
 export default class DiscussionSlide extends Component {
   render() {
-    const {daily, nextStep} = this.props
+    const {daily} = this.props
     return (
-      <div onClick={nextStep} style={{backgroundColor: daily.team.color}} className="page-overlay">
+      <div style={{backgroundColor: daily.team.color}} className="page-overlay">
         <div className="daily-text text-center">
           <div>After Daily Discussion</div>
           <div>Questions? Inputs? Suggestions?</div>
@@ -16,7 +16,6 @@ export default class DiscussionSlide extends Component {
   }
 
 	static propTypes = {
-    daily: PropTypes.object.isRequired,
-    nextStep: PropTypes.func.isRequired
+    daily: PropTypes.object
 	}
 }

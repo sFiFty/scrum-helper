@@ -67,15 +67,15 @@ export default class Daily extends Component {
     }
 
     return (
-      <div tabIndex="0" onClick={this.nextStep} onKeyDown={this.prevStep} className="daily-layout">
+      <div tabIndex="0" onClick={this.nextStep} className="daily-layout">
         {currentSlide}
       </div>
     )
   }
 
 	static propTypes = {
-		dailyId: PropTypes.number.isRequired,
-		daily: PropTypes.object.isRequired,
+		dailyId: PropTypes.string.isRequired,
+		daily: PropTypes.object,
 		firebase: PropTypes.object.isRequired
 	}
 }
