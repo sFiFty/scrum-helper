@@ -67,7 +67,8 @@ export default class AuthModal extends Component {
             login={this.login}
             loginWithFB={this.loginWithFB} 
             errorMessage={errorMessage}
-            loginWithGoogle={this.loginWithGoogle} />
+            loginWithGoogle={this.loginWithGoogle} 
+            dialogClose={dialogClose}/>
         </Tab.Pane> 
       },
       { menuItem: 'Sign In', render: () => 
@@ -75,7 +76,8 @@ export default class AuthModal extends Component {
           <RegistrationForm 
             firebase={firebase} 
             loginWithFB={this.loginWithFB} 
-            loginWithGoogle={this.loginWithGoogle} />
+            loginWithGoogle={this.loginWithGoogle} 
+            dialogClose={dialogClose}/>
         </Tab.Pane> },
       ]
     return (

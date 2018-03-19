@@ -13,6 +13,7 @@ export default class Daily extends Component {
 
   nextStep = () => {
     const {daily, firebase, dailyId, history} = this.props
+    if (!daily) return
     if (daily.step === 3) {
       firebase.remove(`dailyMeetings/${dailyId}`).then(() => {
         history.push('/daily')
@@ -24,6 +25,7 @@ export default class Daily extends Component {
 
   prevStep = () => {
     const {daily, firebase, dailyId, history} = this.props
+    if (!daily) return
     if (daily.step === 0) return
     firebase.update(`dailyMeetings/${dailyId}`, { step: daily.step - 1 })
   }
@@ -67,15 +69,15 @@ export default class Daily extends Component {
     }
 
     return (
-      <div tabIndex="0" onClick={this.nextStep} onKeyDown={this.prevStep} className="daily-layout">
+      <div tabIndex="0" onClick={this.nextStep} className="daily-layout">
         {currentSlide}
       </div>
     )
   }
 
 	static propTypes = {
-		dailyId: PropTypes.number.isRequired,
-		daily: PropTypes.object.isRequired,
+		dailyId: PropTypes.string.isRequired,
+		daily: PropTypes.object,
 		firebase: PropTypes.object.isRequired
 	}
 }

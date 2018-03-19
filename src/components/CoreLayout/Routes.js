@@ -11,6 +11,7 @@ import AddTeam from 'Apps/teams/AddTeam'
 import {Route} from 'react-router-dom'
 import LoadingScreen from 'Components/LoadingScreen'
 import UserIsAuthenticated from 'Helpers/UserIsAuthenticated'
+import ContactUs from 'Components/ContactUs'
 import Home from 'Components/Home'
 
 export default class Routes extends Component {
@@ -27,6 +28,7 @@ export default class Routes extends Component {
         <Route exact path="/daily/create" component={UserIsAuthenticated(CreateDaily)} />
         <Route exact path="/daily/ongoing/:dailyid" component={UserIsAuthenticated(Daily)} />
         <Route exact path="/login" component={LoadingScreen} />
+        <Route exact path="/contacts" component={ContactUs} />
       </div>
     )
   }
