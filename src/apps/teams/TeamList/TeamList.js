@@ -23,7 +23,8 @@ export default class TeamList extends Component {
   }
 
 	deleteMember = (member, teamid) => {
-		const {firebase, teams} = this.props
+    const {firebase, teams} = this.props
+    console.log(member)
     const team = teams[teamid]
 		firebase.remove(`teams/${teamid}/members/${member.id}`).then(() => {
 			NotificationManager.success(

@@ -6,7 +6,7 @@ const ExtendMembersList = (members, allTeamMembers) => {
     if (!key) return 
     extendedList[key] = {
       ...allTeamMembers[key],
-      id: memberKey
+      key: memberKey
     }
   })
   return extendedList
