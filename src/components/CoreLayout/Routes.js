@@ -13,6 +13,7 @@ import LoadingScreen from 'Components/LoadingScreen'
 import UserIsAuthenticated from 'Helpers/UserIsAuthenticated'
 import ContactUs from 'Components/ContactUs'
 import Home from 'Components/Home'
+import PrivacyPolicy from 'Apps/privacyPolicy/PrivacyPolicy'
 
 export default class Routes extends Component {
   render() {
@@ -29,6 +30,7 @@ export default class Routes extends Component {
         <Route exact path="/daily/ongoing/:dailyid" component={UserIsAuthenticated(Daily)} />
         <Route exact path="/login" component={LoadingScreen} />
         <Route exact path="/contacts" component={ContactUs} />
+        <Route exact path="/privacy-policy" component={PrivacyPolicy} />
       </div>
     )
   }
