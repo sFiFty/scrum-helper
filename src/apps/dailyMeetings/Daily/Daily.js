@@ -38,6 +38,10 @@ export default class Daily extends Component {
     document.removeEventListener("keydown", this.keyPress.bind(this));
   }  
 
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.daily) this.props.history.push('/daily')
+  }
+
   keyPress = e => {
     if (e.keyCode === 37) {
       this.prevStep()
@@ -47,7 +51,7 @@ export default class Daily extends Component {
   }
 
   render() {
-    const {daily} = this.props
+    const {daily, history} = this.props
     let currentSlide = <SMLoader />
     if (daily) {
       switch(daily.step) {
