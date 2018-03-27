@@ -38,6 +38,10 @@ export default class Daily extends Component {
     document.removeEventListener("keydown", this.keyPress.bind(this));
   }  
 
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.daily) this.props.history.push('/daily')
+  }
+
   keyPress = e => {
     if (e.keyCode === 37) {
       this.prevStep()
