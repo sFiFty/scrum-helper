@@ -34,24 +34,24 @@ export default class PrivacyPolicy extends PureComponent {
         <p>Scrum Helper may collect and use Users personal information for the following purposes:</p>
         <List bulleted>
           <List.Item>
-            <p>To run and operate our Site</p>
+            <i>To run and operate our Site</i>
             <p>We may need your information display content on the Site correctly.</p>
           </List.Item>
           <List.Item>
-            <p>To improve customer service</p>
+            <i>To improve customer service</i>
             <p>Information you provide helps us respond to your customer service requests and support needs more efficiently.</p>
           </List.Item>
           <List.Item>
-            <p>To personalize user experience</p>
+            <i>To personalize user experience</i>
             <p>We may use information in the aggregate to understand how our Users 
             as a group use the services and resources provided on our Site.</p>
           </List.Item>
           <List.Item>
-            <p>To improve our Site</p>
+            <i>To improve our Site</i>
             <p>We may use feedback you provide to improve our products and services.</p>
           </List.Item>
           <List.Item>
-            <p>To send periodic emails</p>
+            <i>To send periodic emails</i>
             <p>We may use the email address to send them information and updates pertaining to their order.</p>
           </List.Item>
         </List>
