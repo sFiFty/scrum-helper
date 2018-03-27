@@ -32,20 +32,6 @@ export default class DailyList extends Component {
 		})
 	}
 
-  extendMembersList = (members, allTeamMembers) => {
-    if (!allTeamMembers) return {}
-    let extendedList = {}
-    _.keys(members).map(memberKey => {
-      let key = members[memberKey] && members[memberKey].id
-      if (!key) return 
-      extendedList[key] = {
-        ...allTeamMembers[key],
-        key: memberKey
-      }
-    })
-    return extendedList
-  }
-
   render() {
     const {meetings, teams} = this.props
     return (
@@ -56,8 +42,8 @@ export default class DailyList extends Component {
           <List>
             {
               _.keys(meetings).map(k => {
-                let meeting = meetings[k]
-                let extendedMembersList = ExtendMembersList(meeting.members, meeting.team.members)
+                const meeting = meetings[k]
+                const extendedMembersList = ExtendMembersList(meeting.members, meeting.team.members)
                 return (
                   <List.Item className="text-color item-container" key={k}>
                     <div className="color-filler" style={{backgroundColor: meeting.team.color}}></div>
