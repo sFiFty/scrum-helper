@@ -6,32 +6,29 @@ import {Card, Icon, Image} from 'semantic-ui-react'
 
 export default class UserProfile extends React.Component {
 	static propTypes = {
-		myUser: PropTypes.object,
+		profile: PropTypes.object,
 		firebase: PropTypes.object
 	}
 	render() {
-		let { myUser } = this.props
-		const userProfile = !isLoaded(myUser)
+		const { profile } = this.props
+		return (
+			!isLoaded(profile)
 			? <SMLoader />
-			: isEmpty(myUser)
-			? 'No profile for this user'
 			:   
 			<Card>
-				<Image size="medium" src={myUser.avatar} />
+				<Image size="medium" src={profile.avatar} />
 				<Card.Content>
 					<Card.Header>
-						{myUser.displayName}
+						{profile.displayName}
 					</Card.Header>
 					<Card.Meta>
-						Verification type: {myUser.verificationType}
+						Verification type: {profile.verificationType}
 					</Card.Meta>
 				</Card.Content>
 				<Card.Content extra>
-					Email: {myUser.email}
+					Email: {profile.email}
 				</Card.Content>
 			</Card>
-		return (
-			{ userProfile }
 		)
 	}
 }

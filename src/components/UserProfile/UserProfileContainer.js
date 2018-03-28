@@ -5,21 +5,10 @@ import {firebaseConnect} from 'react-redux-firebase'
 import UserProfile from './UserProfile'
 
 export default compose(
-	firebaseConnect((props) => {
-		return [
-			{
-				path: `users/${props.match.params.uid}`,
-				storeAs: 'myUser'
-			},
-			{
-				path: 'users',
-			}
-		]
-	}),
+	firebaseConnect(),
 	connect(
 		(state) => ({
-			myUser: state.firebase.data.myUser,
-			users: state.firebase.data.users,
+			profile: state.firebase.profile
 		})
 	)
 )(UserProfile)
