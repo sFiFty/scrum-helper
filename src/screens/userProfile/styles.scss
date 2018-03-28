@@ -1,0 +1,15 @@
+
+.profile-container {
+  width: auto;
+  max-width: 600px;
+  margin: 0 auto;
+  .image-container {
+    width: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .profile-information-container {
+    padding-left: 30px;
+  }
+}
+
