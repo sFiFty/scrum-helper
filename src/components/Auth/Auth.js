@@ -18,7 +18,7 @@ export default class Auth extends Component {
 
   render() {
     let isAuthorized = false
-    const {auth, firebase, history} = this.props
+    const {auth, firebase, history, profile} = this.props
     const {isDialogOpened} = this.state
     return (
       <div>
@@ -28,7 +28,7 @@ export default class Auth extends Component {
           ? <SMLoader size="xs" />
           : isEmpty(auth)
           ? <Button size="mini" type="submit" onClick={this.dialogOpen} secondary>Sign In</Button>
-          : <UserAvatar signOut={() => {firebase.auth().signOut()}} uid={auth.uid} name={auth.displayName} avatar={auth.photoURL} />
+          : <UserAvatar signOut={() => {firebase.auth().signOut()}} uid={auth.uid} name={profile.name} avatar={profile.avatar} />
         }
       </div>
     )
