@@ -1,12 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Container, Icon, Image, Button} from 'semantic-ui-react'
+import {Container, Icon, Image, Button, List, Input} from 'semantic-ui-react'
 import {isLoaded} from 'react-redux-firebase'
 import Dropzone from 'react-dropzone'
 import SMLoader from 'Components/SMLoader'
+import InlineEditable from 'Components/InlineEditable'
 import './styles.scss'
 
 export default class UserProfile extends React.Component {
+
+	state = {
+		name: null,
+		email: null,
+		nameIsEditing: false,
+		emailIsEditing: false
+	}
 
 	onFileAdded = (files, rejected) => {
 		const {firebase} = this.props
@@ -15,9 +23,14 @@ export default class UserProfile extends React.Component {
 		})
 	}
 
+	setName = name => {
+		const {firebase} = this.props
+		firebase.updateProfile({name: name})
+	}
+	
 	render() {
 		const {profile} = this.props
-		console.log(profile);
+		const {nameIsEditing, emailIsEditing} = this.state
 		let dropzoneRef
 		return (
 			!isLoaded(profile)
@@ -35,10 +48,11 @@ export default class UserProfile extends React.Component {
 						<Button onClick={() => { dropzoneRef.open() }} className="mt-3 w-100" basic size="tiny">Change Avatar</Button>
 					</div>
 					<div className="profile-information-container">
-						<h1>{profile.name}</h1>
-						<div className="profile-email">
-							<Icon name="mail" /> {profile.email}
-						</div>
+						<List divided verticalAlign='middle'>
+							<List.Item>
+								<InlineEditable onChange={this.setName} text={profile.name} placeholder={'Type your name here...'} />
+							</List.Item>
+						</List>
 					</div>
 				</div>
 			</Container>

@@ -16,6 +16,11 @@
   }
   .profile-information-container {
     padding-left: 30px;
+    .list .item {
+      padding: 10px 20px;
+      line-height: 30px;
+      width: 30rem;
+    }
   }
 }
 
