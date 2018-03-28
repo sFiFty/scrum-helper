@@ -4,9 +4,15 @@
   max-width: 600px;
   margin: 0 auto;
   .image-container {
-    width: 200px;
-    border-radius: 50%;
-    overflow: hidden;
+    img {
+      width: 200px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    button {
+      margin: 0;
+    }
   }
   .profile-information-container {
     padding-left: 30px;
