@@ -24,14 +24,18 @@ export default class DefaultAvatars extends React.Component {
 	}
 
 	selectAvatar = (selectedIndex) => {
-		const { defaultAvatarsList } = this.state
+    const {defaultAvatarsList} = this.state
+    const selectedAvatar = `default_avatar_${selectedIndex + 1}.svg`
+    
 		defaultAvatarsList.map((avatar, index) => {
 			avatar.selected = selectedIndex === index
     })
-    
+
+    this.props.onChoose(selectedAvatar)
+
 		this.setState({
 			defaultAvatarsList: defaultAvatarsList, 
-			avatar: `default_avatar_${selectedIndex + 1}.svg`
+			avatar: selectedAvatar
 		})
 	}
 	render() {
