@@ -1,0 +1,21 @@
+@import "~Styles/_definitions.scss";
+
+.member-avatars-container {
+  .member-avatar {
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 7px 0px;
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .member-avatar.selected {
+    border: 2px solid $black;
+  }
+}
+
+
