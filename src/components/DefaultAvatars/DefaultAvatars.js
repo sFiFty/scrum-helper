@@ -1,6 +1,4 @@
 import React from 'react'
-import {Container, Header, Input, Form, Button, Message} from 'semantic-ui-react'
-import {NotificationManager}  from 'react-notifications'
 import PropTypes from 'prop-types'
 import './styles.scss'
 
@@ -26,7 +24,7 @@ export default class DefaultAvatars extends React.Component {
 	selectAvatar = (selectedIndex) => {
     const {defaultAvatarsList} = this.state
     const selectedAvatar = `default_avatar_${selectedIndex + 1}.svg`
-    
+
 		defaultAvatarsList.map((avatar, index) => {
 			avatar.selected = selectedIndex === index
     })
@@ -57,4 +55,8 @@ export default class DefaultAvatars extends React.Component {
 			</div>
 		)
   }
+
+	static propTypes = {
+    onChoose: PropTypes.func.isRequired,
+	}
 }
