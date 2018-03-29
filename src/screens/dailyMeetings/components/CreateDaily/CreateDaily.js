@@ -153,7 +153,7 @@ export default class CreateDaily extends React.Component {
 								onClick={this.onCreateDaily} 
 								floated="right"
 								disabled={!teams}
-								size="big" 
+								size="medium" 
 								type="submit" 
 								secondary>
 								Create Daily

@@ -7,11 +7,18 @@
     border: none;
     padding-left: 0px;
   }
-  .color-picker > label.color-picker-label {
-    font-size: $font-m;
-    padding: 15px 0px;
-    color: $text-color;
+  .form-field {
+    label.label {
+      font-size: $font-m;
+      padding: 15px 0px;
+      color: $text-color;
+    }
+    .ui.input input {
+      border: 1px solid $black;
+      padding-left: 1rem;
+    }
   }
+
   button {
     margin-top: 20px;
   }
@@ -27,7 +34,7 @@ body {
   }
   .ui.input input[type] {
     &:focus {
-    border-color: $black;
+      border-color: $black;
     }
   }
   // conflict with bootstrap and semantic 
