@@ -16,6 +16,6 @@ export const UserIsNotAuthenticated = connectedRouterRedirect({
     auth.isLoaded && auth.isEmpty,
   redirectAction: newLoc => (dispatch) => {
     browserHistory.replace(newLoc); // or routerActions.replace
-    dispatch({ type: 'UNAUTHED_REDIRECT' });
+    dispatch({ type: 'UNAUTHED_REDIRECT' })
   },
-});
+})

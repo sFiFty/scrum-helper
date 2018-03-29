@@ -6,5 +6,10 @@ import Auth from './Auth'
 
 export default compose(
   firebaseConnect(),
-  connect(({firebase: {auth}}) => ({auth}))
+  connect(
+		(state) => ({
+      profile: state.firebase.profile,
+      auth: state.firebase.auth
+		})
+	)
 )(Auth)

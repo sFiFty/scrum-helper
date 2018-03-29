@@ -24,7 +24,7 @@ module.exports = {
     alias: {
       Components: path.resolve( __dirname, 'src', 'components'),
       Styles: path.resolve( __dirname, 'src', 'sass'),
-      Apps: path.resolve( __dirname, 'src', 'apps'),
+      Screens: path.resolve( __dirname, 'src', 'screens'),
       Images: path.resolve( __dirname, 'static', 'images'),
       Helpers: path.resolve( __dirname, 'src', 'helpers'),
     }
