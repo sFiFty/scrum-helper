@@ -1,0 +1,27 @@
+
+.profile-container {
+  width: auto;
+  max-width: 600px;
+  margin: 0 auto;
+  .image-container {
+    img {
+      width: 200px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    button {
+      margin: 0;
+    }
+  }
+  .profile-information-container {
+    padding-left: 30px;
+    .list .item {
+      padding: 10px 20px;
+      line-height: 30px;
+      width: 30rem;
+      height: 3rem;
+    }
+  }
+}
+
