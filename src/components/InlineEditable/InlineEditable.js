@@ -36,7 +36,9 @@ export default class InlineEditable extends React.Component {
 	}
 	
 	static propTypes = {
-		placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    text: PropTypes.string
 	}
 
 }

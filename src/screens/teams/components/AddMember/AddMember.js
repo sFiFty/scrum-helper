@@ -2,27 +2,14 @@ import React from 'react'
 import {Container, Header, Input, Form, Button, Message} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
+import DefaultAvatars from 'Components/DefaultAvatars'
 import './styles.scss'
 
 export default class AddMember extends React.Component {
 	state = {
 		name: null,
 		errorMessage: null,
-		defaultAvatarsList: [],
 		avatar: null
-	}
-	componentDidMount() {
-		if (this.state.defaultAvatarsList.length === 0) {
-			let list = []
-			for (let i = 1; i <= 12; i++) {
-				list.push({
-					src: require(`Images/default_avatar_${i}.svg`),
-					selected: false
-				})
-			}
-			this.setState({defaultAvatarsList: list})
-		}
 	}
 
 	selectAvatar = (selectedIndex) => {
@@ -35,6 +22,8 @@ export default class AddMember extends React.Component {
 			avatar: `default_avatar_${selectedIndex + 1}.svg`
 		})
 	}
+
+	onChooseAvatar = avatar => this.setState({avatar: avatar})
 
 	setName = event => this.setState({name: event.target.value})
 
@@ -76,18 +65,12 @@ export default class AddMember extends React.Component {
 						<Input onChange={this.setName.bind(this)} size='massive' placeholder='Type member name here...' />
 					</Form.Field>
 					<Form.Field className="member-avatar">
-						{
-							defaultAvatarsList.map((avatar, index) => {
-								return <div className={avatar.selected ? 'selected' : ''} key={index} onClick={() => this.selectAvatar(index)}>
-									<img src={avatar.src} />
-								</div>
-							})
-						}
+						<DefaultAvatars onChoose={this.onChooseAvatar}/>
 					</Form.Field>
 					<Button 
 						onClick={this.addMember} 
 						floated="right" 
-						size="big" 
+						size="medium" 
 						type="submit" 
 						secondary>Add Member</Button>
 				</Form>

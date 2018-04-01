@@ -17,15 +17,15 @@ export default class ContactUs extends Component {
           Hello, my name is Alex and I am the creator of Scrum Helper. 
           If you have any questions or suggestions please don't hesitate to contact me.
         </div>
-        <div className="socials mt-3">
+        <div className="socials mt-5">
           <a target="_blank" href="mailto:alexandr.rudin.my@gmail.com">
-            <Button circular color='google plus' icon='google plus' />
+            <Button size="huge" circular color='google plus' icon='google plus' />
           </a>
           <a target="_blank" href="https://www.facebook.com/rudinaleksandr">
-            <Button circular color='facebook' icon='facebook' />
+            <Button className="ml-3" size="huge" circular color='facebook' icon='facebook' />
           </a>
           <a target="_blank" href="https://www.linkedin.com/in/rudin-aleksandr-11921576/">
-            <Button circular color='linkedin' icon='linkedin' />
+            <Button className="ml-3" size="huge" circular color='linkedin' icon='linkedin' />
           </a>
         </div>
       </Container>
