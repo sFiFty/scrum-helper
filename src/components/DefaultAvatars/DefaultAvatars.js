@@ -5,20 +5,23 @@ import './styles.scss'
 export default class DefaultAvatars extends React.Component {
 	state = {
 		defaultAvatarsList: [],
-		avatar: null
+		selectedAvatar: null
   }
   
 	componentDidMount() {
-		if (this.state.defaultAvatarsList.length === 0) {
-			let list = []
-			for (let i = 1; i <= 12; i++) {
-				list.push({
-					src: require(`Images/default_avatar_${i}.svg`),
-					selected: false
-				})
-			}
-			this.setState({defaultAvatarsList: list})
+		const {selectedAvatar} = this.props
+		const {defaultAvatarsList} = this.state 
+		if (defaultAvatarsList.length !== 0) return
+		let list = []
+		for (let i = 1; i <= 12; i++) {
+			const name = `default_avatar_${i}.svg`
+			list.push({
+				name: name,
+				src: require(`Images/${name}`),
+				selected: name === selectedAvatar
+			})
 		}
+		this.setState({defaultAvatarsList: list})
 	}
 
 	selectAvatar = (selectedIndex) => {
@@ -33,11 +36,11 @@ export default class DefaultAvatars extends React.Component {
 
 		this.setState({
 			defaultAvatarsList: defaultAvatarsList, 
-			avatar: selectedAvatar
+			selectedAvatar: selectedAvatar
 		})
 	}
 	render() {
-		const {defaultAvatarsList, avatar} = this.state
+		const {defaultAvatarsList, selectedAvatar} = this.state
 		return (
 			<div className="member-avatars-container">
         {
@@ -57,6 +60,7 @@ export default class DefaultAvatars extends React.Component {
   }
 
 	static propTypes = {
-    onChoose: PropTypes.func.isRequired,
+		onChoose: PropTypes.func.isRequired,
+		selectedAvatar: PropTypes.string
 	}
 }
