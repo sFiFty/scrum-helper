@@ -1,11 +1,11 @@
 import React from 'react'
 import {CirclePicker} from 'react-color'
-import {Container, Header, Input, Form, Button, Message, Popup, List, Image} from 'semantic-ui-react'
+import {Container, Header, Input, Form, Button, Message, Popup, List, Image, Icon} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
 import PropTypes from 'prop-types'
 import DefaultAvatars from 'Components/DefaultAvatars'
 import AddMember from '../AddMember/AddMember';
-
+import './styles.scss'
 export default class TeamList extends React.Component {
 	state = {
 		name: null,
@@ -31,6 +31,12 @@ export default class TeamList extends React.Component {
 
 	setMemberName = event => this.setState({memberName: event.target.value})
 
+	removeMember = index => {
+		const {members} = this.state
+		members.splice(index, 1)
+		this.setState({members: members})
+	}
+
 	addMember = () => {
 		const {memberName, memberAvatar, members} = this.state
 		members.push({
@@ -45,7 +51,7 @@ export default class TeamList extends React.Component {
 	}
 
 	onAddTeam = () => {
-		const {name, color} = this.state
+		const {name, color, members} = this.state
 		const {firebase, history, owner} = this.props
 		if (!name || name.length < 1) {
 			this.setState({errorMessage: 'Please provide team name'})
@@ -55,8 +61,14 @@ export default class TeamList extends React.Component {
 		firebase.push('teams/', {
 			name: name,
 			color: color,
-			owner: owner
+			owner: owner,
+			members: members
 		}).then(team => {
+			let membersToSave = {}
+			members.map(member => {
+				membersToSave[firebase.push().key] = member
+			})
+			firebase.push(`teams/${team.key}/members`, membersToSave)
 			NotificationManager.success(
 				`Team ${name} successfully created`, 
 				'Confirmation'
@@ -86,14 +98,23 @@ export default class TeamList extends React.Component {
 						<label className="label">Team members</label>
 						{
 							members &&
-							<List>
+							<List className="w-50 generated-members-list">
 								{
 									members.map((member, key) => {
 										return (
-											<List.Item key={key}>
+											<List.Item key={key} className="member d-flex justify-content-start align-items-center">
 												<Image avatar src={require(`Images/${member.avatar}`)} />
-												<List.Content>
+												<List.Content className="ml-2">
 													{member.name}
+												</List.Content>
+												<List.Content className="ml-auto">
+													<Icon 
+														className="remove-member-icon"
+														role="button"
+														onClick={() => this.removeMember(key)} 
+														size="large" 
+														name="trash" 
+														color="red" />
 												</List.Content>
 											</List.Item>
 										)
