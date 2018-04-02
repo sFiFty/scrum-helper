@@ -15,7 +15,7 @@ html, body, #root {
     flex: auto;
     margin-top: 100px;
     display: flex;
-    height: calc(100vh - 145px);
+    min-height: calc(100vh - 145px);
     flex-direction: column;
     .site-content {
       background-color: $bg-color;
