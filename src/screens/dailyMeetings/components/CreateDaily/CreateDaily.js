@@ -40,12 +40,13 @@ export default class CreateDaily extends React.Component {
 		const members = teams[teamId].members
 		_.keys(members).map((memberKey, index) => {
 			const member = members[memberKey]
+			const avatar = member.avatar ? require(`Images/${member.avatar}`) : null
 			allMembers.push({
 				value: member.name,
 				key: memberKey,
 				text: member.name,
 				content: <div>
-					<Image avatar src={require(`Images/${member.avatar}`)} />
+					<Image avatar src={avatar} />
 					<span>{member.name}</span>
 				</div>
 			})
@@ -140,12 +141,12 @@ export default class CreateDaily extends React.Component {
 									</div>
 									:
 									<Dropdown 
-									placeholder={`Team members`} 
-									multiple 
-									onChange={this.onAddMember}
-									selection 
-									value={selectedNames || []}
-									options={allMembers || []} />
+										placeholder={`Team members`} 
+										multiple 
+										onChange={this.onAddMember}
+										selection 
+										value={selectedNames || []}
+										options={allMembers || []} />
 								}
 
 							</Form.Field>
