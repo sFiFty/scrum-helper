@@ -35,10 +35,10 @@ export default class CoreLayout extends Component {
       : 
       <div className="sh-container">
         <Header location={location} />
-        <main>
+        <div className="main">
           <Routes />
           <NotificationContainer/>
-        </main>
+        </div>
         <Footer />
       </div>
     )

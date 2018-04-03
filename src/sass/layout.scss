@@ -11,12 +11,11 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   min-height: 100%;
-  main {
+  .main {
     flex: auto;
     margin-top: 100px;
     display: flex;
     min-height: calc(100vh - 145px);
-    flex-direction: column;
     .site-content {
       background-color: $bg-color;
       display: flex;
