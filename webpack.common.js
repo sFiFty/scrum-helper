@@ -1,10 +1,12 @@
 const path = require('path')
 const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+require('babel-polyfill')
 
 module.exports = {
 	entry: {
 		app: [
+      'babel-polyfill',
 			path.join(__dirname, 'main.js')
 		]
   },

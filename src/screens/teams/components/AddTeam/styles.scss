@@ -1,0 +1,12 @@
+.generated-members-list {
+  .member {
+    .remove-member-icon {
+      display: none;
+    }
+    &:hover {
+      .remove-member-icon {
+        display: block;
+      }
+    }
+  }
+}

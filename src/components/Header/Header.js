@@ -12,7 +12,7 @@ export default class Header extends React.Component {
     return (
       <header>
         <Container fluid>
-          <div className="d-flex justify-content-end">
+          <div className="d-flex justify-content-start">
             <div className="p-2">
               <div className="logo-container">
                 <Image
