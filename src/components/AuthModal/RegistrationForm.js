@@ -75,13 +75,13 @@ class RegistrationForm extends React.Component {
 					</div>
 					<Divider />
 					<Form.Field inline>
-						<Button onClick={loginWithGoogle} color='google plus'>
-							<Icon name='google plus' /> Join with Google
+						<Button className="d-flex justify-content-center align-items-center" onClick={loginWithGoogle} color='google plus'>
+							<Icon size="large" name='google plus' /> Join with Google
 						</Button>
 					</Form.Field>
 					<Form.Field inline>
-						<Button onClick={loginWithFB} color='facebook'>
-							<Icon name='facebook' /> Join with Facebook
+						<Button className="d-flex justify-content-center align-items-center" onClick={loginWithFB} color='facebook'>
+							<Icon size="large" name='facebook' /> Join with Facebook
 						</Button>
 					</Form.Field>
 				</Form>
