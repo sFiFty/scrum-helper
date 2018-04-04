@@ -1,4 +1,11 @@
-@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/bootstrap-grid";
+@import "~bootstrap/scss/utilities/_spacing";
+@import "~bootstrap/scss/mixins/_text-truncate";
+@import "~bootstrap/scss/mixins/_text-emphasis";
+@import "~bootstrap/scss/mixins/_hover";
+@import "~bootstrap/scss/mixins/_text-hide";
+@import "~bootstrap/scss/utilities/_text";
+@import "~bootstrap/scss/utilities/_sizing";
 @import "./layout.scss";
 @import "./colors.scss";
 @import "./animations.scss";
