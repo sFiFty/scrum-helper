@@ -13,15 +13,14 @@ export default class TeamList extends React.Component {
             return (
               <List.Item key={key} className="member d-flex justify-content-start align-items-center">
                 <Image avatar src={require(`Images/${member.avatar}`)} />
-                <List.Content className="ml-2">
+                <List.Content className="ml-2 font-s">
                   {member.name}
                 </List.Content>
-                <List.Content className="ml-auto">
+                <List.Content className="ml-auto font-s">
                   <Icon 
                     className="remove-member-icon"
                     role="button"
                     onClick={() => removeMember(key)} 
-                    size="large" 
                     name="trash" 
                     color="red" />
                 </List.Content>
