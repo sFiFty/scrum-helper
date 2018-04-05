@@ -1,12 +1,13 @@
 import React from 'react'
 import {CirclePicker} from 'react-color'
-import {Container, Header, Input, Form, Button, Message, Popup, List, Image, Icon} from 'semantic-ui-react'
+import {Container, Header, Input, Form, Button, Message, Popup, Image, Icon} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
 import PropTypes from 'prop-types'
 import DefaultAvatars from 'Components/DefaultAvatars'
-import AddMember from '../AddMember/AddMember';
+import AddMember from '../AddMember/AddMember'
+import TeamMembers from './TeamMembers'
 import './styles.scss'
-export default class TeamList extends React.Component {
+export default class AddTeam extends React.Component {
 	state = {
 		name: null,
 		color: {
@@ -27,7 +28,10 @@ export default class TeamList extends React.Component {
 
 	setName = event => this.setState({name: event.target.value})
 
-	setMemberAvatar = avatar => this.setState({memberAvatar: avatar, isPopupOpen: false})
+	setMemberAvatar = avatar => {
+		this.setState({memberAvatar: avatar})
+		setTimeout(() => this.setState({isPopupOpen: false}), 100);
+	}
 
 	setMemberName = event => this.setState({memberName: event.target.value})
 
@@ -96,32 +100,7 @@ export default class TeamList extends React.Component {
 					</Form.Field>
 					<Form.Field className="form-field">
 						<label className="label">Team members</label>
-						{
-							members &&
-							<List className="w-50 generated-members-list">
-								{
-									members.map((member, key) => {
-										return (
-											<List.Item key={key} className="member d-flex justify-content-start align-items-center">
-												<Image avatar src={require(`Images/${member.avatar}`)} />
-												<List.Content className="ml-2">
-													{member.name}
-												</List.Content>
-												<List.Content className="ml-auto">
-													<Icon 
-														className="remove-member-icon"
-														role="button"
-														onClick={() => this.removeMember(key)} 
-														size="large" 
-														name="trash" 
-														color="red" />
-												</List.Content>
-											</List.Item>
-										)
-									})
-								}
-							</List>
-						}
+						<TeamMembers members={members} removeMember={this.removeMember} />
 						<Input 
 							onChange={this.setMemberName.bind(this)} 
 							value={memberName || ''}
@@ -137,7 +116,7 @@ export default class TeamList extends React.Component {
 						</Popup>
 						{
 							memberAvatar && memberName &&
-							<Button onClick={this.addMember} className="ml-3" size="mini" secondary>Add</Button>
+							<Button onClick={this.addMember} className="ml-3" size="mini" secondary> Add</Button>
 						}
 					</Form.Field>
 					<Button onClick={this.onAddTeam} floated="right" size="medium" type="submit" secondary>Add Team</Button>
