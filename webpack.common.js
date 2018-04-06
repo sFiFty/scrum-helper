@@ -10,11 +10,6 @@ module.exports = {
 			path.join(__dirname, 'main.js')
 		]
   },
-	output: {
-    path: path.join(__dirname, 'dist'),
-    publicPath: '/',
-    filename: 'bundle.js'
-  },
   plugins: [
     new CleanWebpackPlugin(['dist']),
   ],

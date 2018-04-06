@@ -1,12 +1,13 @@
 import React from 'react'
 import {CirclePicker} from 'react-color'
-import {Container, Header, Input, Form, Button, Message, Popup, List, Image, Icon} from 'semantic-ui-react'
+import {Container, Input, Form, Button, Message, Popup, Image} from 'semantic-ui-react'
 import {NotificationManager}  from 'react-notifications'
 import PropTypes from 'prop-types'
 import DefaultAvatars from 'Components/DefaultAvatars'
-import AddMember from '../AddMember/AddMember';
+import AddMember from '../AddMember/AddMember'
+import TeamMembers from './TeamMembers'
 import './styles.scss'
-export default class TeamList extends React.Component {
+export default class AddTeam extends React.Component {
 	state = {
 		name: null,
 		color: {
@@ -27,7 +28,10 @@ export default class TeamList extends React.Component {
 
 	setName = event => this.setState({name: event.target.value})
 
-	setMemberAvatar = avatar => this.setState({memberAvatar: avatar, isPopupOpen: false})
+	setMemberAvatar = avatar => {
+		this.setState({memberAvatar: avatar})
+		setTimeout(() => this.setState({isPopupOpen: false}), 50);
+	}
 
 	setMemberName = event => this.setState({memberName: event.target.value})
 
@@ -94,51 +98,37 @@ export default class TeamList extends React.Component {
 						<label className="label font-m">Pick your team color</label>
 						<CirclePicker color={color} onChange={this.onPickColor} width="100%" circleSize={38} />
 					</Form.Field>
-					<Form.Field className="form-field">
+					<Form.Field className="form-field team-members">
 						<label className="label">Team members</label>
-						{
-							members &&
-							<List className="w-50 generated-members-list">
-								{
-									members.map((member, key) => {
-										return (
-											<List.Item key={key} className="member d-flex justify-content-start align-items-center">
-												<Image avatar src={require(`Images/${member.avatar}`)} />
-												<List.Content className="ml-2">
-													{member.name}
-												</List.Content>
-												<List.Content className="ml-auto">
-													<Icon 
-														className="remove-member-icon"
-														role="button"
-														onClick={() => this.removeMember(key)} 
-														size="large" 
-														name="trash" 
-														color="red" />
-												</List.Content>
-											</List.Item>
-										)
-									})
-								}
-							</List>
-						}
-						<Input 
-							onChange={this.setMemberName.bind(this)} 
-							value={memberName || ''}
-							className="w-50" size='mini' 
-							placeholder='Type member name here...' />
-						<Popup 
-							open={isPopupOpen}
-							onOpen={this.onPopupOpen}
-							onClose={this.onPopupClose}
-							trigger={<Button className="ml-3" size="mini" basic>Choose avatar</Button>} 
-							on='click'>
-								<DefaultAvatars selectedAvatar={memberAvatar} onChoose={this.setMemberAvatar} />
-						</Popup>
-						{
-							memberAvatar && memberName &&
-							<Button onClick={this.addMember} className="ml-3" size="mini" secondary>Add</Button>
-						}
+						<TeamMembers members={members} removeMember={this.removeMember} />
+						<div className="d-flex justify-content-start align-items-center">
+							<Input 
+								onChange={this.setMemberName.bind(this)} 
+								value={memberName || ''}
+								className="w-50" size='mini' 
+								placeholder='Type member name here...' />
+							<Popup 
+								open={isPopupOpen}
+								onOpen={this.onPopupOpen}
+								onClose={this.onPopupClose}
+								trigger={
+								<Button className="ml-3 d-flex justify-content-start align-items-center" size="mini" basic>
+									{
+										memberAvatar &&
+										<Image avatar src={require(`Images/${memberAvatar}`)} />
+									}
+									<span className={memberAvatar && 'ml-2'}>Choose avatar</span>
+								</Button>} 
+								on='click'>
+									<DefaultAvatars selectedAvatar={memberAvatar} onChoose={this.setMemberAvatar} />
+							</Popup>
+							{
+								memberAvatar && memberName &&
+								<Button onClick={this.addMember} className="ml-3" size="mini" secondary>
+								 <span>Add</span>
+								</Button>
+							}
+						</div>
 					</Form.Field>
 					<Button onClick={this.onAddTeam} floated="right" size="medium" type="submit" secondary>Add Team</Button>
 				</Form>
