@@ -1,9 +1,11 @@
 import React from 'react'
 import {Container, Header, Form, Button, Icon, Dropdown, Image} from 'semantic-ui-react'
+import {isLoaded} from 'react-redux-firebase'
+import {Link} from 'react-router-dom'
 import {NotificationManager}  from 'react-notifications'
 import PropTypes from 'prop-types'
-import {Link} from 'react-router-dom'
 import moment from 'moment'
+import SMLoader from 'Components/SMLoader'
 import './styles.scss'
 
 export default class CreateDaily extends React.Component {
@@ -109,6 +111,8 @@ export default class CreateDaily extends React.Component {
 		return (
 			<Container>
 				{
+					!isLoaded(teams) ?
+					<SMLoader /> :
 					teams ?
 					<div>
 						<h2 className="form-title">Create Daily Meeting</h2>
