@@ -27,3 +27,21 @@ header {
     }
   }
 }
+
+@media (max-width:641px) {
+  header {
+    .desktop-menu.ui.container {
+      display: none;
+    }
+    .mobile-menu.ui.container {
+      display: block;
+    }
+  }
+}
+
+@media (min-width:641px) {
+  header .mobile-menu.ui.container {
+    display: none;
+  }
+}
+
