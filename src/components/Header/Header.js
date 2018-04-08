@@ -29,8 +29,19 @@ export default class Header extends React.Component {
             <div className="ml-auto p-2 align-self-center"><Auth /></div>
           </div>
         </Container>
-        <Container className="mobile-menu">
-          <Icon name="bars" />
+        <Container className="mobile-menu d-flex align-items-center justify-content-between">
+          <Icon name="bars" size="large" />
+          <div className="logo-container">
+            <Image
+              as={Link}
+              alt="Scrum Helper"
+              title="Scrum Helper"
+              to="/"
+              src={require('Images/logo.png')}
+            />
+            <Label className="beta-label" size="mini" color='black' ribbon>BETA</Label>
+          </div>
+          <div className="align-self-center"><Auth /></div>
         </Container>
       </header>
     )

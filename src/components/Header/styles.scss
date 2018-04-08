@@ -30,11 +30,18 @@ header {
 
 @media (max-width:641px) {
   header {
+    height: 60px;
+    padding: 0;
     .desktop-menu.ui.container {
       display: none;
     }
     .mobile-menu.ui.container {
       display: block;
+      height: 100%;
+      .logo-container {
+        width: 114px;
+        margin-top: 15px;
+      }
     }
   }
 }
