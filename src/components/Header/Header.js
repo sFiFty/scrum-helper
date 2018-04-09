@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Container, Image, Label, Icon} from 'semantic-ui-react'
+import {Container, Image, Label, Icon, Menu} from 'semantic-ui-react'
 import Navigation from 'Components/Navigation'
 import {Link} from 'react-router-dom'
 import Auth from 'Components/Auth'
@@ -30,6 +30,13 @@ export default class Header extends React.Component {
           </div>
         </Container>
         <Container className="mobile-menu d-flex align-items-center justify-content-between">
+          <div className="vertical-menu">
+            <Menu vertical fluid>
+              <Menu.Item href='//google.com' target='_blank'>Visit Google</Menu.Item>
+              <Menu.Item link>Link via prop</Menu.Item>
+              <Menu.Item onClick={this.handleClick}>Javascript Link</Menu.Item>
+            </Menu>
+          </div>
           <Icon name="bars" size="large" />
           <div className="logo-container">
             <Image

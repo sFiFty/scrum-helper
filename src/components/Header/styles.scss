@@ -26,6 +26,20 @@ header {
       font-size: $font-m;
     }
   }
+  .vertical-menu {
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background: $white;
+    height: 100%;
+    .ui.vertical.menu {
+      box-shadow: none;
+      border-right: none;
+      border-radius: 0;
+    }
+  }  
 }
 
 @media (max-width:641px) {
@@ -48,7 +62,7 @@ header {
 
 @media (min-width:641px) {
   header .mobile-menu.ui.container {
-    display: none;
+    display: none !important;
   }
 }
 
