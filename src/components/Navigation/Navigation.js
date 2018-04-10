@@ -45,7 +45,7 @@ export default class Navigation extends PureComponent {
 
   render() {
     const {activeItem} = this.state
-    const {auth} = this.props
+    const {auth, vertical} = this.props
     const menuItems = [
       { to: '/', name: 'Home', public: true },
       { to: '/contacts', name: 'Contact Us', public: true },
@@ -53,8 +53,8 @@ export default class Navigation extends PureComponent {
       { to: '/daily', name: 'Daily' }
     ]
     return (
-      <div className="navigation-wrapper">
-        <Menu secondary>
+      <div className={vertical ? "vertical-menu" : "navigation-wrapper"}>
+        <Menu secondary={!vertical} vertical={vertical} fluid={vertical}>
           {
             isLoaded(auth) && 
             menuItems.map((item, index) => {
