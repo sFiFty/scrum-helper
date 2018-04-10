@@ -9,7 +9,11 @@ export default class Navigation extends PureComponent {
     activeItem: null 
   }
 
-  handleItemClick = (e, { name }) => this.setState({activeItem: name})
+  handleItemClick = (e, { name }) => {
+    const {hideMenu} = this.props
+    if (hideMenu) hideMenu()
+    this.setState({activeItem: name})
+  }
 
   componentWillMount() {
     const {location} = this.props

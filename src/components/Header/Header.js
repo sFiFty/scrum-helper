@@ -7,8 +7,19 @@ import Auth from 'Components/Auth'
 import './styles.scss'
 
 export default class Header extends React.Component {
+  state = {
+    isMobileMenuShown: false
+  }
+
+  //show mobile menu
+  show = () => this.setState({ isMobileMenuShown: true })
+
+  //hide mobile menu
+  hide = () => this.setState({ isMobileMenuShown: false })
+
   render() {
     const {location} = this.props
+    const {isMobileMenuShown} = this.state
     return (
       <header>
         <Container fluid className="desktop-menu"> 
@@ -30,9 +41,14 @@ export default class Header extends React.Component {
           </div>
         </Container>
         <Container className="mobile-menu d-flex align-items-center justify-content-between">
-          <div className="menu-overlay"></div>
-          <Navigation vertical location={location} />
-          <Icon name="bars" size="large" />
+          {
+            isMobileMenuShown &&
+            <div className="vertical-menu-container">
+              <div className="menu-overlay" onClick={this.hide}></div>
+              <Navigation hideMenu={this.hide} vertical location={location} />
+            </div>
+          }
+          <Icon onClick={isMobileMenuShown ? this.hide : this.show} className="burger-icon" name="bars" size="large" />
           <div className="logo-container">
             <Image
               as={Link}

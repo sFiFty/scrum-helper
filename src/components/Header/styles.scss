@@ -23,34 +23,40 @@ header {
       font-size: $font-m;
     }
   }
-  .menu-overlay {
+
+  .vertical-menu-container {
     position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    background: $black;
-    opacity: 0.6;
     margin-top: 60px;
-  }
-  .vertical-menu {
-    width: 50%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    background: $white;
-    height: 100%;
-    margin-top: 60px;
-    border-right: 1px solid $lightgrey;
-    .ui.vertical.menu {
-      box-shadow: none;
-      border-right: none;
-      border-top: none;
-      border-radius: 0;
+    .menu-overlay {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background: $black;
+      opacity: 0.6;
+      margin-top: 60px;
     }
-  }  
+    .vertical-menu {
+      width: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      background: $white;
+      height: 100%;
+      margin-top: 60px;
+      border-right: 1px solid $lightgrey;
+      .ui.vertical.menu {
+        box-shadow: none;
+        border-right: none;
+        border-top: none;
+        border-left: none;
+        border-radius: 0;
+      }
+    } 
+  }
 }
 
 @media (max-width:641px) {
@@ -63,6 +69,9 @@ header {
     .mobile-menu.ui.container {
       display: block;
       height: 100%;
+      .burger-icon {
+        cursor: pointer;
+      }
       .logo-container {
         width: 114px;
         margin-top: 15px;
