@@ -23,3 +23,20 @@
     }
   }
 }
+
+@media (max-width:641px) {
+  .we-offer-list {
+    .list-head {
+      padding-bottom: 0px;
+    }
+    .offer-list-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .offer-list-item {
+      margin-right: 0px !important;
+      margin-left: 0px !important;
+      margin-top: 25px;
+    }
+  }
+}
