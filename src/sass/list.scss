@@ -107,3 +107,22 @@
 		}
 	}
 }
+
+@media (max-width:641px) {
+	.list-container .list > .item.item-container {
+		height: 100px;
+		.content {
+			text-align: center;
+			.header {
+				font-size: 1.8rem;
+				width: 100%;
+			}
+			.member-list {
+				top: 50px;
+				left: 0;
+				right: 0;
+			}
+		}
+
+	}
+}
