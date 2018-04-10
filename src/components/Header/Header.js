@@ -30,13 +30,8 @@ export default class Header extends React.Component {
           </div>
         </Container>
         <Container className="mobile-menu d-flex align-items-center justify-content-between">
-          <div className="vertical-menu">
-            <Menu vertical fluid>
-              <Menu.Item href='//google.com' target='_blank'>Visit Google</Menu.Item>
-              <Menu.Item link>Link via prop</Menu.Item>
-              <Menu.Item onClick={this.handleClick}>Javascript Link</Menu.Item>
-            </Menu>
-          </div>
+          <div className="menu-overlay"></div>
+          <Navigation vertical location={location} />
           <Icon name="bars" size="large" />
           <div className="logo-container">
             <Image

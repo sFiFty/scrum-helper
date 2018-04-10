@@ -77,6 +77,7 @@ export default class Navigation extends PureComponent {
   }
 
   static propTypes = {
-    auth: PropTypes.object
+    auth: PropTypes.object,
+    vertical: PropTypes.bool
   }
 }
