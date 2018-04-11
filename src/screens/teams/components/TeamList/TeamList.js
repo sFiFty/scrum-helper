@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import EmptyTeamList from './EmptyTeamList'
 import MembersInTheList from 'Components/MembersInTheList'
-import AddTeamBox from './AddTeamBox'
+import AddListItemBox from 'Components/AddListItemBox'
 import SMLoader from 'Components/SMLoader'
 import './styles.scss'
 
@@ -83,7 +83,7 @@ export default class TeamList extends Component {
                 )
               })
             }
-            <AddTeamBox />
+            <AddListItemBox link="teams/add" label="Add team" />
           </Transition.Group> :
           <SMLoader />
         }
