@@ -28,3 +28,20 @@
     border-color: $light-black;
   }
 }
+
+@media (max-width:641px) {
+  .home-page {
+    .head {
+      flex-direction: column-reverse;
+      text-align: center;
+      padding-bottom: 40px;
+      .home-text-container, .home-image-container {
+        width: 100%;
+        padding: 0px 10px;
+        img {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
