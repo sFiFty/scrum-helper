@@ -9,7 +9,7 @@ export default class WeOfferBox extends PureComponent {
     return (
       <div className="we-offer-list">
         <h2 className="mb-4 font-xl text-center list-head">We offer</h2>
-        <div className="d-flex justify-content-center">
+        <div className="offer-list-container d-flex justify-content-center">
           <div className="d-flex align-items-center flex-column offer-list-item mr-4 text-center">
             <h3 className="list-text text-center font-m">
               Team management
