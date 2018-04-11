@@ -12,6 +12,7 @@ import LoadingScreen from 'Screens/loadingScreen'
 import ContactUs from 'Screens/contactUs'
 import Home from 'Screens/home'
 import PrivacyPolicy from 'Screens/privacyPolicy'
+import EstimationList from 'Screens/estimations/components/EstimationList'
 import UserIsAuthenticated from 'Helpers/UserIsAuthenticated'
 
 
@@ -25,12 +26,14 @@ export default class Routes extends Component {
         <Route exact path="/teams" component={UserIsAuthenticated(TeamList)} />
         <Route exact path="/teams/add" component={UserIsAuthenticated(AddTeam)} />
         <Route exact path="/teams/:teamid/addMember" component={UserIsAuthenticated(AddMember)} />
-        <Route exact path="/daily/" component={UserIsAuthenticated(DailyList)} />
+        <Route exact path="/daily" component={UserIsAuthenticated(DailyList)} />
         <Route exact path="/daily/create" component={UserIsAuthenticated(CreateDaily)} />
         <Route exact path="/daily/ongoing/:dailyid" component={UserIsAuthenticated(Daily)} />
+        <Route exact path="/estimation" component={UserIsAuthenticated(EstimationList)} />
         <Route exact path="/login" component={LoadingScreen} />
         <Route exact path="/contacts" component={ContactUs} />
         <Route exact path="/privacy-policy" component={PrivacyPolicy} />
+        
       </div>
     )
   }
