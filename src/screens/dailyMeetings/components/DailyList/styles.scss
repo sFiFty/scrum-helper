@@ -14,3 +14,26 @@
     }
   }
 }
+
+@media (max-width:641px) {
+  .list-container.daily-list {
+    .list > .item.item-container {
+      height: 130px;
+      .content {
+        .member-list {
+          right: 0;
+          left: 0;
+          width: 100%;
+        }
+        .join-button {
+          bottom: 10px;
+          top: inherit;
+          right: 0;
+          left: 0;
+          margin: 0 auto;
+          width: 200px;
+        }
+      }
+    }
+  }
+}
