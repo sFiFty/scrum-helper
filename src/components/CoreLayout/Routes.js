@@ -6,13 +6,14 @@ import Daily from 'Screens/dailyMeetings/components/Daily'
 import TeamList from 'Screens/teams/components/TeamList'
 import AddTeam from 'Screens/teams/components/AddTeam'
 import AddMember from 'Screens/teams/components/AddMember'
+import EstimationList from 'Screens/estimations/components/EstimationList'
+import CreateEstimation from 'Screens/estimations/components/CreateEstimation'
 import EmailConfirmation from 'Screens/emailConfirmation'
 import UserProfile from 'Screens/userProfile'
 import LoadingScreen from 'Screens/loadingScreen'
 import ContactUs from 'Screens/contactUs'
 import Home from 'Screens/home'
 import PrivacyPolicy from 'Screens/privacyPolicy'
-import EstimationList from 'Screens/estimations/components/EstimationList'
 import UserIsAuthenticated from 'Helpers/UserIsAuthenticated'
 
 
@@ -30,6 +31,7 @@ export default class Routes extends Component {
         <Route exact path="/daily/create" component={UserIsAuthenticated(CreateDaily)} />
         <Route exact path="/daily/ongoing/:dailyid" component={UserIsAuthenticated(Daily)} />
         <Route exact path="/estimation" component={UserIsAuthenticated(EstimationList)} />
+        <Route exact path="/estimation/create" component={UserIsAuthenticated(CreateEstimation)} />
         <Route exact path="/login" component={LoadingScreen} />
         <Route exact path="/contacts" component={ContactUs} />
         <Route exact path="/privacy-policy" component={PrivacyPolicy} />

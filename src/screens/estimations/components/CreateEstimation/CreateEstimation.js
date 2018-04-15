@@ -1,12 +1,11 @@
 import React from 'react'
 import {Container, Header, Form, Button, Icon, Dropdown, Image} from 'semantic-ui-react'
 import SMLoader from 'Components/SMLoader'
+import PropTypes from 'prop-types'
 
 export default class CreateDaily extends React.Component {
 
 	render() {
-		const {selectedTeamId, allMembers, selectedNames} = this.state
-		const {teams} = this.props
 		return (
 			<Container>
 					<div>
