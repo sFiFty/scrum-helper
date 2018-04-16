@@ -4,5 +4,6 @@ Tasks - https://trello.com/b/0syQSKm3/development
 
 
 - npm i
-- npm run dev 
+- npm run dev - for development mode
+- npm run build - for production mode
 - npm start
