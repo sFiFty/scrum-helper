@@ -14,11 +14,9 @@ export default compose(
       }
 		]
 	}),
-  connect(
-    (state) => ({
-      teams: state.firebase.data.myTeams,
-      owner: state.firebase.auth.uid
-    })
-  )
+  connect(state => ({
+    teams: state.firebase.data.myTeams,
+    owner: state.firebase.auth.uid
+  }))
 )(CreateDaily)
 
