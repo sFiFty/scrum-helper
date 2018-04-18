@@ -24,7 +24,6 @@ html, body, #root {
         background-color: $white;
         padding: 40px 30px;
         min-height: 100%;
-        width: 100% !important;
       }
       .ui.container.fluid {
         padding: 0;
@@ -39,14 +38,14 @@ body, div, h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width:641px) {
-  .sh-container {
-    .main {
-      .site-content {
-        .ui.container {
-          margin: 0 !important;
-        }
-      }
-    }
+  .sh-container .main .site-content .ui.container {
+    margin: 0 !important;
+  }
+}
+
+@media (max-width:767px) {
+  .sh-container .main .site-content .ui.container {
+    width: 100% !important;
   }
 }
 
