@@ -6,6 +6,7 @@ import {NotificationManager}  from 'react-notifications'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import SMLoader from 'Components/SMLoader'
+import SelectableTeams from 'Components/SelectableTeams'
 
 export default class CreateEstimation extends React.Component {
 	state = {
@@ -67,14 +68,6 @@ export default class CreateEstimation extends React.Component {
 		this.generateValues(teams, key)
 	}
 
-	shuffle = array => {
-		for (let i = array.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[array[i], array[j]] = [array[j], array[i]]
-		}
-		return array
-	}
-
 	onCreateEstimation = () => {
 		const {teams, firebase, history, owner} = this.props
 		const {selectedMembers, selectedTeamId} = this.state
@@ -84,7 +77,7 @@ export default class CreateEstimation extends React.Component {
 		}
 		
 		let members = {}
-		this.shuffle(selectedMembers).map((member, index) => {
+		selectedMembers.map((member, index) => {
 			members[index] = {
 				id: member.key
 			}
@@ -116,23 +109,7 @@ export default class CreateEstimation extends React.Component {
 					<div>
 						<h2 className="form-title">Create Estimation Meeting</h2>
 						<Form className="add">
-							<Form.Field className="teams-to-choose d-flex flex-row">
-								{
-									_.keys(teams).map((teamKey, index) => {
-										const selectedClass = selectedTeamId === teamKey ? 'selected' : null
-										const classes = `${selectedClass} team-box font-s p-3 text-white`
-										return <div 
-											style={{backgroundColor: teams[teamKey].color}} 
-											className={classes}
-											onClick={() => this.selectTeam(teamKey)} 
-											key={index}> 
-											<Icon className="checkmark-icon" size="big" name="checkmark" color="black" />
-											<div className="overlay-block"></div>
-											<span>{teams[teamKey].name}</span> 
-										</div>
-									})
-								}
-							</Form.Field>
+							<SelectableTeams teams={teams} selectTeam={this.selectTeam} selectedTeamId={selectedTeamId} />
 							<Form.Field className="mt-5">
 								{
 									allMembers.length === 0 ?
