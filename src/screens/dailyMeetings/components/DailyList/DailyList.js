@@ -4,9 +4,9 @@ import {Link} from 'react-router-dom'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import {NotificationManager}  from 'react-notifications'
 import PropTypes from 'prop-types'
-import CreateMeetingBox from './CreateMeetingBox'
 import SMLoader from 'Components/SMLoader'
 import MembersInTheList from 'Components/MembersInTheList'
+import AddListItemBox from 'Components/AddListItemBox'
 import ExtendMembersList from 'Helpers/ExtendMembersList'
 import './styles.scss'
 
@@ -59,7 +59,7 @@ export default class DailyList extends Component {
                 )
               })
             }
-            <CreateMeetingBox />
+            <AddListItemBox link="daily/create" label="Add meeting" />
           </List> :
           <SMLoader />
         }
