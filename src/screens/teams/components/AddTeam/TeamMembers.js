@@ -2,7 +2,7 @@ import React from 'react'
 import {List, Image, Icon} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 
-export default class TeamList extends React.Component {
+export default class TeamMembers extends React.Component {
 	render() {
 		const {members, removeMember} = this.props
 		return (
