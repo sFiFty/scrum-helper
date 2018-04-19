@@ -3,9 +3,9 @@ import {Form, List, Image, Icon} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 
 export default class SelectableTeams extends React.Component {
-	render() {
-		const {teams, selectTeam, selectedTeamId} = this.props
-		return (
+  render() {
+    const {teams, selectTeam, selectedTeamId} = this.props
+    return (
       <Form.Field className="teams-to-choose d-flex flex-row">
       {
         _.keys(teams).map((teamKey, index) => {
@@ -26,9 +26,9 @@ export default class SelectableTeams extends React.Component {
     )
   }
 
-	static propTypes = {
-		teams: PropTypes.object.isRequired,
+  static propTypes = {
+    teams: PropTypes.object.isRequired,
     selectTeam: PropTypes.func.isRequired,
     selectedTeamId: PropTypes.string.isRequired
-	}
+  }
 }

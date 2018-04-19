@@ -2,25 +2,24 @@ import React from 'react'
 import {List, Image, Icon} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 
-export default class TeamMembers extends React.Component {
+export default class TaskList extends React.Component {
 	render() {
-		const {members, removeMember} = this.props
+		const {tasks, removeTask} = this.props
 		return (
-      members &&
+      tasks &&
       <List className="w-50 generated-items-list">
         {
-          members.map((member, key) => {
+          tasks.map((task, key) => {
             return (
-              <List.Item key={key} className="member d-flex justify-content-start align-items-center">
-                <Image avatar src={require(`Images/${member.avatar}`)} />
+              <List.Item key={key} className="d-flex justify-content-start align-items-center">
                 <List.Content className="ml-2 font-s">
-                  {member.name}
+                  {task.title}
                 </List.Content>
                 <List.Content className="ml-auto font-s">
                   <Icon 
                     className="remove-item-icon"
                     role="button"
-                    onClick={() => removeMember(key)} 
+                    onClick={() => removeTask(key)} 
                     name="trash" 
                     color="red" />
                 </List.Content>
@@ -33,7 +32,7 @@ export default class TeamMembers extends React.Component {
   }
 
 	static propTypes = {
-		members: PropTypes.array.isRequired,
-		removeMember: PropTypes.func.isRequired
+		tasks: PropTypes.array.isRequired,
+		removeTask: PropTypes.func.isRequired
 	}
 }
