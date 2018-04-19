@@ -28,6 +28,7 @@ export default class SelectableTeams extends React.Component {
 
 	static propTypes = {
 		teams: PropTypes.object.isRequired,
-		selectTeam: PropTypes.func.isRequired
+    selectTeam: PropTypes.func.isRequired,
+    selectedTeamId: PropTypes.string.isRequired
 	}
 }

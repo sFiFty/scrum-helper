@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, Header, Form, Button, Icon, Dropdown, Image} from 'semantic-ui-react'
+import {Container, Header, Form, Button, Icon, Dropdown, Image, Input} from 'semantic-ui-react'
 import {isLoaded} from 'react-redux-firebase'
 import {Link} from 'react-router-dom'
 import {NotificationManager}  from 'react-notifications'
@@ -7,13 +7,16 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import SMLoader from 'Components/SMLoader'
 import SelectableTeams from 'Components/SelectableTeams'
+import TaskList from './TaskList'
 
 export default class CreateEstimation extends React.Component {
 	state = {
 		selectedTeamId: null,
 		selectedNames: [],
 		selectedMembers: [],
-		allMembers: []
+		allMembers: [],
+		tasks: [],
+		taskTitle: null
 	}
 
 	onAddMember = (e, {value, options}) => {
@@ -37,9 +40,10 @@ export default class CreateEstimation extends React.Component {
 	}
 
 	generateValues = (teams, teamId) => {
-		let allMembers = [] 
-		let membersNames = []
-		const members = teams[teamId].members
+		let allMembers = [], 
+		membersNames = [],
+		members = teams[teamId].members
+
 		_.keys(members).map((memberKey, index) => {
 			const member = members[memberKey]
 			const avatar = member.avatar ? require(`Images/${member.avatar}`) : null
@@ -70,35 +74,78 @@ export default class CreateEstimation extends React.Component {
 
 	onCreateEstimation = () => {
 		const {teams, firebase, history, owner} = this.props
-		const {selectedMembers, selectedTeamId} = this.state
+		const {selectedMembers, selectedTeamId, tasks} = this.state
 		if (!teams) {
-			NotificationManager.error(`You can't create estimation meeting without team`, `Error`);
-			return;
+			NotificationManager.error(`You can't create estimation meeting without team`, `Error`)
+			return
 		}
 		
-		let members = {}
-		selectedMembers.map((member, index) => {
-			members[index] = {
-				id: member.key
-			}
-		})
+		let members = this.membersToObject(selectedMembers),
+				tasksToSave = this.tasksToObject(tasks)
 
+		this.create(selectedTeamId, owner, members, tasksToSave, teams)
+	}
+
+	create = (teamId, owner, members, tasks, teams) => {
+		const {firebase, history} = this.props
 		firebase.push('estimationMeetings/', {
-			team: selectedTeamId,
+			team: teamId,
 			owner: owner,
 			members: members,
-			timestamp: moment().unix(),
-			step: 0
+			tasks: tasks,
+			timestamp: moment().unix()
 		}).then(team => {
 			NotificationManager.success(
-				`Estimation meeting for ${teams[selectedTeamId].name} successfully created`, 
+				`Estimation meeting for ${teams[teamId].name} successfully created`, 
 				'Confirmation'
 			)
 			history.push('/estimation')
 		})
 	}
+
+	// members array to object
+	membersToObject = membersArray => {
+		let membersObj = {}
+		membersArray.map((member, index) => {
+			membersObj[index] = {
+				id: member.key
+			}
+		})
+		return membersObj
+	}
+
+	// tasks array to object
+	tasksToObject = tasksArray => {
+		let tasksObj = {}
+		tasksArray.map((task, index) => {
+			tasksObj[index] = {
+				title: task.title
+			}
+		})
+		return tasksObj
+	}
+
+	setTaskTitle = event => this.setState({taskTitle: event.target.value})
+
+	removeTask = index => {
+		const {tasks} = this.state
+		tasks.splice(index, 1)
+		this.setState({tasks: tasks})
+	}
+
+	addTask = () => {
+		const {taskTitle, tasks} = this.state
+		tasks.push({
+			title: taskTitle
+		})
+		this.setState({
+			taskTitle: null,
+			tasks: tasks
+		})
+	}
+
 	render() {
-		const {selectedTeamId, allMembers, selectedNames} = this.state
+		const {selectedTeamId, allMembers, selectedNames, tasks, taskTitle} = this.state
 		const {teams} = this.props
 		return (
 			<Container>
@@ -129,6 +176,23 @@ export default class CreateEstimation extends React.Component {
 										options={allMembers || []} />
 								}
 
+							</Form.Field>
+							<Form.Field className="form-field team-members">
+								<label className="label">Tasks to estimate</label>
+								<TaskList tasks={tasks} removeTask={this.removeTask} />
+								<div className="d-flex justify-content-start align-items-center">
+									<Input 
+										onChange={this.setTaskTitle.bind(this)} 
+										value={taskTitle || ''}
+										className="w-50" size='mini' 
+										placeholder='Type task title here...' />
+									{
+										taskTitle &&
+										<Button onClick={this.addTask} className="ml-3" size="mini" secondary>
+											<span>Add</span>
+										</Button>
+									}
+								</div>
 							</Form.Field>
 							<Button 
 								onClick={this.onCreateEstimation} 
