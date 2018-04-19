@@ -49,7 +49,7 @@ export default class EstimationList extends Component {
                     <List.Content>
                       <List.Header>{meeting.team.name} estimation</List.Header>
                       <MembersInTheList members={extendedMembersList} deleteMember={this.deleteMember} parent={k} />
-                      <Button as={Link} to={`daily/ongoing/${k}`} className="join-button" inverted>Start</Button>
+                      <Button as={Link} to={`estimation/ongoing/${k}`} className="join-button" inverted>Start</Button>
                       <div className="list-controls">
                         <Icon onClick={() => this.deleteEstimation(k)} className="trash-icon" size="large" name="trash" color="red" />
                       </div>
