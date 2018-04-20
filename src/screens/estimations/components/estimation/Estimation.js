@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import SMLoader from 'Components/SMLoader'
-import { Container, Image } from 'semantic-ui-react'
+import {Container, Image} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
+import './styles.scss'
 
 const propTypes = {
   estimationId: PropTypes.string.isRequired,
@@ -13,13 +14,33 @@ const propTypes = {
 export default class Estimation extends Component {
 
   state = {
-    userKey: null
+    userKey: null,
+    selectedMember: null
   }
 
   componentDidMount() {
     const {auth, estimationId} = this.props
     if (!isLoaded(auth)) return
     isEmpty(auth) ? this.setAnonymousKey() : this.setState({userKey: auth.uid})
+  }
+
+  onSelectMember = memberKey => {
+    const {firebase, estimationId} = this.props
+    const {userKey, selectedMember} = this.state
+    if (selectedMember === memberKey) return
+    const membersPath = `estimationMeetings/${estimationId}/members`
+    if (selectedMember) {
+      firebase.update(`${membersPath}/${selectedMember}`, {selected: false, selectedBy: null}).then(() => {
+        firebase.update(`${membersPath}/${memberKey}`, {selected: true, selectedBy: userKey}).then(() => {
+          this.setState({selectedMember: memberKey})
+        })
+      })
+    } else {
+      firebase.update(`${membersPath}/${memberKey}`, {selected: true, selectedBy: userKey}).then(() => {
+        this.setState({selectedMember: memberKey})
+      })
+    }
+    
   }
 
   setAnonymousKey = meetingId => {
@@ -37,7 +58,10 @@ export default class Estimation extends Component {
     const selectedMembersArray = this.membersToArray(selectedMembers)
     _.keys(allMembers).map(key => {
       if (selectedMembersArray.indexOf(key) > -1) {
-        members.push(allMembers[key])
+        members.push({
+          key: key,
+          ...allMembers[key]
+        })
       }
     })
     return members
@@ -46,7 +70,7 @@ export default class Estimation extends Component {
   membersToArray = members => {
     let membersArray = []
     _.keys(members).map(key => {
-      membersArray.push(members[key].id)
+      membersArray.push(key)
     })
     return membersArray
   }
@@ -56,20 +80,19 @@ export default class Estimation extends Component {
   render() {
     const {estimation} = this.props
     const {userKey} = this.state
-    console.log(userKey)
     let members = []
     if (estimation) {
       members = this.generateMembers(estimation.team.members, estimation.members)
     }
     
     return (
-      <Container>
+      <Container className="estimation-meeting-container">
         {
           isLoaded(estimation) ?
             members.map((member, i) => {
               const memberAvatar = require(`Images/${member.avatar}`)
               return (
-                <div key={i} className="member">
+                <div key={i} className="member" onClick={() => this.onSelectMember(members[i].key)} >
                   <div className="member-image-box">
                     <Image avatar src={memberAvatar} />
                   </div>
@@ -85,8 +108,6 @@ export default class Estimation extends Component {
       </Container>
     )
   }
-
-
 }
 
 Estimation.propTypes = propTypes

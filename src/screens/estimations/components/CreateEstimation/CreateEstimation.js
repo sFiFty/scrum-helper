@@ -9,6 +9,13 @@ import SMLoader from 'Components/SMLoader'
 import SelectableTeams from 'Components/SelectableTeams'
 import TaskList from './TaskList'
 
+
+const propTypes = {
+	firebase: PropTypes.object.isRequired,
+	teams: PropTypes.object,
+	owner: PropTypes.string.isRequired
+}
+
 export default class CreateEstimation extends React.Component {
 	state = {
 		selectedTeamId: null,
@@ -19,9 +26,30 @@ export default class CreateEstimation extends React.Component {
 		taskTitle: null
 	}
 
+	componentWillReceiveProps(props) {
+		this.setDefaultTeam(props)
+	}
+
+	componentDidMount() {
+		this.setDefaultTeam(this.props)
+	}
+
 	onAddMember = (e, {value, options}) => {
 		let selectedMembers = options.filter(member => value.indexOf(member.value) !== -1)
 		this.setState({selectedNames: value, selectedMembers: selectedMembers})
+	}
+
+	onSetTaskTitle = event => this.setState({taskTitle: event.target.value})
+
+	onAddTask = () => {
+		const {taskTitle, tasks} = this.state
+		tasks.push({
+			title: taskTitle
+		})
+		this.setState({
+			taskTitle: null,
+			tasks: tasks
+		})
 	}
 
 	setDefaultTeam = props => {
@@ -29,14 +57,6 @@ export default class CreateEstimation extends React.Component {
 		const {selectedTeamId} = this.state
 		if (!teams || selectedTeamId) return
 		this.generateValues(teams, _.keys(teams)[0])
-	}
-
-	componentWillReceiveProps(props) {
-		this.setDefaultTeam(props)
-	}
-
-	componentWillMount() {
-		this.setDefaultTeam(this.props)
 	}
 
 	generateValues = (teams, teamId) => {
@@ -79,7 +99,6 @@ export default class CreateEstimation extends React.Component {
 			NotificationManager.error(`You can't create estimation meeting without team`, `Error`)
 			return
 		}
-		
 		let members = this.membersToObject(selectedMembers),
 				tasksToSave = this.tasksToObject(tasks)
 
@@ -107,8 +126,8 @@ export default class CreateEstimation extends React.Component {
 	membersToObject = membersArray => {
 		let membersObj = {}
 		membersArray.map((member, index) => {
-			membersObj[index] = {
-				id: member.key
+			membersObj[member.key] = {
+				name: member.text
 			}
 		})
 		return membersObj
@@ -125,24 +144,12 @@ export default class CreateEstimation extends React.Component {
 		return tasksObj
 	}
 
-	setTaskTitle = event => this.setState({taskTitle: event.target.value})
-
 	removeTask = index => {
 		const {tasks} = this.state
 		tasks.splice(index, 1)
 		this.setState({tasks: tasks})
 	}
 
-	addTask = () => {
-		const {taskTitle, tasks} = this.state
-		tasks.push({
-			title: taskTitle
-		})
-		this.setState({
-			taskTitle: null,
-			tasks: tasks
-		})
-	}
 
 	render() {
 		const {selectedTeamId, allMembers, selectedNames, tasks, taskTitle} = this.state
@@ -168,7 +175,7 @@ export default class CreateEstimation extends React.Component {
 									</div>
 									:
 									<Dropdown 
-										placeholder={`Team members`} 
+										placeholder={"Team members"} 
 										multiple 
 										onChange={this.onAddMember}
 										selection 
@@ -182,13 +189,13 @@ export default class CreateEstimation extends React.Component {
 								<TaskList tasks={tasks} removeTask={this.removeTask} />
 								<div className="d-flex justify-content-start align-items-center">
 									<Input 
-										onChange={this.setTaskTitle.bind(this)} 
-										value={taskTitle || ''}
-										className="w-50" size='mini' 
-										placeholder='Type task title here...' />
+										onChange={this.onSetTaskTitle.bind(this)} 
+										value={taskTitle || ""}
+										className="w-50" size="mini"
+										placeholder="Type task title here..." />
 									{
 										taskTitle &&
-										<Button onClick={this.addTask} className="ml-3" size="mini" secondary>
+										<Button onClick={this.onAddTask} className="ml-3" size="mini" secondary>
 											<span>Add</span>
 										</Button>
 									}
@@ -200,7 +207,8 @@ export default class CreateEstimation extends React.Component {
 								disabled={!teams}
 								size="medium" 
 								type="submit" 
-								secondary>
+								secondary
+							>
 								Create Estimation
 							</Button>
 						</Form>
@@ -214,10 +222,6 @@ export default class CreateEstimation extends React.Component {
 			</Container>
 		)
 	}
-
-	static propTypes = {
-		firebase: PropTypes.object.isRequired,
-		teams: PropTypes.object,
-		owner: PropTypes.string.isRequired
-	}
 }
+
+CreateEstimation.propTypes = propTypes 
