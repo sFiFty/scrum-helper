@@ -1,14 +1,62 @@
 import React, {Component} from 'react'
-import {isLoaded} from 'react-redux-firebase'
-import PropTypes from 'prop-types'
+import {isLoaded, isEmpty} from 'react-redux-firebase'
 import SMLoader from 'Components/SMLoader'
-import { Container, Image } from 'semantic-ui-react';
+import { Container, Image } from 'semantic-ui-react'
+import PropTypes from 'prop-types'
 
+const propTypes = {
+  estimationId: PropTypes.string.isRequired,
+  firebase: PropTypes.object.isRequired,
+  estimation: PropTypes.object,
+  auth: PropTypes.object
+}
 export default class Estimation extends Component {
 
+  state = {
+    userKey: null
+  }
+
+  componentDidMount() {
+    const {auth, estimationId} = this.props
+    if (!isLoaded(auth)) return
+    isEmpty(auth) ? this.setAnonymousKey() : this.setState({userKey: auth.uid})
+  }
+
+  setAnonymousKey = meetingId => {
+    if (localStorage.getItem(meetingId)) {
+      this.setState({userKey: localStorage.getItem(meetingId)})
+    } else {
+      const key = this.generateHash()
+      localStorage.setItem(meetingId, key)
+      this.setState({userKey: key})
+    }
+  }
+ 
+  generateMembers = (allMembers, selectedMembers) => {
+    let members = []
+    const selectedMembersArray = this.membersToArray(selectedMembers)
+    _.keys(allMembers).map(key => {
+      if (selectedMembersArray.indexOf(key) > -1) {
+        members.push(allMembers[key])
+      }
+    })
+    return members
+  }
+
+  membersToArray = members => {
+    let membersArray = []
+    _.keys(members).map(key => {
+      membersArray.push(members[key].id)
+    })
+    return membersArray
+  }
+
+  generateHash = () => Math.random().toString(36).substring(7)
 
   render() {
     const {estimation} = this.props
+    const {userKey} = this.state
+    console.log(userKey)
     let members = []
     if (estimation) {
       members = this.generateMembers(estimation.team.members, estimation.members)
@@ -38,28 +86,7 @@ export default class Estimation extends Component {
     )
   }
 
-  generateMembers = (allMembers, selectedMembers) => {
-    let members = []
-    const selectedMembersArray = this.membersToArray(selectedMembers)
-    _.keys(allMembers).map(key => {
-      if (selectedMembersArray.indexOf(key) > -1) {
-        members.push(allMembers[key])
-      }
-    })
-    return members
-  }
 
-  membersToArray = members => {
-    let membersArray = []
-    _.keys(members).map(key => {
-      membersArray.push(members[key].id)
-    })
-    return membersArray
-  }
-
-	static propTypes = {
-		estimationId: PropTypes.string.isRequired,
-		estimation: PropTypes.object,
-		firebase: PropTypes.object.isRequired
-	}
 }
+
+Estimation.propTypes = propTypes
