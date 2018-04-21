@@ -89,19 +89,24 @@ export default class Estimation extends Component {
       <Container className="estimation-meeting-container">
         {
           isLoaded(estimation) ?
-            members.map((member, i) => {
-              const memberAvatar = require(`Images/${member.avatar}`)
-              return (
-                <div key={i} className="member" onClick={() => this.onSelectMember(members[i].key)} >
-                  <div className="member-image-box">
-                    <Image avatar src={memberAvatar} />
-                  </div>
-                  <div className="member-name">
-                    {member.name}
-                  </div>
-                </div>
-              )
-            })
+            <div className="d-flex flex-row justify-content-center align-items-center flex-wrap">
+              {
+                members.map((member, i) => {
+                  const memberAvatar = require(`Images/${member.avatar}`)
+                  return (
+                    <div key={i} className="member d-flex flex-row justify-content-center align-items-center" onClick={() => this.onSelectMember(members[i].key)} >
+                      <div className="member-image-box">
+                        <Image avatar src={memberAvatar} />
+                      </div>
+                      <div className="member-name">
+                        {member.name}
+                      </div>
+                    </div>
+                  )
+                })
+              }
+            </div>
+
           :
           <SMLoader />
         }
