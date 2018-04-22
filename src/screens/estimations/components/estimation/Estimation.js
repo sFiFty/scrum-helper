@@ -56,21 +56,23 @@ export default class Estimation extends Component {
   generateMembers = (allMembers, selectedMembers) => {
     let members = []
     const selectedMembersArray = this.membersToArray(selectedMembers)
-    _.keys(allMembers).map(key => {
-      if (selectedMembersArray.indexOf(key) > -1) {
-        members.push({
-          key: key,
-          ...allMembers[key]
-        })
-      }
+    selectedMembersArray.map(member => {
+      members.push({
+        avatar: allMembers[member.key].avatar,
+        ...member
+      })
     })
+    console.log(members)
     return members
   }
 
   membersToArray = members => {
     let membersArray = []
     _.keys(members).map(key => {
-      membersArray.push(key)
+      membersArray.push({
+        key: key,
+        ...members[key]
+      })
     })
     return membersArray
   }
@@ -84,7 +86,7 @@ export default class Estimation extends Component {
     if (estimation) {
       members = this.generateMembers(estimation.team.members, estimation.members)
     }
-    
+    const filteredMembers = members.filter(m => !m.selected || m.selectedBy === userKey )
     return (
       <Container className="estimation-meeting-container">
         {
