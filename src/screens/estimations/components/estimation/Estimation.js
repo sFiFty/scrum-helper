@@ -15,13 +15,15 @@ export default class Estimation extends Component {
 
   state = {
     userKey: null,
-    selectedMember: null
+    selectedMember: null,
+    members: null
   }
 
   componentDidMount() {
-    const {auth, estimationId} = this.props
-    if (!isLoaded(auth)) return
-    isEmpty(auth) ? this.setAnonymousKey() : this.setState({userKey: auth.uid})
+    const {auth, estimationId, estimation} = this.props
+    const {userKey} = this.state
+    if (userKey === null) this.setUserKey(auth)
+    this.setMembers(estimation)
   }
 
   onSelectMember = memberKey => {
@@ -43,6 +45,16 @@ export default class Estimation extends Component {
     
   }
 
+  setUserKey = auth => {
+    if (!isLoaded(auth)) return
+    isEmpty(auth) ? this.setAnonymousKey() : this.setState({userKey: auth.uid})
+  }
+
+  setMembers = estimation => {
+    if (!isLoaded(estimation)) return
+    this.setState({members: this.generateMembers(estimation.team.members, estimation.members)})
+  }
+
   setAnonymousKey = meetingId => {
     if (localStorage.getItem(meetingId)) {
       this.setState({userKey: localStorage.getItem(meetingId)})
@@ -62,7 +74,6 @@ export default class Estimation extends Component {
         ...member
       })
     })
-    console.log(members)
     return members
   }
 
@@ -80,17 +91,13 @@ export default class Estimation extends Component {
   generateHash = () => Math.random().toString(36).substring(7)
 
   render() {
-    const {estimation} = this.props
-    const {userKey} = this.state
-    let members = []
-    if (estimation) {
-      members = this.generateMembers(estimation.team.members, estimation.members)
-    }
-    const filteredMembers = members.filter(m => !m.selected || m.selectedBy === userKey )
+    const {userKey, members} = this.state
+    console.log(members)
     return (
-      <Container className="estimation-meeting-container">
+      <Container className="estimation-meeting-container text-center">
+        <h2> Who are you? Please find yourself and click on its box. </h2>
         {
-          isLoaded(estimation) ?
+          members ?
             <div className="d-flex flex-row justify-content-center align-items-center flex-wrap">
               {
                 members.map((member, i) => {
