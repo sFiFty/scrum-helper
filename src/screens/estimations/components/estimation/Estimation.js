@@ -23,7 +23,12 @@ export default class Estimation extends Component {
     const {auth, estimationId, estimation} = this.props
     const {userKey} = this.state
     if (userKey === null) this.setUserKey(auth)
-    this.setMembers(estimation)
+  }
+
+  componentWillReceiveProps(props) {
+    if (props.estimation) {
+      this.setMembers(props.estimation)
+    }
   }
 
   onSelectMember = memberKey => {
@@ -52,7 +57,15 @@ export default class Estimation extends Component {
 
   setMembers = estimation => {
     if (!isLoaded(estimation)) return
-    this.setState({members: this.generateMembers(estimation.team.members, estimation.members)})
+    const {userKey} = this.state
+    const members = this.generateMembers(estimation.team.members, estimation.members)
+    let selectedMember = null
+    members.map(member => {
+      if (member.selected && userKey === member.selectedBy) {
+        selectedMember = member.key
+      }
+    })
+    this.setState({members: members, selectedMember: selectedMember})
   }
 
   setAnonymousKey = meetingId => {
@@ -91,8 +104,9 @@ export default class Estimation extends Component {
   generateHash = () => Math.random().toString(36).substring(7)
 
   render() {
-    const {userKey, members} = this.state
+    const {userKey, members, selectedMember} = this.state
     console.log(members)
+    console.log(selectedMember)
     return (
       <Container className="estimation-meeting-container text-center">
         <h2> Who are you? Please find yourself and click on its box. </h2>
