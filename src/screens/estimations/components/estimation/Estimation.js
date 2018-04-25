@@ -22,7 +22,7 @@ export default class Estimation extends Component {
   componentDidMount() {
     const {auth, estimationId, estimation} = this.props
     const {userKey} = this.state
-    if (userKey === null) this.setUserKey(auth)
+    if (userKey === null && estimationId) this.setUserKey(auth, estimationId)
   }
 
   componentWillReceiveProps(props) {
@@ -50,21 +50,23 @@ export default class Estimation extends Component {
     
   }
 
-  setUserKey = auth => {
+  setUserKey = (auth, estimationId) => {
+    console.log(estimationId)
     if (!isLoaded(auth)) return
-    isEmpty(auth) ? this.setAnonymousKey() : this.setState({userKey: auth.uid})
+    isEmpty(auth) ? this.setAnonymousKey(estimationId) : this.setState({userKey: auth.uid})
   }
 
   setMembers = estimation => {
     if (!isLoaded(estimation)) return
     const {userKey} = this.state
-    const members = this.generateMembers(estimation.team.members, estimation.members)
+    let members = this.generateMembers(estimation.team.members, estimation.members)
     let selectedMember = null
     members.map(member => {
       if (member.selected && userKey === member.selectedBy) {
         selectedMember = member.key
       }
     })
+    members = members.filter(m => !m.selected || m.selectedBy === selectedMember)
     this.setState({members: members, selectedMember: selectedMember})
   }
 
@@ -105,8 +107,6 @@ export default class Estimation extends Component {
 
   render() {
     const {userKey, members, selectedMember} = this.state
-    console.log(members)
-    console.log(selectedMember)
     return (
       <Container className="estimation-meeting-container text-center">
         <h2> Who are you? Please find yourself and click on its box. </h2>
