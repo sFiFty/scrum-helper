@@ -6,10 +6,10 @@ export default class SelectableTeams extends React.Component {
   render() {
     const {teams, selectTeam, selectedTeamId} = this.props
     return (
-      <Form.Field className="teams-to-choose d-flex flex-row">
+      <Form.Field className="teams-to-choose d-flex flex-row selectable">
       {
         _.keys(teams).map((teamKey, index) => {
-          const selectedClass = selectedTeamId === teamKey ? 'selected' : null
+          const selectedClass = selectedTeamId === teamKey ? 'selected' : ''
           const classes = `${selectedClass} team-box font-s p-3 text-white`
           return <div 
             style={{backgroundColor: teams[teamKey].color}} 
