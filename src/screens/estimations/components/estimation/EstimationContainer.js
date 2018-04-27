@@ -22,7 +22,7 @@ export default compose(
 		]
 	}),
 	connect(state => ({
-    estimation: populate(state.firebase, 'estimation', populates),
+		estimation: populate(state.firebase, 'estimation', populates),
 		estimationId: estimationId,
 		auth: state.firebase.auth
   }))
