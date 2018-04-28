@@ -8,6 +8,13 @@
     "start": "node ./bin/www",
     "build": "webpack --config webpack.prod.js"
   },
+   "keywords": [
+    "react",
+    "redux",
+    "firebase",
+    "webpack",
+    "scrum"
+  ],
   "dependencies": {
     "animejs": "^2.2.0",
     "body-parser": "~1.13.2",
