@@ -1,25 +1,24 @@
 @import "~Styles/_definitions.scss";
 
-.team-members {
-  .generated-members-list {
-    .member {
-      .remove-member-icon {
-        display: none;
-        cursor: pointer;
-      }
-      &:hover {
-        .remove-member-icon {
-          display: block;
-        }
+
+.generated-items-list {
+  .member {
+    .remove-item-icon {
+      display: none;
+      cursor: pointer;
+    }
+    &:hover {
+      .remove-item-icon {
+        display: block;
       }
     }
   }
-  button.ui.button, .ui.input input {
-    height: 40px;
-  }
-
-  .ui.input input[type=text], button.ui.button span {
-    font-size: $font-s;
-  }
-   
 }
+button.ui.button, .ui.input input {
+  height: 40px;
+}
+
+.ui.input input[type=text], button.ui.button span {
+  font-size: $font-s;
+}
+

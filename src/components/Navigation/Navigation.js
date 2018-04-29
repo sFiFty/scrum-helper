@@ -41,6 +41,9 @@ export default class Navigation extends PureComponent {
       case '/contacts': 
         this.setState({activeItem: 'Contact Us'})
         break
+      case '/estimation': 
+        this.setState({activeItem: 'Estimation'})
+        break
       default: 
         this.setState({activeItem: null})
         break
@@ -54,7 +57,8 @@ export default class Navigation extends PureComponent {
       { to: '/', name: 'Home', public: true },
       { to: '/contacts', name: 'Contact Us', public: true },
       { to: '/teams', name: 'Teams' },
-      { to: '/daily', name: 'Daily' }
+      { to: '/daily', name: 'Daily' },
+      // { to: '/estimation', name: 'Estimation' }
     ]
     return (
       <div className={vertical ? "vertical-menu" : "navigation-wrapper"}>

@@ -4,7 +4,6 @@ import {Container, Input, Form, Button, Message, Popup, Image} from 'semantic-ui
 import {NotificationManager}  from 'react-notifications'
 import PropTypes from 'prop-types'
 import DefaultAvatars from 'Components/DefaultAvatars'
-import AddMember from '../AddMember/AddMember'
 import TeamMembers from './TeamMembers'
 import './styles.scss'
 export default class AddTeam extends React.Component {

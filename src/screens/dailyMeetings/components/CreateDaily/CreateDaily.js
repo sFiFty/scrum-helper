@@ -6,6 +6,7 @@ import {NotificationManager}  from 'react-notifications'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import SMLoader from 'Components/SMLoader'
+import SelectableTeams from 'Components/SelectableTeams'
 import './styles.scss'
 
 export default class CreateDaily extends React.Component {
@@ -117,23 +118,7 @@ export default class CreateDaily extends React.Component {
 					<div>
 						<h2 className="form-title">Create Daily Meeting</h2>
 						<Form className="add">
-							<Form.Field className="teams-to-choose d-flex flex-row">
-								{
-									_.keys(teams).map((teamKey, index) => {
-										const selectedClass = selectedTeamId === teamKey ? 'selected' : null
-										const classes = `${selectedClass} team-box font-s p-3 text-white`
-										return <div 
-											style={{backgroundColor: teams[teamKey].color}} 
-											className={classes}
-											onClick={() => this.selectTeam(teamKey)} 
-											key={index}> 
-											<Icon className="checkmark-icon" size="big" name="checkmark" color="black" />
-											<div className="overlay-block"></div>
-											<span>{teams[teamKey].name}</span> 
-										</div>
-									})
-								}
-							</Form.Field>
+							<SelectableTeams teams={teams} selectTeam={this.selectTeam} selectedTeamId={selectedTeamId} />
 							<Form.Field className="mt-5">
 								{
 									allMembers.length === 0 ?
