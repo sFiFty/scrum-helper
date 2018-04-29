@@ -58,7 +58,7 @@ export default class Navigation extends PureComponent {
       { to: '/contacts', name: 'Contact Us', public: true },
       { to: '/teams', name: 'Teams' },
       { to: '/daily', name: 'Daily' },
-      { to: '/estimation', name: 'Estimation' }
+      // { to: '/estimation', name: 'Estimation' }
     ]
     return (
       <div className={vertical ? "vertical-menu" : "navigation-wrapper"}>
