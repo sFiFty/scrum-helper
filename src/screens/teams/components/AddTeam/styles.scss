@@ -14,8 +14,11 @@
     }
   }
 }
-button.ui.button, .ui.input input {
-  height: 40px;
+
+.team-members {
+  button.ui.button, .ui.input input {
+    height: 40px;
+  }
 }
 
 .ui.input input[type=text], button.ui.button span {
