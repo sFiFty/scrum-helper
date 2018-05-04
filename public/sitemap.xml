@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
-
-<url>
-  <loc>https://scrum-helper.ninja/</loc>
-  <lastmod>2018-04-18T05:36:09+00:00</lastmod>
-</url>
-
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url><loc>https://scrum-helper.ninja</loc><priority>0.5</priority></url>
+<url><loc>https://scrum-helper.ninja/contacts</loc><priority>0.5</priority></url>
+<url><loc>https://scrum-helper.ninja/teams/add</loc><priority>0.5</priority></url>
+<url><loc>https://scrum-helper.ninja/daily/create</loc><priority>0.5</priority></url>
+<url><loc>https://scrum-helper.ninja/privacy-policy</loc><priority>0.5</priority></url>
 </urlset>
