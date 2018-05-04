@@ -2,7 +2,7 @@
 
 .estimation-meeting-container {
   .member {
-    margin-left: 10px;
+    margin-left: 30px;
     margin-top: 10px;
     cursor: pointer;
     &:first-child {
@@ -17,6 +17,10 @@
     .checkmark-icon, .overlay-block {
       display: block;
     }
+  }
+  .button-container {
+    padding-top: 30px;
+    width: 100%;
   }
 }
 

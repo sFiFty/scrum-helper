@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
-import {Image, Icon} from 'semantic-ui-react'
+import {Image, Icon, Button} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import './styles.scss'
 
@@ -24,6 +24,15 @@ export default class SelectUser extends Component {
 
   componentWillReceiveProps({estimation, userKey}) {
     this.setMembers(estimation, userKey)
+  }
+
+  onStartEstimation = () => {
+    const {firebase, estimationId, history} = this.props
+    const {members, selectedMemberKey} = this.state
+    const selectedMember = members.find(m => m.key === selectedMemberKey)
+    firebase.push(`estimationMeetings/${estimationId}/joinedMembers`, selectedMember).then(() => {
+      history.push(`estimation/ongoing/${estimationId}/gathering`)
+    })
   }
 
   onSelectMember = memberKey => {
@@ -83,7 +92,7 @@ export default class SelectUser extends Component {
   }
 
   render() {
-    const {members} = this.state
+    const {members, selectedMemberKey} = this.state
     return (
       <div>
         <h2> Who are you? Please find yourself and click on its box. </h2>
@@ -97,7 +106,7 @@ export default class SelectUser extends Component {
                 const classes = `${selectedClass} member d-flex flex-row justify-content-center align-items-center`
                 return (
                   <div 
-                    key={i} 
+                    key={i}
                     className={classes} 
                     onClick={() => this.onSelectMember(members[i].key)} 
                   >
@@ -112,6 +121,18 @@ export default class SelectUser extends Component {
                   </div>
                 )
               })
+            }
+            {
+              selectedMemberKey &&
+              <div className="button-container">
+                <Button 
+                  onClick={this.onStartEstimation} 
+                  size="medium" 
+                  type="submit" 
+                  secondary>
+                  Let's estimate!
+                </Button>
+              </div>
             }
           </div>
         }

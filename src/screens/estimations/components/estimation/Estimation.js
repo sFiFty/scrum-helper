@@ -41,8 +41,7 @@ export default class Estimation extends Component {
   generateHash = () => Math.random().toString(36).substring(7)
 
   render() {
-    const {estimation, firebase, estimationId} = this.props
-    console.log(estimation);
+    const {estimation, firebase, estimationId, history} = this.props
     const {userKey} = this.state
     return (
       <Container className="estimation-meeting-container text-center">
@@ -50,6 +49,7 @@ export default class Estimation extends Component {
           isLoaded(estimation) ? 
           <SelectUser 
             estimation={estimation} 
+            history={history}
             userKey={userKey} 
             firebase={firebase} 
             estimationId={estimationId}/> :
