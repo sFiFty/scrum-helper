@@ -31,7 +31,7 @@ export default class SelectUser extends Component {
     const {members, selectedMemberKey} = this.state
     const selectedMember = members.find(m => m.key === selectedMemberKey)
     firebase.push(`estimationMeetings/${estimationId}/joinedMembers`, selectedMember).then(() => {
-      history.push(`estimation/ongoing/${estimationId}/gathering`)
+      history.push(`/estimation/gathering/${estimationId}/`)
     })
   }
 

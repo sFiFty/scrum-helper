@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
 import {firebaseConnect, populate} from 'react-redux-firebase'
-import Estimation from './Estimation'
+import Gathering from './Gathering'
 
 const populates = [
   {child: 'team', root: 'teams', keyProp: 'key'} 
@@ -23,5 +23,5 @@ export default compose(
 		estimationId: props.match.params.estimationid,
 		auth: state.firebase.auth
   }))
-)(Estimation)
+)(Gathering)
 
