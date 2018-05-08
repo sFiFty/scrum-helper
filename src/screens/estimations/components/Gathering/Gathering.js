@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {isLoaded, isEmpty} from 'react-redux-firebase'
 import SMLoader from 'Components/SMLoader'
-import {Container} from 'semantic-ui-react'
+import {Container, Image} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import './styles.scss'
 
@@ -33,7 +33,24 @@ export default class Gathering extends Component {
 
     return (
       <Container className="gathering-container">
-      gathering
+        <div className="joined-members-container">
+          <h3> Joined members </h3>
+          <ul className="joined-members-list">
+            {
+              joinedMembers.map((member, i) => {
+                const memberAvatar = require(`Images/${member.avatar}`)
+                return <li key={i} className="d-flex align-items-center">
+                  <div className="member-image-box">
+                    <Image avatar src={memberAvatar} />
+                  </div>
+                  <div className="member-name">
+                    {member.name}
+                  </div>
+                </li>
+              })
+            }
+          </ul>
+        </div>
       </Container>
     )
   }
