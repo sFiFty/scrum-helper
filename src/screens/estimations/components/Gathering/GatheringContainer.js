@@ -4,12 +4,15 @@ import {compose} from 'redux'
 import {firebaseConnect, populate} from 'react-redux-firebase'
 import Gathering from './Gathering'
 
+const populates = [
+  {child: 'team', root: 'teams', keyProp: 'key'} 
+]
+
 export default compose(
 	firebaseConnect((props, state) => {
-		estimationId = props.estimationid
 		return [
       { 
-				path: `estimationMeetings/${estimationId}`, 
+				path: `estimationMeetings/${props.match.params.estimationid}`, 
 				storeAs: 'estimation',
 				populates
 			}
@@ -17,7 +20,7 @@ export default compose(
 	}),
 	connect((state, props) => ({
 		estimation: populate(state.firebase, 'estimation', populates),
-		estimationId: props.estimationId,
+		estimationId: props.match.params.estimationid,
 		auth: state.firebase.auth
   }))
 )(Gathering)

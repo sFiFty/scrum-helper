@@ -9,6 +9,7 @@ import AddMember from 'Screens/teams/components/AddMember'
 import EstimationList from 'Screens/estimations/components/EstimationList'
 import CreateEstimation from 'Screens/estimations/components/CreateEstimation'
 import Estimation from 'Screens/estimations/components/Estimation'
+import Gathering from 'Screens/estimations/components/Gathering'
 import EmailConfirmation from 'Screens/emailConfirmation'
 import UserProfile from 'Screens/userProfile'
 import LoadingScreen from 'Screens/loadingScreen'
@@ -34,6 +35,7 @@ export default class Routes extends Component {
         <Route exact path="/estimation" component={UserIsAuthenticated(EstimationList)} />
         <Route exact path="/estimation/create" component={UserIsAuthenticated(CreateEstimation)} />
         <Route exact path="/estimation/ongoing/:estimationid" component={Estimation} />
+        <Route exact path="/estimation/gathering/:estimationid" component={Gathering} />
         <Route exact path="/login" component={LoadingScreen} />
         <Route exact path="/contacts" component={ContactUs} />
         <Route exact path="/privacy-policy" component={PrivacyPolicy} />
