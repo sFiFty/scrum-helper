@@ -8,22 +8,19 @@ const populates = [
   {child: 'team', root: 'teams', keyProp: 'key'} 
 ]
 
-let estimationId
-
 export default compose(
 	firebaseConnect((props, state) => {
-		estimationId = props.match.params.estimationid
 		return [
       { 
-				path: `estimationMeetings/${estimationId}`, 
+				path: `estimationMeetings/${props.match.params.estimationid}`, 
 				storeAs: 'estimation',
 				populates
 			}
 		]
 	}),
-	connect(state => ({
+	connect((state, props) => ({
 		estimation: populate(state.firebase, 'estimation', populates),
-		estimationId: estimationId,
+		estimationId: props.match.params.estimationid,
 		auth: state.firebase.auth
   }))
 )(Estimation)
