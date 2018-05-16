@@ -16,21 +16,37 @@ export default class Gathering extends Component {
     joinedMembers: []
   }
   componentWillReceiveProps({estimation}) {
-    if (estimation && estimation.joinedMembers) {
-      let joinedMembers = []
-      _.keys(estimation.joinedMembers).map(memberKey => {
-        joinedMembers.push(
-          {
-            ...estimation.joinedMembers[memberKey]
-          }
-        )
-      })
-      this.setState({ joinedMembers: joinedMembers })
+    if (!estimation) return
+    let state = {}
+    if (estimation.joinedMembers) {
+      state.joinedMembers = this.getJoinedMembers(estimation.joinedMembers)
     }
+    if (estimation.tasks) {
+      state.tasks = this.getTasks(estimation.tasks)
+    }
+    this.setState(state)
   }
-  render() {
-    const {joinedMembers} = this.state
 
+  getJoinedMembers = members => {
+    let joinedMembers = []
+    _.keys(members).map(memberKey => {
+      joinedMembers.push({...members[memberKey]})
+    })
+    return joinedMembers
+  }
+
+  getTasks = tasks => {
+    let estimationTasks = []
+    _.keys(tasks).map(taskKey => {
+      estimationTasks.push({...tasks[taskKey]})
+    })
+    return estimationTasks
+  }
+
+  render() {
+    const {joinedMembers, tasks} = this.state
+    console.log(joinedMembers);
+    console.log(tasks);
     return (
       <Container className="gathering-container">
         <div className="joined-members-container">
