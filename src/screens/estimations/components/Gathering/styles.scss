@@ -1,13 +1,32 @@
-.joined-members-container {
-  ul.joined-members-list {
+
+.gathering-container {
+  .joined-members-container {
+    ul.joined-members-list {
+      width: 100%;
+      max-width: 300px;
+      list-style: none;
+      padding-left: 0;
+      > li {
+        margin-top: 10px;
+        &:first-child {
+          margin-top: 0px;
+        }
+      }
+    }
+  }
+  
+  .tasks-list-container {
     width: 100%;
-    max-width: 300px;
-    list-style: none;
-    padding-left: 0;
-    > li {
-      margin-top: 10px;
-      &:first-child {
-        margin-top: 0px;
+    max-width: 400px;
+    margin-left: 100px;
+    ul.tasks-list {
+      list-style: none;
+      padding-left: 0;
+      li {
+        margin-top: 10px;
+        &:first-child {
+          margin-top: 0px;
+        }
       }
     }
   }
