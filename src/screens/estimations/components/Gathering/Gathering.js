@@ -13,7 +13,8 @@ const propTypes = {
 }
 export default class Gathering extends Component {
   state = {
-    joinedMembers: []
+    joinedMembers: [],
+    tasks: []
   }
   componentWillReceiveProps({estimation}) {
     if (!estimation) return
@@ -48,7 +49,7 @@ export default class Gathering extends Component {
     console.log(joinedMembers);
     console.log(tasks);
     return (
-      <Container className="gathering-container">
+      <Container className="gathering-container d-flex">
         <div className="joined-members-container">
           <h3> Joined members </h3>
           <ul className="joined-members-list">
@@ -62,6 +63,18 @@ export default class Gathering extends Component {
                   <div className="member-name">
                     {member.name}
                   </div>
+                </li>
+              })
+            }
+          </ul>
+        </div>
+        <div className="tasks-list-container">
+          <h3>Tasks to estimate</h3>
+          <ul className="tasks-list font-m">
+            {
+              tasks.map((task, i) => {
+                return <li key={i} >
+                  {task.title}
                 </li>
               })
             }
