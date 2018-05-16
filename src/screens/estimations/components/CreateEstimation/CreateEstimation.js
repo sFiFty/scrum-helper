@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, Header, Form, Button, Icon, Dropdown, Image, Input} from 'semantic-ui-react'
+import {Container, Header, Form, Button, Icon, Dropdown, Image} from 'semantic-ui-react'
 import {isLoaded} from 'react-redux-firebase'
 import {Link} from 'react-router-dom'
 import {NotificationManager}  from 'react-notifications'
@@ -22,8 +22,7 @@ export default class CreateEstimation extends React.Component {
 		selectedNames: [],
 		selectedMembers: [],
 		allMembers: [],
-		tasks: [],
-		taskTitle: null
+		tasks: []
 	}
 
 	componentWillReceiveProps(props) {
@@ -39,17 +38,10 @@ export default class CreateEstimation extends React.Component {
 		this.setState({selectedNames: value, selectedMembers: selectedMembers})
 	}
 
-	onSetTaskTitle = event => this.setState({taskTitle: event.target.value})
-
-	onAddTask = () => {
-		const {taskTitle, tasks} = this.state
-		tasks.push({
-			title: taskTitle
-		})
-		this.setState({
-			taskTitle: null,
-			tasks: tasks
-		})
+	onAddTask = title => {
+		const {tasks} = this.state
+		tasks.push({title: title})
+		this.setState({tasks: tasks})
 	}
 
 	setDefaultTeam = props => {
@@ -152,7 +144,7 @@ export default class CreateEstimation extends React.Component {
 
 
 	render() {
-		const {selectedTeamId, allMembers, selectedNames, tasks, taskTitle} = this.state
+		const {selectedTeamId, allMembers, selectedNames, tasks} = this.state
 		const {teams} = this.props
 		return (
 			<Container>
@@ -186,20 +178,8 @@ export default class CreateEstimation extends React.Component {
 							</Form.Field>
 							<Form.Field className="form-field team-members">
 								<label className="label">Tasks to estimate</label>
-								<TaskList tasks={tasks} removeTask={this.removeTask} />
-								<div className="d-flex justify-content-start align-items-center">
-									<Input 
-										onChange={this.onSetTaskTitle.bind(this)} 
-										value={taskTitle || ""}
-										className="w-50" size="mini"
-										placeholder="Type task title here..." />
-									{
-										taskTitle &&
-										<Button onClick={this.onAddTask} className="ml-3" size="mini" secondary>
-											<span>Add</span>
-										</Button>
-									}
-								</div>
+								<TaskList tasks={tasks} addTask={this.onAddTask} removeTask={this.removeTask} />
+
 							</Form.Field>
 							<Button 
 								onClick={this.onCreateEstimation} 
