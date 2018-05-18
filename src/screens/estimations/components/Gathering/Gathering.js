@@ -14,9 +14,10 @@ const propTypes = {
 export default class Gathering extends Component {
   state = {
     joinedMembers: [],
-    tasks: []
+    tasks: [],
+    isOwner: false
   }
-  componentWillReceiveProps({estimation}) {
+  componentWillReceiveProps({estimation, auth}) {
     if (!estimation) return
     let state = {}
     if (estimation.joinedMembers) {
@@ -25,6 +26,10 @@ export default class Gathering extends Component {
     if (estimation.tasks) {
       state.tasks = this.getTasks(estimation.tasks)
     }
+    if (auth && estimation.owner === auth.uid) {
+      state.isOwner = true
+    }
+
     this.setState(state)
   }
 
@@ -45,9 +50,8 @@ export default class Gathering extends Component {
   }
 
   render() {
-    const {joinedMembers, tasks} = this.state
-    console.log(joinedMembers);
-    console.log(tasks);
+    const {joinedMembers, tasks, isOwner} = this.state
+    console.log(isOwner);
     return (
       <Container className="gathering-container d-flex">
         <div className="joined-members-container">
