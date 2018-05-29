@@ -29,8 +29,8 @@ export default compose(
 	}),
 	connect(
 		(state) => ({
-      dailyMeetings: populate(state.firebase, 'dailyMeetings', populates),
-      estimationMeetings: populate(state.firebase, 'estimationMeetings', populates),
+      dailyMeetings: populate(state.firebase, 'dailyMeetings', dailyPopulates),
+      estimationMeetings: populate(state.firebase, 'estimationMeetings', estimationPopulates),
 		})
 	)
 )(Meetings)
