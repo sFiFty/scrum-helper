@@ -32,8 +32,8 @@ export default class Navigation extends PureComponent {
       case '/': 
         this.setState({activeItem: 'Home'})
         break
-      case '/daily': 
-        this.setState({activeItem: 'Daily'})
+      case '/meetings': 
+        this.setState({activeItem: 'Meetings'})
         break
       case '/teams': 
         this.setState({activeItem: 'Teams'})
@@ -57,7 +57,7 @@ export default class Navigation extends PureComponent {
       { to: '/', name: 'Home', public: true },
       { to: '/contacts', name: 'Contact Us', public: true },
       { to: '/teams', name: 'Teams' },
-      { to: '/daily', name: 'Daily' },
+      { to: '/meetings', name: 'Meetings' },
       // { to: '/estimation', name: 'Estimation' }
     ]
     return (

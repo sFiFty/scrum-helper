@@ -18,7 +18,6 @@
   .tasks-list-container {
     width: 100%;
     max-width: 400px;
-    margin-left: 100px;
     ul.tasks-list {
       list-style: none;
       padding-left: 0;
@@ -31,3 +30,10 @@
     }
   }
 }
+
+@media (min-width: 768px) {
+  .gathering-container .tasks-list-container {
+    margin-left: 100px;
+  }
+}
+
