@@ -51,12 +51,12 @@ export default class Meetings extends Component {
 
   render() {
     const { meetings } = this.state
-    console.log(meetings);
+    const { auth } = this.props
     return (
       <Container className="meetings-container d-flex justify-content-center">
         {
           meetings.length &&
-          meetings.map(m => <Meeting key={m.key} meeting={m} />)
+          meetings.map(m => <Meeting key={m.key} uid={auth.uid} meeting={m} />)
         }
       </Container>
     )

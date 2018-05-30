@@ -29,6 +29,7 @@ export default compose(
 		(state) => ({
       dailyMeetings: populate(state.firebase, 'dailyMeetings', populates),
       estimationMeetings: populate(state.firebase, 'estimationMeetings', populates),
+      auth: state.firebase.auth,
 		})
 	)
 )(Meetings)
