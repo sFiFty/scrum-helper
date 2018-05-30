@@ -1,7 +1,8 @@
-import React, {Component} from 'react'
-import {isLoaded, isEmpty} from 'react-redux-firebase'
-import {Container} from 'semantic-ui-react'
+import React, { Component } from 'react'
+import { isLoaded, isEmpty } from 'react-redux-firebase'
+import { Container } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
+import Meeting from '../Meeting'
 import './styles.scss'
 
 const propTypes = {
@@ -16,7 +17,9 @@ const defaultProps = {
 
 
 export default class Meetings extends Component {
-
+  state = {
+    meetings: []
+  }
   static getDerivedStateFromProps(nextProps, prevState) {
     const meetings = Meetings.getMeetings(nextProps)
     return {
@@ -48,9 +51,13 @@ export default class Meetings extends Component {
 
   render() {
     const { meetings } = this.state
+    console.log(meetings);
     return (
-      <Container className="meetings-container">
-
+      <Container className="meetings-container d-flex justify-content-center">
+        {
+          meetings.length &&
+          meetings.map(m => <Meeting key={m.key} meeting={m} />)
+        }
       </Container>
     )
   }

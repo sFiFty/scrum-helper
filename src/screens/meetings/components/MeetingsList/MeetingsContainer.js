@@ -4,13 +4,11 @@ import {compose} from 'redux'
 import {firebaseConnect, populate} from 'react-redux-firebase'
 import Meetings from './Meetings'
 
-const dailyPopulates = [
-  {child: 'team', root: 'teams', keyProp: 'key'} 
+const populates = [
+  {child: 'team', root: 'teams', keyProp: 'key'},
+  {child: 'owner', root: 'users', keyProp: 'key'},
 ]
 
-const estimationPopulates = [
-  {child: 'team', root: 'teams', keyProp: 'key'} 
-]
 
 export default compose(
 	firebaseConnect((props, state) => {
@@ -18,19 +16,19 @@ export default compose(
       { 
         path: 'dailyMeetings', 
         queryParams: ['orderByChild=owner', `equalTo=${state.getState().firebase.auth.uid}`],
-				dailyPopulates
+				populates
       },
       { 
         path: 'estimationMeetings', 
         queryParams: ['orderByChild=owner', `equalTo=${state.getState().firebase.auth.uid}`],
-				estimationPopulates
+				populates
 			}
 		]
 	}),
 	connect(
 		(state) => ({
-      dailyMeetings: populate(state.firebase, 'dailyMeetings', dailyPopulates),
-      estimationMeetings: populate(state.firebase, 'estimationMeetings', estimationPopulates),
+      dailyMeetings: populate(state.firebase, 'dailyMeetings', populates),
+      estimationMeetings: populate(state.firebase, 'estimationMeetings', populates),
 		})
 	)
 )(Meetings)
