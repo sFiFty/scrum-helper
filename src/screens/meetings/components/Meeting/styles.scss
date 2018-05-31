@@ -65,11 +65,17 @@
   }
   .button-container {
     flex: 1;
-    color: $darken-grey;
     cursor: pointer;
+    a {
+      color: $darken-grey;
+      width: 100%;
+      height: 100%;
+    }
     &:hover {
       background-color: $blue;
-      color: $white;
+      a {
+        color: $white;
+      }
     }
   }
   .members-information, .main-information {

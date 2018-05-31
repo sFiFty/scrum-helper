@@ -31,7 +31,7 @@ export default class Routes extends Component {
         <Route exact path="/teams/:teamid/addMember" component={UserIsAuthenticated(AddMember)} />
         <Route exact path="/meetings" component={UserIsAuthenticated(Meetings)} />
         <Route exact path="/daily/create" component={UserIsAuthenticated(CreateDaily)} />
-        <Route exact path="/daily/ongoing/:dailyid" component={UserIsAuthenticated(Daily)} />
+        <Route exact path="/meetings/:dailyid" component={UserIsAuthenticated(Daily)} />
         <Route exact path="/estimation" component={UserIsAuthenticated(EstimationList)} />
         <Route exact path="/estimation/create" component={UserIsAuthenticated(CreateEstimation)} />
         <Route exact path="/estimation/ongoing/:estimationid" component={Estimation} />

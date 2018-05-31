@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { Image } from 'semantic-ui-react'
 import moment from 'moment'
 import ExtendMembersList from 'Helpers/ExtendMembersList'
@@ -58,8 +59,10 @@ export default class Meeting extends Component {
             }
           </div>
         </div>
-        <div className="button-container d-flex align-items-center justify-content-center">
-          <span className="font-m">{ isOwner ? 'Start' : 'Join' }</span>
+        <div className="button-container">
+          <Link className="d-flex align-items-center justify-content-center" to={`meetings/${meeting.key}`}>
+            <span className="font-m">{ isOwner ? 'Start' : 'Join' }</span>
+          </Link>
         </div>
       </div>
     )
