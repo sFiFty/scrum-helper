@@ -9,16 +9,26 @@ export default class CreateMeeting extends Component {
       <Container className="create-meeting-container">
         <h1>Which type of the meeting you want to create?</h1>
         <div className="meeting-types d-flex justify-content-center align-items-center">
-          <Link to="/daily/create">
-            <div className="create-meeting-box daily">
-              Create daily meeting
-            </div>
-          </Link>
-          <Link to="/estimation/create">
-            <div className="create-meeting-box estimation">
-              Create estimation meeting
-            </div>
-          </Link>
+          <div className="create-meeting-box">
+            <Link to="/daily/create">
+              <div className="icon-container">
+                <img src={require('Images/daily-type-ico.svg')} alt="Daily type icon"/>
+              </div>
+              <div className="font-m daily">
+                Create daily meeting
+              </div>
+            </Link>
+          </div>
+          <div className="create-meeting-box">
+            <Link to="/estimation/create">
+              <div className="icon-container">
+                <img src={require('Images/estimation-type-ico.svg')} alt="Estimation type icon"/>
+              </div>
+              <div className="font-m estimation">
+                Create estimation meeting
+              </div>
+            </Link>
+          </div>
         </div>
       </Container>
     )

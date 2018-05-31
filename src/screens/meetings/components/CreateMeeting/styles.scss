@@ -1,13 +1,17 @@
+@import "~Styles/_definitions.scss";
+
 .create-meeting-container {
   .meeting-types {
-    a {
+    .create-meeting-box {
+      width: 250px;
+      height: 300px;
       margin-left: 20px;
       &:first-child {
         margin-left: 0px;
       }
-    }
-    .create-meeting-box {
-
+      a {
+        color: $blue
+      }
     }
   }
 }
