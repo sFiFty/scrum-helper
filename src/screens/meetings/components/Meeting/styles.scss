@@ -2,11 +2,8 @@
 
 .meeting {
   background: $white;
-  margin-left: 20px;
+  margin: 10px 10px 10px;
   height: 300px;
-  &:first-child {
-    margin-left: 0px;
-  }
   .main-information {
     .owner-avatar img {
       width: 75px;

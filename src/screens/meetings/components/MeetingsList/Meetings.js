@@ -54,23 +54,25 @@ export default class Meetings extends Component {
     const { meetings } = this.state
     const { auth } = this.props
     return (
-      <Container className="meetings-container d-flex justify-content-center">
-        {
-          meetings.length &&
-          meetings.map(m => <Meeting key={m.key} uid={auth.uid} meeting={m} />)
-        }
-        <Link to="meetings/create">
-          <div className="add-meeting-container d-flex flex-column justify-content-start align-items-center">
-            <div className="icon-container d-flex justify-content-center align-items-center">
-              <div className="icon-background d-flex justify-content-center align-items-center">
-                <i className="fas fa-plus"></i>
+      <Container className="meetings-container">
+        <div className="d-flex justify-content-center flex-wrap">
+          {
+            meetings.length &&
+            meetings.map(m => <Meeting key={m.key} uid={auth.uid} meeting={m} />)
+          }
+          <Link to="meetings/create">
+            <div className="add-meeting-container d-flex flex-column justify-content-start align-items-center">
+              <div className="icon-container d-flex justify-content-center align-items-center">
+                <div className="icon-background d-flex justify-content-center align-items-center">
+                  <i className="fas fa-plus"></i>
+                </div>
+              </div>
+              <div className="text font-l">
+                Add Meeting
               </div>
             </div>
-            <div className="text font-l">
-              Add Meeting
-            </div>
-          </div>
-        </Link>
+          </Link>
+        </div>
       </Container>
     )
   }
