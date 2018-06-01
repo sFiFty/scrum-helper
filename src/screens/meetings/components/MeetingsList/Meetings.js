@@ -52,13 +52,13 @@ export default class Meetings extends Component {
 
   render() {
     const { meetings } = this.state
-    const { auth } = this.props
+    const { auth, firebase } = this.props
     return (
       <Container className="meetings-container">
         <div className="d-flex justify-content-center flex-wrap">
           {
             meetings.length &&
-            meetings.map(m => <Meeting key={m.key} uid={auth.uid} meeting={m} />)
+            meetings.map(m => <Meeting firebase={firebase} key={m.key} uid={auth.uid} meeting={m} />)
           }
           <Link to="meetings/create">
             <div className="add-meeting-container d-flex flex-column justify-content-start align-items-center">
