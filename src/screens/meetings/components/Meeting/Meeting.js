@@ -59,11 +59,27 @@ export default class Meeting extends Component {
             }
           </div>
         </div>
-        <div className="button-container">
-          <Link className="d-flex align-items-center justify-content-center" to={`meetings/${meeting.key}`}>
-            <span className="font-m">{ isOwner ? 'Start' : 'Join' }</span>
-          </Link>
-        </div>
+        {
+          isOwner ?
+          <div className="button-container d-flex align-items-center justify-content-center">
+            <Link className="w-50 d-flex align-items-center justify-content-center" to={`meetings/${meeting.key}`}>
+              <div className="d-flex align-items-center justify-content-center">
+                <span className="font-m">Start</span>
+              </div>
+            </Link>
+            <div className="w-50 d-flex align-items-center justify-content-center cancel">
+              <span className="font-m">Cancel</span>
+            </div>
+          </div>
+          :
+          <div className="button-container d-flex align-items-center justify-content-center">
+            <Link className="d-flex align-items-center justify-content-center" to={`meetings/${meeting.key}`}>
+              <div className="d-flex align-items-center justify-content-center">
+                <span className="font-m">Start</span>
+              </div>
+            </Link>
+          </div>
+        }
       </div>
     )
   }

@@ -4,6 +4,7 @@
   background: $white;
   margin: 10px 10px 10px;
   height: 300px;
+  width: 330px;
   .main-information {
     .owner-avatar img {
       width: 75px;
@@ -67,13 +68,21 @@
       color: $darken-grey;
       width: 100%;
       height: 100%;
-    }
-    &:hover {
-      background-color: $blue;
-      a {
+      &:hover {
+        background-color: $blue;
         color: $white;
       }
     }
+    .cancel {
+      color: $red;
+      width: 100%;
+      height: 100%;
+      &:hover {
+        background-color: $red;
+        color: $white;
+      }
+    }
+
   }
   .members-information, .main-information {
     padding: 20px 30px;

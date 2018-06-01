@@ -110,7 +110,7 @@ export default class CreateEstimation extends React.Component {
 				`Estimation meeting for ${teams[teamId].name} successfully created`, 
 				'Confirmation'
 			)
-			history.push('/estimation')
+			history.push('/meetings')
 		})
 	}
 

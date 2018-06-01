@@ -103,7 +103,7 @@ export default class CreateDaily extends React.Component {
 				`Daily for ${teams[selectedTeamId].name} successfully created`, 
 				'Confirmation'
 			)
-			history.push('/daily')
+			history.push('/meetings')
 		})
 	}
 	render() {
