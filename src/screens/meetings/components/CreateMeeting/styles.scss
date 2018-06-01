@@ -1,16 +1,39 @@
 @import "~Styles/_definitions.scss";
 
+.sh-container .main .site-content .ui.container.create-meeting-container {
+  background-color: $bg-color;
+}
+
 .create-meeting-container {
   .meeting-types {
+    padding-top: 40px;
     .create-meeting-box {
       width: 250px;
       height: 300px;
-      margin-left: 20px;
+      margin-left: 50px;
+      border: 1px solid $blue;
+      border-radius: 4px;
+      background-color: $white;
+      &:hover {
+        background-color: $blue;
+        a {
+          color: $white;
+        }
+      }
       &:first-child {
         margin-left: 0px;
       }
       a {
-        color: $blue
+        color: $blue;
+      }
+      .icon-container {
+        height: 250px;
+        .icon-background {
+          width: 150px;
+          height: 150px;
+          background-color: $light-blue;
+          border-radius: 50%;
+        }
       }
     }
   }

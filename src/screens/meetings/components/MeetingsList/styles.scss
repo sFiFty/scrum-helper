@@ -11,10 +11,12 @@
   background-color: $white;
   margin-left: 20px;
   cursor: pointer;
+  border: 1px solid $blue;
+  border-radius: 3px;
   .icon-container {
     height: 250px;
     .icon-background {
-      background-color: #dfefff;
+      background-color: $light-blue;
       padding: 20px;
       border-radius: 50%;
       width: 100px;
