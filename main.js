@@ -5,6 +5,7 @@ import CoreLayout from 'Components/CoreLayout'
 import 'Styles/index.scss'
 import {Provider} from 'react-redux'
 import store from './src/store'
+import '@fortawesome/fontawesome';
 
 ReactDOM.render(
   <Provider store={store}>

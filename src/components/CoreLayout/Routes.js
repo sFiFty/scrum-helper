@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Route} from 'react-router-dom'
 import Meetings from 'Screens/meetings/components/MeetingsList'
+import CreateMeeting from 'Screens/meetings/components/CreateMeeting'
 import CreateDaily from 'Screens/dailyMeetings/components/CreateDaily'
 import Daily from 'Screens/dailyMeetings/components/Daily'
 import TeamList from 'Screens/teams/components/TeamList'
@@ -30,6 +31,7 @@ export default class Routes extends Component {
         <Route exact path="/teams/add" component={UserIsAuthenticated(AddTeam)} />
         <Route exact path="/teams/:teamid/addMember" component={UserIsAuthenticated(AddMember)} />
         <Route exact path="/meetings" component={UserIsAuthenticated(Meetings)} />
+        <Route exact path="/meetings/create" component={UserIsAuthenticated(CreateMeeting)} />
         <Route exact path="/daily/create" component={UserIsAuthenticated(CreateDaily)} />
         <Route exact path="/daily/ongoing/:dailyid" component={UserIsAuthenticated(Daily)} />
         <Route exact path="/estimation" component={UserIsAuthenticated(EstimationList)} />

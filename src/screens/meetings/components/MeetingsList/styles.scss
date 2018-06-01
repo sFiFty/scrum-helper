@@ -3,3 +3,38 @@
 .sh-container .main .site-content .ui.container.meetings-container {
   background-color: $bg-color;
 }
+
+.add-meeting-container {
+  margin: 10px 10px 10px;
+  color: $blue;
+  height: 300px;
+  width: 250px;
+  background-color: $white;
+  cursor: pointer;
+  border: 1px solid $blue;
+  border-radius: 3px;
+  .icon-container {
+    height: 250px;
+    .icon-background {
+      background-color: $light-blue;
+      padding: 20px;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      i {
+        -webkit-transition: -webkit-transform .4s ease-in-out;
+        transition: transform .4s ease-in-out;
+        font-size: 40px;
+      }
+    }
+  } 
+  &:hover {
+    background-color: $blue;
+    color: $white;
+    i {
+      -webkit-transform: rotate(180deg);
+      transform: rotate(180deg);
+      color: $blue;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { isLoaded, isEmpty } from 'react-redux-firebase'
 import { Container } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Meeting from '../Meeting'
 import './styles.scss'
@@ -51,13 +52,27 @@ export default class Meetings extends Component {
 
   render() {
     const { meetings } = this.state
-    const { auth } = this.props
+    const { auth, firebase } = this.props
     return (
-      <Container className="meetings-container d-flex justify-content-center">
-        {
-          meetings.length &&
-          meetings.map(m => <Meeting key={m.key} uid={auth.uid} meeting={m} />)
-        }
+      <Container className="meetings-container">
+        <div className="d-flex justify-content-center flex-wrap">
+          {
+            meetings.length > 0 &&
+            meetings.map(m => <Meeting firebase={firebase} key={m.key} uid={auth.uid} meeting={m} />)
+          }
+          <Link to="meetings/create">
+            <div className="add-meeting-container d-flex flex-column justify-content-start align-items-center">
+              <div className="icon-container d-flex justify-content-center align-items-center">
+                <div className="icon-background d-flex justify-content-center align-items-center">
+                  <i className="fas fa-plus"></i>
+                </div>
+              </div>
+              <div className="text font-l">
+                Add Meeting
+              </div>
+            </div>
+          </Link>
+        </div>
       </Container>
     )
   }

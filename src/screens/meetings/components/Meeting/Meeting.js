@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { Image } from 'semantic-ui-react'
+import { NotificationManager }  from 'react-notifications'
 import moment from 'moment'
 import ExtendMembersList from 'Helpers/ExtendMembersList'
 import './styles.scss'
@@ -9,7 +11,31 @@ const propTypes = {
   meeting: PropTypes.object.isRequired
 }
 
+const meetingTypes = {
+  daily: 'daily',
+  estimation: 'estimation'
+}
+
 export default class Meeting extends Component {
+
+  onCancel = () => {
+    const { meeting, firebase } = this.props
+    if (meeting.type === meetingTypes.daily) {
+      firebase.remove(`dailyMeetings/${meeting.key}/`).then(() => {
+        NotificationManager.success(
+          `Daily meeting for ${meeting.team.name} successfully deleted`, 
+          'Confirmation'
+        )
+      })
+    } else if (meeting.type === meetingTypes.estimation) {
+      firebase.remove(`estimationMeetings/${meeting.key}/`).then(() => {
+        NotificationManager.success(
+          `Estimation meeting for ${meeting.team.name} successfully deleted`, 
+          'Confirmation'
+        )
+      })
+    }
+  }
 
   render() {
     const { meeting, uid } = this.props
@@ -58,9 +84,29 @@ export default class Meeting extends Component {
             }
           </div>
         </div>
-        <div className="button-container d-flex align-items-center justify-content-center">
-          <span className="font-m">{ isOwner ? 'Start' : 'Join' }</span>
-        </div>
+        {
+          isOwner ?
+          <div className="button-container d-flex align-items-center justify-content-center">
+            <Link 
+              className="w-50 d-flex align-items-center justify-content-center" 
+              to={`${meeting.type}/ongoing/${meeting.key}`}>
+              <div className="d-flex align-items-center justify-content-center">
+                <span className="font-m">Start</span>
+              </div>
+            </Link>
+            <div onClick={this.onCancel} className="w-50 d-flex align-items-center justify-content-center cancel">
+              <span className="font-m">Cancel</span>
+            </div>
+          </div>
+          :
+          <div className="button-container d-flex align-items-center justify-content-center">
+            <Link className="d-flex align-items-center justify-content-center" to={`meetings/${meeting.key}`}>
+              <div className="d-flex align-items-center justify-content-center">
+                <span className="font-m">Start</span>
+              </div>
+            </Link>
+          </div>
+        }
       </div>
     )
   }
