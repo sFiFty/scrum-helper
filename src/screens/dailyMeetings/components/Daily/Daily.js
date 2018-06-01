@@ -16,7 +16,7 @@ export default class Daily extends Component {
     if (!daily) return
     if (daily.step === 3) {
       firebase.remove(`dailyMeetings/${dailyId}`).then(() => {
-        history.push('/daily')
+        history.push('/meetings')
       })
       return
     }
@@ -39,7 +39,7 @@ export default class Daily extends Component {
   }  
 
   componentWillReceiveProps(nextProps) {
-    if (!nextProps.daily) this.props.history.push('/daily')
+    if (!nextProps.daily) this.props.history.push('/meetings')
   }
 
   keyPress = e => {

@@ -57,7 +57,7 @@ export default class Meetings extends Component {
       <Container className="meetings-container">
         <div className="d-flex justify-content-center flex-wrap">
           {
-            meetings.length &&
+            meetings.length > 0 &&
             meetings.map(m => <Meeting firebase={firebase} key={m.key} uid={auth.uid} meeting={m} />)
           }
           <Link to="meetings/create">

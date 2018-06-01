@@ -87,7 +87,9 @@ export default class Meeting extends Component {
         {
           isOwner ?
           <div className="button-container d-flex align-items-center justify-content-center">
-            <Link className="w-50 d-flex align-items-center justify-content-center" to={`meetings/${meeting.key}`}>
+            <Link 
+              className="w-50 d-flex align-items-center justify-content-center" 
+              to={`${meeting.type}/ongoing/${meeting.key}`}>
               <div className="d-flex align-items-center justify-content-center">
                 <span className="font-m">Start</span>
               </div>
