@@ -8,7 +8,9 @@ import ExtendMembersList from 'Helpers/ExtendMembersList'
 import './styles.scss'
 
 const propTypes = {
-  meeting: PropTypes.object.isRequired
+  meeting: PropTypes.object.isRequired,
+  firebase: PropTypes.object.isRequired,
+  uid: PropTypes.string
 }
 
 const meetingTypes = {

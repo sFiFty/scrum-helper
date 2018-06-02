@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Container } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import './styles.scss'
 
-export default class CreateMeeting extends Component {
+export default class CreateMeeting extends PureComponent {
   render() {
     return (
       <Container className="create-meeting-container">

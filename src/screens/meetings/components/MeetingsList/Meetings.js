@@ -8,7 +8,9 @@ import './styles.scss'
 
 const propTypes = {
   dailyMeetings: PropTypes.object,
-  estimationMeetings: PropTypes.object
+  estimationMeetings: PropTypes.object,
+  auth: PropTypes.object,
+  firebase: PropTypes.object,
 }
 
 const defaultProps = {
