@@ -8,7 +8,9 @@ import ExtendMembersList from 'Helpers/ExtendMembersList'
 import './styles.scss'
 
 const propTypes = {
-  meeting: PropTypes.object.isRequired
+  meeting: PropTypes.object.isRequired,
+  firebase: PropTypes.object.isRequired,
+  uid: PropTypes.string
 }
 
 const meetingTypes = {
@@ -41,6 +43,7 @@ export default class Meeting extends Component {
     const { meeting, uid } = this.props
     const extendedMembersList = ExtendMembersList(meeting.members, meeting.team.members)
     const isOwner = meeting.owner.key === uid
+    const startTime = meeting.startTime && moment.unix(meeting.startTime).format("hh:mm A")
     return (
       <div className="meeting d-flex flex-column">
         <div className="main-information d-flex justify-content-center align-items-center">
@@ -55,7 +58,7 @@ export default class Meeting extends Component {
               {meeting.owner.email}
             </div>
             <div className="time font-m">
-              10 : 20 AM
+              { startTime && startTime }
             </div>
           </div>
         </div>

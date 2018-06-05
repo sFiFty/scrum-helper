@@ -2,6 +2,7 @@ import React from 'react'
 import {Container, Header, Form, Button, Icon, Dropdown, Image} from 'semantic-ui-react'
 import {isLoaded} from 'react-redux-firebase'
 import {Link} from 'react-router-dom'
+import DatePicker from 'react-datepicker'
 import {NotificationManager}  from 'react-notifications'
 import PropTypes from 'prop-types'
 import moment from 'moment'
@@ -14,7 +15,8 @@ export default class CreateDaily extends React.Component {
 		selectedTeamId: null,
 		selectedNames: [],
 		selectedMembers: [],
-		allMembers: []
+		allMembers: [],
+		startTime: moment()
 	}
 
 	onAddMember = (e, {value, options}) => {
@@ -36,6 +38,8 @@ export default class CreateDaily extends React.Component {
 	componentWillMount() {
 		this.setDefaultTeam(this.props)
 	}
+
+	onChangeTime = time => this.setState({ startTime: time })
 
 	generateValues = (teams, teamId) => {
 		let allMembers = [] 
@@ -79,7 +83,7 @@ export default class CreateDaily extends React.Component {
 
 	onCreateDaily = () => {
 		const {teams, firebase, history, owner} = this.props
-		const {selectedMembers, selectedTeamId} = this.state
+		const {selectedMembers, selectedTeamId, startTime} = this.state
 		if (!teams) {
 			NotificationManager.error(`You can't create daily without team`, `Error`);
 			return;
@@ -97,6 +101,7 @@ export default class CreateDaily extends React.Component {
 			owner: owner,
 			members: members,
 			timestamp: moment().unix(),
+			startTime: moment(startTime).unix(),
 			step: 0
 		}).then(team => {
 			NotificationManager.success(
@@ -107,7 +112,7 @@ export default class CreateDaily extends React.Component {
 		})
 	}
 	render() {
-		const {selectedTeamId, allMembers, selectedNames} = this.state
+		const {selectedTeamId, allMembers, selectedNames, startTime} = this.state
 		const {teams} = this.props
 		return (
 			<Container>
@@ -138,6 +143,17 @@ export default class CreateDaily extends React.Component {
 										options={allMembers || []} />
 								}
 
+							</Form.Field>
+							<Form.Field>
+								<DatePicker
+									selected={startTime}
+									onChange={this.onChangeTime}
+									showTimeSelect
+									timeFormat="HH:mm"
+									timeIntervals={10}
+									dateFormat="LLL"
+									timeCaption="time"
+								/>
 							</Form.Field>
 							<Button 
 								onClick={this.onCreateDaily} 

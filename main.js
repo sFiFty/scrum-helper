@@ -6,6 +6,7 @@ import 'Styles/index.scss'
 import {Provider} from 'react-redux'
 import store from './src/store'
 import '@fortawesome/fontawesome';
+import 'react-datepicker/dist/react-datepicker.css'
 
 ReactDOM.render(
   <Provider store={store}>
