@@ -15,8 +15,11 @@ export default class Daily extends Component {
     const {daily, firebase, dailyId, history} = this.props
     if (!daily) return
     if (daily.step === 3) {
-      firebase.remove(`dailyMeetings/${dailyId}`).then(() => {
+      firebase.update(`dailyMeetings/${dailyId}`, { isDeleted: true }).then(() => {
         history.push('/meetings')
+        // firebase.remove(`dailyMeetings/${dailyId}`).then(() => {
+        //   history.push('/meetings')
+        // })
       })
       return
     }
