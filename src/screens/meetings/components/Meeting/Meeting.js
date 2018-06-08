@@ -71,11 +71,16 @@ export default class Meeting extends Component {
               _.keys(extendedMembersList).map((memberKey, index) => {
                 if (index >= 4) return
                 return (
-                  <Image 
-                    src={require(`Images/${extendedMembersList[memberKey].avatar}`)} 
-                    alt="member avatar" 
+                  <div 
+                    className="member-avatar-container"
+                    style={{zIndex: _.keys(extendedMembersList).length - index}}
                     key={memberKey}
-                  />
+                  >
+                    <Image 
+                      src={require(`Images/${extendedMembersList[memberKey].avatar}`)} 
+                      alt="member avatar" 
+                    />
+                  </div>
                 )
               })
             }
