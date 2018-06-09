@@ -34,6 +34,7 @@ export default class Meetings extends Component {
     let meetings = []
     const {dailyMeetings, estimationMeetings} = props
     _.keys(dailyMeetings).map(key => {
+      if (dailyMeetings[key].isDeleted) return
       meetings.push({
         key: key,
         type: 'daily',
