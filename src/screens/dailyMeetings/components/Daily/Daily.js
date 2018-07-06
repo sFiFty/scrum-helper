@@ -9,7 +9,24 @@ import FinalSlide from './FinalSlide'
 import './styles.scss'
 import Divider from 'semantic-ui-react'
 
+
+const trelloKey = ''
+const trelloToken = ''
 export default class Daily extends Component {
+  state = {
+    trelloColumns: null
+  }
+  componentDidMount() {
+    this.getTrelloColumns();
+  }
+  getTrelloColumns = () => {
+    const url = `https://trello.com/1/boards/BPogjQ8G/lists?fields=all&key=${trelloKey}&token=${trelloToken}`
+    return fetch(url).then((response) => {
+      return response.json();
+    }).then(data => {
+      this.setState({ trelloColumns: data });
+    })
+  }
 
   nextStep = () => {
     const {daily, firebase, dailyId, history} = this.props
@@ -62,7 +79,7 @@ export default class Daily extends Component {
           currentSlide = <IntroSlide {...this.props} />
           break
         case 1:
-          currentSlide =  <QueueSlide {...this.props} />
+          currentSlide =  <QueueSlide trelloColumns={this.state.trelloColumns} trelloKey={trelloKey} trelloToken={trelloToken} {...this.props} />
           break
         case 2:
           currentSlide =  <DiscussionSlide {...this.props} />

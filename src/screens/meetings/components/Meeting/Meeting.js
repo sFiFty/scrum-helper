@@ -19,7 +19,6 @@ const meetingTypes = {
 }
 
 export default class Meeting extends Component {
-
   onCancel = () => {
     const { meeting, firebase } = this.props
     if (meeting.type === meetingTypes.daily) {
