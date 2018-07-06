@@ -27,14 +27,7 @@ export default class Daily extends Component {
       this.setState({ trelloColumns: data });
     })
   }
-  getCardsByColumnId = (id) => {
-    const url = `https://trello.com/1/lists/${id}/cards?fields=name &key=${trelloKey}&token=${trelloToken}`
-    fetch(url).then((response) => {
-      return response.json();
-    }).then(data => {
-      console.log(data);
-    })
-  }
+
   nextStep = () => {
     const {daily, firebase, dailyId, history} = this.props
     if (!daily) return
@@ -86,7 +79,7 @@ export default class Daily extends Component {
           currentSlide = <IntroSlide {...this.props} />
           break
         case 1:
-          currentSlide =  <QueueSlide {...this.props} />
+          currentSlide =  <QueueSlide trelloColumns={this.state.trelloColumns} trelloKey={trelloKey} trelloToken={trelloToken} {...this.props} />
           break
         case 2:
           currentSlide =  <DiscussionSlide {...this.props} />

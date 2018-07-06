@@ -13,13 +13,52 @@ export default class QueueSlide extends Component {
     this.setState({members: ExtendMembersList(daily.members, daily.team.members)})
   }
 
+  componentDidMount() {
+    const { trelloKey, trelloToken } = this.props;
+    this.generateTasks(trelloKey, trelloToken).then(tasks => {
+      this.setState({ tasks });
+    })
+
+  }
+
   componentWillReceiveProps(nextProps) {
     const {daily} = nextProps
     this.setState({members: ExtendMembersList(daily.members, daily.team.members)})
   }
 
+  generateTasks = (key, token) => {
+    const tasks = {};
+    const { members } = this.state;
+    return new Promise((resolve, reject) => {
+      Object.keys(members).map((memberKey, index) => {
+        const initials = members[memberKey].initials;
+        this.getCardsByColumnId(initials, key, token).then((response) => {
+          return response.json();
+        }).then(data => {
+          this.setRandomCard(data, members, tasks, initials, resolve);
+        })
+      });
+    });
+  }
+
+  setRandomCard = (cards, members, tasks, initials, resolve) => {
+    tasks[initials] = cards[Math.floor(Math.random()*cards.length)].name;
+    if (Object.keys(tasks).length === Object.keys(members).length) {
+      resolve(tasks)
+    }
+  }
+
+  getCardsByColumnId = (initials, key, token) => {
+    const { trelloColumns } = this.props;
+    const column = trelloColumns.find(column => column.name === initials);
+    const url = `https://trello.com/1/lists/${column.id}/cards?key=${key}&token=${token}`
+    return fetch(url);
+  }
+
+
   render() {
-    const {members} = this.state
+    const {members, tasks} = this.state
+    console.log(tasks);
     const {daily} = this.props
     return (
       <div key={daily.timestamp} style={{backgroundColor: daily.team.color}} className="page-overlay">
@@ -35,6 +74,9 @@ export default class QueueSlide extends Component {
                   <List.Content>
                     <List.Header>{member.name}</List.Header>
                   </List.Content>
+                  <div className="promise">
+                    <strong>Promise: </strong>{tasks && tasks[member.initials]}
+                  </div>
                 </List.Item>
               )
             })  
