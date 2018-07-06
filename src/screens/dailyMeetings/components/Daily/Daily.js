@@ -9,8 +9,32 @@ import FinalSlide from './FinalSlide'
 import './styles.scss'
 import Divider from 'semantic-ui-react'
 
-export default class Daily extends Component {
 
+const trelloKey = ''
+const trelloToken = ''
+export default class Daily extends Component {
+  state = {
+    trelloColumns: null
+  }
+  componentDidMount() {
+    this.getTrelloColumns();
+  }
+  getTrelloColumns = () => {
+    const url = `https://trello.com/1/boards/BPogjQ8G/lists?fields=all&key=${trelloKey}&token=${trelloToken}`
+    return fetch(url).then((response) => {
+      return response.json();
+    }).then(data => {
+      this.setState({ trelloColumns: data });
+    })
+  }
+  getCardsByColumnId = (id) => {
+    const url = `https://trello.com/1/lists/${id}/cards?fields=name &key=${trelloKey}&token=${trelloToken}`
+    fetch(url).then((response) => {
+      return response.json();
+    }).then(data => {
+      console.log(data);
+    })
+  }
   nextStep = () => {
     const {daily, firebase, dailyId, history} = this.props
     if (!daily) return
