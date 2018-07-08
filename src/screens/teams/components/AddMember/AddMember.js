@@ -9,6 +9,7 @@ export default class AddMember extends React.Component {
 	state = {
 		name: null,
 		errorMessage: null,
+		initials: null,
 		avatar: null
 	}
 
@@ -27,8 +28,10 @@ export default class AddMember extends React.Component {
 
 	setName = event => this.setState({name: event.target.value})
 
+	setInitials = event => this.setState({initials: event.target.value})
+
 	addMember = () => {
-		const {name, avatar} = this.state
+		const {name, avatar, initials} = this.state
 		const {firebase, history, match, team} = this.props
 		if (!name || name.length < 1) {
 			this.setState({errorMessage: 'Please provide member name'})
@@ -41,7 +44,8 @@ export default class AddMember extends React.Component {
 		this.setState({errorMessage: null})
 		firebase.push(`teams/${match.params.teamid}/members`, {
 			name: name,
-			avatar: avatar
+			avatar: avatar,
+			initials: initials
 		}).then(data => {
 			NotificationManager.success(
 				`Member ${name} successfully added to ${team.name}`, 
@@ -66,6 +70,9 @@ export default class AddMember extends React.Component {
 					</Form.Field>
 					<Form.Field className="member-avatar">
 						<DefaultAvatars onChoose={this.onChooseAvatar}/>
+					</Form.Field>
+					<Form.Field className="initials">
+						<Input onChange={this.setInitials.bind(this)} size='massive' placeholder='Type member initials here...' />
 					</Form.Field>
 					<Button 
 						onClick={this.addMember} 

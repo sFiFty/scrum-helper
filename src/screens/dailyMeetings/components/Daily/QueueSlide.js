@@ -42,7 +42,16 @@ export default class QueueSlide extends Component {
   }
 
   setRandomCard = (cards, members, tasks, initials, resolve) => {
-    tasks[initials] = cards[Math.floor(Math.random()*cards.length)].name;
+    const notDoneCards = cards.filter(card => {
+      let status = true;
+      if (card.labels) {
+        card.labels.map(label => {
+          if (label.name === 'DONE') status = false
+        })
+      }
+      return status;
+    })
+    tasks[initials] = notDoneCards[Math.floor(Math.random()*notDoneCards.length)].name;
     if (Object.keys(tasks).length === Object.keys(members).length) {
       resolve(tasks)
     }
@@ -58,7 +67,6 @@ export default class QueueSlide extends Component {
 
   render() {
     const {members, tasks} = this.state
-    console.log(tasks);
     const {daily} = this.props
     return (
       <div key={daily.timestamp} style={{backgroundColor: daily.team.color}} className="page-overlay">
@@ -74,9 +82,12 @@ export default class QueueSlide extends Component {
                   <List.Content>
                     <List.Header>{member.name}</List.Header>
                   </List.Content>
-                  <div className="promise">
-                    <strong>Promise: </strong>{tasks && tasks[member.initials]}
-                  </div>
+                  {
+                  tasks && tasks[member.initials] &&
+                    <div className="promise">
+                      <strong>Commitment: </strong>{tasks[member.initials]}
+                    </div>
+                  }
                 </List.Item>
               )
             })  
