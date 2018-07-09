@@ -63,7 +63,7 @@ export default class Meetings extends Component {
             meetings.length > 0 &&
             meetings.map(m => <Meeting firebase={firebase} key={m.key} uid={auth.uid} meeting={m} />)
           }
-          <Link to="meetings/create">
+          <Link to="daily/create">
             <div className="add-meeting-container d-flex flex-column justify-content-start align-items-center">
               <div className="icon-container d-flex justify-content-center align-items-center">
                 <div className="icon-background d-flex justify-content-center align-items-center">

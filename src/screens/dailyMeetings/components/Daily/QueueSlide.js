@@ -3,6 +3,8 @@ import {List, Image} from 'semantic-ui-react'
 import ExtendMembersList from 'Helpers/ExtendMembersList'
 import PropTypes from 'prop-types'
 
+const doneTaskStatus = 'DONE'
+
 export default class QueueSlide extends Component {
   state = {
     members: null
@@ -18,7 +20,6 @@ export default class QueueSlide extends Component {
     this.generateTasks(trelloKey, trelloToken).then(tasks => {
       this.setState({ tasks });
     })
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -46,7 +47,7 @@ export default class QueueSlide extends Component {
       let status = true;
       if (card.labels) {
         card.labels.map(label => {
-          if (label.name === 'DONE') status = false
+          if (label.name === doneTaskStatus) status = false
         })
       }
       return status;
