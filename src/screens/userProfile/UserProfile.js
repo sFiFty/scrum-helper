@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Container, Icon, Image, Button, List, Input, Modal} from 'semantic-ui-react'
+import {NotificationManager}  from 'react-notifications'
 import {isLoaded} from 'react-redux-firebase'
 import Dropzone from 'react-dropzone'
 import SMLoader from 'Components/SMLoader'
@@ -25,7 +26,22 @@ export default class UserProfile extends React.Component {
 	}
 
   modalShow = () => this.setState({ isModalOpened: true })
-  modalClose = () => this.setState({ isModalOpened: false })
+	modalClose = () => this.setState({ isModalOpened: false })
+	deleteProfile = () => {
+		const { firebase } = this.props;
+		var user = firebase.auth().currentUser;
+		user.delete().then(function() {
+			NotificationManager.success(
+				`Your account was successfully deleted`, 
+				'Confirmation'
+			)
+		}).catch(function(error) {
+			NotificationManager.error(
+				`Something went wrong, please contact us`, 
+				'Error'
+			)
+		});
+	}
 
 	setName = name => {
 		const {firebase} = this.props
@@ -60,14 +76,14 @@ export default class UserProfile extends React.Component {
 						</List>
 					</div>
 				</div>
-        <Modal onActionClick={this.onModalAction} size="tiny" open={isModalOpened} onClose={this.modalClose}>
+        <Modal size="tiny" open={isModalOpened} onClose={this.modalClose}>
           <Modal.Header>Delete Your Account</Modal.Header>
           <Modal.Content>
             <p>Are you sure you want to delete your account</p>
           </Modal.Content>
           <Modal.Actions>
-            <Button negative>No</Button>
-            <Button positive icon='checkmark' labelPosition='right' content='Yes' />
+            <Button negative onClick={this.modalClose}>No</Button>
+            <Button positive onClick={this.deleteProfile} icon='checkmark' labelPosition='right' content='Yes' />
           </Modal.Actions>
         </Modal>
 			</Container>
