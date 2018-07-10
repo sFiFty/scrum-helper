@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Container, Icon, Image, Button, List, Input} from 'semantic-ui-react'
+import {Container, Icon, Image, Button, List, Input, Modal} from 'semantic-ui-react'
 import {isLoaded} from 'react-redux-firebase'
 import Dropzone from 'react-dropzone'
 import SMLoader from 'Components/SMLoader'
@@ -13,7 +13,8 @@ export default class UserProfile extends React.Component {
 		name: null,
 		email: null,
 		nameIsEditing: false,
-		emailIsEditing: false
+		emailIsEditing: false,
+		isModalOpened: false,
 	}
 
 	onFileAdded = (files, rejected) => {
@@ -23,6 +24,9 @@ export default class UserProfile extends React.Component {
 		})
 	}
 
+  modalShow = () => this.setState({ isModalOpened: true })
+  modalClose = () => this.setState({ isModalOpened: false })
+
 	setName = name => {
 		const {firebase} = this.props
 		firebase.updateProfile({name: name})
@@ -30,7 +34,7 @@ export default class UserProfile extends React.Component {
 	
 	render() {
 		const {profile} = this.props
-		const {nameIsEditing, emailIsEditing} = this.state
+		const {nameIsEditing, emailIsEditing, isModalOpened} = this.state
 		let dropzoneRef
 		return (
 			!isLoaded(profile)
@@ -46,6 +50,7 @@ export default class UserProfile extends React.Component {
 							<Image src={profile.avatar} />
 						</Dropzone>
 						<Button onClick={() => { dropzoneRef.open() }} className="mt-3 w-100" basic size="tiny">Change Avatar</Button>
+						<Button onClick={this.modalShow} className="mt-3 w-100" color="red" size="tiny">Delete Profile</Button>
 					</div>
 					<div className="profile-information-container">
 						<List divided verticalAlign='middle'>
@@ -55,6 +60,16 @@ export default class UserProfile extends React.Component {
 						</List>
 					</div>
 				</div>
+        <Modal onActionClick={this.onModalAction} size="tiny" open={isModalOpened} onClose={this.modalClose}>
+          <Modal.Header>Delete Your Account</Modal.Header>
+          <Modal.Content>
+            <p>Are you sure you want to delete your account</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button negative>No</Button>
+            <Button positive icon='checkmark' labelPosition='right' content='Yes' />
+          </Modal.Actions>
+        </Modal>
 			</Container>
 		)
 	}
