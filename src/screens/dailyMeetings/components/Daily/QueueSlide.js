@@ -7,7 +7,8 @@ const doneTaskStatus = 'DONE'
 
 export default class QueueSlide extends Component {
   state = {
-    members: null
+    members: null,
+    teamPromise: null,
   }
 
   componentWillMount() {
@@ -18,7 +19,16 @@ export default class QueueSlide extends Component {
   componentDidMount() {
     const { trelloKey, trelloToken } = this.props;
     this.generateTasks(trelloKey, trelloToken).then(tasks => {
-      this.setState({ tasks });
+      this.getCardsForAllTeam(trelloKey, trelloToken).then(response => {
+        console.log(response);
+        return response.json();
+      }).then(list => {
+        console.log(list);
+        const teamCard = list[Math.floor(Math.random()*list.length)].name;
+        console.log(teamCard);
+        this.setState({ tasks });
+      })
+      
     })
   }
 
@@ -62,6 +72,13 @@ export default class QueueSlide extends Component {
     const { trelloColumns } = this.props;
     const column = trelloColumns.find(column => column.name === initials);
     const url = `https://trello.com/1/lists/${column.id}/cards?key=${key}&token=${token}`
+    return fetch(url);
+  }
+
+  getCardsForAllTeam = (key, token) => {
+    const { trelloColumns } = this.props;
+    const AllColumn = trelloColumns.find(column => column.name === 'ALL');
+    const url = `https://trello.com/1/lists/${AllColumn.id}/cards?key=${key}&token=${token}`
     return fetch(url);
   }
 
