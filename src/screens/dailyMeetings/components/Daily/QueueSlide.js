@@ -8,7 +8,7 @@ const doneTaskStatus = 'DONE'
 export default class QueueSlide extends Component {
   state = {
     members: null,
-    teamPromise: null,
+    teamCard: null,
   }
 
   componentWillMount() {
@@ -20,13 +20,10 @@ export default class QueueSlide extends Component {
     const { trelloKey, trelloToken } = this.props;
     this.generateTasks(trelloKey, trelloToken).then(tasks => {
       this.getCardsForAllTeam(trelloKey, trelloToken).then(response => {
-        console.log(response);
         return response.json();
       }).then(list => {
-        console.log(list);
         const teamCard = list[Math.floor(Math.random()*list.length)].name;
-        console.log(teamCard);
-        this.setState({ tasks });
+        this.setState({ tasks, teamCard });
       })
       
     })
@@ -84,32 +81,39 @@ export default class QueueSlide extends Component {
 
 
   render() {
-    const {members, tasks} = this.state
+    const {members, tasks, teamCard} = this.state
     const {daily} = this.props
+    console.log(daily.team)
     return (
       <div key={daily.timestamp} style={{backgroundColor: daily.team.color}} className="page-overlay">
         <div className="daily-queue text-center">
           <div> Let's share our updates </div>
           <List className="queue-members">
-          {
-            _.keys(members).map((key, index) => {
-              let member = members[key]
-              return (
-                <List.Item key={index}>
-                  <Image avatar src={require(`Images/${member.avatar}`)} />
-                  <List.Content>
-                    <List.Header>{member.name}</List.Header>
-                  </List.Content>
-                  {
-                  tasks && tasks[member.initials] &&
-                    <div className="promise">
-                      <strong>Commitment: </strong>{tasks[member.initials]}
-                    </div>
-                  }
-                </List.Item>
-              )
-            })  
-          }
+            {
+              _.keys(members).map((key, index) => {
+                let member = members[key]
+                return (
+                  <List.Item key={index}>
+                    <Image avatar src={require(`Images/${member.avatar}`)} />
+                    <List.Content>
+                      <List.Header>{member.name}</List.Header>
+                    </List.Content>
+                    {
+                    tasks && tasks[member.initials] &&
+                      <div className="promise">
+                        <strong>Commitment: </strong>{tasks[member.initials]}
+                      </div>
+                    }
+                  </List.Item>
+                )
+              })  
+            }
+            <List.Item>
+              <List.Content className="team-promise">
+                <h3> {daily.team.name} team commitment </h3>
+                <div className="text-left promise">{teamCard}</div>
+              </List.Content>
+            </List.Item>
           </List>
         </div>
       </div>
