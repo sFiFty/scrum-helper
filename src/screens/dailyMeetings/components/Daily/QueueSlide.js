@@ -35,12 +35,18 @@ export default class QueueSlide extends Component {
     this.setState({members: ExtendMembersList(daily.members, daily.team.members)})
   }
 
-  markAsDone = (cardId) => {
-    console.log(cardId);
+  markAsDone = (card) => {
+    const { trelloLabels, trelloKey, trelloToken } = this.props;
+    const label = trelloLabels.find(label => label.name === 'DONE');
+    const url = `https://api.trello.com/1/cards/${card.id}?idLabels=${label.id}&key=${trelloKey}&token=${trelloToken}`
+    fetch(url, { method: 'PUT' });
   }
 
-  markAsOngoing = (cardId) => {
-    console.log(cardId);
+  markAsOngoing = (card) => {
+    const { trelloLabels, trelloKey, trelloToken } = this.props;
+    const label = trelloLabels.find(label => label.name === 'Ongoing');
+    const url = `https://api.trello.com/1/cards/${card.id}?idLabels=${label.id}&key=${trelloKey}&token=${trelloToken}`
+    fetch(url, { method: 'PUT' });
   }
 
   generateTasks = (key, token) => {
@@ -92,7 +98,6 @@ export default class QueueSlide extends Component {
   render() {
     const {members, tasks, teamCard} = this.state
     const {daily} = this.props
-    console.log(tasks);
     return (
       <div key={daily.timestamp} style={{backgroundColor: daily.team.color}} className="page-overlay">
         <div className="daily-queue text-center">
@@ -101,7 +106,7 @@ export default class QueueSlide extends Component {
             {
               _.keys(members).map((key, index) => {
                 const member = members[key]
-                const task = tasks[member.initials]
+                const card = tasks[member.initials]
                 return (
                   <List.Item key={index}>
                     <Image avatar src={require(`Images/${member.avatar}`)} />
@@ -109,11 +114,11 @@ export default class QueueSlide extends Component {
                       <List.Header>{member.name}</List.Header>
                     </List.Content>
                     {
-                      task &&
+                      card &&
                       <div className="promise">
-                        <strong>Commitment: </strong>{task.name}
-                        <Button onClick={() => this.markAsDone(task.id)} size='mini' color='green'>Done</Button>
-                        <Button onClick={() => this.markAsOngoing(task.id)} size='mini' color='teal'>Ongoing</Button>
+                        <strong>Commitment: </strong>{card.name}
+                        <Button onClick={() => this.markAsDone(card)} size='mini' color='green'>Done</Button>
+                        <Button onClick={() => this.markAsOngoing(card)} size='mini' color='teal'>Ongoing</Button>
                       </div>
                     }
                   </List.Item>
