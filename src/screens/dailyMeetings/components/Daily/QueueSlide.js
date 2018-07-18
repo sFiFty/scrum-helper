@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {List, Image} from 'semantic-ui-react'
+import {List, Image, Button} from 'semantic-ui-react'
 import ExtendMembersList from 'Helpers/ExtendMembersList'
 import PropTypes from 'prop-types'
 
@@ -9,6 +9,7 @@ export default class QueueSlide extends Component {
   state = {
     members: null,
     teamCard: null,
+    tasks: {},
   }
 
   componentWillMount() {
@@ -32,6 +33,20 @@ export default class QueueSlide extends Component {
   componentWillReceiveProps(nextProps) {
     const {daily} = nextProps
     this.setState({members: ExtendMembersList(daily.members, daily.team.members)})
+  }
+
+  markAsDone = (card) => {
+    const { trelloLabels, trelloKey, trelloToken } = this.props;
+    const label = trelloLabels.find(label => label.name === 'DONE');
+    const url = `https://api.trello.com/1/cards/${card.id}?idLabels=${label.id}&key=${trelloKey}&token=${trelloToken}`
+    fetch(url, { method: 'PUT' });
+  }
+
+  markAsOngoing = (card) => {
+    const { trelloLabels, trelloKey, trelloToken } = this.props;
+    const label = trelloLabels.find(label => label.name === 'Ongoing');
+    const url = `https://api.trello.com/1/cards/${card.id}?idLabels=${label.id}&key=${trelloKey}&token=${trelloToken}`
+    fetch(url, { method: 'PUT' });
   }
 
   generateTasks = (key, token) => {
@@ -59,7 +74,7 @@ export default class QueueSlide extends Component {
       }
       return status;
     })
-    tasks[initials] = notDoneCards[Math.floor(Math.random()*notDoneCards.length)].name;
+    tasks[initials] = notDoneCards[Math.floor(Math.random()*notDoneCards.length)];
     if (Object.keys(tasks).length === Object.keys(members).length) {
       resolve(tasks)
     }
@@ -83,7 +98,6 @@ export default class QueueSlide extends Component {
   render() {
     const {members, tasks, teamCard} = this.state
     const {daily} = this.props
-    console.log(daily.team)
     return (
       <div key={daily.timestamp} style={{backgroundColor: daily.team.color}} className="page-overlay">
         <div className="daily-queue text-center">
@@ -91,7 +105,8 @@ export default class QueueSlide extends Component {
           <List className="queue-members">
             {
               _.keys(members).map((key, index) => {
-                let member = members[key]
+                const member = members[key]
+                const card = tasks[member.initials]
                 return (
                   <List.Item key={index}>
                     <Image avatar src={require(`Images/${member.avatar}`)} />
@@ -99,9 +114,13 @@ export default class QueueSlide extends Component {
                       <List.Header>{member.name}</List.Header>
                     </List.Content>
                     {
-                    tasks && tasks[member.initials] &&
+                      card &&
                       <div className="promise">
-                        <strong>Commitment: </strong>{tasks[member.initials]}
+                        <strong>Commitment: </strong>{card.name}
+                        <div className="trello-actions-container">
+                          <Button basic onClick={() => this.markAsDone(card)} size='mini' color='green'>Done</Button>
+                          <Button basic onClick={() => this.markAsOngoing(card)} size='mini' color='teal'>Ongoing</Button>
+                        </div>
                       </div>
                     }
                   </List.Item>

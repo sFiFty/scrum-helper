@@ -23,7 +23,7 @@
     }
   }
   .daily-queue {
-    top: 10%;
+    top: 0%;
     .queue-members.list {
       font-size: 1vw;
       width: 80%;
@@ -41,6 +41,11 @@
           color: $black;
           font-size: 13px;
           margin: 10px 0px;
+          .trello-actions-container {
+            button {
+              padding: 7px 10px;
+            }
+          }
         }
         .team-promise {
           color: $black;
