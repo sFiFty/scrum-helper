@@ -90,7 +90,7 @@ export default class Daily extends Component {
           currentSlide = <IntroSlide {...this.props} />
           break
         case 1:
-          currentSlide =  <QueueSlide trelloColumns={trelloColumns} trelloKey={trelloKey} trelloToken={trelloToken} {...this.props} />
+          currentSlide =  <QueueSlide trelloLabels={trelloLabels} trelloColumns={trelloColumns} trelloKey={trelloKey} trelloToken={trelloToken} {...this.props} />
           break
         case 2:
           currentSlide =  <DiscussionSlide {...this.props} />
@@ -104,8 +104,12 @@ export default class Daily extends Component {
     }
 
     return (
+      trelloColumns && trelloLabels ?
       <div tabIndex="0" onClick={this.nextStep} className="daily-layout">
         {currentSlide}
+      </div> : 
+      <div tabIndex="0" onClick={this.nextStep} className="daily-layout">
+        <SMLoader />
       </div>
     )
   }

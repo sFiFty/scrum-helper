@@ -117,8 +117,10 @@ export default class QueueSlide extends Component {
                       card &&
                       <div className="promise">
                         <strong>Commitment: </strong>{card.name}
-                        <Button onClick={() => this.markAsDone(card)} size='mini' color='green'>Done</Button>
-                        <Button onClick={() => this.markAsOngoing(card)} size='mini' color='teal'>Ongoing</Button>
+                        <div className="trello-actions-container">
+                          <Button basic onClick={() => this.markAsDone(card)} size='mini' color='green'>Done</Button>
+                          <Button basic onClick={() => this.markAsOngoing(card)} size='mini' color='teal'>Ongoing</Button>
+                        </div>
                       </div>
                     }
                   </List.Item>
