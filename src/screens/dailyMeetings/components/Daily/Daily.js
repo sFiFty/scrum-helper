@@ -12,15 +12,18 @@ import Divider from 'semantic-ui-react'
 
 const trelloKey = ''
 const trelloToken = ''
+const boardId = ''
 export default class Daily extends Component {
   state = {
-    trelloColumns: null
+    trelloColumns: null,
+    trelloLabels: null,
   }
   componentDidMount() {
     this.getTrelloColumns();
+    this.getTrelloLabels();
   }
   getTrelloColumns = () => {
-    const url = `https://trello.com/1/boards/BPogjQ8G/lists?fields=all&key=${trelloKey}&token=${trelloToken}`
+    const url = `https://trello.com/1/boards/${boardId}/lists?fields=all&key=${trelloKey}&token=${trelloToken}`
     return fetch(url).then((response) => {
       return response.json();
     }).then(data => {
@@ -28,15 +31,22 @@ export default class Daily extends Component {
     })
   }
 
-  nextStep = () => {
+  getTrelloLabels = () => {
+    const url = `https://api.trello.com/1/boards/${boardId}/labels?fields=all&key=${trelloKey}&token=${trelloToken}`
+    return fetch(url).then((response) => {
+      return response.json();
+    }).then(data => {
+      this.setState({ trelloLabels: data });
+    })
+  }
+  
+  nextStep = e => {
+    if (e.target.nodeName === 'BUTTON') return;
     const {daily, firebase, dailyId, history} = this.props
     if (!daily) return
     if (daily.step === 3) {
       firebase.update(`dailyMeetings/${dailyId}`, { isDeleted: true }).then(() => {
         history.push('/meetings')
-        // firebase.remove(`dailyMeetings/${dailyId}`).then(() => {
-        //   history.push('/meetings')
-        // })
       })
       return
     }
@@ -71,7 +81,8 @@ export default class Daily extends Component {
   }
 
   render() {
-    const {daily, history} = this.props
+    const { daily, history } = this.props
+    const { trelloColumns, trelloLabels } = this.state;
     let currentSlide = <SMLoader />
     if (daily) {
       switch(daily.step) {
@@ -79,7 +90,7 @@ export default class Daily extends Component {
           currentSlide = <IntroSlide {...this.props} />
           break
         case 1:
-          currentSlide =  <QueueSlide trelloColumns={this.state.trelloColumns} trelloKey={trelloKey} trelloToken={trelloToken} {...this.props} />
+          currentSlide =  <QueueSlide trelloColumns={trelloColumns} trelloKey={trelloKey} trelloToken={trelloToken} {...this.props} />
           break
         case 2:
           currentSlide =  <DiscussionSlide {...this.props} />
