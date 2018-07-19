@@ -1,3 +1,3 @@
-import AddMemberContainer from './AddMemberContainer'
+import AddMemberContainer from './AddMemberContainer';
 
-export default AddMemberContainer
+export default AddMemberContainer;

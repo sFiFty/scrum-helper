@@ -1,3 +1,3 @@
-import DailyListContainer from './DailyListContainer'
+import DailyListContainer from './DailyListContainer';
 
-export default DailyListContainer
+export default DailyListContainer;

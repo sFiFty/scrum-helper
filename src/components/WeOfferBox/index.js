@@ -1,3 +1,3 @@
-import WeOfferBox from './WeOfferBox'
+import WeOfferBox from './WeOfferBox';
 
-export default WeOfferBox
+export default WeOfferBox;

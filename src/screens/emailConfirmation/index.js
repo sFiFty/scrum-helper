@@ -1,3 +1,3 @@
-import EmailConfirmationContainer from './EmailConfirmationContainer'
+import EmailConfirmationContainer from './EmailConfirmationContainer';
 
-export default EmailConfirmationContainer
+export default EmailConfirmationContainer;

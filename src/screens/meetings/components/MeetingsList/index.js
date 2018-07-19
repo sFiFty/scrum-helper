@@ -1,3 +1,3 @@
-import MeetingsContainer from './MeetingsContainer'
+import MeetingsContainer from './MeetingsContainer';
 
-export default MeetingsContainer
+export default MeetingsContainer;

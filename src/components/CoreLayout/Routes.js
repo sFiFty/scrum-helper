@@ -1,23 +1,23 @@
-import React, {Component} from 'react'
-import {Route} from 'react-router-dom'
-import Meetings from 'Screens/meetings/components/MeetingsList'
-import CreateMeeting from 'Screens/meetings/components/CreateMeeting'
-import CreateDaily from 'Screens/dailyMeetings/components/CreateDaily'
-import Daily from 'Screens/dailyMeetings/components/Daily'
-import TeamList from 'Screens/teams/components/TeamList'
-import AddTeam from 'Screens/teams/components/AddTeam'
-import AddMember from 'Screens/teams/components/AddMember'
-import EstimationList from 'Screens/estimations/components/EstimationList'
-import CreateEstimation from 'Screens/estimations/components/CreateEstimation'
-import Estimation from 'Screens/estimations/components/Estimation'
-import Gathering from 'Screens/estimations/components/Gathering'
-import EmailConfirmation from 'Screens/emailConfirmation'
-import UserProfile from 'Screens/userProfile'
-import LoadingScreen from 'Screens/loadingScreen'
-import ContactUs from 'Screens/contactUs'
-import Home from 'Screens/home'
-import PrivacyPolicy from 'Screens/privacyPolicy'
-import UserIsAuthenticated from 'Helpers/UserIsAuthenticated'
+import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+import Meetings from 'Screens/meetings/components/MeetingsList';
+import CreateMeeting from 'Screens/meetings/components/CreateMeeting';
+import CreateDaily from 'Screens/dailyMeetings/components/CreateDaily';
+import Daily from 'Screens/dailyMeetings/components/Daily';
+import TeamList from 'Screens/teams/components/TeamList';
+import AddTeam from 'Screens/teams/components/AddTeam';
+import AddMember from 'Screens/teams/components/AddMember';
+import EstimationList from 'Screens/estimations/components/EstimationList';
+import CreateEstimation from 'Screens/estimations/components/CreateEstimation';
+import Estimation from 'Screens/estimations/components/Estimation';
+import Gathering from 'Screens/estimations/components/Gathering';
+import EmailConfirmation from 'Screens/emailConfirmation';
+import UserProfile from 'Screens/userProfile';
+import LoadingScreen from 'Screens/loadingScreen';
+import ContactUs from 'Screens/contactUs';
+import Home from 'Screens/home';
+import PrivacyPolicy from 'Screens/privacyPolicy';
+import UserIsAuthenticated from 'Helpers/UserIsAuthenticated';
 
 
 export default class Routes extends Component {
@@ -41,9 +41,8 @@ export default class Routes extends Component {
         <Route exact path="/login" component={LoadingScreen} />
         <Route exact path="/contacts" component={ContactUs} />
         <Route exact path="/privacy-policy" component={PrivacyPolicy} />
-        
+
       </div>
-    )
+    );
   }
 }
-

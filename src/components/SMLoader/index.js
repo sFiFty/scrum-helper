@@ -1,3 +1,3 @@
-import SMLoader from './SMLoader'
+import SMLoader from './SMLoader';
 
-export default SMLoader
+export default SMLoader;

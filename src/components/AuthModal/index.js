@@ -1,3 +1,3 @@
-import AuthModalContainer from './AuthModalContainer'
+import AuthModalContainer from './AuthModalContainer';
 
-export default AuthModalContainer
+export default AuthModalContainer;

@@ -1,3 +1,3 @@
-import SelectableTeams from './SelectableTeams'
+import SelectableTeams from './SelectableTeams';
 
-export default SelectableTeams
+export default SelectableTeams;

@@ -1,3 +1,3 @@
-import LoadingScreenContainer from './LoadingScreenContainer'
+import LoadingScreenContainer from './LoadingScreenContainer';
 
-export default LoadingScreenContainer
+export default LoadingScreenContainer;

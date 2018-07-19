@@ -1,3 +1,3 @@
-import EstimationListContainer from './EstimationListContainer'
+import EstimationListContainer from './EstimationListContainer';
 
-export default EstimationListContainer
+export default EstimationListContainer;

@@ -1,3 +1,3 @@
-import GatheringContainer from './GatheringContainer'
+import GatheringContainer from './GatheringContainer';
 
-export default GatheringContainer
+export default GatheringContainer;

@@ -1,3 +1,3 @@
-import CoreLayoutContainer from './CoreLayoutContainer'
+import CoreLayoutContainer from './CoreLayoutContainer';
 
-export default CoreLayoutContainer
+export default CoreLayoutContainer;

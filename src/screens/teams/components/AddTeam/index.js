@@ -1,3 +1,3 @@
-import AddTeamContainer from './AddTeamContainer'
+import AddTeamContainer from './AddTeamContainer';
 
-export default AddTeamContainer
+export default AddTeamContainer;

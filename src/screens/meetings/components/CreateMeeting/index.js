@@ -1,3 +1,3 @@
-import CreateMeeting from './CreateMeeting'
+import CreateMeeting from './CreateMeeting';
 
-export default CreateMeeting
+export default CreateMeeting;

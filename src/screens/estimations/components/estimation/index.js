@@ -1,3 +1,3 @@
-import EstimationContainer from './EstimationContainer'
+import EstimationContainer from './EstimationContainer';
 
-export default EstimationContainer
+export default EstimationContainer;
