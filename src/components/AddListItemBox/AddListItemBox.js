@@ -1,26 +1,25 @@
-import React, {PureComponent} from 'react'
-import {List, Icon} from 'semantic-ui-react'
-import {Link} from 'react-router-dom'
-import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react';
+import { List, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export default class AddListItemBox extends PureComponent {
-	render() {
-    const {link, label} = this.props
-		return (
-			<List.Item>
-				<Link to={link} className="text-color">
-					<Icon circular size="large" name="add" />
-					<span className="font-m pl-2">{label}</span>
-				</Link>
-			</List.Item>
-		)
+  render() {
+    const { link, label } = this.props;
+    return (
+      <List.Item>
+        <Link to={link} className="text-color">
+          <Icon circular size="large" name="add" />
+          <span className="font-m pl-2">
+            {label}
+          </span>
+        </Link>
+      </List.Item>
+    );
   }
 
   static propTypes = {
     link: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired,
   }
 }
-
-
-

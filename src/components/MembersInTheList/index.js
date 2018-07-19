@@ -1,3 +1,3 @@
-import MembersInTheList from './MembersInTheList'
+import MembersInTheList from './MembersInTheList';
 
-export default MembersInTheList
+export default MembersInTheList;

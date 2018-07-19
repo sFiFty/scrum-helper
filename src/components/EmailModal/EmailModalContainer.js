@@ -1,21 +1,21 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {compose} from 'redux'
-import {firebaseConnect} from 'react-redux-firebase'
-import EmailModal from './EmailModal'
+import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firebaseConnect } from 'react-redux-firebase';
+import EmailModal from './EmailModal';
 
-let user = null
+let user = null;
 
 export default compose(
-	firebaseConnect((props, store) => {
-    user = store.getState().auth.user
-	}),
+  firebaseConnect((props, store) => {
+    user = store.getState().auth.user;
+  }),
   connect(
-    (state) => (
+    state => (
       {
         profile: state.firebase.profile,
-        user: user
+        user,
       }
-    )
-  )
-)(EmailModal)
+    ),
+  ),
+)(EmailModal);

@@ -1,3 +1,3 @@
-import DefaultAvatars from './DefaultAvatars'
+import DefaultAvatars from './DefaultAvatars';
 
-export default DefaultAvatars
+export default DefaultAvatars;

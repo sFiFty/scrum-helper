@@ -1,3 +1,3 @@
-import NavigationContainer from './NavigationContainer'
+import NavigationContainer from './NavigationContainer';
 
-export default NavigationContainer
+export default NavigationContainer;

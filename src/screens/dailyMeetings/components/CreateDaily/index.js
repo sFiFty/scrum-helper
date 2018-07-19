@@ -1,3 +1,3 @@
-import CreateDailyContainer from './CreateDailyContainer'
+import CreateDailyContainer from './CreateDailyContainer';
 
-export default CreateDailyContainer
+export default CreateDailyContainer;

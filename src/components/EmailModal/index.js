@@ -1,3 +1,3 @@
-import EmailModalContainer from './EmailModalContainer'
+import EmailModalContainer from './EmailModalContainer';
 
-export default EmailModalContainer
+export default EmailModalContainer;
