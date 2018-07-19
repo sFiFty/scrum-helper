@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {List, Image, Button} from 'semantic-ui-react'
 import ExtendMembersList from 'Helpers/ExtendMembersList'
 import PropTypes from 'prop-types'
+import {NotificationManager}  from 'react-notifications'
 
 const doneTaskStatus = 'DONE'
 const ongoingTaskStatus = 'Ongoing'
@@ -42,15 +43,28 @@ export default class QueueSlide extends Component {
     const label = trelloLabels.find(label => label.name === 'DONE');
     const url = `https://api.trello.com/1/cards/${card.id}?idLabels=${label.id}&key=${trelloKey}&token=${trelloToken}`
     fetch(url, { method: 'PUT' }).then(() => {
-      this.setState({ tasks: cards });
+      this.setState({ tasks: cards }, () => {
+        NotificationManager.success(
+          `Commitment ${card.name} was successfully DONE!`, 
+          'Nice job!'
+        )
+      });
     });
   }
 
   markAsOngoing = (card) => {
     const { trelloLabels, trelloKey, trelloToken } = this.props;
+    const cards = this.state.cards.filter(c => c.id !== card.id})
     const label = trelloLabels.find(label => label.name === 'Ongoing');
     const url = `https://api.trello.com/1/cards/${card.id}?idLabels=${label.id}&key=${trelloKey}&token=${trelloToken}`
-    fetch(url, { method: 'PUT' });
+    fetch(url, { method: 'PUT' }).then(() => {
+      this.setState({ tasks: cards }, () => {
+        NotificationManager.success(
+          `Commitment ${card.name} was successfully saved as ongoing!`, 
+          'Keep doing it!'
+        )
+      });
+    });
   }
 
   generateTasks = (key, token) => {
