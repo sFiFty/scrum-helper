@@ -39,7 +39,7 @@ export default class QueueSlide extends Component {
 
   markAsDone = (card) => {
     const { trelloLabels, trelloKey, trelloToken } = this.props;
-    const cards = this.state.cards.filter(c => c.id !== card.id})
+    const cards = this.markCardAsFinished(card);
     const label = trelloLabels.find(label => label.name === 'DONE');
     const url = `https://api.trello.com/1/cards/${card.id}?idLabels=${label.id}&key=${trelloKey}&token=${trelloToken}`
     fetch(url, { method: 'PUT' }).then(() => {
@@ -54,7 +54,7 @@ export default class QueueSlide extends Component {
 
   markAsOngoing = (card) => {
     const { trelloLabels, trelloKey, trelloToken } = this.props;
-    const cards = this.state.cards.filter(c => c.id !== card.id})
+    const cards = this.markCardAsFinished(card);
     const label = trelloLabels.find(label => label.name === 'Ongoing');
     const url = `https://api.trello.com/1/cards/${card.id}?idLabels=${label.id}&key=${trelloKey}&token=${trelloToken}`
     fetch(url, { method: 'PUT' }).then(() => {
@@ -65,6 +65,16 @@ export default class QueueSlide extends Component {
         )
       });
     });
+  }
+
+  markCardAsFinished = card => {
+    const { tasks } = this.state;
+    Object.keys(tasks).map(initials => {
+      if (tasks[initials].id === card.id) {
+        tasks[initials].finished = true;
+      }
+    })
+    return tasks;
   }
 
   generateTasks = (key, token) => {
@@ -132,7 +142,7 @@ export default class QueueSlide extends Component {
                       <List.Header>{member.name}</List.Header>
                     </List.Content>
                     {
-                      card &&
+                      card && !card.finished &&
                       <div className="promise">
                         <strong>Commitment: </strong>{card.name}
                         <div className="trello-actions-container">
