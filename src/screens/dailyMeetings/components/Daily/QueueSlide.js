@@ -4,6 +4,7 @@ import ExtendMembersList from 'Helpers/ExtendMembersList'
 import PropTypes from 'prop-types'
 
 const doneTaskStatus = 'DONE'
+const ongoingTaskStatus = 'Ongoing'
 
 export default class QueueSlide extends Component {
   state = {
@@ -37,9 +38,12 @@ export default class QueueSlide extends Component {
 
   markAsDone = (card) => {
     const { trelloLabels, trelloKey, trelloToken } = this.props;
+    const cards = this.state.cards.filter(c => c.id !== card.id})
     const label = trelloLabels.find(label => label.name === 'DONE');
     const url = `https://api.trello.com/1/cards/${card.id}?idLabels=${label.id}&key=${trelloKey}&token=${trelloToken}`
-    fetch(url, { method: 'PUT' });
+    fetch(url, { method: 'PUT' }).then(() => {
+      this.setState({ tasks: cards });
+    });
   }
 
   markAsOngoing = (card) => {
@@ -69,7 +73,7 @@ export default class QueueSlide extends Component {
       let status = true;
       if (card.labels) {
         card.labels.map(label => {
-          if (label.name === doneTaskStatus) status = false
+          if (label.name === doneTaskStatus || label.name === ongoingTaskStatus) status = false
         })
       }
       return status;
