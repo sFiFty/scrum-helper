@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Container, Form, Button, Icon, Dropdown, Image,
 } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 import { isLoaded } from 'react-redux-firebase';
 import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
@@ -10,6 +11,12 @@ import moment from 'moment';
 import SMLoader from 'Components/SMLoader';
 import SelectableTeams from 'Components/SelectableTeams';
 import './styles.scss';
+
+const propTypes = {
+  firebase: PropTypes.object.isRequired,
+  teams: PropTypes.object,
+  owner: PropTypes.string.isRequired,
+}
 
 export default class CreateDaily extends React.Component {
   state = {
@@ -135,80 +142,67 @@ export default class CreateDaily extends React.Component {
               ? (
               <div>
                 <h2 className="form-title">
-            Create Daily Meeting
+                  Create Daily Meeting
                 </h2>
                 <Form className="add">
                   <SelectableTeams teams={teams} selectTeam={this.selectTeam} selectedTeamId={selectedTeamId} />
                   <Form.Field className="mt-5">
                     {
-                              allMembers.length === 0
-                                ? (
-              <div className="font-m">
-
-                                Your team is empty. Do you want to add member?
-                <Link className="ml-3 text-link" to={`/teams/${selectedTeamId}/addMember`}>
-
-                                  Add member
-                  <Icon name="arrow right" />
-                </Link>
+                      allMembers.length === 0
+                      ? (
+                        <div className="font-m">
+                          <span>Your team is empty. Do you want to add member?</span>
+                          <Link className="ml-3 text-link" to={`/teams/${selectedTeamId}/addMember`}>
+                            Add member <Icon name="arrow right" />
+                          </Link>
+                        </div>
+                      ) :									
+                      (
+                        <Dropdown
+                          placeholder="Team members"
+                          multiple
+                          onChange={this.onAddMember}
+                          selection
+                          value={selectedNames || []}
+                          options={allMembers || []}
+                        />
+                      )
+                    }
+                  </Form.Field>
+                  <Form.Field>
+                    <DatePicker
+                      selected={startTime}
+                      onChange={this.onChangeTime}
+                      showTimeSelect
+                      timeFormat="HH:mm"
+                      timeIntervals={10}
+                      dateFormat="LLL"
+                      timeCaption="time"
+                    />
+                  </Form.Field>
+                  <Button
+                    onClick={this.onCreateDaily}
+                    floated="right"
+                    disabled={!teams}
+                    size="medium"
+                    type="submit"
+                    secondary
+                  >
+                    Create Daily
+                  </Button>
+                </Form>
               </div>
-                      )
-                      :									(
-          <Dropdown
-            placeholder="Team members"
-            multiple
-            onChange={this.onAddMember}
-            selection
-            value={selectedNames || []}
-            options={allMembers || []}
-          />
-                      )
-                  }
-
-        </Form.Field>
-        <Form.Field>
-          <DatePicker
-            selected={startTime}
-            onChange={this.onChangeTime}
-            showTimeSelect
-            timeFormat="HH:mm"
-            timeIntervals={10}
-            dateFormat="LLL"
-            timeCaption="time"
-          />
-        </Form.Field>
-        <Button
-          onClick={this.onCreateDaily}
-          floated="right"
-          disabled={!teams}
-          size="medium"
-          type="submit"
-          secondary
-        >
-
-                  Create Daily
-        </Button>
-      </Form>
-    </div>
-                )
-                :					(
-            <div className="text-center">
-              <h1>
-          To create daily you need to have one team at least.
-              </h1>
-              <Button as={Link} to="/teams/add" className="mt-4" secondary size="medium">
-          Create Team
-              </Button>
-            </div>
-                )
+              ):
+              (
+              <div className="text-center">
+                <h1> To create daily you need to have one team at least.</h1>
+                <Button as={Link} to="/teams/add" className="mt-4" secondary size="medium">Create Team</Button>
+              </div>
+              )
         }
-  </Container>
+      </Container>
     );
   }
-
-  static propTypes = {
-    firebase: PropTypes.object.isRequired,
-    teams: PropTypes.object,
-    owner: PropTypes.string.isRequired,
-  }
 }
+
+CreateDaily.propTypes = propTypes;
