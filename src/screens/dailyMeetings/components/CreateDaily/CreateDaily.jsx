@@ -8,8 +8,10 @@ import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import { NotificationManager } from 'react-notifications';
 import moment from 'moment';
+
 import SMLoader from 'Components/SMLoader';
 import SelectableTeams from 'Components/SelectableTeams';
+import SelectableMembers from './SelectableMembers.jsx';
 import './styles.scss';
 
 const propTypes = {
@@ -146,29 +148,12 @@ export default class CreateDaily extends React.Component {
                 </h2>
                 <Form className="add">
                   <SelectableTeams teams={teams} selectTeam={this.selectTeam} selectedTeamId={selectedTeamId} />
-                  <Form.Field className="mt-5">
-                    {
-                      allMembers.length === 0
-                      ? (
-                        <div className="font-m">
-                          <span>Your team is empty. Do you want to add member?</span>
-                          <Link className="ml-3 text-link" to={`/teams/${selectedTeamId}/addMember`}>
-                            Add member <Icon name="arrow right" />
-                          </Link>
-                        </div>
-                      ) :									
-                      (
-                        <Dropdown
-                          placeholder="Team members"
-                          multiple
-                          onChange={this.onAddMember}
-                          selection
-                          value={selectedNames || []}
-                          options={allMembers || []}
-                        />
-                      )
-                    }
-                  </Form.Field>
+                  <SelectableMembers
+                    members={allMembers}
+                    selectedTeamId={selectedTeamId}
+                    onAddMember={this.onAddMember}
+                    selectedNames={selectedNames}
+                  />
                   <Form.Field>
                     <DatePicker
                       selected={startTime}
