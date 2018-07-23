@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Container, Form, Button, Image,
 } from 'semantic-ui-react';
@@ -31,7 +31,7 @@ const defaultProps = {
   teams: null,
 };
 
-export default class CreateDaily extends React.Component {
+export default class CreateDaily extends Component {
   state = {
     selectedTeamId: null,
     selectedNames: [],
