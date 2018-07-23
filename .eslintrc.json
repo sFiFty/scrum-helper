@@ -26,6 +26,8 @@
         "array-callback-return": "off",
         "linebreak-style": "off",
         "react/no-array-index-key": "off",
-        "no-return-assign": "off"
+        "no-return-assign": "off",
+        "react/jsx-one-expression-per-line": "off",
+        "import/no-dynamic-require": "off"
     }
 }
