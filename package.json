@@ -29,6 +29,7 @@
     "loaders.css": "^0.1.2",
     "lodash": "4.17.4",
     "moment": "2.21.0",
+    "prop-types": "^15.6.2",
     "query-string": "^5.1.0",
     "react": "^16.4.1",
     "react-addons-css-transition-group": "^15.6.2",

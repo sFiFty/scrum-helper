@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Container, Form, Button, Icon, Dropdown, Image,
+  Container, Form, Button, Image,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isLoaded } from 'react-redux-firebase';
@@ -15,10 +15,21 @@ import SelectableMembers from './SelectableMembers.jsx';
 import './styles.scss';
 
 const propTypes = {
-  firebase: PropTypes.object.isRequired,
-  teams: PropTypes.object,
+  firebase: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  teams: PropTypes.shape({
+    [PropTypes.string]: PropTypes.object,
+  }),
   owner: PropTypes.string.isRequired,
-}
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
+
+const defaultProps = {
+  teams: null,
+};
 
 export default class CreateDaily extends React.Component {
   state = {
@@ -69,7 +80,7 @@ export default class CreateDaily extends React.Component {
       timestamp: moment().unix(),
       startTime: moment(startTime).unix(),
       step: 0,
-    }).then((team) => {
+    }).then(() => {
       NotificationManager.success(
         `Daily for ${teams[selectedTeamId].name} successfully created`,
         'Confirmation',
@@ -91,7 +102,8 @@ export default class CreateDaily extends React.Component {
     const { members } = teams[teamId];
     Object.keys(members).map((memberKey) => {
       const member = members[memberKey];
-      const avatar = member.avatar ? require(`Images/${member.avatar}`) : null;
+      const avatarUrl = `Images/${member.avatar}`;
+      const avatar = member.avatar ? require(avatarUrl) : null;
       allMembers.push({
         value: member.name,
         key: memberKey,
@@ -138,16 +150,19 @@ export default class CreateDaily extends React.Component {
     return (
       <Container>
         {
-          !isLoaded(teams) ?
-            <SMLoader />
-            : teams
-              ? (
+          !isLoaded(teams) && <SMLoader />
+        }
+        {
+          isLoaded(teams)
+            ? (
               <div>
-                <h2 className="form-title">
-                  Create Daily Meeting
-                </h2>
+                <h2 className="form-title">Create Daily Meeting</h2>
                 <Form className="add">
-                  <SelectableTeams teams={teams} selectTeam={this.selectTeam} selectedTeamId={selectedTeamId} />
+                  <SelectableTeams
+                    teams={teams}
+                    selectTeam={this.selectTeam}
+                    selectedTeamId={selectedTeamId}
+                  />
                   <SelectableMembers
                     members={allMembers}
                     selectedTeamId={selectedTeamId}
@@ -177,13 +192,13 @@ export default class CreateDaily extends React.Component {
                   </Button>
                 </Form>
               </div>
-              ):
-              (
+            )
+            : (
               <div className="text-center">
-                <h1> To create daily you need to have one team at least.</h1>
+                <h1>To create daily you need to have one team at least.</h1>
                 <Button as={Link} to="/teams/add" className="mt-4" secondary size="medium">Create Team</Button>
               </div>
-              )
+            )
         }
       </Container>
     );
@@ -191,3 +206,4 @@ export default class CreateDaily extends React.Component {
 }
 
 CreateDaily.propTypes = propTypes;
+CreateDaily.defaultProps = defaultProps;
