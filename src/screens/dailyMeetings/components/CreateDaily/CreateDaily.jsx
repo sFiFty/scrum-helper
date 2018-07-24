@@ -40,6 +40,10 @@ export default class CreateDaily extends Component {
     startTime: moment(),
   }
 
+  componentDidMount() {
+    console.log(this.props)
+  }
+
   componentWillMount() {
     this.setDefaultTeam(this.props);
   }
@@ -153,52 +157,54 @@ export default class CreateDaily extends Component {
           !isLoaded(teams) && <SMLoader />
         }
         {
-          isLoaded(teams)
-            ? (
-              <div>
-                <h2 className="form-title">Create Daily Meeting</h2>
-                <Form className="add">
-                  <SelectableTeams
-                    teams={teams}
-                    selectTeam={this.selectTeam}
-                    selectedTeamId={selectedTeamId}
-                  />
-                  <SelectableMembers
-                    members={allMembers}
-                    selectedTeamId={selectedTeamId}
-                    onAddMember={this.onAddMember}
-                    selectedNames={selectedNames}
-                  />
-                  <Form.Field>
-                    <DatePicker
-                      selected={startTime}
-                      onChange={this.onChangeTime}
-                      showTimeSelect
-                      timeFormat="HH:mm"
-                      timeIntervals={10}
-                      dateFormat="LLL"
-                      timeCaption="time"
+          isLoaded(teams) && (
+            <div>
+              <h2 className="form-title">Create Daily Meeting</h2>
+              <Form className="add">
+                {
+                  teams ? (
+                    <SelectableTeams
+                      teams={teams}
+                      selectTeam={this.selectTeam}
+                      selectedTeamId={selectedTeamId}
                     />
-                  </Form.Field>
-                  <Button
-                    onClick={this.onCreateDaily}
-                    floated="right"
-                    disabled={!teams}
-                    size="medium"
-                    type="submit"
-                    secondary
-                  >
-                    Create Daily
-                  </Button>
-                </Form>
-              </div>
-            )
-            : (
-              <div className="text-center">
-                <h1>To create daily you need to have one team at least.</h1>
-                <Button as={Link} to="/teams/add" className="mt-4" secondary size="medium">Create Team</Button>
-              </div>
-            )
+                  ) : (
+                    <div className="text-center">
+                      <h1>To create daily you need to have one team at least.</h1>
+                      <Button as={Link} to="/teams/add" className="mt-4" secondary size="medium">Create Team</Button>
+                    </div>
+                  )
+                }
+                <SelectableMembers
+                  members={allMembers}
+                  selectedTeamId={selectedTeamId}
+                  onAddMember={this.onAddMember}
+                  selectedNames={selectedNames}
+                />
+                <Form.Field>
+                  <DatePicker
+                    selected={startTime}
+                    onChange={this.onChangeTime}
+                    showTimeSelect
+                    timeFormat="HH:mm"
+                    timeIntervals={10}
+                    dateFormat="LLL"
+                    timeCaption="time"
+                  />
+                </Form.Field>
+                <Button
+                  onClick={this.onCreateDaily}
+                  floated="right"
+                  disabled={!teams}
+                  size="medium"
+                  type="submit"
+                  secondary
+                >
+                  Create Daily
+                </Button>
+              </Form>
+            </div>
+          )
         }
       </Container>
     );
