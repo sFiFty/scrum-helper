@@ -41,15 +41,7 @@ export default class CreateDaily extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
-  }
-
-  componentWillMount() {
     this.setDefaultTeam(this.props);
-  }
-
-  componentWillReceiveProps(props) {
-    this.setDefaultTeam(props);
   }
 
   onAddMember = (e, { value, options }) => {
@@ -106,8 +98,7 @@ export default class CreateDaily extends Component {
     const { members } = teams[teamId];
     Object.keys(members).map((memberKey) => {
       const member = members[memberKey];
-      const avatarUrl = `Images/${member.avatar}`;
-      const avatar = member.avatar ? require(avatarUrl) : null;
+      const avatar = member.avatar ? require(`Images/${member.avatar}`) : null;
       allMembers.push({
         value: member.name,
         key: memberKey,
@@ -163,11 +154,13 @@ export default class CreateDaily extends Component {
               <Form className="add">
                 {
                   teams ? (
-                    <SelectableTeams
-                      teams={teams}
-                      selectTeam={this.selectTeam}
-                      selectedTeamId={selectedTeamId}
-                    />
+                    selectedTeamId && (
+                      <SelectableTeams
+                        teams={teams}
+                        selectTeam={this.selectTeam}
+                        selectedTeamId={selectedTeamId}
+                      />
+                    )
                   ) : (
                     <div className="text-center">
                       <h1>To create daily you need to have one team at least.</h1>
@@ -175,12 +168,16 @@ export default class CreateDaily extends Component {
                     </div>
                   )
                 }
-                <SelectableMembers
-                  members={allMembers}
-                  selectedTeamId={selectedTeamId}
-                  onAddMember={this.onAddMember}
-                  selectedNames={selectedNames}
-                />
+                {
+                  selectedTeamId && (
+                    <SelectableMembers
+                      members={allMembers}
+                      selectedTeamId={selectedTeamId}
+                      onAddMember={this.onAddMember}
+                      selectedNames={selectedNames}
+                    />
+                  )
+                }
                 <Form.Field>
                   <DatePicker
                     selected={startTime}
