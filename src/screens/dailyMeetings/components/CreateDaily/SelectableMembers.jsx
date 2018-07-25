@@ -8,7 +8,7 @@ const propTypes = {
   members: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   onAddMember: PropTypes.func.isRequired,
-}
+};
 
 export default class SelectableMembers extends PureComponent {
   render() {
