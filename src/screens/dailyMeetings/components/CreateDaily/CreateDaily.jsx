@@ -51,7 +51,6 @@ export default class CreateDaily extends Component {
 
   onChangeTime = time => this.setState({ startTime: time })
 
-
   onCreateDaily = () => {
     const {
       teams, firebase, history, owner,
