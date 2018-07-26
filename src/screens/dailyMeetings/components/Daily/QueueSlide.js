@@ -67,6 +67,7 @@ export default class QueueSlide extends Component {
   markCardAsFinished = (card) => {
     const { tasks } = this.state;
     Object.keys(tasks).map((initials) => {
+      if (!tasks[initials]) return;
       if (tasks[initials].id === card.id) {
         tasks[initials].finished = true;
       }
