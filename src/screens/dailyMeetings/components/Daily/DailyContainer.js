@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firebaseConnect, populate } from 'react-redux-firebase';
@@ -11,8 +10,8 @@ const populates = [
 let dailyId;
 
 export default compose(
-  firebaseConnect((props, state) => {
-    dailyId = props.match.params.dailyid;
+  firebaseConnect(({ match }) => {
+    dailyId = match.params.dailyid;
     return [
       {
         path: `dailyMeetings/${dailyId}`,
