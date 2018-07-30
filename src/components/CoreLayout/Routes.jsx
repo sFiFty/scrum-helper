@@ -6,6 +6,7 @@ import CreateDaily from 'Screens/dailyMeetings/components/CreateDaily';
 import Daily from 'Screens/dailyMeetings/components/Daily';
 import TeamList from 'Screens/teams/components/TeamList';
 import AddTeam from 'Screens/teams/components/AddTeam';
+import TeamProfile from 'Screens/teams/components/TeamProfile';
 import AddMember from 'Screens/teams/components/AddMember';
 import EstimationList from 'Screens/estimations/components/EstimationList';
 import CreateEstimation from 'Screens/estimations/components/CreateEstimation';
@@ -27,6 +28,7 @@ const Routes = () => (
     <Route exact path="/teams" component={UserIsAuthenticated(TeamList)} />
     <Route exact path="/teams/add" component={UserIsAuthenticated(AddTeam)} />
     <Route exact path="/teams/:teamid/addMember" component={UserIsAuthenticated(AddMember)} />
+    <Route exact path="/teams/:teamid" component={UserIsAuthenticated(TeamProfile)} />
     <Route exact path="/meetings" component={UserIsAuthenticated(Meetings)} />
     <Route exact path="/meetings/create" component={UserIsAuthenticated(CreateMeeting)} />
     <Route exact path="/daily/create" component={UserIsAuthenticated(CreateDaily)} />

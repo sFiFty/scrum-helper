@@ -9,6 +9,17 @@ import Routes from './Routes.jsx';
 import store from '../../store';
 import actions from '../../actions';
 
+const propTypes = {
+  profile: PropTypes.shape({
+    email: PropTypes.string,
+  }).isRequired,
+  location: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  firebase: PropTypes.shape({
+    auth: PropTypes.func,
+  }).isRequired,
+};
 export default class CoreLayout extends Component {
   componentDidMount() {
     const { firebase } = this.props;
@@ -42,9 +53,6 @@ export default class CoreLayout extends Component {
         )
     );
   }
-
-  static propTypes = {
-    profile: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
-  }
 }
+
+CoreLayout.propTypes = propTypes;
