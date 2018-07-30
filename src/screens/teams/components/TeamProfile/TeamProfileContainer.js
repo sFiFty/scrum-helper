@@ -1,20 +1,19 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firebaseConnect } from 'react-redux-firebase';
-import createPageHoc from 'Containers/createPageHoc.jsx';
+
 import TeamProfile from './TeamProfile.jsx';
 
 
 export default compose(
-  firebaseConnect((props, state) => [
+  firebaseConnect(({ match }) => [
     {
-      path: 'teams',
-      queryParams: ['orderByChild=owner', `equalTo=${state.getState().firebase.auth.uid}`],
-      storeAs: 'myTeams',
+      path: `teams/${match.params.teamid}`,
+      storeAs: 'team',
     },
   ]),
   connect(state => ({
-    teams: state.firebase.data.myTeams,
+    team: state.firebase.data.team,
     owner: state.firebase.auth.uid,
   })),
-)(createPageHoc(TeamProfile));
+)(TeamProfile);
