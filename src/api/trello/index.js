@@ -10,7 +10,7 @@ export default {
     const url = `https://api.trello.com/1/boards/${boardId}/labels?fields=all&key=${key}&token=${token}`;
     return fetch(url).then(r => r.json());
   },
-  markCardWithLabel: (labelId) => {
+  markCardWithLabel: (cardId, labelId) => {
     const url = `https://api.trello.com/1/cards/${cardId}?idLabels=${labelId}&key=${key}&token=${token}`;
     return fetch(url, { method: 'PUT' });
   },
@@ -18,4 +18,4 @@ export default {
     const url = `https://trello.com/1/lists/${columnId}/cards?key=${key}&token=${token}`;
     return fetch(url).then(r => r.json());
   },
-}
+};
