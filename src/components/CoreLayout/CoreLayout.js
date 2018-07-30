@@ -5,14 +5,13 @@ import { NotificationContainer } from 'react-notifications';
 import { isLoaded } from 'react-redux-firebase';
 import PropTypes from 'prop-types';
 import SMLoader from 'Components/SMLoader';
-import Routes from './Routes';
+import Routes from './Routes.jsx';
 import store from '../../store';
 import actions from '../../actions';
 
 export default class CoreLayout extends Component {
   componentDidMount() {
     const { firebase } = this.props;
-
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         store.dispatch(actions.AUTH_USER(user));
