@@ -1,8 +1,7 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firebaseConnect } from 'react-redux-firebase';
-import AddTeam from './AddTeam';
+import AddTeam from './AddTeam.jsx';
 
 export default compose(
   firebaseConnect(),

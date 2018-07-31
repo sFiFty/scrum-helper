@@ -4,7 +4,6 @@ import { firebaseConnect } from 'react-redux-firebase';
 
 import TeamProfile from './TeamProfile.jsx';
 
-
 export default compose(
   firebaseConnect(({ match }) => [
     {
