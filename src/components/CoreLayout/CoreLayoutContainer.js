@@ -1,8 +1,7 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { firebaseConnect, isLoaded } from 'react-redux-firebase';
-import CoreLayout from './CoreLayout';
+import { firebaseConnect } from 'react-redux-firebase';
+import CoreLayout from './CoreLayout.jsx';
 
 export default compose(
   firebaseConnect(),

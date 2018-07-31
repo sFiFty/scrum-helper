@@ -1,23 +1,34 @@
 import React, { Component } from 'react';
-import Header from 'Components/Header';
-import Footer from 'Components/Footer';
 import { NotificationContainer } from 'react-notifications';
 import { isLoaded } from 'react-redux-firebase';
 import PropTypes from 'prop-types';
-import SMLoader from 'Components/SMLoader';
-import Routes from './Routes';
-import store from '../../store';
-import actions from '../../actions';
 
+import Header from 'Components/Header';
+import Footer from 'Components/Footer';
+import SMLoader from 'Components/SMLoader';
+import Routes from './Routes.jsx';
+import store from '../../store';
+import actionCreators from '../../actions';
+
+const propTypes = {
+  profile: PropTypes.shape({
+    email: PropTypes.string,
+  }).isRequired,
+  location: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  firebase: PropTypes.shape({
+    auth: PropTypes.func,
+  }).isRequired,
+};
 export default class CoreLayout extends Component {
   componentDidMount() {
     const { firebase } = this.props;
-
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        store.dispatch(actions.AUTH_USER(user));
+        store.dispatch(actionCreators.AUTH_USER(user));
       } else {
-        store.dispatch(actions.SIGN_OUT_USER());
+        store.dispatch(actionCreators.SIGN_OUT_USER());
       }
     });
   }
@@ -43,9 +54,6 @@ export default class CoreLayout extends Component {
         )
     );
   }
-
-  static propTypes = {
-    profile: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
-  }
 }
+
+CoreLayout.propTypes = propTypes;
