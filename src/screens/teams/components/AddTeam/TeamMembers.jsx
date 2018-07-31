@@ -2,6 +2,11 @@ import React from 'react';
 import { List, Image, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
+const propTypes = {
+  members: PropTypes.arrayOf(PropTypes.object).isRequired,
+  removeMember: PropTypes.func.isRequired,
+};
+
 export default class TeamMembers extends React.Component {
   render() {
     const { members, removeMember } = this.props;
@@ -32,9 +37,6 @@ export default class TeamMembers extends React.Component {
       )
     );
   }
-
-	static propTypes = {
-	  members: PropTypes.array.isRequired,
-	  removeMember: PropTypes.func.isRequired,
-	}
 }
+
+TeamMembers.propTypes = propTypes;
