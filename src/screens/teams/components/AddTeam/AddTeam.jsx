@@ -6,7 +6,6 @@ import {
 import { NotificationManager } from 'react-notifications';
 import PropTypes from 'prop-types';
 import DefaultAvatars from 'Components/DefaultAvatars';
-import TeamMembers from './TeamMembers';
 import './styles.scss';
 
 const propTypes = {

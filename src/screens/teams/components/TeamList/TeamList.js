@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import {
-  Container, Header, List, Icon, Transition, Label, Message,
+  Container, List, Icon, Transition, Label, Message,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { isLoaded, isEmpty } from 'react-redux-firebase';
+import { isLoaded } from 'react-redux-firebase';
 import { NotificationManager } from 'react-notifications';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import MembersInTheList from 'Components/MembersInTheList';
 import AddListItemBox from 'Components/AddListItemBox';
 import SMLoader from 'Components/SMLoader';
-import EmptyTeamList from './EmptyTeamList';
 import './styles.scss';
 
 export default class TeamList extends Component {

@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isLoaded } from 'react-redux-firebase';
+import {
+  Container, Input, Form, Button, Message, Popup, Image,
+} from 'semantic-ui-react';
+
+import SMLoader from 'Components/SMLoader';
 
 const propTypes = {
   owner: PropTypes.string.isRequired,
@@ -9,11 +15,23 @@ class TeamProfile extends Component {
   onChange = () => {};
 
   render() {
-    console.log(this.props);
+    const { team } = this.props;
+    console.log(team)
     return (
-      <div>
-        Team Profile
-      </div>
+      isLoaded(team)
+        ? (
+          <Container>
+            <Form className="add" id="add-team">
+              <Form.Field className="name">
+                <Input value={team.name} onChange={this.setName} size="massive" placeholder="Type team name here..." />
+              </Form.Field>
+            </Form>
+          </Container>
+        ) : (
+          <Container>
+            <SMLoader />
+          </Container>
+        )
     );
   }
 }
