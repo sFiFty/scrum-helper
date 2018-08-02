@@ -91,7 +91,7 @@ export default class TeamList extends Component {
                       deleteMember={this.deleteMember}
                     />
                     <div className="list-controls">
-                      <Link to={`/teams/${k}`} className="icon-border">
+                      <Link to={`/teams/profile/${k}`} className="icon-border">
                         <Icon size="large" name="edit" />
                       </Link>
                       <Icon className="trash-icon" onClick={() => this.deleteTeam(k)} size="large" name="trash" color="red" />
