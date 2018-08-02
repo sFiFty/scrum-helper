@@ -7,10 +7,28 @@ import { isLoaded } from 'react-redux-firebase';
 import { NotificationManager } from 'react-notifications';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+
 import MembersInTheList from 'Components/MembersInTheList';
 import AddListItemBox from 'Components/AddListItemBox';
 import SMLoader from 'Components/SMLoader';
 import './styles.scss';
+
+const propTypes = {
+  firebase: PropTypes.shape({
+    remove: PropTypes.func,
+    updateProfile: PropTypes.func,
+  }).isRequired,
+  teams: PropTypes.shape({
+    [PropTypes.string]: PropTypes.object,
+  }),
+  profile: PropTypes.shape({
+    teamListMessageHidden: PropTypes.bool,
+  }).isRequired,
+};
+
+const defaultProps = {
+  teams: null,
+};
 
 export default class TeamList extends Component {
   deleteTeam = (key) => {
@@ -23,16 +41,15 @@ export default class TeamList extends Component {
     });
   }
 
-	deleteMember = (member, teamid) => {
-	  const { firebase, teams } = this.props;
-	  const team = teams[teamid];
-	  firebase.remove(`teams/${teamid}/members/${member.id}`).then(() => {
-	    NotificationManager.success(
-	      `Member ${member.name} successfully removed from ${teams[teamid].name}`,
-	      'Confirmation',
-	    );
-	  });
-	}
+  deleteMember = (member, teamid) => {
+    const { firebase, teams } = this.props;
+    firebase.remove(`teams/${teamid}/members/${member.id}`).then(() => {
+      NotificationManager.success(
+        `Member ${member.name} successfully removed from ${teams[teamid].name}`,
+        'Confirmation',
+      );
+    });
+  }
 
   handleDismiss = () => {
     const { firebase } = this.props;
@@ -44,7 +61,7 @@ export default class TeamList extends Component {
     return (
       <Container className="list-container">
         <h2 className="list-title">
-My Teams
+          My Teams
         </h2>
         {
           !profile.teamListMessageHidden
@@ -100,9 +117,7 @@ Team is empty
       </Container>
     );
   }
-
-	static propTypes = {
-	  firebase: PropTypes.object.isRequired,
-	  teams: PropTypes.object,
-	}
 }
+
+TeamList.propTypes = propTypes;
+TeamList.defaultProps = defaultProps;
