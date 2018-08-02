@@ -68,7 +68,7 @@ export default class TeamList extends Component {
           && (
           <Message
             onDismiss={this.handleDismiss}
-            header="Just hover on the team box to add members to your team!"
+            header="Just hover on the team box to edit your team!"
             content="And press blue plus button!"
           />
           )
@@ -85,7 +85,11 @@ export default class TeamList extends Component {
                     <List.Header>
                       {teams[k].name}
                     </List.Header>
-                    <MembersInTheList members={teams[k].members} parent={k} deleteMember={this.deleteMember} />
+                    <MembersInTheList
+                      members={teams[k].members}
+                      parent={k}
+                      deleteMember={this.deleteMember}
+                    />
                     <div className="list-controls">
                       <Link to={`/teams/${k}`} className="icon-border">
                         <Icon size="large" name="edit" />
@@ -94,18 +98,13 @@ export default class TeamList extends Component {
                     </div>
                   </List.Content>
                   {
-                      !teams[k].members
-                      && (
-                      <Label as="a" className="list-label" color="teal" ribbon="right">
-Team is empty
-                      </Label>
-                      )
-                    }
-                  {
-                      // team size warning
-                      // teams[k].members && (9 > _.keys(teams[k].members).length || _.keys(teams[k].members).length < 5) &&
-                      // <Label as='a' className="list-label" color='teal' ribbon='right'>The recommended team size is 5 ± 2</Label>
-                    }
+                    !teams[k].members
+                    && (
+                    <Label as="a" className="list-label" color="teal" ribbon="right">
+                      Team is empty
+                    </Label>
+                    )
+                  }
                 </List.Item>
               ))
             }
