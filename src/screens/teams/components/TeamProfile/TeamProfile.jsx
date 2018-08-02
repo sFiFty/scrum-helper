@@ -9,6 +9,9 @@ import SMLoader from 'Components/SMLoader';
 
 const propTypes = {
   owner: PropTypes.string.isRequired,
+  team: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 class TeamProfile extends Component {
@@ -16,7 +19,6 @@ class TeamProfile extends Component {
 
   render() {
     const { team } = this.props;
-    console.log(team)
     return (
       isLoaded(team)
         ? (

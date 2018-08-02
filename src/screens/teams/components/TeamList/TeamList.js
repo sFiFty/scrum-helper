@@ -70,8 +70,8 @@ My Teams
                     </List.Header>
                     <MembersInTheList members={teams[k].members} parent={k} deleteMember={this.deleteMember} />
                     <div className="list-controls">
-                      <Link to={`/teams/${k}/addMember`} className="icon-border">
-                        <Icon size="large" name="add" />
+                      <Link to={`/teams/${k}`} className="icon-border">
+                        <Icon size="large" name="edit" />
                       </Link>
                       <Icon className="trash-icon" onClick={() => this.deleteTeam(k)} size="large" name="trash" color="red" />
                     </div>
