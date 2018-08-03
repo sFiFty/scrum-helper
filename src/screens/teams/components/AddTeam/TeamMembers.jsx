@@ -1,39 +1,60 @@
 import React from 'react';
-import { List, Image, Icon } from 'semantic-ui-react';
+import {
+  Input, Image, Popup, Button,
+} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+
+import DefaultAvatars from 'Components/DefaultAvatars';
 
 const propTypes = {
   members: PropTypes.arrayOf(PropTypes.object).isRequired,
-  removeMember: PropTypes.func.isRequired,
+  memberName: PropTypes.string.isRequired,
+  memberAvatar: PropTypes.string.isRequired,
+  isPopupOpen: PropTypes.bool.isRequired,
 };
 
 export default class TeamMembers extends React.Component {
   render() {
-    const { members, removeMember } = this.props;
+    const {
+      members, memberName, isPopupOpen, memberAvatar,
+    } = this.props;
     return (
       members
       && (
-      <List className="w-50 generated-items-list">
-        {
-          members.map((member, key) => (
-            <List.Item key={key} className="member d-flex justify-content-start align-items-center">
-              <Image avatar src={require(`Images/${member.avatar}`)} />
-              <List.Content className="ml-2 font-s">
-                {member.name}
-              </List.Content>
-              <List.Content className="ml-auto font-s">
-                <Icon
-                  className="remove-item-icon"
-                  role="button"
-                  onClick={() => removeMember(key)}
-                  name="trash"
-                  color="red"
-                />
-              </List.Content>
-            </List.Item>
-          ))
-        }
-      </List>
+        <div className="d-flex justify-content-start align-items-center">
+          <Input
+            onChange={this.setMemberName}
+            value={memberName || ''}
+            className="w-50"
+            size="mini"
+            placeholder="Type member name here..."
+          />
+          <Popup
+            open={isPopupOpen}
+            onOpen={this.onPopupOpen}
+            onClose={this.onPopupClose}
+            on="click"
+            trigger={(
+              <Button className="ml-3 d-flex justify-content-start align-items-center" size="mini" basic>
+                {
+                  memberAvatar
+                  && <Image avatar src={require(`Images/${memberAvatar}`)} />
+                }
+                <span className={memberAvatar && 'ml-2'}>Choose avatar</span>
+              </Button>
+            )}
+          >
+            <DefaultAvatars selectedAvatar={memberAvatar} onChoose={this.setMemberAvatar} />
+          </Popup>
+          {
+          memberAvatar && memberName
+            && (
+              <Button onClick={this.addMember} className="ml-3" size="mini" secondary>
+                <span>Add</span>
+              </Button>
+            )
+          }
+        </div>
       )
     );
   }
