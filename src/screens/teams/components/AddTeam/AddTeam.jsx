@@ -1,11 +1,12 @@
 import React from 'react';
 import { CirclePicker } from 'react-color';
 import {
-  Container, Input, Form, Button, Message, Popup, Image,
+  Container, Input, Form, Button, Message,
 } from 'semantic-ui-react';
 import { NotificationManager } from 'react-notifications';
 import PropTypes from 'prop-types';
-import DefaultAvatars from 'Components/DefaultAvatars';
+
+import TeamMembers from './TeamMembers.jsx';
 import './styles.scss';
 
 const propTypes = {
@@ -114,40 +115,12 @@ export default class AddTeam extends React.Component {
           </Form.Field>
           <Form.Field className="form-field team-members">
             <label htmlFor="team-members" className="label">Team members</label>
-            <div className="d-flex justify-content-start align-items-center">
-              <Input
-                onChange={this.setMemberName}
-                value={memberName || ''}
-                className="w-50"
-                size="mini"
-                placeholder="Type member name here..."
-              />
-              <Popup
-                open={isPopupOpen}
-                onOpen={this.onPopupOpen}
-                onClose={this.onPopupClose}
-                on="click"
-                trigger={(
-                  <Button className="ml-3 d-flex justify-content-start align-items-center" size="mini" basic>
-                    {
-                      memberAvatar
-                      && <Image avatar src={require(`Images/${memberAvatar}`)} />
-                    }
-                    <span className={memberAvatar && 'ml-2'}>Choose avatar</span>
-                  </Button>
-                )}
-              >
-                <DefaultAvatars selectedAvatar={memberAvatar} onChoose={this.setMemberAvatar} />
-              </Popup>
-              {
-              memberAvatar && memberName
-                && (
-                  <Button onClick={this.addMember} className="ml-3" size="mini" secondary>
-                    <span>Add</span>
-                  </Button>
-                )
-              }
-            </div>
+            <TeamMembers
+              members={members}
+              memberAvatar={memberAvatar}
+              memberName={memberName}
+              isPopupOpen={isPopupOpen}
+            />
           </Form.Field>
           <Button onClick={this.onAddTeam} floated="right" size="medium" type="submit" secondary>
             Add Team
