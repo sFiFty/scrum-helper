@@ -6,6 +6,7 @@ import {
 } from 'semantic-ui-react';
 import { CirclePicker } from 'react-color';
 
+import TeamMembers from '../AddTeam/TeamMembers.jsx';
 import SMLoader from 'Components/SMLoader';
 
 const propTypes = {
@@ -17,10 +18,15 @@ const propTypes = {
 };
 
 class TeamProfile extends Component {
+  state = {
+    isPopupOpen: false,
+    memberAvatar: null,
+    memberName: null,
+  }
   onChange = () => {};
-
   render() {
     const { team } = this.props;
+    const { isPopupOpen, memberAvatar, memberName } = this.state;
     return (
       isLoaded(team)
         ? (
@@ -34,6 +40,15 @@ class TeamProfile extends Component {
                 <CirclePicker name="color-picker" color={team.color} onChange={this.onPickColor} width="100%" circleSize={38} />
               </Form.Field>
             </Form>
+            <Form.Field className="form-field team-members">
+            <label htmlFor="team-members" className="label">Team members</label>
+            <TeamMembers
+                members={team.members}
+                memberAvatar={memberAvatar}
+                memberName={memberName}
+                isPopupOpen={isPopupOpen}
+              />
+            </Form.Field>
           </Container>
         ) : (
           <Container>
