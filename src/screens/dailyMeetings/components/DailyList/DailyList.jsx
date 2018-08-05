@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {
   Container, Header, List, Icon, Button,
-} from 'semantic-ui-react';
+} from 'semantic-ui-react/dist/commonjs';
 import { Link } from 'react-router-dom';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
 import { NotificationManager } from 'react-notifications';
 import PropTypes from 'prop-types';
+
 import SMLoader from 'Components/SMLoader';
 import MembersInTheList from 'Components/MembersInTheList';
 import AddListItemBox from 'Components/AddListItemBox';
@@ -36,45 +37,36 @@ export default class DailyList extends Component {
 	render() {
 	  const { meetings, teams } = this.props;
 	  return (
-  <Container className="list-container daily-list">
-    <h2 className="list-title">
-My Daily Meetings
-    </h2>
-    {
+      <Container className="list-container daily-list">
+        <h2 className="list-title">My Daily Meetings</h2>
+        {
           isLoaded(meetings)
             ? (
               <List>
                 {
-              _.keys(meetings).map((k) => {
-                const meeting = meetings[k];
-                const extendedMembersList = ExtendMembersList(meeting.members, meeting.team.members);
-                return (
-                  <List.Item className="text-color item-container" key={k}>
-                    <div className="color-filler" style={{ backgroundColor: meeting.team.color }} />
-                    <List.Content>
-                      <List.Header>
-                        {meeting.team.name}
-                        {' '}
-daily
-                      </List.Header>
-                      <MembersInTheList members={extendedMembersList} deleteMember={this.deleteMember} parent={k} />
-                      <Button as={Link} to={`daily/ongoing/${k}`} className="join-button" inverted>
-Start
-                      </Button>
-                      <div className="list-controls">
-                        <Icon onClick={() => this.deleteDaily(k)} className="trash-icon" size="large" name="trash" color="red" />
-                      </div>
-                    </List.Content>
-                  </List.Item>
-                );
-              })
-            }
+                  _.keys(meetings).map((k) => {
+                    const meeting = meetings[k];
+                    const extendedMembersList = ExtendMembersList(meeting.members, meeting.team.members);
+                    return (
+                      <List.Item className="text-color item-container" key={k}>
+                        <div className="color-filler" style={{ backgroundColor: meeting.team.color }} />
+                        <List.Content>
+                          <List.Header>{meeting.team.name} daily</List.Header>
+                          <MembersInTheList members={extendedMembersList} deleteMember={this.deleteMember} parent={k} />
+                          <Button as={Link} to={`daily/ongoing/${k}`} className="join-button" inverted>Start</Button>
+                          <div className="list-controls">
+                            <Icon onClick={() => this.deleteDaily(k)} className="trash-icon" size="large" name="trash" color="red" />
+                          </div>
+                        </List.Content>
+                      </List.Item>
+                    );
+                  })
+                }
                 <AddListItemBox link="daily/create" label="Add meeting" />
               </List>
-            )
-            : <SMLoader />
+            ) : <SMLoader />
         }
-  </Container>
+      </Container>
 	  );
 	}
 
