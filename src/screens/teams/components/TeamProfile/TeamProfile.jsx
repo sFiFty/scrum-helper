@@ -24,6 +24,7 @@ class TeamProfile extends Component {
     memberName: null,
   }
   onChange = () => {};
+
   render() {
     const { team } = this.props;
     const { isPopupOpen, memberAvatar, memberName } = this.state;
@@ -41,8 +42,8 @@ class TeamProfile extends Component {
               </Form.Field>
             </Form>
             <Form.Field className="form-field team-members">
-            <label htmlFor="team-members" className="label">Team members</label>
-            <TeamMembers
+              <label htmlFor="team-members" className="label">Team members</label>
+              <TeamMembers
                 members={team.members}
                 memberAvatar={memberAvatar}
                 memberName={memberName}
