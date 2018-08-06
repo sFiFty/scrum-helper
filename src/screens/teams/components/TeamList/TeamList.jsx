@@ -1,17 +1,34 @@
 import React, { Component } from 'react';
 import {
-  Container, Header, List, Icon, Transition, Label, Message,
+  Container, List, Icon, Transition, Label, Message,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { isLoaded, isEmpty } from 'react-redux-firebase';
+import { isLoaded } from 'react-redux-firebase';
 import { NotificationManager } from 'react-notifications';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+
 import MembersInTheList from 'Components/MembersInTheList';
 import AddListItemBox from 'Components/AddListItemBox';
 import SMLoader from 'Components/SMLoader';
-import EmptyTeamList from './EmptyTeamList';
 import './styles.scss';
+
+const propTypes = {
+  firebase: PropTypes.shape({
+    remove: PropTypes.func,
+    updateProfile: PropTypes.func,
+  }).isRequired,
+  teams: PropTypes.shape({
+    [PropTypes.string]: PropTypes.object,
+  }),
+  profile: PropTypes.shape({
+    teamListMessageHidden: PropTypes.bool,
+  }).isRequired,
+};
+
+const defaultProps = {
+  teams: null,
+};
 
 export default class TeamList extends Component {
   deleteTeam = (key) => {
@@ -24,16 +41,15 @@ export default class TeamList extends Component {
     });
   }
 
-	deleteMember = (member, teamid) => {
-	  const { firebase, teams } = this.props;
-	  const team = teams[teamid];
-	  firebase.remove(`teams/${teamid}/members/${member.id}`).then(() => {
-	    NotificationManager.success(
-	      `Member ${member.name} successfully removed from ${teams[teamid].name}`,
-	      'Confirmation',
-	    );
-	  });
-	}
+  deleteMember = (member, teamid) => {
+    const { firebase, teams } = this.props;
+    firebase.remove(`teams/${teamid}/members/${member.id}`).then(() => {
+      NotificationManager.success(
+        `Member ${member.name} successfully removed from ${teams[teamid].name}`,
+        'Confirmation',
+      );
+    });
+  }
 
   handleDismiss = () => {
     const { firebase } = this.props;
@@ -45,14 +61,14 @@ export default class TeamList extends Component {
     return (
       <Container className="list-container">
         <h2 className="list-title">
-My Teams
+          My Teams
         </h2>
         {
           !profile.teamListMessageHidden
           && (
           <Message
             onDismiss={this.handleDismiss}
-            header="Just hover on the team box to add members to your team!"
+            header="Just hover on the team box to edit your team!"
             content="And press blue plus button!"
           />
           )
@@ -69,27 +85,26 @@ My Teams
                     <List.Header>
                       {teams[k].name}
                     </List.Header>
-                    <MembersInTheList members={teams[k].members} parent={k} deleteMember={this.deleteMember} />
+                    <MembersInTheList
+                      members={teams[k].members}
+                      parent={k}
+                      deleteMember={this.deleteMember}
+                    />
                     <div className="list-controls">
-                      <Link to={`/teams/${k}/addMember`} className="icon-border">
-                        <Icon size="large" name="add" />
+                      <Link to={`/teams/profile/${k}`} className="icon-border">
+                        <Icon size="large" name="edit" />
                       </Link>
                       <Icon className="trash-icon" onClick={() => this.deleteTeam(k)} size="large" name="trash" color="red" />
                     </div>
                   </List.Content>
                   {
-                      !teams[k].members
-                      && (
-                      <Label as="a" className="list-label" color="teal" ribbon="right">
-Team is empty
-                      </Label>
-                      )
-                    }
-                  {
-                      // team size warning
-                      // teams[k].members && (9 > _.keys(teams[k].members).length || _.keys(teams[k].members).length < 5) &&
-                      // <Label as='a' className="list-label" color='teal' ribbon='right'>The recommended team size is 5 ± 2</Label>
-                    }
+                    !teams[k].members
+                    && (
+                    <Label as="a" className="list-label" color="teal" ribbon="right">
+                      Team is empty
+                    </Label>
+                    )
+                  }
                 </List.Item>
               ))
             }
@@ -101,9 +116,7 @@ Team is empty
       </Container>
     );
   }
-
-	static propTypes = {
-	  firebase: PropTypes.object.isRequired,
-	  teams: PropTypes.object,
-	}
 }
+
+TeamList.propTypes = propTypes;
+TeamList.defaultProps = defaultProps;

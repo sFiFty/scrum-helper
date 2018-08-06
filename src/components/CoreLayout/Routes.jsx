@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Meetings from 'Screens/meetings/components/MeetingsList';
 import CreateMeeting from 'Screens/meetings/components/CreateMeeting';
 import CreateDaily from 'Screens/dailyMeetings/components/CreateDaily';
@@ -25,18 +25,26 @@ const Routes = () => (
     <Route exact path="/" component={Home} />
     <Route exact path="/email-confirmation" component={UserIsAuthenticated(EmailConfirmation)} />
     <Route exact path="/user/:uid" component={UserIsAuthenticated(UserProfile)} />
-    <Route exact path="/teams" component={UserIsAuthenticated(TeamList)} />
-    <Route exact path="/teams/add" component={UserIsAuthenticated(AddTeam)} />
-    <Route exact path="/teams/:teamid/addMember" component={UserIsAuthenticated(AddMember)} />
-    <Route exact path="/teams/:teamid" component={UserIsAuthenticated(TeamProfile)} />
-    <Route exact path="/meetings" component={UserIsAuthenticated(Meetings)} />
-    <Route exact path="/meetings/create" component={UserIsAuthenticated(CreateMeeting)} />
-    <Route exact path="/daily/create" component={UserIsAuthenticated(CreateDaily)} />
-    <Route exact path="/daily/ongoing/:dailyid" component={UserIsAuthenticated(Daily)} />
-    <Route exact path="/estimation" component={UserIsAuthenticated(EstimationList)} />
-    <Route exact path="/estimation/create" component={UserIsAuthenticated(CreateEstimation)} />
-    <Route exact path="/estimation/ongoing/:estimationid" component={Estimation} />
-    <Route exact path="/estimation/gathering/:estimationid" component={Gathering} />
+    <Switch>
+      <Route exact path="/teams" component={UserIsAuthenticated(TeamList)} />
+      <Route exact path="/teams/add" component={UserIsAuthenticated(AddTeam)} />
+      <Route exact path="/teams/:teamid/addMember" component={UserIsAuthenticated(AddMember)} />
+      <Route exact path="/teams/profile/:teamid" component={UserIsAuthenticated(TeamProfile)} />
+    </Switch>
+    <Switch>
+      <Route exact path="/meetings" component={UserIsAuthenticated(Meetings)} />
+      <Route exact path="/meetings/create" component={UserIsAuthenticated(CreateMeeting)} />
+    </Switch>
+    <Switch>
+      <Route exact path="/daily/create" component={UserIsAuthenticated(CreateDaily)} />
+      <Route exact path="/daily/ongoing/:dailyid" component={UserIsAuthenticated(Daily)} />
+    </Switch>
+    <Switch>
+      <Route exact path="/estimation" component={UserIsAuthenticated(EstimationList)} />
+      <Route exact path="/estimation/create" component={UserIsAuthenticated(CreateEstimation)} />
+      <Route exact path="/estimation/ongoing/:estimationid" component={Estimation} />
+      <Route exact path="/estimation/gathering/:estimationid" component={Gathering} />
+    </Switch>
     <Route exact path="/login" component={LoadingScreen} />
     <Route exact path="/contacts" component={ContactUs} />
     <Route exact path="/privacy-policy" component={PrivacyPolicy} />
