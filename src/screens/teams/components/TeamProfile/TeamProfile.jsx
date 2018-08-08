@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isLoaded } from 'react-redux-firebase';
 import {
   Container, Input, Form, Button, Message, Popup, Image,
 } from 'semantic-ui-react';
@@ -27,6 +26,11 @@ class TeamProfile extends Component {
   render() {
     const { profileObj } = this.props;
     const team = profileObj;
+    const members = Object.keys(team.members, (memberId => (
+      {
+        
+      }
+    )));
     const { isPopupOpen, memberAvatar, memberName } = this.state;
     return (
       <Container>
@@ -42,7 +46,7 @@ class TeamProfile extends Component {
         <Form.Field className="form-field team-members">
           <label htmlFor="team-members" className="label">Team members</label>
           <TeamMembers
-            members={team.members}
+            members={members}
             memberAvatar={memberAvatar}
             memberName={memberName}
             isPopupOpen={isPopupOpen}
