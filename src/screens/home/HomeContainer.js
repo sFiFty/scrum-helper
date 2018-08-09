@@ -1,8 +1,8 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firebaseConnect } from 'react-redux-firebase';
-import Home from './Home';
+
+import Home from './Home.jsx';
 
 export default compose(
   firebaseConnect(),
