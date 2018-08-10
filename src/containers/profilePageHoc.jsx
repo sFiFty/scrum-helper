@@ -28,5 +28,5 @@ export default (WrappedComponent) => {
   ProfilePageHoc.propTypes = propTypes;
   ProfilePageHoc.defaultProps = defaultProps;
 
-  return CreatePageHoc;
+  return ProfilePageHoc;
 };

@@ -8,23 +8,50 @@ import DefaultAvatars from 'Components/DefaultAvatars';
 
 const propTypes = {
   members: PropTypes.arrayOf(PropTypes.object).isRequired,
-  memberName: PropTypes.string.isRequired,
-  memberAvatar: PropTypes.string.isRequired,
-  isPopupOpen: PropTypes.bool.isRequired,
 };
 
 export default class TeamMembers extends React.Component {
+  state = {
+    name: null,
+    avatar: null,
+    isPopupOpen: false,
+  }
+
+  onSetName = event => this.setState({ name: event.target.value });
+
+  onSetAvatar = (avatar) => {
+    this.setState({ avatar });
+    setTimeout(() => this.setState({ isPopupOpen: false }), 50);
+  }
+
+  onPopupClose = () => this.setState({ isPopupOpen: false });
+
+  onPopupOpen = () => this.setState({ isPopupOpen: true });
+
+  addMember = () => {
+    const { name, avatar, members } = this.state;
+    members.push({
+      name,
+      avatar,
+    });
+    this.setState({
+      avatar: null,
+      name: null,
+      members,
+    });
+  }
+
   render() {
-    const {
-      members, memberName, isPopupOpen, memberAvatar,
-    } = this.props;
+    const { members } = this.props;
+    const { name, isPopupOpen, avatar } = this.state;
+
     return (
       members
       && (
         <div className="d-flex justify-content-start align-items-center">
           <Input
-            onChange={this.setMemberName}
-            value={memberName || ''}
+            onChange={this.onSetName}
+            value={name || ''}
             className="w-50"
             size="mini"
             placeholder="Type member name here..."
@@ -37,17 +64,17 @@ export default class TeamMembers extends React.Component {
             trigger={(
               <Button className="ml-3 d-flex justify-content-start align-items-center" size="mini" basic>
                 {
-                  memberAvatar
-                  && <Image avatar src={require(`Images/${memberAvatar}`)} />
+                  avatar
+                  && <Image avatar src={require(`Images/${avatar}`)} />
                 }
-                <span className={memberAvatar && 'ml-2'}>Choose avatar</span>
+                <span className={avatar && 'ml-2'}>Choose avatar</span>
               </Button>
             )}
           >
-            <DefaultAvatars selectedAvatar={memberAvatar} onChoose={this.setMemberAvatar} />
+            <DefaultAvatars selectedAvatar={avatar} onChoose={this.onSetAvatar} />
           </Popup>
           {
-          memberAvatar && memberName
+          avatar && name
             && (
               <Button onClick={this.addMember} className="ml-3" size="mini" secondary>
                 <span>Add</span>
