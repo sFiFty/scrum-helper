@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Container, Image, Label, Icon, Menu,
-} from 'semantic-ui-react';
+} from 'semantic-ui-react/dist/commonjs';
 import Navigation from 'Components/Navigation';
 import { Link } from 'react-router-dom';
 import Auth from 'Components/Auth';
 import './styles.scss';
 
-export default class Header extends React.Component {
+export default class Header extends Component {
   state = {
     isMobileMenuShown: false,
   }
@@ -35,9 +35,7 @@ export default class Header extends React.Component {
                   to="/"
                   src={require('Images/logo.png')}
                 />
-                <Label className="beta-label" size="mini" color="black" ribbon>
-BETA
-                </Label>
+                <Label className="beta-label" size="mini" color="black" ribbon>BETA</Label>
               </div>
             </div>
             <div className="p-2 align-self-center">
@@ -67,9 +65,7 @@ BETA
               to="/"
               src={require('Images/logo.png')}
             />
-            <Label className="beta-label" size="mini" color="black" ribbon>
-BETA
-            </Label>
+            <Label className="beta-label" size="mini" color="black" ribbon>BETA</Label>
           </div>
           <div className="align-self-center">
             <Auth />
