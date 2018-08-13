@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import {
-  Container, Image, Label, Icon, Menu,
-} from 'semantic-ui-react/dist/commonjs';
-import Navigation from 'Components/Navigation';
+  Container, Image, Label, Icon,
+} from 'semantic-ui-react';
+
 import { Link } from 'react-router-dom';
+import Navigation from 'Components/Navigation';
 import Auth from 'Components/Auth';
 import './styles.scss';
 
@@ -20,7 +20,6 @@ export default class Header extends Component {
   hide = () => this.setState({ isMobileMenuShown: false })
 
   render() {
-    const { location } = this.props;
     const { isMobileMenuShown } = this.state;
     return (
       <header>
@@ -39,7 +38,7 @@ export default class Header extends Component {
               </div>
             </div>
             <div className="p-2 align-self-center">
-              <Navigation location={location} />
+              <Navigation {...this.props} />
             </div>
             <div className="ml-auto p-2 align-self-center">
               <Auth />
@@ -52,7 +51,7 @@ export default class Header extends Component {
             && (
             <div className="vertical-menu-container">
               <div className="menu-overlay" onClick={this.hide} />
-              <Navigation hideMenu={this.hide} vertical location={location} />
+              <Navigation hideMenu={this.hide} vertical {...this.props} />
             </div>
             )
           }
@@ -73,9 +72,5 @@ export default class Header extends Component {
         </Container>
       </header>
     );
-  }
-
-  static propTypes = {
-    auth: PropTypes.object,
   }
 }
