@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
-import UserAvatar from 'Components/UserAvatar';
-import AuthModal from 'Components/AuthModal';
-import SMLoader from 'Components/SMLoader';
 import { Button } from 'semantic-ui-react';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
 import PropTypes from 'prop-types';
+
+import UserAvatar from 'Components/UserAvatar';
+import AuthModal from 'Components/AuthModal';
+import SMLoader from 'Components/SMLoader';
+
+const propTypes = {
+  firebase: PropTypes.shape({
+    login: PropTypes.func.isRequired,
+  }),
+  auth: PropTypes.object,
+}
 
 export default class Auth extends Component {
   state = {
@@ -16,7 +24,6 @@ export default class Auth extends Component {
   dialogClose = () => this.setState({ isDialogOpened: false })
 
   render() {
-    const isAuthorized = false;
     const {
       auth, firebase, history, profile,
     } = this.props;
@@ -28,21 +35,12 @@ export default class Auth extends Component {
           !isLoaded(auth)
             ? <SMLoader size="xs" />
             : isEmpty(auth)
-              ? (
-                <Button size="mini" type="submit" onClick={this.dialogOpen} secondary>
-Sign In
-                </Button>
-              )
+              ? <Button size="mini" type="submit" onClick={this.dialogOpen} secondary>Sign In</Button>
               : <UserAvatar signOut={() => { firebase.auth().signOut(); }} uid={auth.uid} name={profile.name} avatar={profile.avatar} />
         }
       </div>
     );
   }
-
-  static propTypes = {
-    firebase: PropTypes.shape({
-      login: PropTypes.func.isRequired,
-    }),
-    auth: PropTypes.object,
-  }
 }
+
+Auth.propTypes = propTypes;
