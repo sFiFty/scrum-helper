@@ -1,7 +1,13 @@
 import React, { PureComponent } from 'react';
+
 import { List, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
+const propTypes = {
+  link: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+}
 
 export default class AddListItemBox extends PureComponent {
   render() {
@@ -17,9 +23,6 @@ export default class AddListItemBox extends PureComponent {
       </List.Item>
     );
   }
-
-  static propTypes = {
-    link: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-  }
 }
+
+AddListItemBox.propTypes = propTypes;
