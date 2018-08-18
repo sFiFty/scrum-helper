@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-import Moment from 'react-moment';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-export default class DiscussionSlide extends Component {
+const propTypes = {
+  daily: PropTypes.shape({
+    team: PropTypes.shape({
+      color: PropTypes.string,
+    }),
+  }),
+};
+
+export default class DiscussionSlide extends PureComponent {
   render() {
-    const { daily } = this.props;
     return (
-      <div style={{ backgroundColor: daily.team.color }} className="page-overlay">
+      <div style={{ backgroundColor: this.props.daily.team.color }} className="page-overlay">
         <div className="daily-text text-center">
-          <div>
-After Daily Discussion
-          </div>
-          <div>
-Questions? Inputs? Suggestions?
-          </div>
+          <div>After Daily Discussion</div>
+          <div>Questions? Inputs? Suggestions?</div>
         </div>
       </div>
     );
   }
-
-	static propTypes = {
-	  daily: PropTypes.object,
-	}
 }
+
+DiscussionSlide.propTypes = propTypes;

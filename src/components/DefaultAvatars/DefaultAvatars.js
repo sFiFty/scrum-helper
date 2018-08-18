@@ -2,6 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './styles.scss';
 
+const propTypes = {
+	onChoose: PropTypes.func.isRequired,
+	selectedAvatar: PropTypes.string,
+}
+
 export default class DefaultAvatars extends React.Component {
 	state = {
 	  defaultAvatarsList: [],
@@ -41,26 +46,22 @@ export default class DefaultAvatars extends React.Component {
 	}
 
 	render() {
-	  const { defaultAvatarsList, selectedAvatar } = this.state;
 	  return (
-  <div className="member-avatars-container">
-    {
-          defaultAvatarsList.map((avatar, index) => (
-            <div
-              className={avatar.selected ? 'selected member-avatar' : 'member-avatar'}
-              key={index}
-              onClick={() => this.selectAvatar(index)}
-            >
-              <img src={avatar.src} />
-            </div>
-          ))
-        }
-  </div>
+			<div className="member-avatars-container">
+				{
+					this.state.defaultAvatarsList.map((avatar, index) => (
+						<div
+							className={avatar.selected ? 'selected member-avatar' : 'member-avatar'}
+							key={index}
+							onClick={() => this.selectAvatar(index)}
+						>
+							<img src={avatar.src} />
+						</div>
+					))
+				}
+			</div>
 	  );
 	}
-
-	static propTypes = {
-	  onChoose: PropTypes.func.isRequired,
-	  selectedAvatar: PropTypes.string,
-	}
 }
+
+DefaultAvatars.propTypes = propTypes;

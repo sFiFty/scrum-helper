@@ -1,8 +1,8 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firebaseConnect } from 'react-redux-firebase';
-import Auth from './Auth';
+
+import Auth from './Auth.jsx';
 
 export default compose(
   firebaseConnect(),
