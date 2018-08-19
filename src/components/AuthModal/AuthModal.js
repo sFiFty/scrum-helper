@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Tab, Modal } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { firebase } from 'react-redux-firebase';
 import RegistrationForm from './RegistrationForm';
-import LoginForm from './LoginForm';
+import LoginForm from './LoginForm.jsx';
 import './styles.scss';
 
 export default class AuthModal extends Component {
