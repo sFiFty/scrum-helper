@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
-import {
-  Dropdown, Header, Icon, Image,
-} from 'semantic-ui-react';
+import React, { PureComponent } from 'react';
+import { Dropdown, Icon, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-export default class UserAvatar extends Component {
+const propTypes = {
+  avatar: PropTypes.string.isRequired,
+  signOut: PropTypes.func.isRequired,
+  uid: PropTypes.string.isRequired,
+};
+
+export default class UserAvatar extends PureComponent {
   render() {
-    const {
-      name, avatar, signOut, uid,
-    } = this.props;
+    const { avatar, signOut, uid } = this.props;
     const link = `/user/${uid}`;
     const trigger = avatar ? <Image src={avatar} avatar /> : <Icon size="big" name="user circle" />;
     return (
@@ -23,3 +25,5 @@ export default class UserAvatar extends Component {
     );
   }
 }
+
+UserAvatar.propTypes = propTypes;

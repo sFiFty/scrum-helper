@@ -27,8 +27,7 @@ export default class Navigation extends PureComponent {
   }
 
   componentWillMount() {
-    const { location } = this.props;
-    this.changeMenuActiveItem(location.pathname);
+    this.changeMenuActiveItem(this.props.location.pathname);
   }
 
   componentDidUpdate(prevProps) {
