@@ -1,8 +1,19 @@
 import React, { PureComponent } from 'react';
 import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { isLoaded, isEmpty } from 'react-redux-firebase';
+import { isLoaded } from 'react-redux-firebase';
 import PropTypes from 'prop-types';
+
+const propTypes = {
+  auth: PropTypes.shape({
+    isEmpty: PropTypes.bool,
+  }),
+  vertical: PropTypes.bool,
+  hideMenu: PropTypes.func.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }).isRequired,
+};
 
 export default class Navigation extends PureComponent {
   state = {
@@ -16,8 +27,7 @@ export default class Navigation extends PureComponent {
   }
 
   componentWillMount() {
-    const { location } = this.props;
-    this.changeMenuActiveItem(location.pathname);
+    this.changeMenuActiveItem(this.props.location.pathname);
   }
 
   componentDidUpdate(prevProps) {
@@ -58,7 +68,6 @@ export default class Navigation extends PureComponent {
       { to: '/contacts', name: 'Contact Us', public: true },
       { to: '/teams', name: 'Teams' },
       { to: '/meetings', name: 'Meetings' },
-      // { to: '/estimation', name: 'Estimation' }
     ];
     return (
       <div className={vertical ? 'vertical-menu' : 'navigation-wrapper'}>
@@ -83,9 +92,6 @@ export default class Navigation extends PureComponent {
       </div>
     );
   }
-
-  static propTypes = {
-    auth: PropTypes.object,
-    vertical: PropTypes.bool,
-  }
 }
+
+Navigation.propTypes = propTypes;

@@ -2,6 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, List, Input } from 'semantic-ui-react';
 
+const propTypes = {
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+};
+
 export default class InlineEditable extends React.Component {
 	state = {
 	  text: this.props.text,
@@ -21,7 +26,7 @@ export default class InlineEditable extends React.Component {
   }
 
   render() {
-    const { placeholder, onChange } = this.props;
+    const { placeholder } = this.props;
     const { text, isEditing } = this.state;
     return (
       isEditing
@@ -29,31 +34,19 @@ export default class InlineEditable extends React.Component {
           <List.Content className="d-flex flex-row justify-content-between align-items-center">
             <Input size="mini" onChange={this.setText} value={text} placeholder={placeholder} />
             <div>
-              <Button secondary size="mini" onClick={() => this.onSave(text)}>
-Save
-              </Button>
-              <Button basic size="mini" onClick={this.hideEditing}>
-Cancel
-              </Button>
+              <Button secondary size="mini" onClick={() => this.onSave(text)}>Save</Button>
+              <Button basic size="mini" onClick={this.hideEditing}>Cancel</Button>
             </div>
           </List.Content>
         )
         : (
           <List.Content className="d-flex flex-row justify-content-between align-items-center">
-            <div className="font-m">
-              {text}
-            </div>
-            <Button basic size="mini" onClick={this.showEditing}>
-Edit
-            </Button>
+            <div className="font-m">{text}</div>
+            <Button basic size="mini" onClick={this.showEditing}>Edit</Button>
           </List.Content>
         )
     );
   }
-
-	static propTypes = {
-	  placeholder: PropTypes.string,
-	  onChange: PropTypes.func.isRequired,
-	  text: PropTypes.string,
-	}
 }
+
+InlineEditable.propTypes = propTypes;

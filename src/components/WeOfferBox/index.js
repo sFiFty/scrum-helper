@@ -1,3 +1,3 @@
-import WeOfferBox from './WeOfferBox';
+import WeOfferBox from './WeOfferBox.jsx';
 
 export default WeOfferBox;

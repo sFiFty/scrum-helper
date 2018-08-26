@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
-  Icon, Button, Modal, Header, Input, Message,
+  Button, Modal, Header, Input, Message,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { NotificationManager } from 'react-notifications';
+
 import { validateEmail } from 'Helpers/Validators';
 
-export default class EmailModal extends React.Component {
+const propTypes = {
+  firebase: PropTypes.shape({
+    updateEmail: PropTypes.func,
+    updateProfile: PropTypes.func,
+  }).isRequired,
+  user: PropTypes.shape({
+    sendEmailVerification: PropTypes.func,
+  }).isRequired,
+  close: PropTypes.func.isRequired,
+  isModalOpen: PropTypes.bool.isRequired,
+};
+
+export default class EmailModal extends Component {
   state = {
     email: null,
     errorMessage: null,
@@ -50,17 +63,11 @@ export default class EmailModal extends React.Component {
                 : ''
             }
           <Input onChange={this.setEmail} fluid placeholder="Type email here..." />
-          <Button onClick={this.save} className="mt-3" fluid secondary>
-Save
-          </Button>
+          <Button onClick={this.save} className="mt-3" fluid secondary>Save</Button>
         </Modal.Content>
       </Modal>
     );
   }
-
-	static propTypes = {
-	  firebase: PropTypes.object.isRequired,
-	  close: PropTypes.func.isRequired,
-	  isModalOpen: PropTypes.bool.isRequired,
-	}
 }
+
+EmailModal.propTypes = propTypes;

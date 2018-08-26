@@ -1,3 +1,3 @@
-import PrivacyPolicy from './PrivacyPolicy';
+import PrivacyPolicy from './PrivacyPolicy.jsx';
 
 export default PrivacyPolicy;
