@@ -4,6 +4,7 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { NotificationManager } from 'react-notifications';
+import _ from 'lodash';
 
 import { validateEmail } from 'Helpers/Validators';
 
@@ -34,8 +35,7 @@ export default class EmailModal extends Component {
       this.setState({ errorMessage: 'Please provide valid email' });
       return false;
     }
-    this.setState({ isError: false });
-    firebase.updateEmail(email).then(() => {
+    return firebase.updateEmail(email).then(() => {
       user.sendEmailVerification().then(() => {
         firebase.updateProfile({ isVerificationEmailSent: true, email });
         NotificationManager.success(
