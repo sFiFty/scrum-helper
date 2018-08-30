@@ -1,3 +1,3 @@
-import AddListItemBox from './AddListItemBox';
+import AddListItemBox from './AddListItemBox.jsx';
 
 export default AddListItemBox;

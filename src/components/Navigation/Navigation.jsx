@@ -15,19 +15,19 @@ const propTypes = {
   }).isRequired,
 };
 
+const defaultProps = {
+  auth: null,
+  vertical: false,
+};
+
 export default class Navigation extends PureComponent {
   state = {
     activeItem: null,
   }
 
-  handleItemClick = (e, { name }) => {
-    const { hideMenu } = this.props;
-    if (hideMenu) hideMenu();
-    this.setState({ activeItem: name });
-  }
-
   componentWillMount() {
-    this.changeMenuActiveItem(this.props.location.pathname);
+    const { location } = this.props;
+    this.changeMenuActiveItem(location.pathname);
   }
 
   componentDidUpdate(prevProps) {
@@ -35,6 +35,12 @@ export default class Navigation extends PureComponent {
     if (location !== prevProps.location) {
       this.changeMenuActiveItem(location.pathname);
     }
+  }
+
+  handleItemClick = (e, { name }) => {
+    const { hideMenu } = this.props;
+    if (hideMenu) hideMenu();
+    this.setState({ activeItem: name });
   }
 
   changeMenuActiveItem = (path) => {
@@ -75,7 +81,7 @@ export default class Navigation extends PureComponent {
           {
             isLoaded(auth)
             && menuItems.map((item, index) => {
-              if (auth.isEmpty && !item.public) return;
+              if (auth.isEmpty && !item.public) return false;
               return (
                 <Menu.Item
                   key={index}
@@ -95,3 +101,4 @@ export default class Navigation extends PureComponent {
 }
 
 Navigation.propTypes = propTypes;
+Navigation.defaultProps = defaultProps;
