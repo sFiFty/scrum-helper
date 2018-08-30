@@ -9,8 +9,8 @@ import SMLoader from 'Components/SMLoader';
 
 const propTypes = {
   firebase: PropTypes.shape({
-    login: PropTypes.func.isRequired,
-  }),
+    login: PropTypes.func,
+  }).isRequired,
   auth: PropTypes.object,
 }
 

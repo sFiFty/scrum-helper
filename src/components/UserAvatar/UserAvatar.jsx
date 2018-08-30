@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Dropdown, Icon, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const propTypes = {
   avatar: PropTypes.string.isRequired,
