@@ -89,7 +89,7 @@ export default class AddTeam extends React.Component {
           </Form.Field>
           <Form.Field className="form-field team-members">
             <label htmlFor="team-members" className="label">Team members</label>
-            <TeamMembers />
+            <TeamMembers members={members} />
           </Form.Field>
           <Button onClick={this.onAddTeam} floated="right" size="medium" type="submit" secondary>
             Add Team

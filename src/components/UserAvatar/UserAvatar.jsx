@@ -4,9 +4,13 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  avatar: PropTypes.string.isRequired,
+  avatar: PropTypes.string,
   signOut: PropTypes.func.isRequired,
   uid: PropTypes.string.isRequired,
+};
+
+const defaultProps = {
+  avatar: null,
 };
 
 export default class UserAvatar extends PureComponent {
@@ -28,3 +32,4 @@ export default class UserAvatar extends PureComponent {
 }
 
 UserAvatar.propTypes = propTypes;
+UserAvatar.defaultProps = defaultProps;
