@@ -9,7 +9,7 @@ const propTypes = {
     isEmpty: PropTypes.bool,
   }),
   vertical: PropTypes.bool,
-  hideMenu: PropTypes.func.isRequired,
+  hideMenu: PropTypes.func,
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }).isRequired,
@@ -18,6 +18,7 @@ const propTypes = {
 const defaultProps = {
   auth: null,
   vertical: false,
+  hideMenu: null,
 };
 
 export default class Navigation extends PureComponent {

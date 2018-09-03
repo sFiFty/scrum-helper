@@ -1,13 +1,13 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firebaseConnect } from 'react-redux-firebase';
-import AddMember from './AddMember';
+
+import AddMember from './AddMember.jsx';
 
 export default compose(
-  firebaseConnect((props, store) => [
+  firebaseConnect(({ match }) => [
     {
-      path: `teams/${props.match.params.teamid}`,
+      path: `teams/${match.params.teamid}`,
       storeAs: 'team',
     },
   ]),

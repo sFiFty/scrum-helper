@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -9,7 +9,7 @@ const propTypes = {
   }),
 };
 
-export default class FinalSlide extends Component {
+export default class FinalSlide extends PureComponent {
   render() {
     return (
       <div style={{ backgroundColor: this.props.daily.team.color }} className="page-overlay">
