@@ -1,8 +1,7 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firebaseConnect } from 'react-redux-firebase';
-import UserProfile from './UserProfile';
+import UserProfile from './UserProfile.jsx';
 
 export default compose(
   firebaseConnect(),
