@@ -7,7 +7,8 @@ import PropTypes from 'prop-types';
 import DefaultAvatars from 'Components/DefaultAvatars';
 
 const propTypes = {
-  members: PropTypes.arrayOf(PropTypes.object).isRequired,
+  members: PropTypes.arrayOf(PropTypes.object).isRequired, 
+  onAddMember: PropTypes.func.isRequired,
 };
 
 export default class TeamMembers extends React.Component {
@@ -29,22 +30,14 @@ export default class TeamMembers extends React.Component {
   onPopupOpen = () => this.setState({ isPopupOpen: true });
 
   addMember = () => {
-    const { name, avatar, members } = this.state;
-    members.push({
-      name,
-      avatar,
-    });
-    this.setState({
-      avatar: null,
-      name: null,
-      members,
-    });
+    const { name, avatar } = this.state;
+    const { onAddMember } = this.props;
+    onAddMember({ name, avatar });
   }
 
   render() {
     const { members } = this.props;
     const { name, isPopupOpen, avatar } = this.state;
-
     return (
       members
       && (
