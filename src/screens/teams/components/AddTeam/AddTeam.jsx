@@ -90,7 +90,12 @@ export default class AddTeam extends React.Component {
           </Form.Field>
           <Form.Field className="form-field team-members">
             <label htmlFor="team-members" className="label">Team members</label>
-            <TeamMembers key={members.length} members={members} onAddMember={this.onAddMember} />
+            <TeamMembers
+              key={members.length}
+              members={members}
+              onAddMember={this.onAddMember}
+              onRemoveMember={this.removeMember}
+            />
           </Form.Field>
           <Form.Field className="trello-key">
             <Input onChange={this.setTrelloKey} size="massive" placeholder="Type your trello key here..." />
