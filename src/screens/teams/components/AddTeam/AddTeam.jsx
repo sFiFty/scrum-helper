@@ -6,7 +6,7 @@ import {
 import { NotificationManager } from 'react-notifications';
 import PropTypes from 'prop-types';
 
-import TeamMembers from './TeamMembers.jsx';
+import TeamMembers from './components/TeamMembers.jsx';
 import './styles.scss';
 
 const propTypes = {
@@ -27,12 +27,15 @@ export default class AddTeam extends React.Component {
     },
     errorMessage: null,
     members: [],
-    memberName: null,
-    memberAvatar: null,
-    isPopupOpen: false,
   };
 
   onPickColor = color => this.setState({ color: color.hex });
+
+  onAddMember = (member) => {
+    const { members } = this.state;
+    members.push(member);
+    this.setState({ members });
+  }
 
   onAddTeam = () => {
     const { name, color, members } = this.state;
@@ -68,9 +71,7 @@ export default class AddTeam extends React.Component {
   }
 
   render() {
-    const {
-      errorMessage, color, members, memberAvatar, memberName, isPopupOpen,
-    } = this.state;
+    const { errorMessage, color, members } = this.state;
     return (
       <Container>
         <h2 className="form-title">Add New Team</h2>
@@ -89,7 +90,15 @@ export default class AddTeam extends React.Component {
           </Form.Field>
           <Form.Field className="form-field team-members">
             <label htmlFor="team-members" className="label">Team members</label>
-            <TeamMembers members={members} />
+            <TeamMembers
+              key={members.length}
+              members={members}
+              onAddMember={this.onAddMember}
+              onRemoveMember={this.removeMember}
+            />
+          </Form.Field>
+          <Form.Field className="trello-key">
+            <Input onChange={this.setTrelloKey} size="massive" placeholder="Type your trello key here..." />
           </Form.Field>
           <Button onClick={this.onAddTeam} floated="right" size="medium" type="submit" secondary>
             Add Team

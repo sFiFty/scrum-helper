@@ -5,7 +5,7 @@ import {
 } from 'semantic-ui-react';
 import { CirclePicker } from 'react-color';
 
-import TeamMembers from '../AddTeam/TeamMembers.jsx';
+import TeamMembers from '../AddTeam/components/TeamMembers.jsx';
 
 const propTypes = {
   owner: PropTypes.string.isRequired,
