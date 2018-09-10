@@ -7,6 +7,7 @@ import { NotificationManager } from 'react-notifications';
 import PropTypes from 'prop-types';
 
 import TeamMembers from './components/TeamMembers.jsx';
+import TrelloIntegration from './components/TrelloIntegration.jsx';
 import './styles.scss';
 
 const propTypes = {
@@ -27,10 +28,10 @@ export default class AddTeam extends React.Component {
     },
     errorMessage: null,
     members: [],
+    trelloKey: null,
   };
 
   onPickColor = color => this.setState({ color: color.hex });
-
   onAddMember = (member) => {
     const { members } = this.state;
     members.push(member);
@@ -97,9 +98,7 @@ export default class AddTeam extends React.Component {
               onRemoveMember={this.removeMember}
             />
           </Form.Field>
-          <Form.Field className="trello-key">
-            <Input onChange={this.setTrelloKey} size="massive" placeholder="Type your trello key here..." />
-          </Form.Field>
+          <TrelloIntegration />
           <Button onClick={this.onAddTeam} floated="right" size="medium" type="submit" secondary>
             Add Team
           </Button>

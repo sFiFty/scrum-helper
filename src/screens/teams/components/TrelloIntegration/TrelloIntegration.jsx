@@ -1,18 +1,23 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-const propTypes = {
-  prop: PropTypes
-}
+// const propTypes = {
+//   prop: PropTypes
+// }
 
-export default class TrelloIntegration extends Component {
+class TrelloIntegration extends Component {
+  onSetTrelloKey = value => this.setState({ trelloKey: value });
   render() {
     return (
       <div>
-        TrelloIntegration
+        <Form.Field className="trello-key">
+          <Input onChange={this.setTrelloKey} size="massive" placeholder="Type your trello key here..." />
+        </Form.Field>
       </div>
     )
   }
 }
 
-TrelloIntegration.propTypes = propTypes;
+export default TrelloIntegration;
+
+// TrelloIntegration.propTypes = propTypes;
