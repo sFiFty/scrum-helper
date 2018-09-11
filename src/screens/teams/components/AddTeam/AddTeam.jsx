@@ -6,8 +6,8 @@ import {
 import { NotificationManager } from 'react-notifications';
 import PropTypes from 'prop-types';
 
-import TeamMembers from './components/TeamMembers.jsx';
-import TrelloIntegration from './components/TrelloIntegration.jsx';
+import TeamMembers from '../TeamMembers';
+import TrelloIntegration from '../TrelloIntegration';
 import './styles.scss';
 
 const propTypes = {

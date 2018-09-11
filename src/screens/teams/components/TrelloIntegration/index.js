@@ -1,3 +1,3 @@
-import TrelloIntegration from './TrelloIntegration';
+import TrelloIntegration from './TrelloIntegration.jsx';
 
 export default TrelloIntegration;

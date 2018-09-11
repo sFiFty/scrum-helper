@@ -1,8 +1,18 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { List, Image, Icon } from 'semantic-ui-react';
 
-class TeamMembersList extends Component {
+
+const propTypes = {
+  members: PropTypes.arrayOf(PropTypes.shape({
+    avatar: PropTypes.string,
+    name: PropTypes.string,
+  })).isRequired,
+  onRemoveMember: PropTypes.func.isRequired,
+};
+class TeamMembersList extends PureComponent {
   render() {
+    const { members, onRemoveMember } = this.props;
     return (
       <List className="w-50 generated-items-list">
         {
@@ -16,7 +26,7 @@ class TeamMembersList extends Component {
                 <Icon
                   className="remove-item-icon"
                   role="button"
-                  onClick={() => this.removeMember(key)}
+                  onClick={() => onRemoveMember(key)}
                   name="trash"
                   color="red"
                 />
@@ -28,5 +38,7 @@ class TeamMembersList extends Component {
     );
   }
 }
+
+TeamMembersList.propTypes = propTypes;
 
 export default TeamMembersList;

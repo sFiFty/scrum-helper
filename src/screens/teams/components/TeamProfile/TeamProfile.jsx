@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Input, Form, Button, Message, Popup, Image,
+  Container, Input, Form, List, Icon, Image,
 } from 'semantic-ui-react';
 import { CirclePicker } from 'react-color';
 
-import TeamMembers from '../AddTeam/components/TeamMembers.jsx';
+import TeamMembers from '../TeamMembers';
 
 const propTypes = {
   owner: PropTypes.string.isRequired,
@@ -45,6 +45,7 @@ class TeamProfile extends Component {
         </Form>
         <Form.Field className="form-field team-members">
           <label htmlFor="team-members" className="label">Team members</label>
+          
           <TeamMembers
             members={members}
             memberAvatar={memberAvatar}
