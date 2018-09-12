@@ -1,12 +1,42 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Input, Image, Popup, Button,
 } from 'semantic-ui-react';
 
 import DefaultAvatars from 'Components/DefaultAvatars';
 
+const propTypes = {
+  onAddMember: PropTypes.func.isRequired,
+};
+
 class AddTeamMembers extends Component {
+  state = {
+    name: null,
+    avatar: null,
+    isPopupOpen: false,
+  }
+
+  onSetName = event => this.setState({ name: event.target.value });
+
+  onSetAvatar = (avatar) => {
+    this.setState({ avatar });
+    setTimeout(() => this.setState({ isPopupOpen: false }), 50);
+  }
+
+  onPopupClose = () => this.setState({ isPopupOpen: false });
+
+  onPopupOpen = () => this.setState({ isPopupOpen: true });
+
+  addMember = () => {
+    const { name, avatar } = this.state;
+    const { onAddMember } = this.props;
+    onAddMember({ name, avatar });
+  }
+
   render() {
+    const { name, isPopupOpen, avatar } = this.state;
+
     return (
       <div className="d-flex justify-content-start align-items-center">
         <Input
@@ -45,5 +75,7 @@ class AddTeamMembers extends Component {
     );
   }
 }
+
+AddTeamMembers.propTypes = propTypes;
 
 export default AddTeamMembers;

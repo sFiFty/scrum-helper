@@ -1,18 +1,40 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Input, Form, Button } from 'semantic-ui-react';
 
-const propTypes = {
-  prop: PropTypes
-}
+import './styles.scss';
 
-export default class TrelloIntegration extends Component {
+// const propTypes = {
+//   prop: PropTypes
+// }
+
+class TrelloIntegration extends Component {
+  state = {
+    trelloKey: null,
+  }
+
+  onSetTrelloKey = value => this.setState({ trelloKey: value });
+
   render() {
+    const { trelloKey } = this.state;
     return (
-      <div>
-        TrelloIntegration
+      <div className="trello-integration-container">
+        <Form.Field className="d-flex align-items-center trello-key">
+          <Input onChange={this.onSetTrelloKey} size="massive" placeholder="Type your trello key here..." />
+          {
+            trelloKey
+            && (
+              <Button onClick={this.addMember} className="ml-3" size="mini" secondary>
+                <span>Get boards</span>
+              </Button>
+            )
+          }
+        </Form.Field>
       </div>
-    )
+    );
   }
 }
 
-TrelloIntegration.propTypes = propTypes;
+export default TrelloIntegration;
+
+// TrelloIntegration.propTypes = propTypes;
