@@ -13,18 +13,28 @@ class TrelloIntegration extends Component {
     trelloKey: null,
   }
 
-  onSetTrelloKey = value => this.setState({ trelloKey: value });
+  onSetKey = (event, element) => this.setState({ key: element.value });
+
+  onSetToken = (event, element) => this.setState({ token: element.value });
+
+  connect = () => {
+    const { key, token } = this.state;
+    const url = `https://api.trello.com/1/members/me/boards?key=${key}&token=${token}`;
+    return fetch(url).then(response => response.json()).then((data) => {
+      console.log(data)
+    });
+  }
 
   render() {
-    const { trelloKey } = this.state;
+    const { key, token } = this.state;
     return (
       <div className="trello-integration-container">
         <Form.Field className="d-flex align-items-center trello-key">
-          <Input onChange={this.onSetTrelloKey} size="massive" placeholder="Type your trello key here..." />
+          <Input onChange={this.onSetKey} size="massive" placeholder="Type your trello key here..." />
+          <Input onChange={this.onSetToken} size="massive" placeholder="Type your trello token here..." />
           {
-            trelloKey
-            && (
-              <Button onClick={this.addMember} className="ml-3" size="mini" secondary>
+            key && token && (
+              <Button onClick={this.connect} className="ml-3" size="mini" secondary>
                 <span>Get boards</span>
               </Button>
             )
