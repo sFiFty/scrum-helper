@@ -1,7 +1,7 @@
 import React from 'react';
 import { CirclePicker } from 'react-color';
 import {
-  Container, Input, Form, Button, Message,
+  Container, Input, Form, Button, Message, Checkbox,
 } from 'semantic-ui-react';
 import { NotificationManager } from 'react-notifications';
 import PropTypes from 'prop-types';
@@ -29,9 +29,11 @@ export default class AddTeam extends React.Component {
     errorMessage: null,
     members: [],
     trelloKey: null,
+    withTrelloIntegration: false,
   };
 
   onPickColor = color => this.setState({ color: color.hex });
+
   onAddMember = (member) => {
     const { members } = this.state;
     members.push(member);
@@ -65,6 +67,10 @@ export default class AddTeam extends React.Component {
     });
   }
 
+  onTurnOnOffTrelloIntegration = (event, element) => (
+    this.setState({ withTrelloIntegration: element.checked })
+  )
+
   removeMember = (index) => {
     const { members } = this.state;
     members.splice(index, 1);
@@ -72,7 +78,9 @@ export default class AddTeam extends React.Component {
   }
 
   render() {
-    const { errorMessage, color, members } = this.state;
+    const {
+      errorMessage, color, members, withTrelloIntegration,
+    } = this.state;
     return (
       <Container>
         <h2 className="form-title">Add New Team</h2>
@@ -98,7 +106,10 @@ export default class AddTeam extends React.Component {
               onRemoveMember={this.removeMember}
             />
           </Form.Field>
-          <TrelloIntegration />
+          <Checkbox toggle onChange={this.onTurnOnOffTrelloIntegration} />
+          {
+            withTrelloIntegration && <TrelloIntegration />
+          }
           <Button onClick={this.onAddTeam} floated="right" size="medium" type="submit" secondary>
             Add Team
           </Button>
