@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Input, Form, Button, Dropdown 
-} from 'semantic-ui-react';
+import { Input, Form, Button } from 'semantic-ui-react';
 
+import BoardSelection from './components/BoardSelection'
 import './styles.scss';
 
 // const propTypes = {
@@ -15,15 +14,13 @@ class TrelloIntegration extends Component {
     key: null,
     token: null,
     boards: null,
-    selectedBoardId: null,
+    selectedBoard: null,
     simpleBoardsList: null,
   }
 
   onSetKey = (event, element) => this.setState({ key: element.value });
 
   onSetToken = (event, element) => this.setState({ token: element.value });
-
-  onChooseBoard = (event, data) => this.setState({ selectedBoardId: data.value })
 
   connect = () => {
     const { key, token } = this.state;
@@ -41,9 +38,7 @@ class TrelloIntegration extends Component {
   }
 
   render() {
-    const {
-      key, token, simpleBoardsList, selectedBoardId,
-    } = this.state;
+    const { key, token, simpleBoardsList } = this.state;
     return (
       <div className="trello-integration-container">
         <Form.Field className="d-flex align-items-center trello-key">
@@ -58,16 +53,7 @@ class TrelloIntegration extends Component {
           }
         </Form.Field>
         {
-          simpleBoardsList && (
-            <Dropdown
-              onChange={this.onChooseBoard}
-              placeholder="Select board"
-              value={selectedBoardId}
-              search
-              selection
-              options={simpleBoardsList}
-            />
-          )
+          simpleBoardsList && <BoardSelection {...this.state} />
         }
       </div>
     );
