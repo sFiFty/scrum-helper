@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, List, Input } from 'semantic-ui-react';
 
@@ -7,7 +7,7 @@ const propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default class InlineEditable extends React.Component {
+export default class InlineEditable extends Component {
 	state = {
 	  text: this.props.text,
 	  isEditing: false,
@@ -47,6 +47,6 @@ export default class InlineEditable extends React.Component {
         )
     );
   }
-}
+};
 
 InlineEditable.propTypes = propTypes;
