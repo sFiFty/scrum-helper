@@ -5,9 +5,12 @@ import { Input, Form, Button } from 'semantic-ui-react';
 import BoardSelection from './components/BoardSelection'
 import './styles.scss';
 
-// const propTypes = {
-//   prop: PropTypes
-// }
+const propTypes = {
+  firebase: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  owner: PropTypes.string.isRequired,
+};
 
 class TrelloIntegration extends Component {
   state = {
@@ -24,6 +27,7 @@ class TrelloIntegration extends Component {
 
   connect = () => {
     const { key, token } = this.state;
+    const { firebase, owner } = this.props;
     const url = `https://api.trello.com/1/members/me/boards?key=${key}&token=${token}`;
     return fetch(url).then(response => response.json()).then((data) => {
       const simpleBoardsList = data.map(board => (
@@ -33,7 +37,11 @@ class TrelloIntegration extends Component {
           key: board.id,
         }
       ));
-      this.setState({ boards: data, simpleBoardsList });
+      firebase.push('trello/integrations/', {
+        owner,
+        key,
+        token,
+      }).then(() => this.setState({ boards: data, simpleBoardsList }));
     });
   }
 
@@ -60,6 +68,6 @@ class TrelloIntegration extends Component {
   }
 }
 
-export default TrelloIntegration;
+TrelloIntegration.propTypes = propTypes;
 
-// TrelloIntegration.propTypes = propTypes;
+export default TrelloIntegration;
