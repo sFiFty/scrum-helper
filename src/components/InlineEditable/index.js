@@ -1,3 +1,3 @@
-import InlineEditable from './InlineEditable';
+import InlineEditable from './InlineEditable.jsx';
 
 export default InlineEditable;

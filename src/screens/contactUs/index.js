@@ -1,3 +1,3 @@
-import ContactUs from './ContactUs';
+import ContactUs from './ContactUs.jsx';
 
 export default ContactUs;
