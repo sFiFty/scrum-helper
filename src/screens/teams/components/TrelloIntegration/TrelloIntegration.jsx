@@ -47,6 +47,7 @@ class TrelloIntegration extends Component {
 
   render() {
     const { key, token, simpleBoardsList } = this.state;
+    console.log(this.props);
     return (
       <div className="trello-integration-container">
         <Form.Field className="d-flex align-items-center trello-key">
