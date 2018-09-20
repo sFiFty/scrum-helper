@@ -13,57 +13,38 @@ const propTypes = {
 };
 
 class TrelloIntegration extends Component {
-  state = {
-    key: null,
-    token: null,
-    boards: null,
-    selectedBoard: null,
-    simpleBoardsList: null,
-  }
-
-  onSetKey = (event, element) => this.setState({ key: element.value });
-
-  onSetToken = (event, element) => this.setState({ token: element.value });
 
   connect = () => {
-    const { key, token } = this.state;
-    const { firebase, owner } = this.props;
-    const url = `https://api.trello.com/1/members/me/boards?key=${key}&token=${token}`;
-    return fetch(url).then(response => response.json()).then((data) => {
-      const simpleBoardsList = data.map(board => (
-        {
-          text: board.name,
-          value: board.id,
-          key: board.id,
-        }
-      ));
-      firebase.push('trello/integrations/', {
-        owner,
-        key,
-        token,
-      }).then(() => this.setState({ boards: data, simpleBoardsList }));
+    Trello.authorize({
+      type: 'popup',
+      name: 'Scrum Helper',
+      scope: {
+        read: true,
+        write: true,
+        account: true,
+      },
+      expiration: 'never',
+      success: (data) => {
+        console.log(data)
+      }
     });
   }
 
+  getBoards = () => {
+    Trello.rest('get', "members/me", (data) => {
+      console.log(data)
+    })
+  }
+
   render() {
-    const { key, token, simpleBoardsList } = this.state;
-    console.log(this.props);
     return (
       <div className="trello-integration-container">
-        <Form.Field className="d-flex align-items-center trello-key">
-          <Input onChange={this.onSetKey} size="massive" placeholder="Type your trello key here..." />
-          <Input onChange={this.onSetToken} size="massive" placeholder="Type your trello token here..." />
-          {
-            key && token && (
-              <Button onClick={this.connect} className="ml-3" size="mini" secondary>
-                <span>Get boards</span>
-              </Button>
-            )
-          }
-        </Form.Field>
-        {
-          simpleBoardsList && <BoardSelection {...this.state} />
-        }
+        <Button onClick={this.connect} className="ml-3" size="mini" secondary>
+          <span>Connect</span>
+        </Button>
+        <Button onClick={this.getBoards} className="ml-3" size="mini" secondary>
+          <span>Get boards</span>
+        </Button>
       </div>
     );
   }
