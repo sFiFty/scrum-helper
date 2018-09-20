@@ -4,6 +4,8 @@ html
   link(rel="icon", type="image/png", href="/favicon.ico")
   script.
     document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+  script(src="https://code.jquery.com/jquery-3.3.1.min.js", integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=", crossorigin="anonymous")
+  script(src="https://api.trello.com/1/client.js?key=a2a3c23141c2ad181100db8f4e479927")
   body
     div#root
     script(src='/bundle.js')
