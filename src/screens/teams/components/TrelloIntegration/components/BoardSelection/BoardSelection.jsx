@@ -13,9 +13,19 @@ class BoardSelection extends Component {
     this.setState({ selectedBoard });
   }
 
+  getSimpleList = boards => (
+    boards.map(b => ({
+      ...b,
+      value: b.id,
+      key: b.id,
+      text: b.name,
+    }))
+  )
+
   render() {
-    const { simpleBoardsList } = this.props;
     const { selectedBoard } = this.state;
+    const { boards } = this.props;
+    const simpleBoardsList = this.getSimpleList(boards);
     return (
       <div className="board-selection-container">
         <Dropdown
@@ -27,17 +37,11 @@ class BoardSelection extends Component {
           options={simpleBoardsList}
         />
       </div>
-
     );
   }
 }
 
 BoardSelection.propTypes = {
-  simpleBoardsList: PropTypes.arrayOf(PropTypes.shape({
-    text: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-    key: PropTypes.string.isRequired,
-  })).isRequired,
   boards: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
   })).isRequired,

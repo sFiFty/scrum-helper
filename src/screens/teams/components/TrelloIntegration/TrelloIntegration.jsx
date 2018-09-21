@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Input, Form, Button } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 
-import BoardSelection from './components/BoardSelection'
+import BoardSelection from './components/BoardSelection';
 import './styles.scss';
 
 const propTypes = {
@@ -13,9 +13,20 @@ const propTypes = {
 };
 
 class TrelloIntegration extends Component {
+  state = {
+    boards: null,
+  }
+
+  getBoards = () => {
+    window.Trello.rest('get', 'members/me', (member) => {
+      window.Trello.rest('get', `members/${member.id}/boards`, boards => (
+        this.setState({ boards })
+      ));
+    });
+  }
 
   connect = () => {
-    Trello.authorize({
+    window.Trello.authorize({
       type: 'popup',
       name: 'Scrum Helper',
       scope: {
@@ -24,19 +35,11 @@ class TrelloIntegration extends Component {
         account: true,
       },
       expiration: 'never',
-      success: (data) => {
-        console.log(data)
-      }
     });
   }
 
-  getBoards = () => {
-    Trello.rest('get', "members/me", (data) => {
-      console.log(data)
-    })
-  }
-
   render() {
+    const { boards } = this.state;
     return (
       <div className="trello-integration-container">
         <Button onClick={this.connect} className="ml-3" size="mini" secondary>
@@ -45,6 +48,10 @@ class TrelloIntegration extends Component {
         <Button onClick={this.getBoards} className="ml-3" size="mini" secondary>
           <span>Get boards</span>
         </Button>
+        {
+          boards &&
+          <BoardSelection boards={boards} />
+        }
       </div>
     );
   }
