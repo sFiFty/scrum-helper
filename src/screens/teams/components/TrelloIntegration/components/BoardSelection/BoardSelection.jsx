@@ -10,6 +10,7 @@ class BoardSelection extends Component {
   onChooseBoard = (event, data) => {
     const { boards } = this.props;
     const selectedBoard = boards.find(b => b.id === data.value);
+    console.log(selectedBoard)
     this.setState({ selectedBoard });
   }
 

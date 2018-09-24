@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
+import { NotificationManager } from 'react-notifications';
 
 import BoardSelection from './components/BoardSelection';
 import './styles.scss';
+import { callbackify } from 'util';
 
 const propTypes = {
   firebase: PropTypes.shape({
@@ -22,10 +24,17 @@ class TrelloIntegration extends Component {
       window.Trello.rest('get', `members/${member.id}/boards`, boards => (
         this.setState({ boards })
       ));
+    }, () => {
+      this.connect(() => this.getBoards(), () => {
+        NotificationManager.error(
+          'Something went wrong, please contact administrators',
+          'Error',
+        );
+      });
     });
   }
 
-  connect = () => {
+  connect = (success, error) => {
     window.Trello.authorize({
       type: 'popup',
       name: 'Scrum Helper',
@@ -34,6 +43,8 @@ class TrelloIntegration extends Component {
         write: true,
         account: true,
       },
+      success,
+      error,
       expiration: 'never',
     });
   }
@@ -42,9 +53,6 @@ class TrelloIntegration extends Component {
     const { boards } = this.state;
     return (
       <div className="trello-integration-container">
-        <Button onClick={this.connect} className="ml-3" size="mini" secondary>
-          <span>Connect</span>
-        </Button>
         <Button onClick={this.getBoards} className="ml-3" size="mini" secondary>
           <span>Get boards</span>
         </Button>
