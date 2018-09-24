@@ -7,6 +7,7 @@ const propTypes = {
   members: PropTypes.arrayOf(PropTypes.shape({
     avatar: PropTypes.string,
     name: PropTypes.string,
+    initials: PropTypes.string,
   })).isRequired,
   onRemoveMember: PropTypes.func.isRequired,
 };
@@ -20,7 +21,7 @@ class TeamMembersList extends PureComponent {
             <List.Item key={key} className="member d-flex justify-content-start align-items-center">
               <Image avatar src={require(`Images/${member.avatar}`)} />
               <List.Content className="ml-2 font-s">
-                {member.name}
+                {member.name} ({member.initials})
               </List.Content>
               <List.Content className="ml-auto font-s">
                 <Icon

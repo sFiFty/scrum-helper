@@ -13,11 +13,14 @@ const propTypes = {
 class AddTeamMembers extends Component {
   state = {
     name: null,
+    initials: null,
     avatar: null,
     isPopupOpen: false,
   }
 
   onSetName = event => this.setState({ name: event.target.value });
+
+  onSetInitials = event => this.setState({ initials: event.target.value });
 
   onSetAvatar = (avatar) => {
     this.setState({ avatar });
@@ -29,13 +32,15 @@ class AddTeamMembers extends Component {
   onPopupOpen = () => this.setState({ isPopupOpen: true });
 
   addMember = () => {
-    const { name, avatar } = this.state;
+    const { name, avatar, initials } = this.state;
     const { onAddMember } = this.props;
-    onAddMember({ name, avatar });
+    onAddMember({ name, avatar, initials });
   }
 
   render() {
-    const { name, isPopupOpen, avatar } = this.state;
+    const {
+      name, isPopupOpen, avatar, initials,
+    } = this.state;
 
     return (
       <div className="d-flex justify-content-start align-items-center">
@@ -45,6 +50,13 @@ class AddTeamMembers extends Component {
           className="w-50"
           size="mini"
           placeholder="Type member name here..."
+        />
+        <Input
+          onChange={this.onSetInitials}
+          value={initials || ''}
+          className="w-25"
+          size="mini"
+          placeholder="Type member initials here..."
         />
         <Popup
           open={isPopupOpen}
