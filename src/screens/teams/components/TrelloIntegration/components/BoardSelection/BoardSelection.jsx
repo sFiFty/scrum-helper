@@ -10,13 +10,14 @@ class BoardSelection extends Component {
   onChooseBoard = (event, data) => {
     const { boards } = this.props;
     const selectedBoard = boards.find(b => b.id === data.value);
-    console.log(selectedBoard)
+    window.Trello.rest('get', `boards/${data.value}/lists`, (board) => {
+      console.log(board)
+    });
     this.setState({ selectedBoard });
   }
 
   getSimpleList = boards => (
     boards.map(b => ({
-      ...b,
       value: b.id,
       key: b.id,
       text: b.name,
@@ -32,7 +33,7 @@ class BoardSelection extends Component {
         <Dropdown
           onChange={this.onChooseBoard}
           placeholder="Select board"
-          value={selectedBoard && selectedBoard.Id}
+          value={selectedBoard && selectedBoard.id}
           search
           selection
           options={simpleBoardsList}
