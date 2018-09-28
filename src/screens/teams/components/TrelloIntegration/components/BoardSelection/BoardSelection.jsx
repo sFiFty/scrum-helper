@@ -5,18 +5,19 @@ import { Dropdown } from 'semantic-ui-react';
 class BoardSelection extends Component {
   state = {
     selectedBoard: null,
+    boardLists: null,
   }
 
   onChooseBoard = (event, data) => {
     const { boards } = this.props;
     const selectedBoard = boards.find(b => b.id === data.value);
-    console.log(selectedBoard)
-    this.setState({ selectedBoard });
+    window.Trello.rest('get', `boards/${data.value}/lists`, (boardLists) => {
+      this.setState({ selectedBoard, boardLists });
+    });
   }
 
   getSimpleList = boards => (
     boards.map(b => ({
-      ...b,
       value: b.id,
       key: b.id,
       text: b.name,
@@ -24,7 +25,7 @@ class BoardSelection extends Component {
   )
 
   render() {
-    const { selectedBoard } = this.state;
+    const { selectedBoard, boardLists } = this.state;
     const { boards } = this.props;
     const simpleBoardsList = this.getSimpleList(boards);
     return (
@@ -32,11 +33,25 @@ class BoardSelection extends Component {
         <Dropdown
           onChange={this.onChooseBoard}
           placeholder="Select board"
-          value={selectedBoard && selectedBoard.Id}
+          value={selectedBoard && selectedBoard.id}
           search
           selection
           options={simpleBoardsList}
         />
+        {
+          boardLists && (
+            <div>
+              <div> The list name must match the team member initials! </div>
+              <div>Board lists names:</div>
+              <ul>
+                {
+                  boardLists.map(list => <li>{list.name}</li>)
+                }
+              </ul>
+            </div>
+          )
+        }
+
       </div>
     );
   }
