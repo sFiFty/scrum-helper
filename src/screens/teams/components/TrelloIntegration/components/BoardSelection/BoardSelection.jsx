@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react';
 
+import BoardItem from './components/BoardItem';
+
 class BoardSelection extends Component {
   state = {
     selectedBoard: null,
@@ -28,6 +30,7 @@ class BoardSelection extends Component {
     const { selectedBoard, boardLists } = this.state;
     const { boards } = this.props;
     const simpleBoardsList = this.getSimpleList(boards);
+    console.log(this.props)
     return (
       <div className="board-selection-container">
         <Dropdown
@@ -45,7 +48,7 @@ class BoardSelection extends Component {
               <div>Board lists names:</div>
               <ul>
                 {
-                  boardLists.map(list => <li>{list.name}</li>)
+                  boardLists.map(list => <BoardItem item={list} />)
                 }
               </ul>
             </div>
