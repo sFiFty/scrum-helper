@@ -107,7 +107,7 @@ export default class AddTeam extends React.Component {
           </Form.Field>
           <Checkbox toggle onChange={this.onTurnOnOffTrelloIntegration} />
           {
-            withTrelloIntegration && <TrelloIntegration {...this.props} />
+            withTrelloIntegration && <TrelloIntegration {...this.props} members={members} />
           }
           <Button onClick={this.onAddTeam} floated="right" size="medium" type="submit" secondary>
             Add Team
