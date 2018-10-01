@@ -30,7 +30,6 @@ class BoardSelection extends Component {
     const { selectedBoard, boardLists } = this.state;
     const { boards } = this.props;
     const simpleBoardsList = this.getSimpleList(boards);
-    console.log(this.props)
     return (
       <div className="board-selection-container">
         <Dropdown
@@ -48,7 +47,7 @@ class BoardSelection extends Component {
               <div>Board lists names:</div>
               <ul>
                 {
-                  boardLists.map(list => <BoardItem item={list} />)
+                  boardLists.map(board => <BoardItem {...this.props} key={board.id} item={board} />)
                 }
               </ul>
             </div>
