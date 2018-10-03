@@ -16,6 +16,12 @@ export default class BoardItem extends Component  {
     members: null,
   }
 
+  fetchCommitments = (item) => {
+    window.Trello.rest('get', `lists/${item.id}/cards`, cards => (
+      console.log(cards)
+    ));
+  }
+
   render() {
     const { item, members } = this.props;
     console.log(item)
@@ -26,7 +32,7 @@ export default class BoardItem extends Component  {
         {item.name}
         {
           isConnected &&
-          <Button>Fetch commitments</Button>
+          <Button onClick={() => this.fetchCommitments(item)}>Fetch commitments</Button>
         }
       </li>
     );
