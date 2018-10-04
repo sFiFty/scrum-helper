@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 import './styles.scss';
 
-const WeOfferBox = () => (
-  <div className="we-offer-list">
+const WeOfferBox = ({ id }) => (
+  <div id={id} className="we-offer-list">
     <h2 className="mb-4 font-xl text-center list-head">We offer</h2>
     <div className="offer-list-container d-flex justify-content-center">
       <div className="d-flex align-items-center flex-column offer-list-item mr-4 text-center">

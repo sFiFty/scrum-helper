@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Image, Button } from 'semantic-ui-react';
 import { isEmpty } from 'react-redux-firebase';
-import ScrollableAnchor, { goToAnchor } from 'react-scrollable-anchor';
+import Scrollchor from 'react-scrollchor';
 
 import AuthModal from 'Components/AuthModal';
 import WeOfferBox from 'Components/WeOfferBox';
@@ -32,8 +32,6 @@ export default class Home extends Component {
 
   authModalClose = () => this.setState({ authModalIsOpen: false })
 
-  goToWeOffer = () => goToAnchor('weOffer')
-
   render() {
     const { auth } = this.props;
     const { authModalIsOpen, index } = this.state;
@@ -54,7 +52,9 @@ export default class Home extends Component {
                 </Button>
                 )
               }
-              <Button onClick={this.goToWeOffer} basic size="medium">We offer</Button>
+              <Scrollchor to="weOffer">
+                <Button basic size="medium">We offer</Button>
+              </Scrollchor>
             </div>
           </div>
           <div className="home-image-container">
@@ -66,9 +66,7 @@ export default class Home extends Component {
           </div>
         </div>
         <hr className="horizontal-divider" />
-        <ScrollableAnchor id="weOffer">
-          <WeOfferBox />
-        </ScrollableAnchor>
+          <WeOfferBox id="weOffer"/>
         <AuthModal
           dialogClose={this.authModalClose}
           isDialogOpened={authModalIsOpen}
