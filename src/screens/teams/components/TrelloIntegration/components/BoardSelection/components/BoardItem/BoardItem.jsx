@@ -24,11 +24,9 @@ export default class BoardItem extends Component  {
 
   render() {
     const { item, members } = this.props;
-    console.log(item)
-    console.log(members)
     const isConnected = members && members.find(m => m.initials === item.name);
     return (
-      <li className="board-item">
+      <li className="board-item mt-3">
         {item.name}
         {
           isConnected &&

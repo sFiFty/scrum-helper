@@ -31,7 +31,7 @@ class BoardSelection extends Component {
     const { boards } = this.props;
     const simpleBoardsList = this.getSimpleList(boards);
     return (
-      <div className="board-selection-container">
+      <div className="board-selection-container mt-3">
         <Dropdown
           onChange={this.onChooseBoard}
           placeholder="Select board"
