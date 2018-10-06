@@ -43,8 +43,11 @@ class BoardSelection extends Component {
         {
           boardLists && (
             <div>
-              <div> The list name must match the team member initials! </div>
-              <div>Board lists names:</div>
+              <div className="mt-2">
+                <i className="fas fa-exclamation-circle" />&nbsp;
+                The list name must match the team member initials!
+              </div>
+              <div className="mt-2">Board lists names:</div>
               <ul>
                 {
                   boardLists.map(board => <BoardItem {...this.props} key={board.id} item={board} />)

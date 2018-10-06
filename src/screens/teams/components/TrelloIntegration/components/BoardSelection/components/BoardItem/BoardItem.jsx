@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 
 export default class BoardItem extends Component  {
   static propTypes = {
@@ -30,7 +30,10 @@ export default class BoardItem extends Component  {
         {item.name}
         {
           isConnected &&
-          <Button onClick={() => this.fetchCommitments(item)}>Fetch commitments</Button>
+          <Button size="mini" onClick={() => this.fetchCommitments(item)}>
+            <i class="fas fa-sync"></i>&nbsp;
+            Sync commitments
+          </Button>
         }
       </li>
     );
