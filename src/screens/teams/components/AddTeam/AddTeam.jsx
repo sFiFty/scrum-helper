@@ -39,6 +39,12 @@ export default class AddTeam extends React.Component {
     this.setState({ members });
   }
 
+  onSetTrelloCommitments = (commitments, selectedMember) => {
+    const { members } = this.state;
+    members[members.indexOf(selectedMember)].commitments = commitments;
+    console.log(members);
+  }
+
   onAddTeam = () => {
     const { name, color, members } = this.state;
     const { firebase, history, owner } = this.props;
@@ -110,7 +116,11 @@ export default class AddTeam extends React.Component {
             withTrelloIntegration && (
               <React.Fragment>
                 <Divider horizontal>Trello integration</Divider>
-                <TrelloIntegration {...this.props} members={members} />
+                <TrelloIntegration
+                  {...this.props}
+                  members={members}
+                  onSetTrelloCommitments={this.onSetTrelloCommitments}
+                />
               </React.Fragment>
             )
           }

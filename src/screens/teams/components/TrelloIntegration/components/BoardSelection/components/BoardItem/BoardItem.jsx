@@ -10,28 +10,29 @@ export default class BoardItem extends Component  {
     members: PropTypes.arrayOf(PropTypes.shape({
       initials: PropTypes.string,
     })),
+    onSetTrelloCommitments: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
     members: null,
   }
 
-  fetchCommitments = (item) => {
+  fetchCommitments = (item, member) => {
     window.Trello.rest('get', `lists/${item.id}/cards`, cards => (
-      console.log(cards)
+      this.props.onSetTrelloCommitments(cards, member)
     ));
   }
 
   render() {
     const { item, members } = this.props;
-    const isConnected = members && members.find(m => m.initials === item.name);
+    const member = members && members.find(m => m.initials === item.name);
     return (
       <li className="board-item mt-3">
         {item.name}
         {
-          isConnected &&
-          <Button size="mini" onClick={() => this.fetchCommitments(item)}>
-            <i class="fas fa-sync"></i>&nbsp;
+          member &&
+          <Button size="mini" onClick={() => this.fetchCommitments(item, member)}>
+            <i className="fas fa-sync"></i>&nbsp;
             Sync commitments
           </Button>
         }
