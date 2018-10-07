@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 
 export default class BoardItem extends Component  {
   static propTypes = {
@@ -10,23 +10,31 @@ export default class BoardItem extends Component  {
     members: PropTypes.arrayOf(PropTypes.shape({
       initials: PropTypes.string,
     })),
+    onSetTrelloCommitments: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
     members: null,
   }
 
+  fetchCommitments = (item, member) => {
+    window.Trello.rest('get', `lists/${item.id}/cards`, cards => (
+      this.props.onSetTrelloCommitments(cards, member)
+    ));
+  }
+
   render() {
     const { item, members } = this.props;
-    console.log(item)
-    console.log(members)
-    const isConnected = members && members.find(m => m.initials === item.name);
+    const member = members && members.find(m => m.initials === item.name);
     return (
-      <li className="board-item">
+      <li className="board-item mt-3">
         {item.name}
         {
-          isConnected &&
-          <Button>Fetch commitments</Button>
+          member &&
+          <Button size="mini" onClick={() => this.fetchCommitments(item, member)}>
+            <i className="fas fa-sync"></i>&nbsp;
+            Sync commitments
+          </Button>
         }
       </li>
     );

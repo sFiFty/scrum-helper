@@ -1,0 +1,13 @@
+.board-list-container {
+  ul {
+    list-style: none;
+    padding-left: 0px;
+    > li {
+      button.ui.button {
+        font-size: 10px;
+        padding: 5px 10px;
+        margin-left: 10px;
+      }
+    }
+  }
+}

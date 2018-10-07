@@ -4,8 +4,6 @@ import { Button } from 'semantic-ui-react';
 import { NotificationManager } from 'react-notifications';
 
 import BoardSelection from './components/BoardSelection';
-import './styles.scss';
-import { callbackify } from 'util';
 
 const propTypes = {
   firebase: PropTypes.shape({
@@ -53,7 +51,7 @@ class TrelloIntegration extends Component {
     const { boards } = this.state;
     return (
       <div className="trello-integration-container">
-        <Button onClick={this.getBoards} className="ml-3" size="mini" secondary>
+        <Button onClick={this.getBoards} className="mt-3" size="mini" secondary>
           <span>Get boards</span>
         </Button>
         {
