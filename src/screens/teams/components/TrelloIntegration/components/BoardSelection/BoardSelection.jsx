@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react';
 
 import BoardItem from './components/BoardItem';
+import './styles.scss';
 
 class BoardSelection extends Component {
   state = {
@@ -42,12 +43,12 @@ class BoardSelection extends Component {
         />
         {
           boardLists && (
-            <div>
+            <div className="board-list-container">
               <div className="mt-2">
                 <i className="fas fa-exclamation-circle" />&nbsp;
                 The list name must match the team member initials!
               </div>
-              <div className="mt-2">Board lists names:</div>
+              <h3 className="mt-3">Board lists names:</h3>
               <ul>
                 {
                   boardLists.map(board => <BoardItem {...this.props} key={board.id} item={board} />)

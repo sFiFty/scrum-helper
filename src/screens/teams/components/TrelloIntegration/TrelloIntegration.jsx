@@ -4,8 +4,6 @@ import { Button } from 'semantic-ui-react';
 import { NotificationManager } from 'react-notifications';
 
 import BoardSelection from './components/BoardSelection';
-import './styles.scss';
-import { callbackify } from 'util';
 
 const propTypes = {
   firebase: PropTypes.shape({
