@@ -5,6 +5,12 @@ import { Dropdown } from 'semantic-ui-react';
 import BoardItem from './components/BoardItem';
 import './styles.scss';
 
+const propTypes = {
+  boards: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  })).isRequired,
+};
+
 class BoardSelection extends Component {
   state = {
     selectedBoard: null,
@@ -63,10 +69,6 @@ class BoardSelection extends Component {
   }
 }
 
-BoardSelection.propTypes = {
-  boards: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  })).isRequired,
-};
+BoardSelection.propTypes = propTypes;
 
 export default BoardSelection;

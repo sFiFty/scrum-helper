@@ -55,8 +55,7 @@ class TrelloIntegration extends Component {
           <span>Get boards</span>
         </Button>
         {
-          boards &&
-          <BoardSelection boards={boards} {...this.props} />
+          boards && <BoardSelection boards={boards} {...this.props} />
         }
       </div>
     );
