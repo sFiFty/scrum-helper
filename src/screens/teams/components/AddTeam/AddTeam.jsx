@@ -39,10 +39,15 @@ export default class AddTeam extends React.Component {
     this.setState({ members });
   }
 
+  onSetName = event => this.setState({ name: event.target.value });
+
   onSetTrelloCommitments = (commitments, selectedMember) => {
     const { members } = this.state;
     members[members.indexOf(selectedMember)].commitments = commitments;
-    console.log(members);
+    NotificationManager.success(
+      `Commitments for ${selectedMember.name} was successfully synchronized`,
+      'Confirmation',
+    );
   }
 
   onAddTeam = () => {
@@ -92,11 +97,11 @@ export default class AddTeam extends React.Component {
         <Form className="add" id="add-team">
           {
             errorMessage
-              ? <Message color="red">0{errorMessage}</Message>
+              ? <Message color="red">{errorMessage}</Message>
               : ''
           }
           <Form.Field className="name">
-            <Input onChange={this.setName} size="massive" placeholder="Type team name here..." />
+            <Input onChange={this.onSetName} size="massive" placeholder="Type team name here..." />
           </Form.Field>
           <Form.Field className="form-field">
             <label className="label font-m">Pick your team color</label>
