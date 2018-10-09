@@ -21,6 +21,7 @@
                 "specialLink": [ "to" ] 
             } 
         ],
+        "jsx-a11y/label-has-for": "off",
         "global-require": "off",
         "react/no-did-mount-set-state": "off",
         "array-callback-return": "off",
