@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Icon } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 
 export default class BoardItem extends Component  {
   static propTypes = {
@@ -18,8 +18,9 @@ export default class BoardItem extends Component  {
   }
 
   fetchCommitments = (item, member) => {
+    const { onSetTrelloCommitments } = this.props;
     window.Trello.rest('get', `lists/${item.id}/cards`, cards => (
-      this.props.onSetTrelloCommitments(cards, member)
+      onSetTrelloCommitments(cards, member)
     ));
   }
 
@@ -30,11 +31,12 @@ export default class BoardItem extends Component  {
       <li className="board-item mt-3">
         {item.name}
         {
-          member &&
-          <Button size="mini" onClick={() => this.fetchCommitments(item, member)}>
-            <i className="fas fa-sync"></i>&nbsp;
-            Sync commitments
-          </Button>
+          member && (
+            <Button size="mini" onClick={() => this.fetchCommitments(item, member)}>
+              <i className="fas fa-sync" />&nbsp;
+              Sync commitments
+            </Button>
+          )
         }
       </li>
     );

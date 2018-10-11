@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Input, Form, List, Icon, Image,
+  Container, Input, Form,
 } from 'semantic-ui-react';
 import { CirclePicker } from 'react-color';
 
@@ -21,16 +21,17 @@ class TeamProfile extends Component {
     memberAvatar: null,
     memberName: null,
   }
-  onChange = () => {};
+
+  onPickColor = color => this.setState({ color: color.hex });
+  onSetName = event => this.setState({ name: event.target.value });
+
+  onAddMember = (member) => console.log(member)
+  onRemoveMember = (member) => console.log(member)
 
   render() {
     const { profileObj } = this.props;
     const team = profileObj;
-    const members = Object.keys(team.members, (memberId => (
-      {
-        
-      }
-    )));
+    const members = Object.values(team.members);
     const { isPopupOpen, memberAvatar, memberName } = this.state;
     return (
       <Container>
@@ -45,12 +46,13 @@ class TeamProfile extends Component {
         </Form>
         <Form.Field className="form-field team-members">
           <label htmlFor="team-members" className="label">Team members</label>
-          
           <TeamMembers
             members={members}
             memberAvatar={memberAvatar}
             memberName={memberName}
             isPopupOpen={isPopupOpen}
+            onAddMember={this.onAddMember}
+            onRemoveMember={this.onRemoveMember}
           />
         </Form.Field>
       </Container>
