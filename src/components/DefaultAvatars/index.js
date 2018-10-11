@@ -1,3 +1,3 @@
-import DefaultAvatars from './DefaultAvatars';
+import DefaultAvatars from './DefaultAvatars.jsx';
 
 export default DefaultAvatars;
