@@ -31,7 +31,7 @@ class TeamProfile extends Component {
   render() {
     const { profileObj } = this.props;
     const team = profileObj;
-    const members = Object.values(team.members);
+    const members = team.members ? Object.values(team.members) : [];
     const { isPopupOpen, memberAvatar, memberName } = this.state;
     return (
       <Container>

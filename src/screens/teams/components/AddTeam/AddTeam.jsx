@@ -62,7 +62,6 @@ export default class AddTeam extends React.Component {
       name,
       color,
       owner,
-      members,
     }).then((team) => {
       const membersToSave = {};
       members.map((member) => {
