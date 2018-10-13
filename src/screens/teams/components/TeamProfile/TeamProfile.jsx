@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Input, Form,
+  Container, Input, Form, Button,
 } from 'semantic-ui-react';
 import { CirclePicker } from 'react-color';
 
@@ -35,7 +35,7 @@ class TeamProfile extends Component {
     const { isPopupOpen, memberAvatar, memberName } = this.state;
     return (
       <Container>
-        <Form className="add" id="add-team">
+        <Form className="profile" id="add-team">
           <Form.Field className="name">
             <Input value={team.name} onChange={this.setName} size="massive" placeholder="Type team name here..." />
           </Form.Field>
@@ -43,18 +43,21 @@ class TeamProfile extends Component {
             <label className="label font-m">Pick your team color</label>
             <CirclePicker name="color-picker" color={team.color} onChange={this.onPickColor} width="100%" circleSize={38} />
           </Form.Field>
+          <Form.Field className="form-field team-members">
+            <label htmlFor="team-members" className="label">Team members</label>
+            <TeamMembers
+              members={members}
+              memberAvatar={memberAvatar}
+              memberName={memberName}
+              isPopupOpen={isPopupOpen}
+              onAddMember={this.onAddMember}
+              onRemoveMember={this.onRemoveMember}
+            />
+          </Form.Field>
+          <Button onClick={this.onAddTeam} floated="right" size="medium" type="submit" secondary>
+            Update team
+          </Button>
         </Form>
-        <Form.Field className="form-field team-members">
-          <label htmlFor="team-members" className="label">Team members</label>
-          <TeamMembers
-            members={members}
-            memberAvatar={memberAvatar}
-            memberName={memberName}
-            isPopupOpen={isPopupOpen}
-            onAddMember={this.onAddMember}
-            onRemoveMember={this.onRemoveMember}
-          />
-        </Form.Field>
       </Container>
     );
   }

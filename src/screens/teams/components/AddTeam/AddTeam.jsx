@@ -93,7 +93,7 @@ export default class AddTeam extends React.Component {
     return (
       <Container>
         <h2 className="form-title">Add New Team</h2>
-        <Form className="add" id="add-team">
+        <Form className="profile" id="add-team">
           {
             errorMessage
               ? <Message color="red">{errorMessage}</Message>
