@@ -1,3 +1,3 @@
-import MembersInTheList from './MembersInTheList';
+import MembersInTheList from './MembersInTheList.jsx';
 
 export default MembersInTheList;

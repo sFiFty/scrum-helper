@@ -11,6 +11,7 @@ const propTypes = {
   })).isRequired,
   onRemoveMember: PropTypes.func.isRequired,
 };
+
 class TeamMembersList extends PureComponent {
   render() {
     const { members, onRemoveMember } = this.props;

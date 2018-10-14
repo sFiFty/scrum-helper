@@ -62,12 +62,8 @@ export default class AddTeam extends React.Component {
       name,
       color,
       owner,
-    }).then((team) => {
-      const membersToSave = {};
-      members.map((member) => {
-        membersToSave[firebase.push().key] = member;
-      });
-      firebase.push(`teams/${team.key}/members`, membersToSave);
+      members,
+    }).then(() => {
       NotificationManager.success(
         `Team ${name} successfully created`,
         'Confirmation',
