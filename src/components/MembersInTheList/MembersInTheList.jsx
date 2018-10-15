@@ -5,14 +5,25 @@ import {
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  members: PropTypes.object,
+  members: PropTypes.shape({
+    [PropTypes.string]: PropTypes.shape({
+      avatar: PropTypes.string,
+      initials: PropTypes.string,
+      name: PropTypes.string,
+    }),
+  }).isRequired,
   deleteMember: PropTypes.func.isRequired,
-  parent: PropTypes.string,
+  parent: PropTypes.string.isRequired,
+};
+
+const defaultProps = {
+  members: null,
 };
 
 class MemberListInTeam extends React.Component {
   render() {
     const { members, deleteMember, parent } = this.props;
+    console.log(members)
     return (
       <div className="member-list">
         {
@@ -54,5 +65,6 @@ class MemberListInTeam extends React.Component {
 }
 
 MemberListInTeam.propTypes = propTypes;
+MemberListInTeam.defaultProps = defaultProps;
 
 export default MemberListInTeam;
