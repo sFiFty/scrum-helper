@@ -41,7 +41,7 @@ export default class DefaultAvatars extends React.Component {
       return {
         ...avatar,
         selected: selectedIndex === index,
-      }
+      };
     });
 
     onChoose(selectedAvatar);

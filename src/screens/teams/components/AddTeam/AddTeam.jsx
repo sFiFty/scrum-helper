@@ -63,12 +63,7 @@ export default class AddTeam extends React.Component {
       color,
       owner,
       members,
-    }).then((team) => {
-      const membersToSave = {};
-      members.map((member) => {
-        membersToSave[firebase.push().key] = member;
-      });
-      firebase.push(`teams/${team.key}/members`, membersToSave);
+    }).then(() => {
       NotificationManager.success(
         `Team ${name} successfully created`,
         'Confirmation',
@@ -94,7 +89,7 @@ export default class AddTeam extends React.Component {
     return (
       <Container>
         <h2 className="form-title">Add New Team</h2>
-        <Form className="add" id="add-team">
+        <Form className="profile" id="add-team">
           {
             errorMessage
               ? <Message color="red">{errorMessage}</Message>
