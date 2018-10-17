@@ -18,14 +18,12 @@ const propTypes = {
 class TeamProfile extends Component {
   state = {
     team: null,
-    isPopupOpen: false,
-    memberAvatar: null,
-    memberName: null,
+    members: [],
   }
 
   componentWillMount() {
     const { profileObj } = this.props;
-    const members = profileObj.members ? Object.values(profileObj.members) : [];
+    const members = Object.values(profileObj.members);
     this.setState({ team: profileObj, members });
   }
 
@@ -45,11 +43,14 @@ class TeamProfile extends Component {
     this.setState({ members });
   }
 
-  onRemoveMember = (member) => console.log(member)
+  onRemoveMember = (index) => {
+    const { members } = this.state;
+    members.splice(index, 1);
+    this.setState({ members });
+  }
 
   render() {
     const { team, members } = this.state;
-    const { isPopupOpen, memberAvatar, memberName } = this.state;
     return (
       <Container>
         <Form className="profile" id="add-team">
@@ -74,10 +75,8 @@ class TeamProfile extends Component {
           <Form.Field className="form-field team-members">
             <label htmlFor="team-members" className="label">Team members</label>
             <TeamMembers
+              key={members.length}
               members={members}
-              memberAvatar={memberAvatar}
-              memberName={memberName}
-              isPopupOpen={isPopupOpen}
               onAddMember={this.onAddMember}
               onRemoveMember={this.onRemoveMember}
             />
