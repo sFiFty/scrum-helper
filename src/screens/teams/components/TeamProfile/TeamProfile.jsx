@@ -4,14 +4,22 @@ import {
   Container, Input, Form, Button,
 } from 'semantic-ui-react';
 import { CirclePicker } from 'react-color';
+import { NotificationManager } from 'react-notifications';
 
 import TeamMembers from '../TeamMembers';
 
 const propTypes = {
-  owner: PropTypes.string.isRequired,
   profileObj: PropTypes.shape({
     name: PropTypes.string,
     color: PropTypes.string,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      teamid: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  firebase: PropTypes.shape({
+    update: PropTypes.func.isRequired,
   }).isRequired,
 };
 
@@ -19,6 +27,7 @@ class TeamProfile extends Component {
   state = {
     team: null,
     members: [],
+    errorMessage: null,
   }
 
   componentWillMount() {
@@ -29,7 +38,7 @@ class TeamProfile extends Component {
 
   onPickColor = (color) => {
     const { team } = this.state;
-    this.setState({ team: { ...team, color } });
+    this.setState({ team: { ...team, color: color.hex } });
   };
 
   onSetName = (event) => {
@@ -49,11 +58,32 @@ class TeamProfile extends Component {
     this.setState({ members });
   }
 
+  onUpdateTeam = () => {
+    const { members, team } = this.state;
+    const { match, firebase } = this.props;
+    if (!team.name || team.name.length < 1) {
+      this.setState({ errorMessage: 'Please provide team name' });
+      return;
+    }
+    this.setState({ errorMessage: null });
+    firebase.update(`teams/${match.params.teamid}`, { ...team, members }).then(() => {
+      NotificationManager.success(
+        `Team ${team.name} was successfully updated`,
+        'Confirmation',
+      );
+    });
+  }
+
   render() {
-    const { team, members } = this.state;
+    const { team, members, errorMessage } = this.state;
     return (
       <Container>
-        <Form className="profile" id="add-team">
+        <Form className="profile" id="team-profile">
+          {
+            errorMessage
+              ? <Message color="red">{errorMessage}</Message>
+              : ''
+          }
           <Form.Field className="name">
             <Input
               value={team.name}
@@ -81,7 +111,7 @@ class TeamProfile extends Component {
               onRemoveMember={this.onRemoveMember}
             />
           </Form.Field>
-          <Button onClick={this.onAddTeam} floated="right" size="medium" type="submit" secondary>
+          <Button onClick={this.onUpdateTeam} floated="right" size="medium" type="submit" secondary>
             Update team
           </Button>
         </Form>
