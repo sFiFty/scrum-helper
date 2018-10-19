@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Input, Form, Button,
+  Container, Input, Form, Button, Checkbox, Divider, Message,
 } from 'semantic-ui-react';
 import { CirclePicker } from 'react-color';
 import { NotificationManager } from 'react-notifications';
 
 import TeamMembers from '../TeamMembers';
+import TrelloIntegration from '../TrelloIntegration';
 
 const propTypes = {
   profileObj: PropTypes.shape({
@@ -28,6 +29,7 @@ class TeamProfile extends Component {
     team: null,
     members: [],
     errorMessage: null,
+    withTrelloIntegration: false,
   }
 
   componentWillMount() {
@@ -74,8 +76,23 @@ class TeamProfile extends Component {
     });
   }
 
+  onTurnOnOffTrelloIntegration = (event, element) => (
+    this.setState({ withTrelloIntegration: element.checked })
+  )
+
+  onSetTrelloCommitments = (commitments, selectedMember) => {
+    const { members } = this.state;
+    members[members.indexOf(selectedMember)].commitments = commitments;
+    NotificationManager.success(
+      `Commitments for ${selectedMember.name} was successfully synchronized`,
+      'Confirmation',
+    );
+  }  
+
   render() {
-    const { team, members, errorMessage } = this.state;
+    const {
+      team, members, errorMessage, withTrelloIntegration,
+    } = this.state;
     return (
       <Container>
         <Form className="profile" id="team-profile">
@@ -111,6 +128,19 @@ class TeamProfile extends Component {
               onRemoveMember={this.onRemoveMember}
             />
           </Form.Field>
+          <Checkbox toggle onChange={this.onTurnOnOffTrelloIntegration} label="Add trello integration" />
+          {
+            withTrelloIntegration && (
+              <React.Fragment>
+                <Divider horizontal>Trello integration</Divider>
+                <TrelloIntegration
+                  {...this.props}
+                  members={members}
+                  onSetTrelloCommitments={this.onSetTrelloCommitments}
+                />
+              </React.Fragment>
+            )
+          }
           <Button onClick={this.onUpdateTeam} floated="right" size="medium" type="submit" secondary>
             Update team
           </Button>

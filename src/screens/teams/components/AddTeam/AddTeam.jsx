@@ -44,6 +44,7 @@ export default class AddTeam extends React.Component {
   onSetTrelloCommitments = (commitments, selectedMember) => {
     const { members } = this.state;
     members[members.indexOf(selectedMember)].commitments = commitments;
+    this.setState({ members });
     NotificationManager.success(
       `Commitments for ${selectedMember.name} was successfully synchronized`,
       'Confirmation',
