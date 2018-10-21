@@ -57,7 +57,6 @@ class Daily extends Component {
 
   render() {
     const { daily } = this.props
-    const { trelloColumns, trelloLabels } = this.state;
     let currentSlide = <SMLoader />
     if (daily) {
       switch(daily.step) {
@@ -77,9 +76,8 @@ class Daily extends Component {
           currentSlide =  <IntroSlide {...this.props} />
       }
     }
-
     return (
-      trelloColumns && trelloLabels ?
+      daily ?
       <div tabIndex="0" onClick={this.nextStep} className="daily-layout">
         {currentSlide}
       </div> : 

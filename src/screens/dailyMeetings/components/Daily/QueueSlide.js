@@ -19,21 +19,6 @@ export default class QueueSlide extends Component {
     this.setState({ members: ExtendMembersList(daily.members, daily.team.members) });
   }
 
-  componentDidMount() {
-    const { trelloKey, trelloToken } = this.props;
-    this.generateTasks(trelloKey, trelloToken).then((tasks) => {
-      this.getCardsForAllTeam(trelloKey, trelloToken).then(response => response.json()).then((list) => {
-        const teamCard = list[Math.floor(Math.random() * list.length)].name;
-        this.setState({ tasks, teamCard });
-      });
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { daily } = nextProps;
-    this.setState({ members: ExtendMembersList(daily.members, daily.team.members) });
-  }
-
   markAsDone = (card) => {
     const { trelloLabels, trelloKey, trelloToken } = this.props;
     const cards = this.markCardAsFinished(card);
@@ -88,48 +73,13 @@ export default class QueueSlide extends Component {
     });
   }
 
-  setRandomCard = (cards, members, tasks, initials, resolve) => {
-    const notDoneCards = cards.filter((card) => {
-      let status = true;
-      if (card.labels) {
-        card.labels.map((label) => {
-          if (label.name === doneTaskStatus || label.name === ongoingTaskStatus) status = false;
-        });
-      }
-      return status;
-    });
-    tasks[initials] = notDoneCards[Math.floor(Math.random() * notDoneCards.length)];
-    if (Object.keys(tasks).length === Object.keys(members).length) {
-      resolve(tasks);
-    }
-  }
-
-  getCardsByColumnId = (initials, key, token) => {
-    const { trelloColumns } = this.props;
-    const column = trelloColumns.find(column => column.name === initials);
-    const url = `https://trello.com/1/lists/${column.id}/cards?key=${key}&token=${token}`;
-    return fetch(url);
-  }
-
-  getCardsForAllTeam = (key, token) => {
-    const { trelloColumns } = this.props;
-    const AllColumn = trelloColumns.find(column => column.name === 'ALL');
-    const url = `https://trello.com/1/lists/${AllColumn.id}/cards?key=${key}&token=${token}`;
-    return fetch(url);
-  }
-
-
   render() {
     const { members, tasks, teamCard } = this.state;
     const { daily } = this.props;
     return (
       <div key={daily.timestamp} style={{ backgroundColor: daily.team.color }} className="page-overlay">
         <div className="daily-queue text-center">
-          <div>
-            {' '}
-Let's share our updates
-            {' '}
-          </div>
+          <div>Let's share our updates</div>
           <List className="queue-members">
             {
               _.keys(members).map((key, index) => {
@@ -147,10 +97,7 @@ Let's share our updates
                       card && !card.finished
                       && (
                       <div className="promise">
-                        <strong>
-Commitment:
-                          {' '}
-                        </strong>
+                        <strong>Commitment:</strong>
                         {card.name}
                         <div className="trello-actions-container">
                           <Button basic onClick={() => this.markAsDone(card)} size="mini" color="green">
