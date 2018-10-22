@@ -9,6 +9,7 @@ const propTypes = {
   boards: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
   })).isRequired,
+  onSetBoard: PropTypes.func.isRequired,
 };
 
 class BoardSelection extends Component {
@@ -18,9 +19,10 @@ class BoardSelection extends Component {
   }
 
   onChooseBoard = (event, data) => {
-    const { boards } = this.props;
+    const { boards, onSetBoard } = this.props;
     const selectedBoard = boards.find(b => b.id === data.value);
     window.Trello.rest('get', `boards/${data.value}/lists`, (boardLists) => {
+      onSetBoard(selectedBoard);
       this.setState({ selectedBoard, boardLists });
     });
   }

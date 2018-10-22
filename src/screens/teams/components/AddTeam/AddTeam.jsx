@@ -29,6 +29,7 @@ export default class AddTeam extends React.Component {
     errorMessage: null,
     members: [],
     withTrelloIntegration: false,
+    boardId: null,
   };
 
   onPickColor = color => this.setState({ color: color.hex });
@@ -38,6 +39,8 @@ export default class AddTeam extends React.Component {
     members.push(member);
     this.setState({ members });
   }
+
+  onSetBoard = boardId => this.setState({ boardId });
 
   onSetName = event => this.setState({ name: event.target.value });
 
@@ -120,6 +123,7 @@ export default class AddTeam extends React.Component {
                 <TrelloIntegration
                   {...this.props}
                   members={members}
+                  onSetBoard={this.onSetBoard}
                   onSetTrelloCommitments={this.onSetTrelloCommitments}
                 />
               </React.Fragment>

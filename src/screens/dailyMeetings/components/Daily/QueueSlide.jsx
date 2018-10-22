@@ -4,14 +4,10 @@ import ExtendMembersList from 'Helpers/ExtendMembersList';
 import PropTypes from 'prop-types';
 import { NotificationManager } from 'react-notifications';
 
-const doneTaskStatus = 'DONE';
-const ongoingTaskStatus = 'Ongoing';
-
 export default class QueueSlide extends Component {
   state = {
     members: null,
     teamCard: null,
-    tasks: {},
   }
 
   componentWillMount() {
@@ -42,6 +38,9 @@ export default class QueueSlide extends Component {
         );
       });
     });
+    window.Trello.rest('put', `cards/${card.id}?idLabels=${label.id}`, cards => (
+      onSetTrelloCommitments(cards, member)
+    ));
   }
 
   markAsOngoing = (card) => {
@@ -55,30 +54,6 @@ export default class QueueSlide extends Component {
           `Commitment ${card.name} was successfully saved as ongoing!`,
           'Keep doing it!',
         );
-      });
-    });
-  }
-
-  markCardAsFinished = (card) => {
-    const { tasks } = this.state;
-    Object.keys(tasks).map((initials) => {
-      if (!tasks[initials]) return;
-      if (tasks[initials].id === card.id) {
-        tasks[initials].finished = true;
-      }
-    });
-    return tasks;
-  }
-
-  generateTasks = (key, token) => {
-    const tasks = {};
-    const { members } = this.state;
-    return new Promise((resolve, reject) => {
-      Object.keys(members).map((memberKey, index) => {
-        const initials = members[memberKey].initials;
-        this.getCardsByColumnId(initials, key, token).then(response => response.json()).then((data) => {
-          this.setRandomCard(data, members, tasks, initials, resolve);
-        });
       });
     });
   }
