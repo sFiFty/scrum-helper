@@ -17,9 +17,15 @@ export default class QueueSlide extends Component {
   componentWillMount() {
     const { daily } = this.props;
     const members = ExtendMembersList(daily.members, daily.team.members);
-    Object.keys(members).map(memberKey => {
-      console.log(members[memberKey].commitments)
-    })
+    Object.keys(members).map((memberKey) => {
+      const member = members[memberKey];
+      let { commitments } = member;
+      if (commitments) {
+        commitments = commitments.filter(c => !c.labels);
+        member.commitments = commitments;
+        member.commitment = commitments[Math.floor(Math.random() * commitments.length)];
+      }
+    });
     this.setState({ members });
   }
 
@@ -78,7 +84,7 @@ export default class QueueSlide extends Component {
   }
 
   render() {
-    const { members, tasks, teamCard } = this.state;
+    const { members, teamCard } = this.state;
     const { daily } = this.props;
     return (
       <div key={daily.timestamp} style={{ backgroundColor: daily.team.color }} className="page-overlay">
@@ -86,9 +92,8 @@ export default class QueueSlide extends Component {
           <div>Let's share our updates</div>
           <List className="queue-members">
             {
-              _.keys(members).map((key, index) => {
+              Object.keys(members).map((key, index) => {
                 const member = members[key];
-                const card = tasks[member.initials];
                 return (
                   <List.Item key={index}>
                     <Image avatar src={require(`Images/${member.avatar}`)} />
@@ -98,20 +103,19 @@ export default class QueueSlide extends Component {
                       </List.Header>
                     </List.Content>
                     {
-                      card && !card.finished
-                      && (
-                      <div className="promise">
-                        <strong>Commitment:</strong>
-                        {card.name}
-                        <div className="trello-actions-container">
-                          <Button basic onClick={() => this.markAsDone(card)} size="mini" color="green">
-                            Done
-                          </Button>
-                          <Button basic onClick={() => this.markAsOngoing(card)} size="mini" color="teal">
-                            Ongoing
-                          </Button>
+                      member.commitment && (
+                        <div className="promise">
+                          <strong>Commitment: </strong>
+                          {member.commitment.name}
+                          <div className="trello-actions-container">
+                            <Button basic onClick={() => this.markAsDone(member.commitment.id)} size="mini" color="green">
+                              Done
+                            </Button>
+                            <Button basic onClick={() => this.markAsOngoing(member.commitment.id)} size="mini" color="teal">
+                              Ongoing
+                            </Button>
+                          </div>
                         </div>
-                      </div>
                       )
                     }
                   </List.Item>
