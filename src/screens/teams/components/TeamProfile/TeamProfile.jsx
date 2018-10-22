@@ -87,7 +87,7 @@ class TeamProfile extends Component {
       `Commitments for ${selectedMember.name} was successfully synchronized`,
       'Confirmation',
     );
-  }  
+  }
 
   render() {
     const {

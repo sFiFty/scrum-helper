@@ -1,12 +1,12 @@
-import React, {Component} from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import SMLoader from 'Components/SMLoader'
-import IntroSlide from './IntroSlide'
-import QueueSlide from './QueueSlide'
-import DiscussionSlide from './DiscussionSlide'
-import FinalSlide from './FinalSlide'
-import './styles.scss'
+import SMLoader from 'Components/SMLoader';
+import IntroSlide from './IntroSlide';
+import QueueSlide from './QueueSlide.jsx';
+import DiscussionSlide from './DiscussionSlide';
+import FinalSlide from './FinalSlide';
+import './styles.scss';
 
 const propTypes = {
   dailyId: PropTypes.string.isRequired,
@@ -15,26 +15,6 @@ const propTypes = {
 }
 
 class Daily extends Component {
-  nextStep = e => {
-    if (e.target.nodeName === 'BUTTON') return;
-    const {daily, firebase, dailyId, history} = this.props
-    if (!daily) return
-    if (daily.step === 3) {
-      firebase.update(`dailyMeetings/${dailyId}`, { isDeleted: true }).then(() => {
-        history.push('/meetings')
-      })
-      return
-    }
-    firebase.update(`dailyMeetings/${dailyId}`, { step: daily.step + 1 })
-  }
-
-  prevStep = () => {
-    const {daily, firebase, dailyId} = this.props
-    if (!daily) return
-    if (daily.step === 0) return
-    firebase.update(`dailyMeetings/${dailyId}`, { step: daily.step - 1 })
-  }
-
   componentWillMount() {
     document.addEventListener("keydown", this.keyPress.bind(this));
   }
@@ -47,12 +27,34 @@ class Daily extends Component {
     if (!nextProps.daily) this.props.history.push('/meetings')
   }
 
-  keyPress = e => {
+  keyPress = (e) => {
     if (e.keyCode === 37) {
-      this.prevStep()
+      this.prevStep();
     } else if (e.keyCode === 39) {
-      this.nextStep()
+      this.nextStep();
     }
+  }
+
+  nextStep = (e) => {
+    if (e.target.nodeName === 'BUTTON') return;
+    const {
+      daily, firebase, dailyId, history,
+    } = this.props;
+    if (!daily) return;
+    if (daily.step === 3) {
+      firebase.update(`dailyMeetings/${dailyId}`, { isDeleted: true }).then(() => {
+        history.push('/meetings');
+      });
+      return;
+    }
+    firebase.update(`dailyMeetings/${dailyId}`, { step: daily.step + 1 })
+  }
+
+  prevStep = () => {
+    const {daily, firebase, dailyId} = this.props
+    if (!daily) return
+    if (daily.step === 0) return
+    firebase.update(`dailyMeetings/${dailyId}`, { step: daily.step - 1 })
   }
 
   render() {

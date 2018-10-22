@@ -16,7 +16,11 @@ export default class QueueSlide extends Component {
 
   componentWillMount() {
     const { daily } = this.props;
-    this.setState({ members: ExtendMembersList(daily.members, daily.team.members) });
+    const members = ExtendMembersList(daily.members, daily.team.members);
+    Object.keys(members).map(memberKey => {
+      console.log(members[memberKey].commitments)
+    })
+    this.setState({ members });
   }
 
   markAsDone = (card) => {
@@ -101,10 +105,10 @@ export default class QueueSlide extends Component {
                         {card.name}
                         <div className="trello-actions-container">
                           <Button basic onClick={() => this.markAsDone(card)} size="mini" color="green">
-Done
+                            Done
                           </Button>
                           <Button basic onClick={() => this.markAsOngoing(card)} size="mini" color="teal">
-Ongoing
+                            Ongoing
                           </Button>
                         </div>
                       </div>
