@@ -29,7 +29,7 @@ export default class AddTeam extends React.Component {
     errorMessage: null,
     members: [],
     withTrelloIntegration: false,
-    boardId: null,
+    board: null,
   };
 
   onPickColor = color => this.setState({ color: color.hex });
@@ -40,7 +40,7 @@ export default class AddTeam extends React.Component {
     this.setState({ members });
   }
 
-  onSetBoard = boardId => this.setState({ boardId });
+  onSetBoard = board => this.setState({ board });
 
   onSetName = event => this.setState({ name: event.target.value });
 
@@ -55,7 +55,9 @@ export default class AddTeam extends React.Component {
   }
 
   onAddTeam = () => {
-    const { name, color, members } = this.state;
+    const {
+      name, color, members, board,
+    } = this.state;
     const { firebase, history, owner } = this.props;
     if (!name || name.length < 1) {
       this.setState({ errorMessage: 'Please provide team name' });
@@ -67,6 +69,7 @@ export default class AddTeam extends React.Component {
       color,
       owner,
       members,
+      board,
     }).then(() => {
       NotificationManager.success(
         `Team ${name} successfully created`,

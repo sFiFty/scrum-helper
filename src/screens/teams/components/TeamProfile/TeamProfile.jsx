@@ -48,6 +48,11 @@ class TeamProfile extends Component {
     this.setState({ team: { ...team, name: event.target.value } });
   };
 
+  onSetBoard = (board) => {
+    const { team } = this.state;
+    this.setState({ team: { ...team, board } });
+  }
+
   onAddMember = (member) => {
     const { members } = this.state;
     members.push(member);
@@ -135,6 +140,7 @@ class TeamProfile extends Component {
                 <Divider horizontal>Trello integration</Divider>
                 <TrelloIntegration
                   {...this.props}
+                  onSetBoard={this.onSetBoard}
                   members={members}
                   onSetTrelloCommitments={this.onSetTrelloCommitments}
                 />
