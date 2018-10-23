@@ -29,13 +29,13 @@ class TeamProfile extends Component {
     team: null,
     members: [],
     errorMessage: null,
-    withTrelloIntegration: false,
+    withTrelloIntegration: this.props.profileObj.board,
   }
 
   componentWillMount() {
     const { profileObj } = this.props;
     const members = Object.values(profileObj.members);
-    this.setState({ team: profileObj, members });
+    this.setState({ team: profileObj, members, withTrelloIntegration: !!profileObj.board });
   }
 
   onPickColor = (color) => {
@@ -133,13 +133,19 @@ class TeamProfile extends Component {
               onRemoveMember={this.onRemoveMember}
             />
           </Form.Field>
-          <Checkbox toggle onChange={this.onTurnOnOffTrelloIntegration} label="Add trello integration" />
+          <Checkbox
+            toggle
+            checked={withTrelloIntegration}
+            onChange={this.onTurnOnOffTrelloIntegration}
+            label="Add trello integration"
+          />
           {
             withTrelloIntegration && (
               <React.Fragment>
                 <Divider horizontal>Trello integration</Divider>
                 <TrelloIntegration
                   {...this.props}
+                  team={team}
                   onSetBoard={this.onSetBoard}
                   members={members}
                   onSetTrelloCommitments={this.onSetTrelloCommitments}
