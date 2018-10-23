@@ -29,6 +29,7 @@ export default class AddTeam extends React.Component {
     errorMessage: null,
     members: [],
     withTrelloIntegration: false,
+    board: null,
   };
 
   onPickColor = color => this.setState({ color: color.hex });
@@ -39,11 +40,14 @@ export default class AddTeam extends React.Component {
     this.setState({ members });
   }
 
+  onSetBoard = board => this.setState({ board });
+
   onSetName = event => this.setState({ name: event.target.value });
 
   onSetTrelloCommitments = (commitments, selectedMember) => {
     const { members } = this.state;
     members[members.indexOf(selectedMember)].commitments = commitments;
+    this.setState({ members });
     NotificationManager.success(
       `Commitments for ${selectedMember.name} was successfully synchronized`,
       'Confirmation',
@@ -51,7 +55,9 @@ export default class AddTeam extends React.Component {
   }
 
   onAddTeam = () => {
-    const { name, color, members } = this.state;
+    const {
+      name, color, members, board,
+    } = this.state;
     const { firebase, history, owner } = this.props;
     if (!name || name.length < 1) {
       this.setState({ errorMessage: 'Please provide team name' });
@@ -63,6 +69,7 @@ export default class AddTeam extends React.Component {
       color,
       owner,
       members,
+      board,
     }).then(() => {
       NotificationManager.success(
         `Team ${name} successfully created`,
@@ -119,6 +126,7 @@ export default class AddTeam extends React.Component {
                 <TrelloIntegration
                   {...this.props}
                   members={members}
+                  onSetBoard={this.onSetBoard}
                   onSetTrelloCommitments={this.onSetTrelloCommitments}
                 />
               </React.Fragment>

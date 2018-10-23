@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firebaseConnect, populate } from 'react-redux-firebase';
 
-import Daily from './Daily';
+import Daily from './Daily.jsx';
 
 const populates = [
   { child: 'team', root: 'teams', keyProp: 'key' },

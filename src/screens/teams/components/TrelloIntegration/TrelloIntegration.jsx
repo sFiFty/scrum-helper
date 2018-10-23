@@ -9,6 +9,12 @@ const propTypes = {
   firebase: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  team: PropTypes.shape({
+    board: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
   owner: PropTypes.string.isRequired,
 };
 
@@ -49,11 +55,23 @@ class TrelloIntegration extends Component {
 
   render() {
     const { boards } = this.state;
+    const { team } = this.props;
     return (
       <div className="trello-integration-container">
-        <Button onClick={this.getBoards} className="mt-3" size="mini" secondary>
-          <span>Get boards</span>
-        </Button>
+        {
+          team.board ? (
+            <React.Fragment>
+              <div>Selected board: {team.board.name}</div>
+              <Button onClick={this.getBoards} className="mt-3" size="mini" secondary>
+                <span>Change board</span>
+              </Button>
+            </React.Fragment>
+          ) : (
+            <Button onClick={this.getBoards} className="mt-3" size="mini" secondary>
+              <span>Get boards</span>
+            </Button>
+          )
+        }
         {
           boards && <BoardSelection boards={boards} {...this.props} />
         }
