@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Tab, Modal } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import RegistrationForm from './RegistrationForm';
+import RegistrationForm from './RegistrationForm.jsx';
 import LoginForm from './LoginForm.jsx';
 import './styles.scss';
 
