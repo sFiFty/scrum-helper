@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
 
+const allTeamListName = 'ALL';
+
 export default class BoardItem extends Component  {
   static propTypes = {
     item: PropTypes.shape({
@@ -11,6 +13,7 @@ export default class BoardItem extends Component  {
       initials: PropTypes.string,
     })),
     onSetTrelloCommitments: PropTypes.func.isRequired,
+    onSetTrelloTeamCommitments: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -24,9 +27,17 @@ export default class BoardItem extends Component  {
     ));
   }
 
+  fetchTeamCommitments = (item, member) => {
+    const { onSetTrelloTeamCommitments } = this.props;
+    window.Trello.rest('get', `lists/${item.id}/cards`, cards => (
+      onSetTrelloTeamCommitments(cards, member)
+    ));
+  }
+
   render() {
     const { item, members } = this.props;
     const member = members && members.find(m => m.initials === item.name);
+    const allTeamCommitment = item.name === allTeamListName;
     return (
       <li className="board-item mt-3">
         {item.name}
@@ -35,6 +46,14 @@ export default class BoardItem extends Component  {
             <Button size="mini" onClick={() => this.fetchCommitments(item, member)}>
               <i className="fas fa-sync" />&nbsp;
               Sync commitments
+            </Button>
+          )
+        }
+        {
+          allTeamCommitment && (
+            <Button size="mini" onClick={() => this.fetchTeamCommitments(item, member)}>
+              <i className="fas fa-sync" />&nbsp;
+              Sync team commitments
             </Button>
           )
         }

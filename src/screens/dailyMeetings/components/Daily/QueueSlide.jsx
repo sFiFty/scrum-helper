@@ -16,7 +16,6 @@ export default class QueueSlide extends Component {
 
   componentWillMount() {
     const { daily } = this.props;
-    console.log(daily)
     const members = ExtendMembersList(daily.members, daily.team.members);
     Object.keys(members).map((memberKey) => {
       const member = members[memberKey];
@@ -27,7 +26,7 @@ export default class QueueSlide extends Component {
         member.commitment = commitments[Math.floor(Math.random() * commitments.length)];
       }
     });
-    this.setState({ members });
+    this.setState({ members, teamCard: daily.team.teamCommitments[0] });
   }
 
   setMemberCommitmentToFinished = (member) => {
@@ -127,7 +126,7 @@ team commitment
                   {' '}
                 </h3>
                 <div className="text-left promise">
-                  {teamCard}
+                  {teamCard.name}
                 </div>
               </List.Content>
             </List.Item>
