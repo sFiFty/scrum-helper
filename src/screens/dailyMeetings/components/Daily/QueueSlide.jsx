@@ -4,6 +4,9 @@ import ExtendMembersList from 'Helpers/ExtendMembersList';
 import PropTypes from 'prop-types';
 import { NotificationManager } from 'react-notifications';
 
+const doneLabel = 'DONE';
+const ongoingLabel = 'Ongoing';
+
 export default class QueueSlide extends Component {
   state = {
     members: null,
@@ -25,36 +28,39 @@ export default class QueueSlide extends Component {
     this.setState({ members });
   }
 
-  markAsDone = (card) => {
-    const { trelloLabels, trelloKey, trelloToken } = this.props;
-    const cards = this.markCardAsFinished(card);
-    const label = trelloLabels.find(label => label.name === 'DONE');
-    const url = `https://api.trello.com/1/cards/${card.id}?idLabels=${label.id}&key=${trelloKey}&token=${trelloToken}`;
-    fetch(url, { method: 'PUT' }).then(() => {
-      this.setState({ tasks: cards }, () => {
-        NotificationManager.success(
-          `Commitment ${card.name} was successfully DONE!`,
-          'Nice job!',
-        );
-      });
+  setMemberCommitmentToNull = (member) => {
+    const { members } = this.state;
+    Object.keys(members).map((key) => {
+      if (members[key].name === member.name) {
+        members[key].commitment = null;
+      }
     });
-    window.Trello.rest('put', `cards/${card.id}?idLabels=${label.id}`, cards => (
-      onSetTrelloCommitments(cards, member)
-    ));
+    return members;
   }
 
-  markAsOngoing = (card) => {
-    const { trelloLabels, trelloKey, trelloToken } = this.props;
-    const cards = this.markCardAsFinished(card);
-    const label = trelloLabels.find(label => label.name === 'Ongoing');
-    const url = `https://api.trello.com/1/cards/${card.id}?idLabels=${label.id}&key=${trelloKey}&token=${trelloToken}`;
-    fetch(url, { method: 'PUT' }).then(() => {
-      this.setState({ tasks: cards }, () => {
-        NotificationManager.success(
-          `Commitment ${card.name} was successfully saved as ongoing!`,
-          'Keep doing it!',
-        );
-      });
+  markAsDone = (member) => {
+    const { daily } = this.props;
+    const label = daily.team.board.labels.find(l => l.name === doneLabel);
+    window.Trello.rest('put', `cards/${member.commitment.id}?idLabels=${label.id}`, () => {
+      NotificationManager.success(
+        `Commitment ${member.commitment.name} was successfully DONE!`,
+        'Nice job!',
+      );
+      const members = this.setMemberCommitmentToNull(member);
+      this.setState({ members });
+    });
+  }
+
+  markAsOngoing = (member) => {
+    const { daily } = this.props;
+    const label = daily.team.board.labels.find(l => l.name === ongoingLabel);
+    window.Trello.rest('put', `cards/${member.commitment.id}?idLabels=${label.id}`, () => {
+      NotificationManager.success(
+        `Commitment ${member.commitment.name} was successfully saved as ongoing!`,
+        'Keep doing it!',
+      );
+      const members = this.setMemberCommitmentToNull(member);
+      this.setState({ members });
     });
   }
 
@@ -83,10 +89,10 @@ export default class QueueSlide extends Component {
                           <strong>Commitment: </strong>
                           {member.commitment.name}
                           <div className="trello-actions-container">
-                            <Button basic onClick={() => this.markAsDone(member.commitment.id)} size="mini" color="green">
+                            <Button basic onClick={() => this.markAsDone(member)} size="mini" color="green">
                               Done
                             </Button>
-                            <Button basic onClick={() => this.markAsOngoing(member.commitment.id)} size="mini" color="teal">
+                            <Button basic onClick={() => this.markAsOngoing(member)} size="mini" color="teal">
                               Ongoing
                             </Button>
                           </div>
