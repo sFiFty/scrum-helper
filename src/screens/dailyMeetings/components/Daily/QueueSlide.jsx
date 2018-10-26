@@ -6,6 +6,7 @@ import { NotificationManager } from 'react-notifications';
 
 const doneLabel = 'DONE';
 const ongoingLabel = 'Ongoing';
+const cancelLabel = 'CANCEL';
 
 export default class QueueSlide extends Component {
   state = {
@@ -28,40 +29,49 @@ export default class QueueSlide extends Component {
     this.setState({ members });
   }
 
-  setMemberCommitmentToNull = (member) => {
+  setMemberCommitmentToFinished = (member) => {
     const { members } = this.state;
     Object.keys(members).map((key) => {
       if (members[key].name === member.name) {
-        members[key].commitment = null;
+        members[key].commitment.isFinished = true;
       }
     });
     return members;
   }
 
-  markAsDone = (member) => {
-    const { daily } = this.props;
-    const label = daily.team.board.labels.find(l => l.name === doneLabel);
-    window.Trello.rest('put', `cards/${member.commitment.id}?idLabels=${label.id}`, () => {
+  markAsDone = member => (
+    this.markCommitment(member, doneLabel).then(() => {
       NotificationManager.success(
         `Commitment ${member.commitment.name} was successfully DONE!`,
         'Nice job!',
       );
-      const members = this.setMemberCommitmentToNull(member);
-      this.setState({ members });
-    });
-  }
+    })
+  )
 
-  markAsOngoing = (member) => {
-    const { daily } = this.props;
-    const label = daily.team.board.labels.find(l => l.name === ongoingLabel);
-    window.Trello.rest('put', `cards/${member.commitment.id}?idLabels=${label.id}`, () => {
+  markAsOngoing = member => (
+    this.markCommitment(member, ongoingLabel).then(() => {
       NotificationManager.success(
         `Commitment ${member.commitment.name} was successfully saved as ongoing!`,
         'Keep doing it!',
       );
-      const members = this.setMemberCommitmentToNull(member);
-      this.setState({ members });
-    });
+    })
+  )
+
+  markAsCanceled = member => (
+    this.markCommitment(member, cancelLabel).then(() => {
+      NotificationManager.success(
+        `Commitment ${member.commitment.name} was successfully saved as CANCELED!`,
+        'Hope you understand that you do!',
+      );
+    })
+  )
+
+  markCommitment = (member, labelName) => {
+    const { daily } = this.props;
+    const label = daily.team.board.labels.find(l => l.name === labelName);
+    const members = this.setMemberCommitmentToFinished(member);
+    this.setState({ members });
+    return window.Trello.rest('put', `cards/${member.commitment.id}?idLabels=${label.id}`);
   }
 
   render() {
@@ -84,7 +94,7 @@ export default class QueueSlide extends Component {
                       </List.Header>
                     </List.Content>
                     {
-                      member.commitment && (
+                      member.commitment && !member.commitment.isFinished && (
                         <div className="promise">
                           <strong>Commitment: </strong>
                           {member.commitment.name}
@@ -94,6 +104,9 @@ export default class QueueSlide extends Component {
                             </Button>
                             <Button basic onClick={() => this.markAsOngoing(member)} size="mini" color="teal">
                               Ongoing
+                            </Button>
+                            <Button basic onClick={() => this.markAsCanceled(member)} size="mini" color="red">
+                              Cancel
                             </Button>
                           </div>
                         </div>
