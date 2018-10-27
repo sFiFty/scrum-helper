@@ -46,7 +46,7 @@ class AuthModal extends Component {
   }
 
   componentWillMount() {
-    const { auth, redirectTo } = this.props;
+    const { auth, redirectTo, location } = this.props;
     if (auth.isLoaded && !auth.isEmpty && redirectTo) {
       if (redirectTo) redirectTo(location.search);
     }
