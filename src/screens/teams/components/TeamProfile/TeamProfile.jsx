@@ -30,6 +30,7 @@ class TeamProfile extends Component {
     members: [],
     errorMessage: null,
     withTrelloIntegration: this.props.profileObj.board,
+    teamCommitments: null,
   }
 
   componentWillMount() {

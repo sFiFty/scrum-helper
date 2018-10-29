@@ -26,7 +26,7 @@ export default class QueueSlide extends Component {
         member.commitment = commitments[Math.floor(Math.random() * commitments.length)];
       }
     });
-    this.setState({ members, teamCard: daily.team.teamCommitments[0] });
+    this.setState({ members, teamCard: daily.team.teamCommitments ? daily.team.teamCommitments[0] : null });
   }
 
   setMemberCommitmentToFinished = (member) => {
@@ -116,20 +116,18 @@ export default class QueueSlide extends Component {
                 </List.Item>
               ))
             }
-            <List.Item>
-              <List.Content className="team-promise">
-                <h3>
-                  {' '}
-                  {daily.team.name}
-                  {' '}
-team commitment
-                  {' '}
-                </h3>
-                <div className="text-left promise">
-                  {teamCard.name}
-                </div>
-              </List.Content>
-            </List.Item>
+            {
+              teamCard && (
+                <List.Item>
+                  <List.Content className="team-promise">
+                    <h3> {daily.team.name} team commitment</h3>
+                    <div className="text-left promise">
+                      {teamCard.name}
+                    </div>
+                  </List.Content>
+                </List.Item>
+              )
+            }
           </List>
         </div>
       </div>
