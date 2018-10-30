@@ -8,6 +8,13 @@ const doneLabel = 'DONE';
 const ongoingLabel = 'Ongoing';
 const cancelLabel = 'CANCEL';
 
+const propTypes = {
+  daily: PropTypes.shape({
+    members: PropTypes.object,
+    team: PropTypes.object,
+  }).isRequired,
+};
+
 export default class QueueSlide extends Component {
   state = {
     members: null,
@@ -26,7 +33,9 @@ export default class QueueSlide extends Component {
         member.commitment = commitments[Math.floor(Math.random() * commitments.length)];
       }
     });
-    this.setState({ members, teamCard: daily.team.teamCommitments ? daily.team.teamCommitments[0] : null });
+    this.setState({
+      members, teamCard: daily.team.teamCommitments ? daily.team.teamCommitments[0] : null,
+    });
   }
 
   setMemberCommitmentToFinished = (member) => {
@@ -133,8 +142,6 @@ export default class QueueSlide extends Component {
       </div>
     );
   }
-
-	static propTypes = {
-	  daily: PropTypes.object.isRequired,
-	}
 }
+
+QueueSlide.propTypes = propTypes;
