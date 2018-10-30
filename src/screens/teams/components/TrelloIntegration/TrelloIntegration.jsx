@@ -13,9 +13,13 @@ const propTypes = {
     board: PropTypes.shape({
       id: PropTypes.string,
       name: PropTypes.string,
-    }).isRequired,
-  }).isRequired,
+    }),
+  }),
   owner: PropTypes.string.isRequired,
+};
+
+const defaultProps = {
+  team: null,
 };
 
 class TrelloIntegration extends Component {
@@ -59,7 +63,7 @@ class TrelloIntegration extends Component {
     return (
       <div className="trello-integration-container">
         {
-          team.board ? (
+          team && team.board ? (
             <React.Fragment>
               <div>Selected board: {team.board.name}</div>
               <Button onClick={this.getBoards} className="mt-3" size="mini" secondary>
@@ -81,5 +85,6 @@ class TrelloIntegration extends Component {
 }
 
 TrelloIntegration.propTypes = propTypes;
+TrelloIntegration.defaultProps = defaultProps;
 
 export default TrelloIntegration;

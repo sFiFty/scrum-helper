@@ -54,9 +54,11 @@ export default class AddTeam extends React.Component {
     );
   }
 
+  onSetTrelloTeamCommitments = teamCommitments => this.setState({ teamCommitments })
+
   onAddTeam = () => {
     const {
-      name, color, members, board,
+      name, color, members, board, teamCommitments,
     } = this.state;
     const { firebase, history, owner } = this.props;
     if (!name || name.length < 1) {
@@ -70,6 +72,7 @@ export default class AddTeam extends React.Component {
       owner,
       members,
       board,
+      teamCommitments,
     }).then(() => {
       NotificationManager.success(
         `Team ${name} successfully created`,
@@ -128,6 +131,7 @@ export default class AddTeam extends React.Component {
                   members={members}
                   onSetBoard={this.onSetBoard}
                   onSetTrelloCommitments={this.onSetTrelloCommitments}
+                  onSetTrelloTeamCommitments={this.onSetTrelloTeamCommitments}
                 />
               </React.Fragment>
             )

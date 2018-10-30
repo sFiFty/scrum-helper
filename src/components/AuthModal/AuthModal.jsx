@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
 import { Tab, Modal } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import RegistrationForm from './RegistrationForm';
-import LoginForm from './LoginForm.jsx';
+
+import RegistrationForm from './components/RegistrationForm';
+import LoginForm from './components/LoginForm';
 import './styles.scss';
 
-export default class AuthModal extends Component {
+const propTypes = {
+  firebase: PropTypes.shape({
+    login: PropTypes.func.isRequired,
+  }).isRequired,
+  isDialogOpened: PropTypes.bool,
+  dialogOpen: PropTypes.func,
+  redirectTo: PropTypes.func,
+  activeIndex: PropTypes.number,
+};
+
+class AuthModal extends Component {
   state = {
     errorMessage: null,
     activeIndex: 0,
@@ -13,22 +24,8 @@ export default class AuthModal extends Component {
 
   handleTabChange = (e, { activeIndex }) => this.setState({ activeIndex })
 
-  loginWithFB = () => {
-    const { firebase, redirectTo } = this.props;
-    firebase.login({ provider: 'facebook', type: 'popup' }).then(() => {
-      if (redirectTo) redirectTo(location.search);
-    });
-  }
-
-  loginWithGoogle = () => {
-    const { firebase, redirectTo } = this.props;
-    firebase.login({ provider: 'google', type: 'popup' }).then(() => {
-      if (redirectTo) redirectTo(location.search);
-    });
-  }
-
   login = (email, password) => {
-    const { firebase, redirectTo } = this.props;
+    const { firebase, redirectTo, location } = this.props;
     firebase.login({ email, password }).then(() => {
       if (redirectTo) redirectTo(location.search);
     }).catch((error) => {
@@ -49,7 +46,7 @@ export default class AuthModal extends Component {
   }
 
   componentWillMount() {
-    const { auth, redirectTo } = this.props;
+    const { auth, redirectTo, location } = this.props;
     if (auth.isLoaded && !auth.isEmpty && redirectTo) {
       if (redirectTo) redirectTo(location.search);
     }
@@ -65,9 +62,7 @@ export default class AuthModal extends Component {
           <Tab.Pane className="auth-tab" attached={false}>
             <LoginForm
               login={this.login}
-              loginWithFB={this.loginWithFB}
               errorMessage={errorMessage}
-              loginWithGoogle={this.loginWithGoogle}
               dialogClose={dialogClose}
             />
           </Tab.Pane>
@@ -77,12 +72,7 @@ export default class AuthModal extends Component {
         menuItem: 'Sign In',
         render: () => (
           <Tab.Pane className="auth-tab" attached={false}>
-            <RegistrationForm
-              firebase={firebase}
-              loginWithFB={this.loginWithFB}
-              loginWithGoogle={this.loginWithGoogle}
-              dialogClose={dialogClose}
-            />
+            <RegistrationForm {...this.props} />
           </Tab.Pane>
         ),
       },
@@ -104,12 +94,8 @@ export default class AuthModal extends Component {
       </Modal>
     );
   }
-
-  static propTypes = {
-    firebase: PropTypes.object.isRequired,
-    isDialogOpened: PropTypes.bool,
-    dialogOpen: PropTypes.func,
-    redirectTo: PropTypes.func,
-    activeIndex: PropTypes.number,
-  }
 }
+
+AuthModal.propTypes = propTypes;
+
+export default AuthModal;

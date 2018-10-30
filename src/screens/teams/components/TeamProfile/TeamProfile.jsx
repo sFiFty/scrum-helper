@@ -30,6 +30,7 @@ class TeamProfile extends Component {
     members: [],
     errorMessage: null,
     withTrelloIntegration: this.props.profileObj.board,
+    teamCommitments: null,
   }
 
   componentWillMount() {
@@ -65,15 +66,17 @@ class TeamProfile extends Component {
     this.setState({ members });
   }
 
+  onSetTrelloTeamCommitments = teamCommitments => this.setState({ teamCommitments });
+
   onUpdateTeam = () => {
-    const { members, team } = this.state;
+    const { members, team, teamCommitments } = this.state;
     const { match, firebase } = this.props;
     if (!team.name || team.name.length < 1) {
       this.setState({ errorMessage: 'Please provide team name' });
       return;
     }
     this.setState({ errorMessage: null });
-    firebase.update(`teams/${match.params.teamid}`, { ...team, members }).then(() => {
+    firebase.update(`teams/${match.params.teamid}`, { ...team, members, teamCommitments }).then(() => {
       NotificationManager.success(
         `Team ${team.name} was successfully updated`,
         'Confirmation',
@@ -149,6 +152,7 @@ class TeamProfile extends Component {
                   onSetBoard={this.onSetBoard}
                   members={members}
                   onSetTrelloCommitments={this.onSetTrelloCommitments}
+                  onSetTrelloTeamCommitments={this.onSetTrelloTeamCommitments}
                 />
               </React.Fragment>
             )

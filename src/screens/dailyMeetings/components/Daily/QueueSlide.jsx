@@ -4,6 +4,17 @@ import ExtendMembersList from 'Helpers/ExtendMembersList';
 import PropTypes from 'prop-types';
 import { NotificationManager } from 'react-notifications';
 
+const doneLabel = 'DONE';
+const ongoingLabel = 'Ongoing';
+const cancelLabel = 'CANCEL';
+
+const propTypes = {
+  daily: PropTypes.shape({
+    members: PropTypes.object,
+    team: PropTypes.object,
+  }).isRequired,
+};
+
 export default class QueueSlide extends Component {
   state = {
     members: null,
@@ -22,102 +33,115 @@ export default class QueueSlide extends Component {
         member.commitment = commitments[Math.floor(Math.random() * commitments.length)];
       }
     });
+    this.setState({
+      members, teamCard: daily.team.teamCommitments ? daily.team.teamCommitments[0] : null,
+    });
+  }
+
+  setMemberCommitmentToFinished = (member) => {
+    const { members } = this.state;
+    Object.keys(members).map((key) => {
+      if (members[key].name === member.name) {
+        members[key].commitment.isFinished = true;
+      }
+    });
+    return members;
+  }
+
+  markAsDone = member => (
+    this.markCommitment(member, doneLabel).then(() => {
+      NotificationManager.success(
+        `Commitment ${member.commitment.name} was successfully DONE!`,
+        'Nice job!',
+      );
+    })
+  )
+
+  markAsOngoing = member => (
+    this.markCommitment(member, ongoingLabel).then(() => {
+      NotificationManager.success(
+        `Commitment ${member.commitment.name} was successfully saved as ongoing!`,
+        'Keep doing it!',
+      );
+    })
+  )
+
+  markAsCanceled = member => (
+    this.markCommitment(member, cancelLabel).then(() => {
+      NotificationManager.success(
+        `Commitment ${member.commitment.name} was successfully saved as CANCELED!`,
+        'Hope you understand that you do!',
+      );
+    })
+  )
+
+  markCommitment = (member, labelName) => {
+    const { daily } = this.props;
+    const label = daily.team.board.labels.find(l => l.name === labelName);
+    const members = this.setMemberCommitmentToFinished(member);
     this.setState({ members });
-  }
-
-  markAsDone = (card) => {
-    const { trelloLabels, trelloKey, trelloToken } = this.props;
-    const cards = this.markCardAsFinished(card);
-    const label = trelloLabels.find(label => label.name === 'DONE');
-    const url = `https://api.trello.com/1/cards/${card.id}?idLabels=${label.id}&key=${trelloKey}&token=${trelloToken}`;
-    fetch(url, { method: 'PUT' }).then(() => {
-      this.setState({ tasks: cards }, () => {
-        NotificationManager.success(
-          `Commitment ${card.name} was successfully DONE!`,
-          'Nice job!',
-        );
-      });
-    });
-    window.Trello.rest('put', `cards/${card.id}?idLabels=${label.id}`, cards => (
-      onSetTrelloCommitments(cards, member)
-    ));
-  }
-
-  markAsOngoing = (card) => {
-    const { trelloLabels, trelloKey, trelloToken } = this.props;
-    const cards = this.markCardAsFinished(card);
-    const label = trelloLabels.find(label => label.name === 'Ongoing');
-    const url = `https://api.trello.com/1/cards/${card.id}?idLabels=${label.id}&key=${trelloKey}&token=${trelloToken}`;
-    fetch(url, { method: 'PUT' }).then(() => {
-      this.setState({ tasks: cards }, () => {
-        NotificationManager.success(
-          `Commitment ${card.name} was successfully saved as ongoing!`,
-          'Keep doing it!',
-        );
-      });
-    });
+    return window.Trello.rest('put', `cards/${member.commitment.id}?idLabels=${label.id}`);
   }
 
   render() {
     const { members, teamCard } = this.state;
     const { daily } = this.props;
+    const membersValues = Object.values(members).sort((a, b) => (
+      parseInt(a.key, 0) - parseInt(b.key, 0)
+    ));
     return (
       <div key={daily.timestamp} style={{ backgroundColor: daily.team.color }} className="page-overlay">
         <div className="daily-queue text-center">
           <div>Let's share our updates</div>
           <List className="queue-members">
             {
-              Object.keys(members).map((key, index) => {
-                const member = members[key];
-                return (
-                  <List.Item key={index}>
-                    <Image avatar src={require(`Images/${member.avatar}`)} />
-                    <List.Content>
-                      <List.Header>
-                        {member.name}
-                      </List.Header>
-                    </List.Content>
-                    {
-                      member.commitment && (
-                        <div className="promise">
-                          <strong>Commitment: </strong>
-                          {member.commitment.name}
-                          <div className="trello-actions-container">
-                            <Button basic onClick={() => this.markAsDone(member.commitment.id)} size="mini" color="green">
-                              Done
-                            </Button>
-                            <Button basic onClick={() => this.markAsOngoing(member.commitment.id)} size="mini" color="teal">
-                              Ongoing
-                            </Button>
-                          </div>
+              membersValues.map((member, index) => (
+                <List.Item key={index}>
+                  <Image avatar src={require(`Images/${member.avatar}`)} />
+                  <List.Content>
+                    <List.Header>
+                      {member.name}
+                    </List.Header>
+                  </List.Content>
+                  {
+                    member.commitment && !member.commitment.isFinished && (
+                      <div className="promise">
+                        <strong>Commitment: </strong>
+                        {member.commitment.name}
+                        <div className="trello-actions-container">
+                          <Button basic onClick={() => this.markAsDone(member)} size="mini" color="green">
+                            Done
+                          </Button>
+                          <Button basic onClick={() => this.markAsOngoing(member)} size="mini" color="teal">
+                            Ongoing
+                          </Button>
+                          <Button basic onClick={() => this.markAsCanceled(member)} size="mini" color="red">
+                            Cancel
+                          </Button>
                         </div>
-                      )
-                    }
-                  </List.Item>
-                );
-              })
+                      </div>
+                    )
+                  }
+                </List.Item>
+              ))
             }
-            <List.Item>
-              <List.Content className="team-promise">
-                <h3>
-                  {' '}
-                  {daily.team.name}
-                  {' '}
-team commitment
-                  {' '}
-                </h3>
-                <div className="text-left promise">
-                  {teamCard}
-                </div>
-              </List.Content>
-            </List.Item>
+            {
+              teamCard && (
+                <List.Item>
+                  <List.Content className="team-promise">
+                    <h3> {daily.team.name} team commitment</h3>
+                    <div className="text-left promise">
+                      {teamCard.name}
+                    </div>
+                  </List.Content>
+                </List.Item>
+              )
+            }
           </List>
         </div>
       </div>
     );
   }
-
-	static propTypes = {
-	  daily: PropTypes.object.isRequired,
-	}
 }
+
+QueueSlide.propTypes = propTypes;
