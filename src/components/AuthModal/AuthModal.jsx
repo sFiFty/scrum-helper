@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Tab, Modal } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-import RegistrationForm from './RegistrationForm.jsx';
-import LoginForm from './LoginForm.jsx';
+import RegistrationForm from './components/RegistrationForm';
+import LoginForm from './components/LoginForm';
 import './styles.scss';
 
 const propTypes = {
@@ -25,7 +25,7 @@ class AuthModal extends Component {
   handleTabChange = (e, { activeIndex }) => this.setState({ activeIndex })
 
   login = (email, password) => {
-    const { firebase, redirectTo } = this.props;
+    const { firebase, redirectTo, location } = this.props;
     firebase.login({ email, password }).then(() => {
       if (redirectTo) redirectTo(location.search);
     }).catch((error) => {
