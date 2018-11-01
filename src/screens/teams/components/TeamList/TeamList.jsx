@@ -69,7 +69,7 @@ export default class TeamList extends Component {
           <Message
             onDismiss={this.handleDismiss}
             header="Just hover on the team box to edit your team!"
-            content="And press blue plus button!"
+            content="And press blue edit button!"
           />
           )
         }

@@ -16,6 +16,7 @@ const propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  dialogClose: PropTypes.func.isRequired,
 };
 
 class RegistrationForm extends React.Component {
@@ -64,6 +65,7 @@ class RegistrationForm extends React.Component {
 
   render() {
     const { errorMessage } = this.state;
+    const { dialogClose } = this.props;
     return (
       <div className="auth-container text-center pt-1">
         <Form className="auth-form">
@@ -78,7 +80,7 @@ class RegistrationForm extends React.Component {
           </Form.Field>
           <div className="mail-buttons d-flex justify-content-between">
             <Button type="submit" onClick={this.signIn} secondary>Sign In</Button>
-            <Button as={Link} to="/">Cancel</Button>
+            <Button as={Link} to="/" onClick={dialogClose}>Cancel</Button>
           </div>
           <Divider />
         </Form>

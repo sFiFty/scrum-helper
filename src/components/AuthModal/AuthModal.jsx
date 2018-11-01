@@ -81,7 +81,7 @@ class AuthModal extends Component {
         menuItem: 'Sign In',
         render: () => (
           <Tab.Pane className="auth-tab" attached={false}>
-            <RegistrationForm {...this.props} />
+            <RegistrationForm {...this.props} dialogClose={dialogClose} />
           </Tab.Pane>
         ),
       },
