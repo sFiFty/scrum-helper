@@ -30,6 +30,7 @@ export default class AddTeam extends React.Component {
     members: [],
     withTrelloIntegration: false,
     board: null,
+    teamCommitments: null,
   };
 
   onPickColor = color => this.setState({ color: color.hex });
