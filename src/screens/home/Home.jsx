@@ -66,7 +66,7 @@ export default class Home extends Component {
           </div>
         </div>
         <hr className="horizontal-divider" />
-          <WeOfferBox id="weOffer"/>
+        <WeOfferBox id="weOffer" />
         <AuthModal
           dialogClose={this.authModalClose}
           isDialogOpened={authModalIsOpen}

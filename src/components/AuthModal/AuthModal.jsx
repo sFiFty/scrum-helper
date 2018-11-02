@@ -10,10 +10,19 @@ const propTypes = {
   firebase: PropTypes.shape({
     login: PropTypes.func.isRequired,
   }).isRequired,
-  isDialogOpened: PropTypes.bool,
-  dialogOpen: PropTypes.func,
+  isDialogOpened: PropTypes.bool.isRequired,
+  dialogClose: PropTypes.func.isRequired,
   redirectTo: PropTypes.func,
   activeIndex: PropTypes.number,
+  auth: PropTypes.shape({
+    isLoaded: PropTypes.bool,
+    isEmpty: PropTypes.bool,
+  }).isRequired,
+};
+
+const defaultProps = {
+  redirectTo: null,
+  activeIndex: 0,
 };
 
 class AuthModal extends Component {
@@ -22,12 +31,21 @@ class AuthModal extends Component {
     activeIndex: 0,
   }
 
-  handleTabChange = (e, { activeIndex }) => this.setState({ activeIndex })
+  componentWillMount() {
+    const { auth, redirectTo } = this.props;
+    if (auth.isLoaded && !auth.isEmpty && redirectTo) {
+      if (redirectTo) redirectTo(window.location.search);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.activeIndex) this.setState({ activeIndex: nextProps.activeIndex });
+  }
 
   login = (email, password) => {
-    const { firebase, redirectTo, location } = this.props;
+    const { firebase, redirectTo } = this.props;
     firebase.login({ email, password }).then(() => {
-      if (redirectTo) redirectTo(location.search);
+      if (redirectTo) redirectTo(window.location.search);
     }).catch((error) => {
       if (error.code === 'auth/user-not-found') {
         this.setState({ errorMessage: "Sorry, we can't find an account with this email address" });
@@ -41,19 +59,10 @@ class AuthModal extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.activeIndex) this.setState({ activeIndex: nextProps.activeIndex });
-  }
-
-  componentWillMount() {
-    const { auth, redirectTo, location } = this.props;
-    if (auth.isLoaded && !auth.isEmpty && redirectTo) {
-      if (redirectTo) redirectTo(location.search);
-    }
-  }
+  handleTabChange = (e, { activeIndex }) => this.setState({ activeIndex })
 
   render() {
-    const { dialogClose, firebase, isDialogOpened } = this.props;
+    const { dialogClose, isDialogOpened } = this.props;
     const { errorMessage, activeIndex } = this.state;
     const panes = [
       {
@@ -72,7 +81,7 @@ class AuthModal extends Component {
         menuItem: 'Sign In',
         render: () => (
           <Tab.Pane className="auth-tab" attached={false}>
-            <RegistrationForm {...this.props} />
+            <RegistrationForm {...this.props} dialogClose={dialogClose} />
           </Tab.Pane>
         ),
       },
@@ -97,5 +106,6 @@ class AuthModal extends Component {
 }
 
 AuthModal.propTypes = propTypes;
+AuthModal.defaultProps = defaultProps;
 
 export default AuthModal;
