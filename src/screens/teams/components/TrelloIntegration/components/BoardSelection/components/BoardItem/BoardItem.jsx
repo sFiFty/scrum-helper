@@ -36,7 +36,7 @@ export default class BoardItem extends Component  {
 
   render() {
     const { item, members } = this.props;
-    const member = members && members.find(m => m.initials === item.name);
+    const member = members && members.find(m => m.name === item.name);
     const allTeamCommitment = item.name === allTeamListName;
     return (
       <li className="board-item mt-3">

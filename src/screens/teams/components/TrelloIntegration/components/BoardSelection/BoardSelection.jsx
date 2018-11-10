@@ -56,7 +56,7 @@ class BoardSelection extends Component {
             <div className="board-list-container">
               <div className="mt-2">
                 <i className="fas fa-exclamation-circle" />&nbsp;
-                The list name must match the team member initials!
+                The list name must match the team member name!
               </div>
               <h3 className="mt-3">Board lists names:</h3>
               <ul>
