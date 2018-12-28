@@ -1,21 +1,20 @@
-const key = '';
-const token = '';
+const { Trello } = window;
+const AUTH_TYPE = 'popup';
+const APP_NAME = 'Scrum Helper';
 
-export default {
-  getBoardColumns: (boardId) => {
-    const url = `https://trello.com/1/boards/${boardId}/lists?fields=all&key=${key}&token=${token}`;
-    return fetch(url).then(r => r.json());
-  },
-  getBoardLabels: (boardId) => {
-    const url = `https://api.trello.com/1/boards/${boardId}/labels?fields=all&key=${key}&token=${token}`;
-    return fetch(url).then(r => r.json());
-  },
-  markCardWithLabel: (cardId, labelId) => {
-    const url = `https://api.trello.com/1/cards/${cardId}?idLabels=${labelId}&key=${key}&token=${token}`;
-    return fetch(url, { method: 'PUT' });
-  },
-  getCardsByColumnId: (columnId) => {
-    const url = `https://trello.com/1/lists/${columnId}/cards?key=${key}&token=${token}`;
-    return fetch(url).then(r => r.json());
-  },
-};
+export default class TrelloApi {
+  connect = () => new Promise((resolve, reject) => (
+    Trello.authorize({
+      type: AUTH_TYPE,
+      name: APP_NAME,
+      scope: {
+        read: true,
+        write: true,
+        account: true,
+      },
+      success: () => resolve(),
+      error: () => reject(),
+      expiration: 'never',
+    })
+  ))
+}

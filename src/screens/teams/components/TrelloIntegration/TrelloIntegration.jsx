@@ -42,21 +42,6 @@ class TrelloIntegration extends Component {
     });
   }
 
-  connect = (success, error) => {
-    window.Trello.authorize({
-      type: 'popup',
-      name: 'Scrum Helper',
-      scope: {
-        read: true,
-        write: true,
-        account: true,
-      },
-      success,
-      error,
-      expiration: 'never',
-    });
-  }
-
   render() {
     const { boards } = this.state;
     const { team } = this.props;
