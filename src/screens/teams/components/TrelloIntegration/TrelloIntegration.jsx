@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
 import { NotificationManager } from 'react-notifications';
+import TrelloApi from 'API/trello';
 
 import BoardSelection from './components/BoardSelection';
 

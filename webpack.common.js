@@ -20,6 +20,7 @@ module.exports = {
       Images: path.resolve(__dirname, 'static', 'images'),
       Helpers: path.resolve(__dirname, 'src', 'helpers'),
       Containers: path.resolve(__dirname, 'src', 'containers'),
+      API: path.resolve(__dirname, 'src', 'api'),
     },
   },
   module: {
