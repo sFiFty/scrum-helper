@@ -6,7 +6,7 @@ module.exports = {
   entry: {
     app: [
       'babel-polyfill',
-      path.join(__dirname, 'main.js'),
+      path.join(__dirname, 'main.jsx'),
     ],
   },
   plugins: [
