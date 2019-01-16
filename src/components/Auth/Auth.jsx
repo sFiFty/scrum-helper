@@ -27,6 +27,8 @@ class Auth extends Component {
 
   dialogClose = () => this.setState({ isDialogOpened: false })
 
+  dialogOpen = () => this.setState({ isDialogOpened: true })
+
   render() {
     const { auth, firebase, profile } = this.props;
     const { isDialogOpened } = this.state;

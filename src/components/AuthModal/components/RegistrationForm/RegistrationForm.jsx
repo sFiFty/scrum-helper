@@ -83,6 +83,7 @@ class RegistrationForm extends React.Component {
             <Button as={Link} to="/" onClick={dialogClose}>Cancel</Button>
           </div>
           <Divider />
+          <div>We will not verify your email.</div>
         </Form>
       </div>
     );
