@@ -4,6 +4,7 @@ import { Button } from 'semantic-ui-react';
 import { NotificationManager } from 'react-notifications';
 
 import BoardSelection from './components/BoardSelection';
+import Trello from 'Helpers/Trello';
 
 const propTypes = {
   firebase: PropTypes.shape({
@@ -28,33 +29,26 @@ class TrelloIntegration extends Component {
   }
 
   getBoards = () => {
-    window.Trello.rest('get', 'members/me', (member) => {
-      window.Trello.rest('get', `members/${member.id}/boards`, boards => (
-        this.setState({ boards })
-      ));
-    }, () => {
-      this.connect(() => this.getBoards(), () => {
-        NotificationManager.error(
-          'Something went wrong, please contact administrators',
-          'Error',
-        );
-      });
-    });
+    const TrelloApi = new Trello();
+    TrelloApi.request('get', 'members/me').then(data => {
+      console.log(data);
+    })
+    // window.Trello.rest('get', 'members/me', (member) => {
+    //   window.Trello.rest('get', `members/${member.id}/boards`, boards => (
+    //     this.setState({ boards })
+    //   ));
+    // }, () => {
+    //   this.connect(() => this.getBoards(), () => {
+    //     NotificationManager.error(
+    //       'Something went wrong, please contact administrators',
+    //       'Error',
+    //     );
+    //   });
+    // });
   }
 
   connect = (success, error) => {
-    window.Trello.authorize({
-      type: 'popup',
-      name: 'Scrum Helper',
-      scope: {
-        read: true,
-        write: true,
-        account: true,
-      },
-      success,
-      error,
-      expiration: 'never',
-    });
+
   }
 
   render() {
